@@ -5,7 +5,7 @@
 <div class="modal-header p-2">
   <h5 class="modal-title" >Children</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_children_create' %}{% else %}{% url 'api_main_children_update' children.id %}{% endif %}" class="custom-form">
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_voluntary_work_create' %}{% else %}{% url 'api_main_voluntary_work_update' voluntary_work.id %}{% endif %}" class="custom-form">
   <div class="modal-body p-2">
     {{form|crispy}}
   </div>
@@ -57,7 +57,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          Children_Template();
+          Voluntary_Work_Template();
           $('#modal-show').modal('hide');
         },
         error:function(error){

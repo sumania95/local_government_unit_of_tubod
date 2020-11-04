@@ -85,3 +85,14 @@ class Work_ExperienceForm(forms.ModelForm):
             'status',
             'is_governtment_service',
         ]
+
+class Voluntary_WorkForm(forms.ModelForm):
+    class Meta:
+        model = Voluntary_Work
+        fields = [
+            'date_from',
+            'date_to',
+            'organization',
+            'no_hrs',
+            'nature_of_work',
+        ]
