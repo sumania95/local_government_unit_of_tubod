@@ -1,0 +1,17 @@
+{% load static %}
+
+{% for p in notification %}
+<li class="notification">
+  <div class="media">
+    <img class="img-radius" src="{{p.user.profile.image.url}}" width="40px" height="40px" alt="Generic placeholder image">
+    <div class="media-body">
+      <p><strong>{{p.user.profile|title}}</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>{{p.date_created}}</span></p>
+      <p>{{p.detail}}</p>
+    </div>
+  </div>
+</li>
+{% empty %}
+<li class="text-center">
+  <h6>No available notification</h6>
+</li>
+{% endfor %}

@@ -1,0 +1,90 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block 'content' %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header p-2">
+        <table>
+          <tr>
+            <td>Filter</td>
+            <td>
+              <select class="form-control" name="filter_voucher" id="filter_voucher">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <div class="card-header-right">
+          <table>
+            <tr>
+              <td>
+                <a href="{% url 'main_voucher_create' %}" type="button" class="btn btn-primary btn-sm" name="button">Generate Voucher</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover m-b-0">
+            <thead>
+              <tr>
+                <th style="white-space:nowrap;width:1%;">#</th>
+                <th>Voucher</th>
+                <th>Reason</th>
+                <th style="white-space:nowrap;width:5%;">Date</th>
+              </tr>
+            </thead>
+            <tbody id="table-voucher-ajax">
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer p-2" id="counter-voucher">
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+<!-- /.content -->
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function History_leave(){
+    var filter = $("#filter_voucher").val();
+
+    $.ajax({
+      url: '{% url 'api_main_voucher' %}',
+      type: 'get',
+      data: {filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-voucher').html(data.counter + " record(s) found");
+        $('#table-voucher-ajax').html(data.voucher_table);
+      },
+    });
+
+  };
+  $('#filter_voucher').change(function() {
+    History_leave();
+  });
+  History_leave();
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="mb-3">Personal Information</h5>
+        <div class="row">
+          <div class="col-md-3 col-sm-12">
+            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <li><a class="nav-link text-left active" id="v-pills-basic-info-tab" data-toggle="pill" href="#v-pills-basic-info" role="tab" aria-controls="v-pills-basic-info" aria-selected="true">Basic Information</a></li>
+              <li><a class="nav-link text-left" id="v-pills-family-background-tab" data-toggle="pill" href="#v-pills-family-background" role="tab" aria-controls="v-pills-family-background" aria-selected="false">Family Background</a></li>
+              <li><a class="nav-link text-left" id="v-pills-children-tab" data-toggle="pill" href="#v-pills-children" role="tab" aria-controls="v-pills-children" aria-selected="false">Children</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Educational Background</a></li>
+              <li><a class="nav-link text-left" id="v-pills-eligibility-tab" data-toggle="pill" href="#v-pills-eligibility" role="tab" aria-controls="v-pills-eligibility" aria-selected="false">Eligibility</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Work Experience</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Voluntary Work</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Trainings</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Other Related Info</a></li>
+              <hr>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Real Properties</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Personal Properties</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Liabilities</a></li>
+
+            </ul>
+          </div>
+          <div class="col-md-9 col-sm-12">
+            <div class="tab-content" id="v-pills-tabContent">
+              <div class="tab-pane fade active show" id="v-pills-basic-info" role="tabpanel" aria-labelledby="v-pills-basic-info-tab">
+                <!-- Profile Basic Info -->
+              </div>
+              <div class="tab-pane fade" id="v-pills-family-background" role="tabpanel" aria-labelledby="v-pills-family-background-tab">
+                <!-- Family Background -->
+              </div>
+              <div class="tab-pane fade" id="v-pills-children" role="tabpanel" aria-labelledby="v-pills-children-tab">
+                <!-- Children -->
+              </div>
+              <div class="tab-pane fade" id="v-pills-educational-background" role="tabpanel" aria-labelledby="v-pills-educational-background-tab">
+                <!-- Educational Background -->
+              </div>
+              <div class="tab-pane fade" id="v-pills-eligibility" role="tabpanel" aria-labelledby="v-pills-eligibility-tab">
+                <!-- Eligibility -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+<!-- /.content -->
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function Basic_Info(){
+    $.ajax({
+      url: '{% url 'api_main_basic_info' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-basic-info').html(data.html_form);
+      },
+    });
+
+  };
+  function Family_Background(){
+    $.ajax({
+      url: '{% url 'api_main_family_background' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-family-background').html(data.html_form);
+      },
+    });
+
+  };
+  function Children_Template(){
+    $.ajax({
+      url: '{% url 'api_main_children' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-children').html(data.profile_children_template);
+      },
+    });
+
+  };
+  function Educational_Background_Template(){
+    $.ajax({
+      url: '{% url 'api_main_education_background' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-educational-background').html(data.profile_educational_background_template);
+      },
+    });
+
+  };
+  function Eligibility_Template(){
+    $.ajax({
+      url: '{% url 'api_main_eligibility' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-eligibility').html(data.profile_eligibility_template);
+      },
+    });
+
+  };
+  Basic_Info();
+  Family_Background();
+  Children_Template();
+  Educational_Background_Template();
+  Eligibility_Template();
+
+</script>
+
+{% endblock %}

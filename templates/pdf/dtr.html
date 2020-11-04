@@ -1,0 +1,1488 @@
+{% for p in profile %}
+
+<html>
+{% load static %}
+<head>
+  <style type="text/css">
+  @page {
+    size: A4;
+    margin-top: 1cm;
+    margin-left: 0.75cm;
+    margin-right: 0.75cm;
+    margin-bottom: 1cm;
+    font-family: "Arial";
+    font-size: 11px;
+    @frame col1_frame {
+      left: 44pt; width: 245pt; top: 20pt; height: 800pt;
+    }
+    @frame col2_frame {             /* Content frame 2 */
+        left: 323pt; width: 245pt; top: 20pt; height: 800pt;
+    }
+    .font-times {
+      font-family: "Arial";
+      font-size: 11px;
+    }
+  }
+  @media all {
+    .page-break { display: none; }
+  }
+
+  @media print {
+    .page-break { display: block; page-break-before: always; }
+  }
+
+</style>
+<link rel="stylesheet" href="{% static 'premium/assets/css/style.css'%}">
+</head>
+
+<body>
+  <div class="container">
+    <table>
+      <tr>
+        <td style="text-align: left;"><i>Civil Service Form No. 48</i></td>
+      </tr>
+      <tr>
+        <td  style="text-align: center;"><h1><b>DAILY TIME RECORD</b></h1></td>
+      </tr>
+      <tr>
+        <td  style="text-align: center;">----oOo-----</td>
+      </tr>
+    </table>
+    <table style="margin-top:20px;">
+      <tr>
+        <td colspan="12" style="text-align: center; font-size:14px; border-bottom:1px solid #000;margin:0;"><b>{{p.firstname}} {% if p.middlename %}{{p.middlename|slice:"1"}}. {% endif %} {{p.surname}}</b></td>
+      </tr>
+    </table>
+    <table style="margin-top:2px;">
+      <tr>
+        <td  style="text-align: center;">(Name)</td>
+      </tr>
+    </table>
+    <table style="margin-top:10px;">
+      <tr>
+        <td colspan="3" style="text-align: left;"><i>For the month of</i></td>
+        <td colspan="9" style="border-bottom:0.8px solid #000;"></td>
+      </tr>
+    </table>
+    <table style="margin-top:5px;">
+      <tr>
+        <td colspan="4" style="text-align: left;"><i>Official hours for arrival</i></td>
+        <td colspan="8"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regular days _______________________</i></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td colspan="4" style="text-align: center;"><i>and departure</i></td>
+        <td colspan="8"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saturdays _______________________</i></td>
+      </tr>
+    </table>
+    <table style="border:0.2px solid #000;padding-top:3px;text-align:center;">
+      <tr style="text-align:center;">
+        <td rowspan="2" style="width:30px;">Day</td>
+        <td colspan="4"><b>A.M</b></td>
+        <td colspan="4"><b>P.M</b></td>
+        <td colspan="3">Undertime</td>
+      </tr>
+      <tr style="text-align:center;">
+        <td colspan="2">Arrival</td>
+        <td colspan="2">Departure</td>
+        <td colspan="2">Arrival</td>
+        <td colspan="2">Departure</td>
+        <td>Hours</td>
+        <td colspan="2">Minutes</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">1</td>
+        {% if day1|length == 1 %}
+        {% for d in day1 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day1|length == 2 %}
+        {% for d in day1 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day1|length == 3 %}
+        {% for d in day1 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day1 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;">{{p.id}}</td>
+        <td colspan="2">{{p.id}}</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">2</td>
+        {% if day1|length == 1 %}
+        {% for d in day2 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day2|length == 2 %}
+        {% for d in day2 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day2|length == 3 %}
+        {% for d in day2 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day2 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">3</td>
+        {% if day1|length == 1 %}
+        {% for d in day3 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day3|length == 2 %}
+        {% for d in day3 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day3|length == 3 %}
+        {% for d in day3 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day3 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">4</td>
+        {% if day1|length == 1 %}
+        {% for d in day4 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day4|length == 2 %}
+        {% for d in day4 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day4|length == 3 %}
+        {% for d in day4 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day4 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">5</td>
+        {% if day1|length == 1 %}
+        {% for d in day5 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day5|length == 2 %}
+        {% for d in day5 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day5|length == 3 %}
+        {% for d in day5 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day5 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">6</td>
+        {% if day1|length == 1 %}
+        {% for d in day6 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day6|length == 2 %}
+        {% for d in day6 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day6|length == 3 %}
+        {% for d in day6 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day6 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">7</td>
+        {% if day1|length == 1 %}
+        {% for d in day7 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day7|length == 2 %}
+        {% for d in day7 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day7|length == 3 %}
+        {% for d in day7 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day7 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">8</td>
+        {% if day8|length == 1 %}
+        {% for d in day8 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day8|length == 2 %}
+        {% for d in day8 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day8|length == 3 %}
+        {% for d in day8 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day8 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">9</td>
+        {% if day9|length == 1 %}
+        {% for d in day9 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day9|length == 2 %}
+        {% for d in day9 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day9|length == 3 %}
+        {% for d in day9 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day9 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">10</td>
+        {% if day10|length == 1 %}
+        {% for d in day10 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day10|length == 2 %}
+        {% for d in day10 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day10|length == 3 %}
+        {% for d in day10 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day10 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">11</td>
+        {% if day11|length == 1 %}
+        {% for d in day11 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day11|length == 2 %}
+        {% for d in day11 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day11|length == 3 %}
+        {% for d in day11 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day11 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">12</td>
+        {% if day12|length == 1 %}
+        {% for d in day12 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day12|length == 2 %}
+        {% for d in day12 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day12|length == 3 %}
+        {% for d in day12 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day12 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">13</td>
+        {% if day13|length == 1 %}
+        {% for d in day13 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day13|length == 2 %}
+        {% for d in day13 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day13|length == 3 %}
+        {% for d in day13 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day13 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">14</td>
+        {% if day14|length == 1 %}
+        {% for d in day14 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day14|length == 2 %}
+        {% for d in day14 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day14|length == 3 %}
+        {% for d in day14 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day14 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">15</td>
+        {% if day15|length == 1 %}
+        {% for d in day15 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day15|length == 2 %}
+        {% for d in day15 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day15|length == 3 %}
+        {% for d in day15 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day15 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">16</td>
+        {% if day16|length == 1 %}
+        {% for d in day16 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day16|length == 2 %}
+        {% for d in day16 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day16|length == 3 %}
+        {% for d in day16 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day16 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">17</td>
+        {% if day17|length == 1 %}
+        {% for d in day17 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day17|length == 2 %}
+        {% for d in day17 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day17|length == 3 %}
+        {% for d in day17 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day17 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">18</td>
+        {% if day18|length == 1 %}
+        {% for d in day18 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day18|length == 2 %}
+        {% for d in day18 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day18|length == 3 %}
+        {% for d in day18 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day18 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">19</td>
+        {% if day19|length == 1 %}
+        {% for d in day19 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day19|length == 2 %}
+        {% for d in day19 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day19|length == 3 %}
+        {% for d in day19 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day19 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">20</td>
+        {% if day20|length == 1 %}
+        {% for d in day20 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day20|length == 2 %}
+        {% for d in day20 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day20|length == 3 %}
+        {% for d in day20 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day20 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">21</td>
+        {% if day21|length == 1 %}
+        {% for d in day21 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day21|length == 2 %}
+        {% for d in day21 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day21|length == 3 %}
+        {% for d in day21 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day21 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">22</td>
+        {% if day22|length == 1 %}
+        {% for d in day22 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day22|length == 2 %}
+        {% for d in day22 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day22|length == 3 %}
+        {% for d in day22 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day22 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">23</td>
+        {% if day23|length == 1 %}
+        {% for d in day23 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day23|length == 2 %}
+        {% for d in day23 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day23|length == 3 %}
+        {% for d in day23 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day23 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">24</td>
+        {% if day24|length == 1 %}
+        {% for d in day24 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day24|length == 2 %}
+        {% for d in day24 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day24|length == 3 %}
+        {% for d in day24 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day24 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">25</td>
+        {% if day25|length == 1 %}
+        {% for d in day25 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day25|length == 2 %}
+        {% for d in day25 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day25|length == 3 %}
+        {% for d in day25 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day25 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">26</td>
+        {% if day26|length == 1 %}
+        {% for d in day26 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day26|length == 2 %}
+        {% for d in day26 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day26|length == 3 %}
+        {% for d in day26 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day26 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">27</td>
+        {% if day27|length == 1 %}
+        {% for d in day27 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day27|length == 2 %}
+        {% for d in day27 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day27|length == 3 %}
+        {% for d in day27 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day27 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">28</td>
+        {% if day28|length == 1 %}
+        {% for d in day28 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day28|length == 2 %}
+        {% for d in day28 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day28|length == 3 %}
+        {% for d in day28 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day28 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">29</td>
+        {% if day29|length == 1 %}
+        {% for d in day29 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day29|length == 2 %}
+        {% for d in day29 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day29|length == 3 %}
+        {% for d in day29 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day29 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">30</td>
+        {% if day30|length == 1 %}
+        {% for d in day30 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day30|length == 2 %}
+        {% for d in day30 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day30|length == 3 %}
+        {% for d in day30 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day30 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">31</td>
+        {% if day31|length == 1 %}
+        {% for d in day31 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day31|length == 2 %}
+        {% for d in day31 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% elif day31|length == 3 %}
+        {% for d in day31 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% endfor %}
+        <td colspan="2"></td>
+        {% else %}
+        {% for d in day31 %}
+
+        <td colspan="2">{% if d.user_id == p.id %}{{d.timestamp|date:"g:i a"}}{% endif %}</td>
+
+        {% empty %}
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        <td colspan="2"></td>
+        {% endfor %}
+        {% endif %}
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;padding-right:3px;" colspan="9">Total</td>
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+    </table>
+    <table style="margin-top:10px;">
+      <tr>
+        <td colspan="12"  style="text-align: left;font-size:10px;"><i>I certify on my honor that the above is a true and correct report of the <br>
+hours of work performed, record of which was made daily at the time <br>
+ of arrival and departure from office.</i></td>
+      </tr>
+      <tr>
+        <td colspan="12" style="border-bottom:0.5px solid #000;"></td>
+      </tr>
+      <tr>
+        <td colspan="12"  style="text-align: left;font-size:10px;padding-top:2px;"><i>VERIFIED as to the prescribed office hours:</i></td>
+      </tr>
+      <tr>
+        <td colspan="12" style="border-bottom:0.5px solid #000;padding-top:20px;"></td>
+      </tr>
+      <tr>
+        <td colspan="12"  style="text-align: center;font-size:10px;padding-top:2px;"><i>In Charge</i></td>
+      </tr>
+    </table>
+
+  </div>
+  <br>
+  <br>
+  {% if counter_days == 29 %}
+  <br>
+  <br>
+  <br>
+  {% elif counter_days == 30 %}
+  <br>
+  <br>
+  {% endif %}
+  <div class="container">
+    <table>
+      <tr>
+        <td style="text-align: left;"><i>Civil Service Form No. 48</i></td>
+      </tr>
+      <tr>
+        <td  style="text-align: center;"><h1><b>DAILY TIME RECORD</b></h1></td>
+      </tr>
+      <tr>
+        <td  style="text-align: center;">----oOo-----</td>
+      </tr>
+    </table>
+    <table style="margin-top:20px;">
+      <tr>
+        <td colspan="12" style="text-align: center; font-size:14px; border-bottom:1px solid #000;margin:0;"><b>{{p.firstname}} {% if p.middlename %}{{p.middlename|slice:"1"}}. {% endif %} {{p.surname}}</b></td>
+      </tr>
+    </table>
+    <table style="margin-top:2px;">
+      <tr>
+        <td  style="text-align: center;">(Name)</td>
+      </tr>
+    </table>
+    <table style="margin-top:10px;">
+      <tr>
+        <td colspan="3" style="text-align: left;"><i>For the month of</i></td>
+        <td colspan="9" style="border-bottom:0.8px solid #000;"></td>
+      </tr>
+    </table>
+    <table style="margin-top:5px;">
+      <tr>
+        <td colspan="4" style="text-align: left;"><i>Official hours for arrival</i></td>
+        <td colspan="8"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regular days _______________________</i></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td colspan="4" style="text-align: center;"><i>and departure</i></td>
+        <td colspan="8"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saturdays _______________________</i></td>
+      </tr>
+    </table>
+    <table style="border:0.2px solid #000;padding-top:3px;text-align:center;">
+      <tr style="text-align:center;">
+        <td rowspan="2" style="width:30px;">Day</td>
+        <td colspan="4"><b>A.M</b></td>
+        <td colspan="4"><b>P.M</b></td>
+        <td colspan="3">Undertime</td>
+      </tr>
+      <tr style="text-align:center;">
+        <td colspan="2">Arrival</td>
+        <td colspan="2">Departure</td>
+        <td colspan="2">Arrival</td>
+        <td colspan="2">Departure</td>
+        <td>Hours</td>
+        <td colspan="2">Minutes</td>
+      </tr>
+      <tr>
+        <td style="text-align:right;padding-right:3px;" colspan="9">Total</td>
+        <td style="width:50px;"></td>
+        <td colspan="2"></td>
+      </tr>
+    </table>
+    <table style="margin-top:10px;">
+      <tr>
+        <td colspan="12"  style="text-align: left;font-size:10px;"><i>I certify on my honor that the above is a true and correct report of the <br>
+hours of work performed, record of which was made daily at the time <br>
+ of arrival and departure from office.</i></td>
+      </tr>
+      <tr>
+        <td colspan="12" style="border-bottom:0.5px solid #000;"></td>
+      </tr>
+      <tr>
+        <td colspan="12"  style="text-align: left;font-size:10px;padding-top:2px;"><i>VERIFIED as to the prescribed office hours:</i></td>
+      </tr>
+      <tr>
+        <td colspan="12" style="border-bottom:0.5px solid #000;padding-top:20px;"></td>
+      </tr>
+      <tr>
+        <td colspan="12"  style="text-align: center;font-size:10px;padding-top:2px;"><i>In Charge</i></td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="page-break">
+  </div>
+</body>
+{% endfor %}
+</html>

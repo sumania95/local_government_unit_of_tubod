@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Appointment</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'image/lgutubodlogo.png' %}"/>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+            /* border: 1px solid #000; */
+            /* background-image: url('http://127.0.0.1:8000/media/images/defaultuserprofile.png'); */
+        }
+        @media all {
+        .page-break { display: none; }
+        }
+
+        @media print {
+        .page-break { display: block; page-break-before: always; }
+        }
+
+        .font-times11 {
+          font-family: "Calibri";
+          font-size: 8px;
+        }
+        .font-times8 {
+          font-family: "Arial";
+          font-size: 8px;
+        }
+        .font-times7 {
+          font-family: "Arial";
+          font-size: 7px;
+        }
+
+    </style>
+
+</head>
+<body>
+{% for p in profile %}
+<div class="container">
+  <table style="text-align:center;">
+    <tr>
+      <td>Republic of the Philippines</td>
+    </tr>
+    <tr>
+      <td>CARAGA Region XIII</td>
+    </tr>
+    <tr>
+      <td>Provice of Surigao del Norte</td>
+    </tr>
+  </table>
+  <div style="text-align: center; padding-top:5px;">
+    <td><b style="font-size:14px;">LOCAL GOVERNMENT UNIT OF TUBOD</b></td>
+  </div>
+  <div style="text-align: center; padding-top:5px;">
+    <td><b style="font-size:16px;">A P P O I N T M E N T</b></td>
+  </div>
+  <div style="text-align: left; padding-top:20px; font-size:14px;">
+    <td>
+      {% if p.profile.sex == 'Male' %}
+      <b><u>Mr.</u></b>/<b>Mrs.</b>/<b>Ms.</b>
+      {% elif p.profile.sex == 'Female' and p.profile.civilstatus == 'Married' or p.profile.civilstatus == 'Widowed' or p.profile.civilstatus == 'Separated' %}
+      <b>Mr.</b>/<b><u>Mrs.</u></b>/<b>Ms.</b>
+      {% elif p.profile.sex == 'Female' and p.profile.civilstatus == 'Single' or p.profile.civilstatus == 'Annulled' %}
+      <b>Mr.</b>/<b>Mrs.</b>/<b><u>Ms.</u></b>
+      {% endif %}
+      : <b>{{p.profile.firstname|upper}} {{p.profile.middlename|upper|slice:1}}. {{p.profile.surname|upper}}</b>
+    </td>
+  </div>
+  <div style="text-align: left;">
+    <td>
+      <p style="font-size:14px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are hereby appointed as <b>{{p.positiontitle}}</b> Status as <b>{{p.status}}</b> at <b>{{p.department}}</b> with compensation rate of <b>{{p.basicsalary}}</b> per day.
+      </p>
+      <p style="font-size:14px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The nature of this appointment is contractual basis inclusive for three months from {{d.fromdate|date:"F d, Y"}} to {{d.todate|date:"F d, Y"}} and may be terminated as funds exhausted, and if the services may no longer needed.
+      </p>
+      <p style="font-size:14px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This appointment shall take effect on the date of signing by the appointing officer/authority.
+      </p>
+    </td>
+  </div>
+  <div class="">
+    <div style="text-align: left; font-size:14px; padding-top:40px;">
+      <td>Prepared by:</td>
+    </div>
+
+    <div style="text-align: left; font-size:14px; padding-top:40px;">
+      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADONIS G. CUEVAS</b></td>
+    </div>
+    <div style="text-align: left; font-size:14px;">
+      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HRMO</b></td>
+    </div>
+
+  </div>
+
+  <table>
+    <tr>
+      <td colspan="7"></td>
+      <td colspan="5" style="text-align: left; font-size:14px;">Approved by:</td>
+    </tr>
+    <tr>
+      <td colspan="8"></td>
+      <td colspan="4" style="text-align: left; font-size:14px; padding-top:25px;"><b>RICHELLE B. ROMARATE, MSCE</b></td>
+    </tr>
+    <tr>
+      <td colspan="8"></td>
+      <td colspan="4" style="text-align: left; font-size:14px;"><b>Municipal Mayor</b></td>
+    </tr>
+    <tr>
+      <td colspan="8"></td>
+      <td colspan="4" style="text-align: left; font-size:14px; padding-top:10px;">Date of Signing: {{d.fromdate|date:"F d, Y"}}</td>
+    </tr>
+  </table>
+  <div style="text-align: center; padding-top:10px;">
+    <td><b style="font-size:16px;">CERTIFICATION</b></td>
+  </div>
+  <div style="text-align: left; padding-top:5px;">
+    <td>
+      <p style="font-size:14px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that the wage of the appointee has included in the 2019 Budget Approriation and within funds availability of the LGU-Tubod.
+      </p>
+    </td>
+  </div>
+  <table>
+    <tr style="text-align: left; font-size:14px; padding-top:25px;">
+      <td colspan="4"><b>VIRGINIA P. ACUZAR</b></td>
+      <td colspan="4"></td>
+      <td colspan="4"><b>LYMARIE A. MALICDEM</b></td>
+    </tr>
+    <tr style="text-align: left; font-size:14px;">
+      <td colspan="4">Acting Municipal Budget Officer</td>
+      <td colspan="4"></td>
+      <td colspan="4">Acting Municipal Treasurer</td>
+    </tr>
+  </table>
+  <div style="text-align: left; padding-top:20px;padding-bottom:10px;">
+    <td><b style="font-size:14px;">DUTIES AND RESPONSIBILITIES</b></td>
+  </div>
+  <table style="text-align: left; font-size:14px; ">
+    <tr>
+      <td></td>
+      <td colspan="12">1. Function the duties and responsibilities as {{p.positiontitle}}.</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan="12">2. Responded to the call of the Local Disaster Risk Reduction the personnel of the DRRM Operation Center and Management Office to render service as DRRM volunteer who will reinforce.</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan="12">3. Pro-active in the attainment of LGU-Tubod mission and vision.</td>
+    </tr>
+
+  </table>
+  <table style="padding-top:40px;">
+    <tr>
+      <td  colspan="7"></td>
+      <td colspan="4"  style="text-align: left; border-bottom: 1px solid #000; padding: 5px; padding-right:10px;"></td>
+    </tr>
+  </table>
+</div>
+<div class="page-break">
+{% endfor %}
+</div>
+
+
+</body>
+</html>

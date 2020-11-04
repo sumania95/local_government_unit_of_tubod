@@ -1,0 +1,63 @@
+<div class="card-header p-2">
+  <table>
+    <tr>
+      <td>Filter</td>
+      <td>
+        <select class="form-control" name="filter-profile-info-eligibility" id="filter-profile-info-eligibility">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <div class="card-header-right">
+    <table>
+      <tr>
+        <td>
+          <a href="#" type="button" class="btn btn-primary btn-sm" name="button"><i class="feather icon-user-plus mr-2"></i>New</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="card-body p-0">
+  <div class="table-responsive">
+    <table class="table">
+      <thead style="padding-bottom:2px;">
+        <tr>
+          <th style="white-space:nowrap;width:1%;">#</th>
+          <th>Career Service</th>
+          <th style="white-space:nowrap;width:15%;">Rating</th>
+          <th style="white-space:nowrap;width:20%;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-profile-info-eligibility">
+
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer" id="counter-profile-info-eligibility">
+</div>
+
+{% block 'script' %}
+<script>
+  function Children(){
+    var filter = $("#filter-profile-info-eligibility").val();
+    $.ajax({
+      url: '{% url 'api_main_eligibility_list' %}',
+      type: 'get',
+      data:{filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-profile-info-eligibility').html(data.counter + " record(s) found");
+        $('#table-profile-info-eligibility').html(data.profile_table);
+      },
+    });
+
+  };
+  Children();
+</script>
+
+{% endblock  %}

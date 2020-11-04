@@ -1,0 +1,51 @@
+<div id="pie-chart-1" style="width:100%"></div>
+
+{% block 'script' %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(function() {
+      var options = {
+        chart: {
+          height: 320,
+          type: 'pie',
+        },
+        labels: ['Managerial', 'Supervisory', 'Technical'],
+        series: {{trainings}},
+        colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+        legend: {
+          show: true,
+          position: 'bottom',
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            inverseColors: true,
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          dropShadow: {
+            enabled: false,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#pie-chart-1"),
+      options
+      );
+      chart.render();
+    });
+  });
+
+</script>
+
+{% endblock %}

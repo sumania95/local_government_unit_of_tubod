@@ -1,0 +1,133 @@
+{% for p in post %}
+<div class="card mb-2">
+    <div class="card-header">
+        <h5 class="text-success">{{p.profile.firstname|upper}} {{p.profile.surname|upper}}</h5><br>
+        <small><i class="feather icon-globe mr-1"></i>Public - {{p.date_created}}</small>
+        <div class="card-header-right">
+            <div class="btn-group card-option">
+                <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="feather icon-more-horizontal"></i>
+                </button>
+                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pt-0 pb-0">
+        <p>{{p.description}}</p>
+    </div>
+    <div class="card-footer">
+      <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_post_like' p.id %}" class="custom-form-like  d-inline">
+        {% if user in p.likes.all %}
+        <button type="submit" name="button" class="pl-0 mr-3 btn btn-icon text-danger"><i class="feather fa-lg icon-heart mr-1 text-danger"></i>({{p.likes.count}}) React(s)</button>
+        {% else %}
+        <button type="submit" name="button" class="pl-0 mr-3 btn btn-icon"><i class="feather fa-lg icon-heart mr-1"></i>({{p.likes.count}}) React(s)</button>
+        {% endif %}
+      </form>
+      <button name="button" class="btn btn-icon show-form"><i class="feather fa-lg icon-message-square mr-1"></i>({{p.comments.count}}) Comment(s)</button>
+    </div>
+    <div class="card-footer" id="form-comment">
+      <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_post_comment' p.id %}" class="custom-form-comment">
+        <div class="input-group">
+          <input type="text" class="form-control" name="comment" value="" placeholder="Write a comment....">
+          <div class="input-group-append">
+            <button  type="submit" class="btn  btn-primary" type="button">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-header pt-2">
+      {% for comment in p.comments.all|slice:":3" %}
+      <h6 class="mb-0 d-inline">{{comment.profile.surname|title}}, {{comment.profile.firstname|title}}</h6> <small>({{comment.date_created}})</small>
+      <br><label class="text-dark ml-2">-{{comment.description}}</label>
+      <hr class="m-0">
+      {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+{% block 'script' %}
+<script>
+  $(document).ready(function () {
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    };
+    $(".custom-form-comment").submit(function (event) {
+      event.preventDefault();
+      var form = $(this);
+      $.ajax({
+        url: form.attr('data-url'),
+        data: form.serialize(),
+        type: form.attr('method'),
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
+        success: function(data){
+          Post(limit,start);
+          Notification();
+        },
+        error:function(error){
+          Toast.fire({
+            type: 'error',
+            title: 'ERROR Connection Lost.'
+          });
+        },
+
+      })
+      return false;
+    });
+
+    $(".custom-form-like").submit(function (event) {
+      event.preventDefault();
+      var form = $(this);
+      $.ajax({
+        url: form.attr('data-url'),
+        data: form.serialize(),
+        type: form.attr('method'),
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
+        success: function(data){
+          Post(limit,start);
+          Notification();
+        },
+        error:function(error){
+          Toast.fire({
+            type: 'error',
+            title: 'ERROR Connection Lost.'
+          });
+        },
+
+      })
+      return false;
+    });
+
+  });
+
+</script>
+{% endblock %}

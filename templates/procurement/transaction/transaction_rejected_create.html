@@ -1,0 +1,35 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block 'customer_active' %}active{% endblock %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>New Profile</h5>
+  <hr>
+  <div class="card mb-3" id="form">
+
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block 'script' %}
+
+<script>
+  function filterload(){
+    $.ajax({
+      url: '{% url 'api_transaction_rejected_create' %}',
+      data: {request_pending_id:{{request_pending.id}}},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#form').html(data.html_form);
+      },
+    });
+
+  };
+  filterload();
+</script>
+
+{% endblock %}

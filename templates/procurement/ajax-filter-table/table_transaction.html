@@ -1,0 +1,20 @@
+{% for p in profile %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>
+    {{p.surname|upper}}, {{p.firstname|upper}} {{p.middlename|upper}}
+  </td>
+  <td>{{p.designation.plantilla.positiontitle}}</td>
+  <td>{{p.dob}}</td>
+  <td>{{p.age}}</td>
+  <td>
+    <button class="btn btn-sm btn-danger show-form-retired" data-url="#">
+      <i class="fa fa-user-circle mr-1"></i> Retire
+    </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}

@@ -1,0 +1,120 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load imagefit %}
+
+
+{% block 'content' %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <div class="col-md-2">
+    <h5>Remaining</h5>
+    <hr>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <p class="m-b-0">Sick Leave<span class="float-right">351</span></p>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <p class="m-b-0">Vacation Leave<span class="float-right">351</span></p>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <p class="m-b-0">Special Leave<span class="float-right">351</span></p>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <p class="m-b-0">Offset/Overtime<span class="float-right">351</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header p-2">
+        <table>
+          <tr>
+            <td>Filter</td>
+            <td>
+              <select class="form-control" name="filter_history_leave" id="filter_history_leave">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <div class="card-header-right">
+          <table>
+            <tr>
+              <td>
+                <a href="{% url 'main_history_leave_create' %}" type="button" class="btn btn-primary btn-sm" name="button">Apply Leave</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover m-b-0">
+            <thead>
+              <tr>
+                <th style="white-space:nowrap;width:1%;">Date Range</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Date Modified</th>
+                <th style="white-space:nowrap;width:100px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="table-history-leave-ajax">
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer p-2" id="counter-history-leave">
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+<!-- /.content -->
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function History_leave(){
+    var filter = $("#filter_history_leave").val();
+    var search = $("#search_history_leave").val();
+
+    $.ajax({
+      url: '{% url 'api_main_history_leave' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-history-leave').html(data.counter + " record(s) found");
+        $('#table-history-leave-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+  $('#search_history_leave').change(function() {
+    History_leave();
+  });
+  $('#filter_history_leave').change(function() {
+    History_leave();
+  });
+  History_leave();
+
+</script>
+
+{% endblock %}

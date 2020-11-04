@@ -1,0 +1,775 @@
+<!doctype html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Personal Data Sheet</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+    <style type="text/css">
+        @page {
+            size: 8.5in 13in portrait;
+            margin-top: 1cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
+            margin-bottom: 1.745cm;
+            border: 1px solid #000;
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 28.5pt; width: 555.2pt; top: 887; height: 21.9pt;
+            }
+            @frame footer_frame2 {
+                -pdf-frame-content: footer_content_last;
+                border-color: #fff;
+                left: 29pt; width: 555pt; top: 909; height: 15pt;
+            }
+            /* background-image: url('http://127.0.0.1:8000/media/images/defaultuserprofile.png'); */
+        }
+        @page page_two {
+            size: 8.5in 13in portrait;
+            margin: 1cm;
+            border: 1px solid #000;
+            @frame footer_frame {
+                -pdf-frame-content: footer_content2;
+                left: 28pt; width: 556pt; top: 728pt; height: 180pt;
+            }
+            @frame footer_frame22 {
+                -pdf-frame-content: footer_content_last22;
+
+                border-bottom-color:#fff;
+                border-top-color: #fff;
+                left: 29pt; width: 555pt; top: 909; height: 15pt;
+            }
+            /* background-image: url('http://127.0.0.1:8000/media/images/defaultuserprofile.png'); */
+        }
+        @media all {
+        .page-break { display: none; }
+        }
+
+        @media print {
+
+        .page-break { display: block; page-break-before: always; }
+        }
+
+        .font-times11 {
+          font-family: "Calibri (Body)";
+          font-size: 11px;
+        }
+        .font-times8 {
+          font-family: "Arial";
+          font-size: 9px;
+        }
+        .font-times9 {
+          font-family: "Arial";
+          font-size: 8px;
+        }
+        .font-times7 {
+          font-family: "Arial Narrow";
+          font-size: 8px;
+        }
+        .font-times7narrow {
+          font-family: "Arial Narrow";
+          font-size: 8px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="..." media="print" />
+
+</head>
+<body>
+
+<div class="container">
+  {% for p in profile %}
+  <div class="font-times11">
+    <td>CS Form No. 212</td>
+  </div>
+  <div class="font-times9">
+    <td>Revised 2017</td>
+  </div>
+  <div style="text-align: center;">
+    <td><b style="font-size:22px;">PERSONAL DATA SHEET</b></td>
+  </div>
+  <div class="font-times9">
+    <td><b>WARNING: Any misinterpretation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminal case/s against the person concerned.</b></td>
+  </div>
+  <div class="font-times9">
+    <td><b>READ THE ATTACHED GUIDE TO FILLING OUT THE PERSONAL DATA SHEET (PDS) BEFORE ACCOMPLISHING THE PDS FORM.</b></td>
+
+  </div>
+  <div class="font-times7">
+    <table>
+      <tr>
+        <td class="font-times7narrow" colspan="12">Print legibly. Tick appropriate boxes ( &#10003;) and use separate sheet if necessary. Indicate N/A if not applicable.  DO NOT ABBREVIATE.</td>
+        <td style="border: 0.5px solid #000; font-size:7px; padding=0px; text-align:center; padding:1px; background-color:#969696;" width="50px">1. CSID No</td>
+        <td colspan="3" style="border: 0.5px solid #000; font-size:7px; padding=0px; text-align:left; padding:1px;"> (Do not fill up. For CSC use only)</td>
+      </tr>
+
+    </table>
+    <table style="font-size:12px; text-align:left; padding-left:5px; padding-top:3px;border: 1px solid #000; background-color:#969696; color:#FFFFFF;">
+      <td><i>I. PERSONAL INFORMATION</i></td>
+    </table>
+  </div>
+  <div class="font-times7" >
+    <table  style="padding-left:2px; padding:1px;">
+      <tr>
+        <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000; border-top: 0.5px solid #000;" colspan="2">2. SURNAME</td>
+        <td colspan="10" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.surname|upper}}</b></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
+        <td colspan="7" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.firstname|upper}}</b></td>
+        <td colspan="2" style="background-color:#EAEAEA; border: 0.5px solid #000;">NAME EXTENSION (JR., SR)</td>
+        <td colspan="1" style="border: 0.5px solid #000;font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;<b>{{p.extname}}</b></td>
+      </tr>
+      <tr style="border-bottom: 0.5px solid #000;" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
+        <td colspan="10" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.middlename|upper}}</b></td>
+      </tr>
+    </table>
+  </div>
+  <div class="font-times7" >
+    <table  style="padding-left:2px; padding:1px;">
+      <tr>
+        <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-bottom: 0.5px solid #000; border-left: 0.5px solid #000;" colspan="2"><p>3. DATE OF BIRTH (mm/dd/yyyy)</p></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.dob|date:"m/d/Y"}}</b></td>
+        <td colspan="3" rowspan="3" style="border: 0.5px solid #000;padding-top: 3px; background-color:#EAEAEA;vertical-align: top;">
+          <p>16. CITIZENSHIP</p>
+          <br>
+          <p style="padding:0;margin:0;">&nbsp;&nbsp;&nbsp;If holder of  dual citizenship,</p>
+          <p style="padding:0;margin:0;">&nbsp;&nbsp;&nbsp;please indicate the details.</p>
+        </td>
+        <td colspan="4" rowspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px;vertical-align: top;">
+          <b>
+            <p>{% if p.citizenship == 'Filipino' or p.citizenship == 'FILIPINO' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}Filipino&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;)Dual Citizenship</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&#10003;)by birth &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;&nbsp;)by naturalization</p>
+          </b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000; border-bottom: 0.5px solid #000;">4. PLACE OF BIRTH</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;padding-bottom:5px;"><b>{{p.placebirth|upper}}</b></td>
+      </tr>
+      <tr style="border-bottom: 0.5px solid #000;" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">5. SEX</td>
+        <td colspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px; vertical-align: top;"><b>{% if p.sex == 'Male' %}(&#10003;)MALE (&nbsp;&nbsp;&nbsp;)FEMALE {% else %}(&nbsp;&nbsp;&nbsp;) MALE &nbsp;(&#10003;)FEMALE{% endif %}</b>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="font-times7" >
+    <table  style="padding-left:2px; padding:1px;">
+      <tr style="padding-bottom:15px;">
+        <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;" colspan="2">6. CIVIL STATUS</td>
+        <td colspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px; vertical-align: top;">
+          <b>
+            {% if p.civilstatus == 'Single' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}SINGLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if p.civilstatus == 'Married' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}MARRIED
+            {% if p.civilstatus == 'Widowed' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}WIDOWED&nbsp;
+            {% if p.civilstatus == 'Separated' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}SEPARATED
+            {% if p.civilstatus == 'Annulled' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}ANNULLED
+          </b>
+        </td>
+        <td colspan="3" rowspan="2" style="background-color:#EAEAEA;border-top: 0.5px solid #000;padding-top:3px; vertical-align:top;" >17. RESIDENTIAL ADDRESS</td>
+        <td colspan="4" rowspan="2" style="border: 0.5px solid #000;font-size:10px;padding-top:3px; vertical-align:top;"><b>{{p.residentialaddress|upper}}</b></td>
+      </tr>
+      <tr style="">
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">7. HEIGHT (m)</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.height|upper}}</b></td>
+      </tr>
+      <tr style="">
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 1px solid #000;">8. WEIGHT (kg)</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.weight|upper}}</b></td>
+        <td colspan="3" style="text-align: left; background-color:#EAEAEA; border: 1px solid #000;">Zip Code</td>
+        <td colspan="4" style="border-left: 0.5px solid #000;font-size:10px;border: 1px solid #000;"><b>{{p.zipcode01|upper}}</b></td>
+      </tr>
+    </table>
+  </div>
+  <div class="font-times7" >
+    <table  style="padding-left:2px; padding:1px;">
+      <tr style="">
+        <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" colspan="2">9. BLOOD TYPE</td>
+        <td colspan="3" style="border: 0.5px solid #000; padding:2px;font-size:10px;"><b>{{p.bloodtype|upper}}</b></td>
+        <td colspan="3" rowspan="3" style=" background-color:#EAEAEA;border-top: 0.5px solid #000;padding-top:3px; vertical-align:top;" >18. PERMANENT ADDRESS</td>
+        <td colspan="4" rowspan="3" style="border: 0.5px solid #000;font-size:10px;padding-top:3px; vertical-align:top;"><b>{{p.permanentaddress|upper}}</b></td>
+      </tr>
+      <tr style="">
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">10. GSIS ID NO.</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.gsis|upper}}</b></td>
+      </tr>
+      <tr style="" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">11. PAG-IBIG ID NO.</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.pagibig|upper}}</b></td>
+      </tr>
+      <tr style="" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">12. PHILHEATH NO.</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.philhealth|upper}}</b></td>
+        <td colspan="3" style="text-align: left; background-color:#EAEAEA;border: 0.5px solid #000;">Zip Code</td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.zipcode02|upper}}</b></td>
+      </tr>
+      <tr style="" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">13. SSS NO.</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.sss|upper}}</b></td>
+        <td colspan="3" style="text-align: left; background-color:#EAEAEA;border: 0.5px solid #000;">19. TELEPHONE NO.</td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.telephone|upper}}</b></td>
+      </tr>
+      <tr style="" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border: 0.5px solid #000;">14. TIN NO.</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.tin|upper}}</b></td>
+        <td colspan="3" style="text-align: left; background-color:#EAEAEA;border: 0.5px solid #000;">20. MOBILE NO.</td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.mobile}}</b></td>
+      </tr>
+      <tr style="border: 0.5px solid #000;" >
+        <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">15. AGENCY EMP. NO.</td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.agencyno}}</b></td>
+        <td colspan="3" style="text-align: left; background-color:#EAEAEA;">21. E-MAIL ADDRESS (if any)</td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.email}}</b></td>
+      </tr>
+    </table>
+    <table style="font-size:12px; text-align:left; padding-left:5px; padding-top:3px; border: 1px solid #000; background-color:#969696; color:#FFFFFF;">
+      <td><i>II. FAMILY BACKGROUND</i></td>
+    </table>
+
+  </div>
+  <div class="font-times7" >
+    <table>
+      <tr>
+        <td colspan="6" style="vertical-align:top;">
+          <table style="padding-left:2px;">
+            <tr>
+              <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" colspan="2">22. SPOUSE'S SURNAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousesurname|upper}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
+              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousefirstname|upper}}</b></td>
+              <td colspan="1" style="border: 0.5px solid #000;background-color:#EAEAEA;">NAME EXT</td>
+              <td colspan="1" style="border: 0.5px solid #000;">{{p.spouseextname}}</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousemiddlename|upper}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;OCCUPATION</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spouseoccupation|upper}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">EMP./BUSINESS NAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spouseemployer|upper}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;BUSINESS ADDRESS</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spouseemployeraddress|upper}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;TELEPHONE</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousetelephone|upper}}</b></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">24. FATHER'S SURNAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fathersurname|upper}}</b></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
+              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fatherfirstname|upper}}</b></td>
+              <td colspan="1" style="border: 0.5px solid #000;background-color:#EAEAEA;">NAME EXT</td>
+              <td colspan="1" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fatherextname|upper}}</b></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fathermiddlename|upper}}</b></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">24. MOTHER'S MAIDEN</td>
+              <td colspan="4" style="border: 0.5px solid #000;background-color:#EAEAEA;"></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;SURNAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.mothersurname|upper}}</b></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.motherfirstname|upper}}</b></td>
+            </tr>
+            <tr style="">
+              <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.mothermiddlename|upper}}</b></td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6" style="vertical-align:top;">
+          <table style="padding-left:2px;">
+            <tr>
+              <td colspan="4" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;">23. NAME of CHILDREN (Write full name and list all)</td>
+              <td colspan="2" style="background-color:#EAEAEA;border: 0.5px solid #000;padding-top:5px;text-align:center;">DATE OF BIRTH</td>
+            </tr>
+            {% for c in children %}
+            <tr>
+              <td colspan="4" style="padding-top:5px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;"><b>{{c.firstname|upper}} {{c.middlename|upper}} {{c.surname|upper}}</b></td>
+              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;text-align:center;"><b>{{c.dob|date:"m/d/Y"}}</b></td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td colspan="6" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="font-size:12px; text-align:left; padding-left:5px; padding-top:3px; border: 1px solid #000; background-color:#969696; color:#FFFFFF;">
+      <td><i>III. EDUCATIONAL BACKGROUND</i></td>
+    </table>
+
+  </div>
+  <div class="font-times7" >
+    <table>
+      <tr>
+        <td colspan="2" rowspan="2" style="padding:7px; background-color:#EAEAEA;padding-top:2px; text-align: left; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" >26. LEVEL</td>
+        <td colspan="3" rowspan="2" style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">NAME OF SCHOOL <p>(Write in full)</p></td>
+        <td colspan="2" rowspan="2" style=" background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">BASIC EDUCATION/DEGREE/COURSE<p>(Write in full)</p></td>
+        <td colspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;"><p style="text-align:center;">PERIOD OF THE ATTENDANCE</p></td>
+        <td rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;"><p style="text-align:center;">HIGHEST LEVEL/ UNITS EARNED</p></td>
+        <td rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;"><p style="text-align:center;">YEAR GRADUATED</p></td>
+        <td rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;"><p style="text-align:center;">SCHOLAR SHIP/ ACADEMIC HONORS</p></td>
+      </tr>
+      <tr>
+        <td style="background-color:#EAEAEA;padding-top:1px; text-align: center; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;">From</td>
+        <td style="background-color:#EAEAEA;padding-top:1px; text-align: center; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;">To</td>
+      </tr>
+      {% for e in education.all %}
+      <tr>
+        <td colspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;padding:3px;vertical-align:top;"><b>{{e.level|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.schoolname|upper}}</b></td>
+        <td colspan="2" style="border: 0.5px solid #000;padding:2px;font-size:10px;"><b>{{e.course|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.periodfrom|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.periodto|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{% if e.unitsearned > 0 %}{{e.unitsearned}}{% else %}&nbsp;{% endif %}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.periodto|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.academicreceived|upper}}</b></td>
+      </tr>
+      {% endfor %}
+      <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+    </table>
+    <div id="footer_content">
+      <table>
+        <tr style="padding:3px;padding-bottom:2px" >
+          <td colspan="2" style="font-size: 12px;text-align:center;border: 1px solid #000;background-color:#EAEAEA;"><b>SIGNATURE</b></td>
+          <td colspan="5" style="border: 1px solid #000;"></td>
+          <td colspan="2" style="font-size: 12px;text-align:center;border: 1px solid #000;background-color:#EAEAEA;"><b>DATE</b></td>
+          <td colspan="3" style="border: 1px solid #000;padding-top:3px;font-size:12px;"><b>{{now|date:"F d, Y"}}</b></td>
+        </tr>
+      </table>
+    </div>
+    <div id="footer_content_last" style="text-align:right;">
+      <td colspan="12" style="padding: 3px; padding-top:2px">CS FORM 212 (Revised 2017), Page <pdf:pagenumber> of <pdf:pagecount></td>
+    </div>
+
+
+  </div>
+  <!-- PAGE 2 -->
+  <div class="page-break">
+    <table style="font-size:12px; text-align:left; padding-left:5px; padding-top:6px; padding-bottom:5px; border: 1px solid #000; background-color:#969696; color:#FFFFFF;">
+      <td><i>IV. CIVIL SERVICE ELIGIBILITY</i></td>
+    </table>
+    <div class="font-times7" >
+      <table>
+        <tr style="padding:3px;">
+          <td colspan="3" rowspan="2" style="background-color:#EAEAEA;padding-top:2px; text-align: left; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" >27. CAREER SERVICE/ RA 1080 (BOARD/ BAR) UNDER SPECIAL LAWS/ CES/ CSEE BARANGAY ELIGIBILITY / DRIVER'S LICENSE</td>
+          <td colspan="2" rowspan="2" style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">RATING<p>(If Applicable)</p></td>
+          <td colspan="2" rowspan="2" style=" background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">DATE OF EXAMINATION / CONFERMENT</td>
+          <td colspan="3" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">PLACE OF EXAMINATION / CONFERMENT</td>
+          <td colspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">LICENSE (If Applicable)</td>
+        </tr>
+        <tr style="padding:2px;">
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">NUMBER</td>
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">Date of Validity</td>
+        </tr>
+        {% for e in eligibility %}
+        <tr>
+          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px;font-size:10px;"><b>{{e.careerservice|upper}}</b></td>
+          <td colspan="2" style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{% if e.rating > 0 %}{{e.rating}}{% else %}&nbsp;{% endif %}</b></td>
+          <td colspan="2"  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.dateofexamination}}</b></td>
+          <td colspan="3"  style="border: 0.5px solid #000;text-align:left;padding:2px;font-size:10px;"><b>{{e.placeofexamination|upper}}</b></td>
+          <td  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.number}}</b></td>
+          <td  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.dateofvalidity|upper}}</b></td>
+        </tr>
+        {% endfor %}
+        <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+      </table>
+
+
+    </div>
+    <table style="background-color:#969696; color:#FFFFFF;">
+      <tr>
+        <td style="font-size:12px; text-align:left; padding-left:5px; padding-top:5px;border-top: 1px solid #000;"><i>V. WORK EXPERIENCE</i></td>
+      </tr>
+      <tr>
+        <td><p style="font-size:11px;padding-left:5px;">(Include private employment.  Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.</p></td>
+      </tr>
+    </table>
+    <div class="font-times7" >
+      <table>
+        <tr style="padding:2px;padding-top:3px;padding-bottom:1px;">
+          <td colspan="2" style="background-color:#EAEAEA; text-align: left; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" >28. INCLUSIVE DATES (mm/dd/yyyy)</td>
+          <td colspan="3" rowspan="2" style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">POSITION TITLE<p>(Write in full/Do not abbreviate)</p></td>
+          <td colspan="3" rowspan="2" style=" background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">DEPARTMENT / AGENCY / OFFICE / COMPANY<p>(Write in full/Do not abbreviate)</p></td>
+          <td colspan="1" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">MONTHLY SALARY</td>
+          <td colspan="1" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">SALARY/ JOB/ PAY GRADE (if applicable) & STEP  (Format "00-0")/ INCREMENT</td>
+          <td colspan="1" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">STATUS OF APPOINTMENT</td>
+          <td colspan="1" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">GOV'T SERVICE (Y/ N)</td>
+        </tr>
+        <tr style="padding:4px;padding-top:4px;">
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">FROM</td>
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">TO</td>
+        </tr>
+        {% for w in work_experience %}
+        <tr>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{w.fromdate|date:"m/d/Y"}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{w.todate|date:"m/d/Y"}}</b></td>
+          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{w.positiontitle|upper}}</b></td>
+          <td colspan="3"  style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{w.departmentoffice|upper}}</b></td>
+          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{w.salary}}</b></td>
+          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{w.paygrade}}</b></td>
+          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{w.status|upper}}</b></td>
+          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{% if w.is_governtmentservice %} Y {% else %} N {% endif %}</b></td>
+        </tr>
+        {% endfor %}
+        <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+      </table>
+
+
+    </div>
+  <!-- PAGE 3 -->
+  <div class="page-break">
+    <table style="font-size:12px; text-align:left; padding-left:5px; padding-top:6px; padding-bottom:5px; border: 1px solid #000; background-color:#969696; color:#FFFFFF;">
+      <td><i>VI. VOLUNTARY WORK OR INVOLVEMENT IN CIVIC / NON-GOVERNMENT / PEOPLE / VOLUNTARY ORGANIZATION/S</i></td>
+    </table>
+    <div class="font-times7" >
+      <table>
+        <tr style="padding-left:5px">
+          <td colspan="4" rowspan="2" style="background-color:#EAEAEA; text-align: left; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" >29. NAME & ADDRESS OF ORGANIZATION<p>(Write in full)</p></td>
+          <td colspan="2" style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;padding-top:2px;">INCLUSIVE DATES<p>(mm/dd/yyyy)</p></td>
+          <td colspan="1" rowspan="2" style=" background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">NUMBER OF HOURS</td>
+          <td colspan="5" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">POSITION / NATURE OF WORK</td>
+        </tr>
+        <tr style="padding:2px;">
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">FROM</td>
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">TO</td>
+        </tr>
+        {% for v in voluntary_work %}
+        <tr>
+          <td colspan="4" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{v.organization|upper}}</b></td>
+          <td style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{v.fromdate|date:"m/d/Y"}}</b></td>
+          <td style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{v.todate|date:"m/d/Y"}}</b></td>
+          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{v.nohrs}}</b></td>
+          <td colspan="5"  style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{v.natureofwork|upper}}</b></td>
+        </tr>
+        {% endfor %}
+        <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+      </table>
+    </div>
+    <table style="background-color:#969696; color:#FFFFFF;">
+      <tr>
+        <td style="font-size:12px; text-align:left; padding-left:5px; padding-top:5px;border-top: 1px solid #000;"><i>VII. LEARNING AND DEVELOPMENT (L&D) INTERVENTIONS/TRAINING PROGRAMS ATTENDED</i></td>
+      </tr>
+      <tr>
+        <td><p style="font-size:11px;padding-left:5px;">(Start from the most recent L&D/training program and include only the relevant L&D/training taken for the last five (5) years for Division </p></td>
+
+      </tr>
+    </table>
+    <div class="font-times7" >
+      <table>
+        <tr style="padding:2px;padding-top:3px;padding-bottom:1px;">
+          <td colspan="4" rowspan="2" style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:left;">30. TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS<p>(Write in full)</p></td>
+          <td colspan="2" style="background-color:#EAEAEA; text-align: center; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" >INCLUSIVE DATES OF ATTENDANCE</td>
+          <td colspan="1" rowspan="2" style=" background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">NUMBER OF HOURS</td>
+          <td colspan="2" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">TYPE<p>( Managerial/ Supervisory/ Technical/etc)</p></td>
+          <td colspan="3" rowspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA; text-align:center;">CONDUCTED/ SPONSORED BY<p>(Write in full)</p></td>
+        </tr>
+        <tr style="padding:4px;padding-top:4px;">
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">FROM</td>
+          <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">TO</td>
+        </tr>
+        {% for l in training %}
+        <tr>
+          <td colspan="4" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.title|upper}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.fromdate|date:"m/d/Y"}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.todate|date:"m/d/Y"}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.nohrs}}</b></td>
+          <td colspan="2" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.typeofld|upper}}</b></td>
+          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.sponsoredby|upper}}</b></td>
+        </tr>
+        {% endfor %}
+        <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+
+      </table>
+
+    </div>
+    <table style="background-color:#969696; color:#FFFFFF;">
+      <tr>
+        <td style="font-size:12px; text-align:left; padding-left:5px; padding-top:4px;border-top: 1px solid #000;"><i>VIII. OTHER INFORMATION</i></td>
+      </tr>
+    </table>
+    <div class="font-times7" >
+      <table>
+        <tr>
+          <td colspan="4" style="vertical-align:top;">
+            <table>
+              <tr style="padding:2px;padding-top:3px;padding-bottom:7px;">
+                <td colspan="12" style="background-color:#EAEAEA; text-align: left; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border: 0.5px solid #000;" >31. SPECIAL SKILLS and HOBBIES</td>
+              </tr>
+              {% if skill_hobbies %}
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{% for s in skill_hobbies %}{{s.description|upper}}, {% endfor %}</b></td>
+              </tr>
+              {% endif %}
+              <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+            </table>
+          </td>
+          <td colspan="4" style="vertical-align:top;">
+            <table>
+              <tr style="padding:2px;padding-top:3px;padding-bottom:1px;">
+                <td colspan="12" style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:left;">32. NON-ACADEMIC DISTINCTIONS / RECOGNITION (Write in full)</td>
+              </tr>
+              {% if non_academic %}
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{% for s in non_academic %}{{s.description|upper}}, {% endfor %}</b></td>
+              </tr>
+              {% endif %}
+              <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+            </table>
+          </td>
+          <td colspan="4" style="vertical-align:top;">
+            <table>
+              <tr style="padding:2px;padding-top:3px;padding-bottom:1px;">
+                <td colspan="12" style=" background-color:#EAEAEA;border: 0.5px solid #000;text-align:left;">33. MEMBERSHIP IN ASSOCIATION/ORGANIZATION (Write in full)</td>
+              </tr>
+              {% if member_org %}
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{% for s in member_org %}{{s.description|upper}}, {% endfor %}</b></td>
+              </tr>
+              {% endif %}
+              <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+  </div>
+  <!-- PAGE 4 -->
+  <pdf:nexttemplate name="page_two" />
+  <div class="page-break">
+    <div class="font-times7" >
+      <table  style="padding-left:2px; padding:1px;">
+        <tr style="padding-bottom:1px;">
+          <td colspan="8" style="padding-top:3px; font-size: 10px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            34. Are you related by consanguinity or affinity to the appointing or recommending authority, or to the <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chief of bureau or office or to the person who has immediate supervision over you in the Office,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bureau or Department where you will be apppointed, <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. within the third degree? <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. within the fourth degree (for Local Government Unit - Career Employees)? <br>
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;vertical-align:top;">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <b>{% if p.is_question1 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            <b>{% if p.is_question2 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________
+          </td>
+        </tr>
+        <tr style="padding-bottom:10px;">
+          <td colspan="8" style="padding-top:5px;font-size: 10px;text-align: left;vertical-align: top;background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            35. a. Have you ever been found guilty of any administrative offense? <br><br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Have you been criminally charged before any court?
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;padding-top: 5px;vertical-align:top;">
+            <b>{% if p.is_question3 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________
+            <br>
+            <br>
+            <b>{% if p.is_question4 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Filed:________________________________
+            <br>Status of Case/s:________________________________
+          </td>
+        </tr>
+        <tr style="padding-bottom:22px;">
+          <td colspan="8" style="padding-top:5px;font-size: 10px;text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            36. Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;court or tribunal?
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;padding-top: 5px;vertical-align:top;">
+            <b>{% if p.is_question5 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________
+          </td>
+        </tr>
+        <tr style="padding-bottom:15px;">
+          <td colspan="8" style="padding-top:5px;font-size: 10px;text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            37. Have you ever been separated from the service in any of the following modes: resignation, retirement, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public or private sector?
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;padding-top: 5px;vertical-align:top;">
+            <b>{% if p.is_question6 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________
+          </td>
+        </tr>
+        <tr style="padding-bottom:5px;">
+          <td colspan="8" style="padding-top:5px;font-size: 10px;text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            38. a. Have you ever been a candidate in a national or local election held within the last year (except Barangay <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;election)?<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Have you resigned from the government service during the three (3)-month period before the last <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;election to promote/actively campaign for a national or local candidate?
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;padding-top: 5px;vertical-align:top;">
+            <b>{% if p.is_question7 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________ <br>
+            <b>{% if p.is_question8 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________
+          </td>
+        </tr>
+        <tr style="padding-bottom:14px;">
+          <td colspan="8" style="padding-top:5px;font-size: 10px;text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            39. Have you acquired the status of an immigrant or permanent resident of another country?
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;padding-top: 5px;vertical-align:top;">
+            <b>{% if p.is_question9 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details (country):
+            <br>_________________________________________________ <br>
+          </td>
+        </tr>
+        <tr style="padding-bottom:5px;">
+          <td colspan="8" style="padding-top:5px;font-size: 10px;text-align: left;vertical-align: top;background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">
+            40. Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items:<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Are you a member of any indigenous group?<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Are you a person with disability?<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c. Are you a solo parent?<br>
+          </td>
+          <td colspan="4" style="border: 0.5px solid #000;padding-left: 5px;padding-top: 5px;vertical-align:top;">
+            <br>
+            <b>{% if p.is_question10 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________ <br>
+            <b>{% if p.is_question11 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________ <br>
+            <b>{% if p.is_question12 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________ <br>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="12" style="padding-top:2px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">41. REFERENCES <code style="color:red;">(Person not related by consanguinity or affinity to applicant /appointee)</code></td>
+        </tr>
+        <!-- REFERENCES -->
+        <tr>
+          <td colspan="3" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">NAME</td>
+          <td colspan="4" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">ADDRESS</td>
+          <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;">TEL NO.</td>
+          <td colspan="3" rowspan="5" style="border: 0.5px solid #000;padding-top:3px; vertical-align:top;" ></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesname1|upper}}</b></td>
+          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesaddress1|upper}}</b></td>
+          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{p.referencestel1}}</b></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesname2|upper}}</b></td>
+          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesaddress2|upper}}</b></td>
+          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{p.referencestel2}}</b></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesname3|upper}}</b></td>
+          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesaddress3|upper}}</b></td>
+          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{p.referencestel3}}</b></td>
+        </tr>
+        <tr style="padding-bottom:19px;">
+          <td colspan="9" style="padding-top:5px; text-align: left;background-color:#EAEAEA; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;font-size:10px;" colspan="2">
+            42. I declare under oath that I have personally accomplished this Personal Data Sheet which is a true, correct and complete statement pursuant to the provisions of pertinent laws, rules and regulations of the Republic of the Philippines. I authorize the agency head/authorized representative to verify/validate the contents stated herein.          I  agree that any misrepresentation made in this document and its attachments shall cause the filing of administrative/criminal case/s against me.
+          </td>
+        </tr>
+      </table>
+      <tr>
+
+      </tr>
+    </div>
+    <div id="footer_content2">
+      <table>
+        <tr>
+          <td style="padding:0;"></td>
+        </tr>
+        <tr>
+          <td width="10px" style="padding-bottom:120px;"></td>
+          <td colspan="5" style="border: 0.5px solid #000;text-align: center;font-size:8px;vertical-align:top;">
+            <table>
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000;background-color:#EAEAEA;text-align:center; padding-top:6px;font-size:10px;">Government Issued ID <br>(i.e.Passport, GSIS, SSS, PRC, Driver's License, etc.)<br> PLEASE INDICATE ID Number and Date of Issuance</td>
+              </tr>
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">Government Issued ID:&nbsp;&nbsp;&nbsp;&nbsp;<b>{{p.government_issued_id}}</b></td>
+              </tr>
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">ID/License/Passport No.:&nbsp;<b>{{p.government_id_no}}</b></td>
+              </tr>
+              <tr>
+                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">Date/Place of Issuance:&nbsp;&nbsp;<b>{{p.government_date_issued}}</b></td>
+              </tr>
+            </table>
+          </td>
+          <td width="10px"></td>
+          <td colspan="4" style="border: 0.5px solid #000;text-align: center;font-size:10px;vertical-align:top;">
+            <p style="padding-bottom:36px;">&nbsp;</p>
+            <p style="border: 0.5px solid #000;background-color:#EAEAEA;align-text:center;">Signature (Sign inside the box)</p>
+            <p style="border: 0.5px solid #000;background-color:#EAEAEA;align-text:center;">Date Accomplished</p>
+
+          </td>
+          <td width="10px"></td>
+          <td colspan="3" style="border: 0.5px solid #000;text-align: center;font-size:10px;">
+            <p style="padding-bottom:72px;">&nbsp;</p>
+            <p style="border: 0.5px solid #000;background-color:#EAEAEA;align-text:center;">Right Thumbmark</p>
+          </td>
+          <td width="10px"></td>
+        </tr>
+        <tr>
+          <td style="padding:0;"></td>
+        </tr>
+      </table>
+      <table>
+        <tr style="font-size:10px; padding:3px;border-top: 0.5px solid #000;">
+          <td colspan="12">SUBSCRIBED AND SWORN to before me this _________________________, affiant exhibiting his/her validly issued government ID as indicated above.</td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+          <td colspan="4" rowspan="2" style="border: 0.5px solid #000;"></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+          <td colspan="4" style="border: 0.5px solid #000;text-align: center; background-color:#EAEAEA;font-size:10px;padding-top:2px;">Person Administering Oath</td>
+          <td colspan="4"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="font-times7">
+      <div id="footer_content_last22" style="text-align:right;">
+        <td colspan="12" style="padding: 3px; padding-top:2px">CS FORM 212 (Revised 2017), Page <pdf:pagenumber> of <pdf:pagecount></td>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+</body>
+</html>

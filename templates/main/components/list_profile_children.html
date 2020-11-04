@@ -1,0 +1,63 @@
+<div class="card-header p-2">
+  <table>
+    <tr>
+      <td>Filter</td>
+      <td>
+        <select class="form-control" name="filter-profile-info-children" id="filter-profile-info-children">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <div class="card-header-right">
+    <table>
+      <tr>
+        <td>
+          <a href="#" type="button" class="btn btn-primary btn-sm" name="button"><i class="feather icon-user-plus mr-2"></i>New</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="card-body p-0">
+  <div class="table-responsive">
+    <table class="table">
+      <thead style="padding-bottom:2px;">
+        <tr>
+          <th style="white-space:nowrap;width:1%;">#</th>
+          <th>Name</th>
+          <th style="white-space:nowrap;width:30%;">Date of Birth</th>
+          <th style="white-space:nowrap;width:20%;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-profile-info-children">
+
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer" id="counter-profile-info-children">
+</div>
+
+{% block 'script' %}
+<script>
+  function Children(){
+    var filter = $("#filter-profile-info-children").val();
+    $.ajax({
+      url: '{% url 'api_main_children_list' %}',
+      type: 'get',
+      data:{filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-profile-info-children').html(data.counter + " record(s) found");
+        $('#table-profile-info-children').html(data.profile_table);
+      },
+    });
+
+  };
+  Children();
+</script>
+
+{% endblock  %}

@@ -1,0 +1,515 @@
+<div class="row">
+  <!-- order-card start -->
+  <div class="col-md-6 col-xl-3">
+    <div class="card bg-c-blue order-card">
+      <div class="card-body p-2">
+        <h6 class="text-white">USERS</h6>
+        <h3 class="text-right text-white"><i class="feather icon-users float-left"></i><span>{{total_users}}</span></h3>
+        <p class="m-b-0">Total users register</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card bg-c-green order-card">
+      <div class="card-body p-2">
+        <h6 class="text-white">DESIGNATED</h6>
+        <h3 class="text-right text-white"><i class="feather icon-users float-left"></i><span>{{total_designates}}</span></h3>
+        <p class="m-b-0">Total designated register</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card bg-c-yellow order-card">
+      <div class="card-body p-2">
+        <h6 class="text-white">CONTRACTUAL</h6>
+        <h3 class="text-right text-white"><i class="feather icon-users float-left"></i><span>{{total_contractual}}</span></h3>
+        <p class="m-b-0">Total contractual register</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card bg-c-red order-card">
+      <div class="card-body p-2">
+        <h6 class="text-white">RETIRABLES</h6>
+        <h3 class="text-right text-white"><i class="feather icon-user-x float-left"></i><span>{{retirables}}</span></h3>
+        <p class="m-b-0">Total retirables (designated)</p>
+      </div>
+    </div>
+  </div>
+  <!-- order-card end -->
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>TRAININGS</h5>
+      </div>
+      <div class="card-body p-2">
+        <div id="bar-chart-2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>DESIGNATED</h5>
+      </div>
+      <div class="card-body p-2">
+        <div id="pie-chart-1" style="width:100%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>CONTRACTUAL</h5>
+      </div>
+      <div class="card-body p-2">
+        <div id="pie-chart-2" style="width:100%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>RETIRABLES</h5>
+      </div>
+      <div class="card-body p-2">
+        <div id="radialBar-chart-1" style="width:100%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>Bar chart</h5>
+      </div>
+      <div class="card-body">
+        <div id="bar-chart-1"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>Bar chart</h5>
+      </div>
+      <div class="card-body">
+        <div id="bar-chart-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% block 'script' %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(function() {
+      var options = {
+        chart: {
+          height: 350,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            offsetY: -30,
+            startAngle: 0,
+            endAngle: 270,
+            hollow: {
+              margin: 5,
+              size: '30%',
+              background: 'transparent',
+              image: undefined,
+            },
+            dataLabels: {
+              name: {
+                show: false,
+
+              },
+              value: {
+                show: false,
+              }
+            }
+          }
+        },
+        colors: ["#0e9e4a", "#FFB64D", "#FF5370"],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: 'vertical',
+            shadeIntensity: 0.25,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 0.7,
+            stops: [40, 100]
+          }
+        },
+        series: {{people_designate}},
+        labels: ['Female', 'Male'],
+        legend: {
+          show: true,
+          floating: true,
+          fontSize: '16px',
+          position: 'left',
+          offsetX: 0,
+          offsetY: 0,
+          labels: {
+            useSeriesColors: true,
+          },
+          markers: {
+            size: 0
+          },
+          formatter: function(seriesName, opts) {
+            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+          },
+          itemMargin: {
+            horizontal: 1,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              show: false
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#pie-chart-1"),
+      options
+      );
+      chart.render();
+    });
+
+    $(function() {
+      var options = {
+        chart: {
+          height: 350,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            offsetY: -30,
+            startAngle: 0,
+            endAngle: 270,
+            hollow: {
+              margin: 5,
+              size: '30%',
+              background: 'transparent',
+              image: undefined,
+            },
+            dataLabels: {
+              name: {
+                show: false,
+
+              },
+              value: {
+                show: false,
+              }
+            }
+          }
+        },
+        colors: [ "#FFB64D", "#FF5370"],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: 'vertical',
+            shadeIntensity: 0.25,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 0.7,
+            stops: [40, 100]
+          }
+        },
+        series: {{people_contractual}},
+        labels: ['Female', 'Male'],
+        legend: {
+          show: true,
+          floating: true,
+          fontSize: '16px',
+          position: 'left',
+          offsetX: 0,
+          offsetY: 0,
+          labels: {
+            useSeriesColors: true,
+          },
+          markers: {
+            size: 0
+          },
+          formatter: function(seriesName, opts) {
+            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+          },
+          itemMargin: {
+            horizontal: 1,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              show: false
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#pie-chart-2"),
+      options
+      );
+      chart.render();
+    });
+    $(function() {
+      var options = {
+        chart: {
+          height: 350,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            offsetY: -30,
+            startAngle: 0,
+            endAngle: 270,
+            hollow: {
+              margin: 5,
+              size: '30%',
+              background: 'transparent',
+              image: undefined,
+            },
+            dataLabels: {
+              name: {
+                show: false,
+
+              },
+              value: {
+                show: false,
+              }
+            }
+          }
+        },
+        colors: ["#4099ff", "#FF5370"],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: 'vertical',
+            shadeIntensity: 0.25,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 0.7,
+            stops: [40, 100]
+          }
+        },
+        series: {{people_retirables}},
+        labels: ['Female', 'Male'],
+        legend: {
+          show: true,
+          floating: true,
+          fontSize: '16px',
+          position: 'left',
+          offsetX: 0,
+          offsetY: 0,
+          labels: {
+            useSeriesColors: true,
+          },
+          markers: {
+            size: 0
+          },
+          formatter: function(seriesName, opts) {
+            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+          },
+          itemMargin: {
+            horizontal: 1,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              show: false
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#radialBar-chart-1"),
+      options
+      );
+      chart.render();
+    });
+
+    $(function() {
+      var options = {
+        chart: {
+          height: 350,
+          type: 'bar',
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        colors: ["#0e9e4a", "#4099ff", "#FF5370"],
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: "vertical",
+            shadeIntensity: 0.25,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 0.7,
+            stops: [50, 100]
+          },
+        },
+        series: [{
+          name: 'Net Profit',
+          data: [44, 55, 57, 56, 61, 58, 63]
+        }, {
+          name: 'Revenue',
+          data: [76, 85, 101, 98, 87, 105, 91]
+        }, {
+          name: 'Free Cash Flow',
+          data: [35, 41, 36, 26, 45, 48, 52]
+        }],
+        xaxis: {
+          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        },
+        yaxis: {
+          title: {
+            text: '$ (thousands)'
+          }
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return "$ " + val + " thousands"
+            }
+          }
+        }
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#bar-chart-1"),
+      options
+      );
+      chart.render();
+    });
+    $(function() {
+      var options = {
+        chart: {
+          height: 320,
+          type: 'pie',
+        },
+        labels: ['Managerial', 'Supervisory', 'Technical'],
+        series: {{trainings}},
+        colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+        legend: {
+          show: true,
+          position: 'bottom',
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            inverseColors: true,
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          dropShadow: {
+            enabled: false,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#bar-chart-2"),
+      options
+      );
+      chart.render();
+    });
+    $(function() {
+      var options = {
+        chart: {
+          height: 350,
+          type: 'line',
+        },
+        series: [{
+          name: 'Website Blog',
+          type: 'column',
+          data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+        }, {
+          name: 'Social Media',
+          type: 'line',
+          data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+        }],
+        stroke: {
+          width: [0, 4]
+        },
+        colors: ["#4099ff", "#FF5370"],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: "vertical",
+            shadeIntensity: 0.25,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 0.7,
+            stops: [50, 100]
+          },
+        },
+        title: {
+          text: 'Traffic Sources'
+        },
+        labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+        xaxis: {
+          type: 'datetime'
+        },
+        yaxis: [{
+          title: {
+            text: 'Website Blog',
+          },
+
+        }, {
+          opposite: true,
+          title: {
+            text: 'Social Media'
+          }
+        }]
+
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#bar-chart-3"),
+      options
+      );
+      chart.render();
+    });
+  });
+
+</script>
+
+{% endblock %}

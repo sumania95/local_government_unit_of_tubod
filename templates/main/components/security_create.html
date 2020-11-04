@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Change Password</h5>
+  <hr>
+  <div class="card mb-3" id="form">
+
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block 'script' %}
+
+<script>
+  function filterload(){
+    $.ajax({
+      url: '{% url 'api_main_security' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#form').html(data.html_form);
+      },
+    });
+
+  };
+  filterload();
+</script>
+
+{% endblock %}

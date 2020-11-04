@@ -1,0 +1,106 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load imagefit %}
+
+
+{% block 'content' %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <div class="col-sm-9">
+    <div class="card mb-2" id="form">
+      <!-- POST -->
+    </div>
+    <div id="list_post">
+
+    </div>
+
+  </div>
+  <div class="col-md-3">
+    <div id="main_sidebar">
+
+    </div>
+    <hr>
+    <div class="text-center">
+      <label>AMC Innovotech V.3.0.1 - Beta-2</label>
+
+    </div>
+  </div>
+  <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+<!-- /.content -->
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+
+<script>
+  var processing = false;
+  var limit =8;
+  var start =0;
+
+  $(document).ready(function(){
+    if(processing!=true)
+    {
+      Post(limit, start);
+    }
+    $(window).scroll(function(){
+      if ($(window).scrollTop() >= $(document).height() - $(window).height()){
+        processing = true;
+        limit = limit + 3
+        Post(limit,start);
+      }
+    });
+  });
+  function Post(limit,start){
+    var search_page = $("#search_page").val();
+    $.ajax({
+      url: '{% url 'api_main_post' %}',
+      data:{limit:limit,start:start,search_page:search_page},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#list_post').html(data.post_table);
+      },
+    });
+  };
+  Post(limit,start);
+
+  $("#search_page").change(function(){
+    Post(limit,start)
+  });
+
+  function Sidebar(){
+    $.ajax({
+      url: '{% url 'api_main_sidebar' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#main_sidebar').html(data.profile_table);
+      },
+    });
+
+  };
+  Sidebar();
+
+  function CreatePost(){
+    $.ajax({
+      url: '{% url 'api_main_post_create' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#form').html(data.html_form);
+      },
+    });
+
+  };
+  CreatePost();
+</script>
+
+{% endblock %}

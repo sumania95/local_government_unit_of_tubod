@@ -1,0 +1,304 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SPRING HRIS</title>
+  <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 11]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Codedthemes" />
+  <!-- Favicon icon -->
+  <link rel="icon" href="{% static 'premium/assets/images/favicon.ico'%}" type="image/x-icon">
+
+  <!-- prism css -->
+  <link rel="stylesheet" href="{% static 'premium/assets/css/plugins/prism-coy.css'%}">
+  <link rel="stylesheet" href="{% static 'premium/assets/sweetalert2/sweetalert2.min.css'%}">
+
+  <!-- vendor css -->
+  <link rel="stylesheet" href="{% static 'premium/assets/css/style.css'%}">
+
+  {% block 'link' %}
+  {% endblock %}
+
+</head>
+<body>
+  <!-- [ Pre-loader ] start -->
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+  <!-- [ Pre-loader ] End -->
+  <!-- [ navigation menu ] start -->
+  <nav class="pcoded-navbar theme-horizontal menu-light brand-blue">
+    <div class="navbar-wrapper container">
+      <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
+        <ul class="nav pcoded-inner-navbar sidenav-inner">
+          <li class="nav-item pcoded-menu-caption">
+            <label>Navigation</label>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'main_home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'main_history_leave' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">History Leave</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'main_voucher' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Internet Voucher</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- [ navigation menu ] end -->
+  <!-- [ Header ] start -->
+  <header class="navbar pcoded-header navbar-expand-lg navbar-light header-yellow">
+    <div class="container">
+      <div class="m-header">
+        <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+        <a href="{% url 'main_home' %}" class="b-brand">
+          <!-- ========   change your logo hear   ============ -->
+          <!-- <img src="{% static 'premium/assets/images/logo.png'%}" alt="" class="logo">
+          <img src="{% static 'premium/assets/images/logo-icon.png'%}" alt="" class="logo-thumb"> -->
+          GOVPH | <b>&nbsp;&nbsp;S P R I N G H R I S</b>
+        </a>
+        <a href="#!" class="mob-toggler">
+          <i class="feather icon-more-vertical"></i>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
+            <div class="search-bar">
+              <input type="text" class="form-control border-0 shadow-none" id="search_page" placeholder="Search here">
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#!" class="full-screen" onclick="javascript:toggleFullScreen()"><i class="feather icon-maximize"></i></a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li>
+            <div class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-layers"></i></a>
+              <div class="dropdown-menu dropdown-menu-right notification">
+                <div class="card-header p-2">
+                  <h6>My Application</h6>
+                </div>
+                <ul class="pro-body">
+                  <li class="notification">
+                    {% if user.hr_administrator %}
+                    <a href="{% url 'dashboard' %}" type="button" class="btn btn-outline-primary btn-block" name="button"><i class="icon feather icon-home"></i><br>HRIS</a>
+                    {% else %}
+                    <div class="text-center">
+                      <p>No Application Yet</p>
+                    </div>
+                    {% endif %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown" id="notification_notification">
+
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-message-circle"></i><span class="badge bg-primary">5</span></a>
+              <div class="dropdown-menu dropdown-menu-right notification">
+                <div class="card-header p-2">
+                  <h6>Messages</h6>
+                  <input type="search" class="form-control" name="" value="" placeholder="Search...">
+                </div>
+                <ul class="noti-body">
+                  <li class="n-title">
+                    <p class="m-b-0">NEW</p>
+                  </li>
+                  <li class="notification">
+                    <div class="media">
+                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-1.jpg'%}" alt="Generic placeholder image">
+                      <div class="media-body">
+                        <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
+                        <p>New ticket Added</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="n-title">
+                    <p class="m-b-0">EARLIER</p>
+                  </li>
+                  <li class="notification">
+                    <div class="media">
+                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-2.jpg'%}" alt="Generic placeholder image">
+                      <div class="media-body">
+                        <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
+                        <p>Prchace New Theme and make payment</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="notification">
+                    <div class="media">
+                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-1.jpg'%}" alt="Generic placeholder image">
+                      <div class="media-body">
+                        <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
+                        <p>currently login</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="notification">
+                    <div class="media">
+                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-2.jpg'%}" alt="Generic placeholder image">
+                      <div class="media-body">
+                        <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
+                        <p>Prchace New Theme and make payment</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown drp-user">
+              <a href="#!" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{{user.profile.image.url}}" width="40px" height="40px" class="img-radius wid-40" alt="User-Profile-Image">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right profile-notification">
+                <div class="pro-head bg-warning">
+                  <img src="{{user.profile.image.url}}" width="40px" height="40px" class="img-radius" alt="User-Profile-Image">
+                  <span>{{user.profile.firstname|title}} {{user.profile.surname|title}}</span>
+                  <hr>
+                  <div class="text-center">
+                    <small>last login : {{user.last_login}}</small>
+                  </div>
+                </div>
+                <ul class="pro-body">
+                  <li><a href="{% url 'main_profile_info' %}" class="dropdown-item"><i class="feather icon-user"></i>Profile Info</a></li>
+                  <li><a href="{% url 'main_security' %}" class="dropdown-item"><i class="feather icon-lock"></i>Security</a></li>
+                  <li><a href="{% url 'logout' %}" class="dropdown-item"><i class="feather icon-log-out"></i>Logout</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <!-- [ Header ] end -->
+  <!-- [ Main Content ] start -->
+  <div class="pcoded-main-container">
+    <div class="pcoded-wrapper container">
+      <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+          <div class="main-body">
+            <div class="page-wrapper">
+              {% block 'content' %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+  <!-- Required Js -->
+  <script src="{% static 'premium/assets/js/vendor-all.min.js'%}"></script>
+  <script src="{% static 'premium/assets/js/plugins/bootstrap.min.js'%}"></script>
+  <script src="{% static 'premium/assets/js/pcoded.min.js'%}"></script>
+
+
+  <!-- prism Js -->
+  <script src="{% static 'premium/assets/js/plugins/prism.js'%}"></script>
+
+
+
+
+
+  <script src="{% static 'premium/assets/js/horizontal-menu.js'%}"></script>
+  <script>
+  (function() {
+    if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+      return;
+    }
+    try {
+      window.layoutHelpers._getSetting("Rtl")
+      window.layoutHelpers.setCollapsed(
+        localStorage.getItem('layoutCollapsed') === 'true',
+        false
+      );
+    } catch (e) {}
+  })();
+  $(function() {
+    $('#layout-sidenav').each(function() {
+      new SideNav(this, {
+        orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+      });
+    });
+    $('body').on('click', '.layout-sidenav-toggle', function(e) {
+      e.preventDefault();
+      window.layoutHelpers.toggleCollapsed();
+      if (!window.layoutHelpers.isSmallScreen()) {
+        try {
+          localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+        } catch (e) {}
+      }
+    });
+  });
+  $(document).ready(function() {
+    $("#pcoded").pcodedmenu({
+      themelayout: 'horizontal',
+      MenuTrigger: 'hover',
+      SubMenuTrigger: 'hover',
+    });
+  });
+  </script>
+
+  <script src="{% static 'premium/assets/js/analytics.js'%}"></script>
+
+  <script src="{% static 'premium/assets/sweetalert2/sweetalert2.min.js'%}"></script>
+  <script type="text/javascript">
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    function Notification(){
+      $.ajax({
+        url: '{% url 'api_main_notification_notification' %}',
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#notification_notification').html(data.notification_table);
+        },
+      });
+
+    };
+    Notification();
+  </script>
+  {% block 'script' %}
+  {% endblock %}
+
+
+</body>
+
+</html>

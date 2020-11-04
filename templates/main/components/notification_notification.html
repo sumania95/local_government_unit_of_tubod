@@ -1,0 +1,30 @@
+{% load static %}
+<a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i><span class="badge bg-danger"><span class="sr-only"></span></span></a>
+<div class="dropdown-menu dropdown-menu-right notification">
+  <div class="card-header border p-2">
+    <h6>Notification</h6>
+  </div>
+  <ul class="noti-body">
+    <div id="notification_notification_content">
+
+    </div>
+  </ul>
+</div>
+
+{% block 'script' %}
+<script>
+  function Notification_Content(){
+    $.ajax({
+      url: '{% url 'api_main_notification_notification_content' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#notification_notification_content').html(data.notification_table);
+      },
+    });
+
+  };
+  Notification_Content();
+</script>
+
+{% endblock %}

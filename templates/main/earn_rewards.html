@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header p-2">
+        <table>
+          <tr>
+            <td>Filter</td>
+            <td>
+              <select class="form-control" name="filter-earn-rewards" id="filter-earn-rewards">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table border table-hover">
+            <thead>
+              <tr>
+                <th style="white-space:nowrap;width:1%;">#</th>
+                <th>Title</th>
+                <th style="white-space:nowrap;width:15%;">Sponsored</th>
+                <th style="white-space:nowrap;width:5%;">Date</th>
+              </tr>
+            </thead>
+            <tbody id="table-earn-rewards-ajax">
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer p-2" id="counter-earn-rewards">
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+<!-- /.content -->
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function Earn_Rewards(){
+    var filter = $("#filter-earn-rewards").val();
+
+    $.ajax({
+      url: '{% url 'api_main_earn_rewards' %}',
+      type: 'get',
+      data: {filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-earn-rewards').html(data.counter + " record(s) found");
+        $('#table-earn-rewards-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+  $('#filter-earn-rewards').change(function() {
+    Earn_Rewards();
+  });
+  Earn_Rewards();
+
+</script>
+
+{% endblock %}

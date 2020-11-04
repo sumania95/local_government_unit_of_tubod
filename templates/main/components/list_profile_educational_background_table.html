@@ -1,0 +1,16 @@
+{% for p in profile %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>{{p.level}}</td>
+  <td>{{p.course}}</td>
+  <td>{{p.period_from}}-{{p.period_to}}</td>
+  <td>
+    <a href="#" type="button" class="btn btn-warning btn-sm">Update</a>
+    <a href="#" type="button" class="btn btn-danger btn-sm">Remove</a>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}

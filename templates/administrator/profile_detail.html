@@ -1,0 +1,134 @@
+{% extends 'administrator/base.html' %}
+{% load imagefit %}
+{% load static %}
+
+{% block 'active' %}active{% endblock %}
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Profile Overview</h5>
+  <hr>
+</div>
+<div class="col-md-3">
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="col-md-12 text-center">
+        <img class="border border-success rounded-circle img-radius wid-100 hig-100" src="{{object.image.url}}" width="100px" height="100px" alt="User-Profile-Image">
+      </div>
+      <hr>
+      <div>
+        <p>@&nbsp;&nbsp;&nbsp;{{object.user.username}} <a href="#" class="pull-right"><i class="feather ml-2 icon-edit-1"></i>Edit</a></p>
+      </div>
+      <p><i class="feather icon-users mr-2"></i>{{object.firstname|upper}} {{object.surname|upper}}<br></p>
+      <p><i class="feather icon-tablet mr-2"></i>{% if object.mobile %}{{object.mobile}}{% else %}NOT AVAILABLE{% endif %}</p>
+      <p><i class="feather icon-mail mr-2"></i>{% if object.permanent_address %}{{object.permanent_address|upper}}{% else %}NOT AVAILABLE{% endif %}</p>
+    </div>
+  </div>
+  <div class="card mb-2">
+    <div class="card-body">
+      <a href="{% url 'profile_update' object.id %}" type="button" class="btn-warning btn-sm" name="button"><i class="feather mr-2 icon-edit"></i>Update</a>
+      <a href="{% url 'profile_detail_security' object.id %}" type="button" class="btn-danger btn-sm" name="button"><i class="feather mr-2 icon-lock"></i>Security</a>
+      <hr>
+      <a href="{% url 'print_profile_personal_data_sheet' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>PDS</a>
+      <a href="{% url 'print_profile_saln' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>SALN</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <h5>Learning & Development</h5>
+    </div>
+    <div class="card-body" id="profile-learning-development">
+
+    </div>
+  </div>
+</div>
+<div class="col-md-9">
+  <div class="card">
+    <div class="card-header border p-2">
+      <h5>Service Record</h5>
+    </div>
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_service_record" id="filter_service_record">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <a href="{% url 'profile_detail_service_record_create' object.id %}" type="button" class="btn-primary btn-sm" name="button"><i class="feather icon-user-plus mr-2"></i>New</a>
+              <a href="{% url 'service_record_print' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather icon-printer mr-2"></i>Print</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table border table-sm table-hover">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th style="white-space:nowrap;width:15%;">Date</th>
+              <th>Position</th>
+              <th style="white-space:nowrap;width:1%;">Status</th>
+              <th style="white-space:nowrap;width:1%;">Salary</th>
+              <th style="white-space:nowrap;width:10%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="profile-service-record">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer" id="counter">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  function Service_Record(){
+    var filter = $("#filter_service_record").val();
+
+    $.ajax({
+      url: '{% url 'api_profile_service_record' %}',
+      type: 'get',
+      data: {filter:filter,profile_id:{{object.id}}},
+      dataType: 'json',
+      success:function(data){
+        $('#counter').html(data.counter + " record(s) found");
+        $('#profile-service-record').html(data.service_record_table);
+      },
+    });
+  };
+
+  $('#filter_service_record').change(function() {
+    Service_Record();
+  });
+  Service_Record();
+
+  function Profile_Learning_Development(){
+    $.ajax({
+      url: '{% url 'api_profile_detail_learning_development' object.id %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#profile-learning-development').html(data.profile_learning_development_content);
+      },
+    });
+
+  };
+  Profile_Learning_Development();
+</script>
+
+{% endblock %}
