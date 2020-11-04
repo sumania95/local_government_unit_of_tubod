@@ -1,0 +1,77 @@
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+<div class="modal-header p-2">
+  <h5 class="modal-title" >Educational Background</h5>
+</div>
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_educational_background_create' %}{% else %}{% url 'api_main_educational_background_update' educational_background.id %}{% endif %}" class="custom-form">
+  <div class="modal-body p-2">
+    {{form|crispy}}
+  </div>
+  <div class="modal-footer p-2">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
+  </div>
+</form>
+
+{% block 'script' %}
+<script>
+  $(document).ready(function () {
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    };
+
+    $(".custom-form").submit(function (event) {
+      event.preventDefault();
+      var form = $(this);
+      $.ajax({
+        url: form.attr('data-url'),
+        data: form.serialize(),
+        type: form.attr('method'),
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
+        success: function(data){
+          Toast.fire({
+            type: data.message_type,
+            title: data.message_title
+          });
+          Educational_Background_Template();
+          $('#modal-show').modal('hide');
+        },
+        error:function(error){
+          Toast.fire({
+            type: 'error',
+            title: 'ERROR Connection Lost.'
+          });
+        },
+
+      })
+      return false;
+    });
+
+  });
+
+</script>
+{% endblock %}

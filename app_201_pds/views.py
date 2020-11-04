@@ -37,6 +37,9 @@ from .models import (
 )
 from .forms import (
     Family_BackgroundForm,
+    ChildrenForm,
+    Educational_BackgroundForm,
+    EligibilityForm,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
@@ -99,6 +102,56 @@ class Main_Profile_Children_Table_AJAXView(LoginRequiredMixin,View):
             data['profile_table'] = render_to_string('main/components/list_profile_children_table.html',{'profile':profile})
         return JsonResponse(data)
 
+class Main_Profile_Children_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = ChildrenForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_children_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = ChildrenForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Children_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        children = Children.objects.get(id=pk)
+        form = ChildrenForm(instance=children)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'children': children,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_children_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        children = Children.objects.get(id=pk)
+        if request.method == 'POST':
+            form = ChildrenForm(request.POST,request.FILES,instance = children)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
 class Main_Profile_Educational_Background_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -121,6 +174,56 @@ class Main_Profile_Educational_Background_Table_AJAXView(LoginRequiredMixin,View
             data['profile_table'] = render_to_string('main/components/list_profile_educational_background_table.html',{'profile':profile})
         return JsonResponse(data)
 
+class Main_Profile_Educational_Background_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Educational_BackgroundForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_educational_background_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Educational_BackgroundForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Educational_Background_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        educational_background = Educational_Background.objects.get(id=pk)
+        form = Educational_BackgroundForm(instance=educational_background)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'educational_background': educational_background,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_educational_background_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        educational_background = Educational_Background.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Educational_BackgroundForm(request.POST,request.FILES,instance = educational_background)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
 class Main_Profile_Eligibility_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -141,6 +244,59 @@ class Main_Profile_Eligibility_Table_AJAXView(LoginRequiredMixin,View):
             data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
             profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('date_created')[:int(filter)]
             data['profile_table'] = render_to_string('main/components/list_profile_eligibility_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Eligibility_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = EligibilityForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_eligibility_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = EligibilityForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
+class Main_Profile_Eligibility_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        eligibility = Eligibility.objects.get(id=pk)
+        form = EligibilityForm(instance=eligibility)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'eligibility': eligibility,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_eligibility_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        eligibility = Eligibility.objects.get(id=pk)
+        if request.method == 'POST':
+            form = EligibilityForm(request.POST,request.FILES,instance = eligibility)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
 # administrator =========================================
@@ -170,10 +326,18 @@ class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministrat
 
         limit = (now - relativedelta(years=5)).year
         print(limit)
-        profile = Profile.objects.filter(id=pk)
+        profile = Profile.objects.get(id=pk)
+        learning_development = Learning_Development.objects.filter(id=pk)
+        children = Children.objects.filter(profile_id=pk)
+        educational_background = Educational_Background.objects.filter(profile_id=pk)
+        eligibility = Eligibility.objects.filter(profile_id=pk)
         params = {
             'now':now,
             'profile': profile,
+            'learning_development': learning_development,
+            'children': children,
+            'educational_background': educational_background,
+            'eligibility': eligibility,
         }
         pdf = Render.render('pdf/personal_data_sheet.html', params)
         return pdf

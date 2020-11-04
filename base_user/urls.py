@@ -43,10 +43,16 @@ from app_201_pds.views import (
     Main_Profile_Family_Background_AJAXView,
     Main_Profile_Children_AJAXView,
     Main_Profile_Children_Table_AJAXView,
+    Main_Profile_Children_Create_AJAXView,
+    Main_Profile_Children_Update_AJAXView,
     Main_Profile_Educational_Background_AJAXView,
     Main_Profile_Educational_Background_Table_AJAXView,
+    Main_Profile_Educational_Background_Create_AJAXView,
+    Main_Profile_Educational_Background_Update_AJAXView,
     Main_Profile_Eligibility_AJAXView,
     Main_Profile_Eligibility_Table_AJAXView,
+    Main_Profile_Eligibility_Create_AJAXView,
+    Main_Profile_Eligibility_Update_AJAXView,
 )
 
 urlpatterns = [
@@ -71,10 +77,16 @@ urlpatterns = [
     path('api/family-background', Main_Profile_Family_Background_AJAXView.as_view(), name = 'api_main_family_background'),
     path('api/children', Main_Profile_Children_AJAXView.as_view(), name = 'api_main_children'),
     path('api/children-list', Main_Profile_Children_Table_AJAXView.as_view(), name = 'api_main_children_list'),
+    path('api/children/create', Main_Profile_Children_Create_AJAXView.as_view(), name = 'api_main_children_create'),
+    path('api/children/update/<int:pk>', Main_Profile_Children_Update_AJAXView.as_view(), name = 'api_main_children_update'),
     path('api/education-background', Main_Profile_Educational_Background_AJAXView.as_view(), name = 'api_main_education_background'),
     path('api/education-background-list', Main_Profile_Educational_Background_Table_AJAXView.as_view(), name = 'api_main_education_background_list'),
+    path('api/educational-background/create', Main_Profile_Educational_Background_Create_AJAXView.as_view(), name = 'api_main_educational_background_create'),
+    path('api/educational-background/update/<int:pk>', Main_Profile_Educational_Background_Update_AJAXView.as_view(), name = 'api_main_educational_background_update'),
     path('api/eligibility', Main_Profile_Eligibility_AJAXView.as_view(), name = 'api_main_eligibility'),
     path('api/eligibility-list', Main_Profile_Eligibility_Table_AJAXView.as_view(), name = 'api_main_eligibility_list'),
+    path('api/eligibility/create', Main_Profile_Eligibility_Create_AJAXView.as_view(), name = 'api_main_eligibility_create'),
+    path('api/eligibility/update/<int:pk>', Main_Profile_Eligibility_Update_AJAXView.as_view(), name = 'api_main_eligibility_update'),
     # NOTIFICATION
     path('api/notification/notification', Main_Notification_Template_AJAXView.as_view(), name = 'api_main_notification_notification'),
     path('api/notification/notification/content', Main_Notification_AJAXView.as_view(), name = 'api_main_notification_notification_content'),

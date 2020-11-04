@@ -4,7 +4,7 @@
   <td>{{p.firstname}} {{p.middlename}} {{p.surname}}</td>
   <td>{{p.date_of_birth}}</td>
   <td>
-    <a href="#" type="button" class="btn btn-warning btn-sm">Update</a>
+    <button data-url="{% url 'api_main_children_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
     <a href="#" type="button" class="btn btn-danger btn-sm">Remove</a>
   </td>
 </tr>
@@ -13,3 +13,22 @@
   <td colspan="12" class="text-center">No data available</td>
 </tr>
 {% endfor %}
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-update', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+</script>
+{% endblock %}

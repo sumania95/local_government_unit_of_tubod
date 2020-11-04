@@ -79,7 +79,6 @@
 <body>
 
 <div class="container">
-  {% for p in profile %}
   <div class="font-times11">
     <td>CS Form No. 212</td>
   </div>
@@ -113,17 +112,17 @@
     <table  style="padding-left:2px; padding:1px;">
       <tr>
         <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000; border-top: 0.5px solid #000;" colspan="2">2. SURNAME</td>
-        <td colspan="10" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.surname|upper}}</b></td>
+        <td colspan="10" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.surname|upper}}</b></td>
       </tr>
       <tr>
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
-        <td colspan="7" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.firstname|upper}}</b></td>
+        <td colspan="7" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.firstname|upper}}</b></td>
         <td colspan="2" style="background-color:#EAEAEA; border: 0.5px solid #000;">NAME EXTENSION (JR., SR)</td>
-        <td colspan="1" style="border: 0.5px solid #000;font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;<b>{{p.extname}}</b></td>
+        <td colspan="1" style="border: 0.5px solid #000;font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;<b>{{profile.extname}}</b></td>
       </tr>
       <tr style="border-bottom: 0.5px solid #000;" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
-        <td colspan="10" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.middlename|upper}}</b></td>
+        <td colspan="10" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.middlename|upper}}</b></td>
       </tr>
     </table>
   </div>
@@ -131,7 +130,7 @@
     <table  style="padding-left:2px; padding:1px;">
       <tr>
         <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-bottom: 0.5px solid #000; border-left: 0.5px solid #000;" colspan="2"><p>3. DATE OF BIRTH (mm/dd/yyyy)</p></td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.dob|date:"m/d/Y"}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.date_of_birth|date:"m/d/Y"}}</b></td>
         <td colspan="3" rowspan="3" style="border: 0.5px solid #000;padding-top: 3px; background-color:#EAEAEA;vertical-align: top;">
           <p>16. CITIZENSHIP</p>
           <br>
@@ -147,11 +146,11 @@
       </tr>
       <tr>
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000; border-bottom: 0.5px solid #000;">4. PLACE OF BIRTH</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;padding-bottom:5px;"><b>{{p.placebirth|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;padding-bottom:5px;"><b>{{profile.placebirth|upper}}</b></td>
       </tr>
       <tr style="border-bottom: 0.5px solid #000;" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">5. SEX</td>
-        <td colspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px; vertical-align: top;"><b>{% if p.sex == 'Male' %}(&#10003;)MALE (&nbsp;&nbsp;&nbsp;)FEMALE {% else %}(&nbsp;&nbsp;&nbsp;) MALE &nbsp;(&#10003;)FEMALE{% endif %}</b>
+        <td colspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px; vertical-align: top;"><b>{% if profile.sex == '1' %}(&#10003;)MALE (&nbsp;&nbsp;&nbsp;)FEMALE {% else %}(&nbsp;&nbsp;&nbsp;) MALE &nbsp;(&#10003;)FEMALE{% endif %}</b>
         </td>
       </tr>
     </table>
@@ -162,25 +161,25 @@
         <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;" colspan="2">6. CIVIL STATUS</td>
         <td colspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px; vertical-align: top;">
           <b>
-            {% if p.civilstatus == 'Single' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}SINGLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            {% if p.civilstatus == 'Married' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}MARRIED
-            {% if p.civilstatus == 'Widowed' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}WIDOWED&nbsp;
-            {% if p.civilstatus == 'Separated' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}SEPARATED
-            {% if p.civilstatus == 'Annulled' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}ANNULLED
+            {% if profile.civil_status == '1' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}SINGLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if profile.civil_status == '2' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}MARRIED
+            {% if profile.civil_status == '3' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}WIDOWED&nbsp;
+            {% if profile.civil_status == '4' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}SEPARATED
+            {% if profile.civil_status == '5' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}ANNULLED
           </b>
         </td>
         <td colspan="3" rowspan="2" style="background-color:#EAEAEA;border-top: 0.5px solid #000;padding-top:3px; vertical-align:top;" >17. RESIDENTIAL ADDRESS</td>
-        <td colspan="4" rowspan="2" style="border: 0.5px solid #000;font-size:10px;padding-top:3px; vertical-align:top;"><b>{{p.residentialaddress|upper}}</b></td>
+        <td colspan="4" rowspan="2" style="border: 0.5px solid #000;font-size:10px;padding-top:3px; vertical-align:top;"><b>{{profile.residential_address|upper}}</b></td>
       </tr>
       <tr style="">
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">7. HEIGHT (m)</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.height|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.height|upper}}</b></td>
       </tr>
       <tr style="">
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 1px solid #000;">8. WEIGHT (kg)</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.weight|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.weight|upper}}</b></td>
         <td colspan="3" style="text-align: left; background-color:#EAEAEA; border: 1px solid #000;">Zip Code</td>
-        <td colspan="4" style="border-left: 0.5px solid #000;font-size:10px;border: 1px solid #000;"><b>{{p.zipcode01|upper}}</b></td>
+        <td colspan="4" style="border-left: 0.5px solid #000;font-size:10px;border: 1px solid #000;"><b>{{profile.zipcode_1|upper}}</b></td>
       </tr>
     </table>
   </div>
@@ -188,41 +187,41 @@
     <table  style="padding-left:2px; padding:1px;">
       <tr style="">
         <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" colspan="2">9. BLOOD TYPE</td>
-        <td colspan="3" style="border: 0.5px solid #000; padding:2px;font-size:10px;"><b>{{p.bloodtype|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000; padding:2px;font-size:10px;"><b>{{profile.blood_type|upper}}</b></td>
         <td colspan="3" rowspan="3" style=" background-color:#EAEAEA;border-top: 0.5px solid #000;padding-top:3px; vertical-align:top;" >18. PERMANENT ADDRESS</td>
-        <td colspan="4" rowspan="3" style="border: 0.5px solid #000;font-size:10px;padding-top:3px; vertical-align:top;"><b>{{p.permanentaddress|upper}}</b></td>
+        <td colspan="4" rowspan="3" style="border: 0.5px solid #000;font-size:10px;padding-top:3px; vertical-align:top;"><b>{{profile.permanent_address|upper}}</b></td>
       </tr>
       <tr style="">
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">10. GSIS ID NO.</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.gsis|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.gsis|upper}}</b></td>
       </tr>
       <tr style="" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">11. PAG-IBIG ID NO.</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.pagibig|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.pagibig|upper}}</b></td>
       </tr>
       <tr style="" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">12. PHILHEATH NO.</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.philhealth|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.philhealth|upper}}</b></td>
         <td colspan="3" style="text-align: left; background-color:#EAEAEA;border: 0.5px solid #000;">Zip Code</td>
-        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.zipcode02|upper}}</b></td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{profile.zipcode_2|upper}}</b></td>
       </tr>
       <tr style="" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">13. SSS NO.</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.sss|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.sss|upper}}</b></td>
         <td colspan="3" style="text-align: left; background-color:#EAEAEA;border: 0.5px solid #000;">19. TELEPHONE NO.</td>
-        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.telephone|upper}}</b></td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{profile.telephone|upper}}</b></td>
       </tr>
       <tr style="" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border: 0.5px solid #000;">14. TIN NO.</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.tin|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.tin|upper}}</b></td>
         <td colspan="3" style="text-align: left; background-color:#EAEAEA;border: 0.5px solid #000;">20. MOBILE NO.</td>
-        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.mobile}}</b></td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{profile.mobile}}</b></td>
       </tr>
       <tr style="border: 0.5px solid #000;" >
         <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;">15. AGENCY EMP. NO.</td>
-        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.agencyno}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.agencyno}}</b></td>
         <td colspan="3" style="text-align: left; background-color:#EAEAEA;">21. E-MAIL ADDRESS (if any)</td>
-        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{p.email}}</b></td>
+        <td colspan="4" style="border-left: 0.5px solid #000;border: 0.5px solid #000;font-size:10px;"><b>{{profile.email}}</b></td>
       </tr>
     </table>
     <table style="font-size:12px; text-align:left; padding-left:5px; padding-top:3px; border: 1px solid #000; background-color:#969696; color:#FFFFFF;">
@@ -237,47 +236,47 @@
           <table style="padding-left:2px;">
             <tr>
               <td style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;" colspan="2">22. SPOUSE'S SURNAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousesurname|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spousesurname|upper}}</b></td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
-              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousefirstname|upper}}</b></td>
+              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spousefirstname|upper}}</b></td>
               <td colspan="1" style="border: 0.5px solid #000;background-color:#EAEAEA;">NAME EXT</td>
-              <td colspan="1" style="border: 0.5px solid #000;">{{p.spouseextname}}</td>
+              <td colspan="1" style="border: 0.5px solid #000;">{{profile.family_background.spouseextname}}</td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousemiddlename|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spousemiddlename|upper}}</b></td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;OCCUPATION</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spouseoccupation|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spouseoccupation|upper}}</b></td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">EMP./BUSINESS NAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spouseemployer|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spouseemployer|upper}}</b></td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;BUSINESS ADDRESS</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spouseemployeraddress|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spouseemployeraddress|upper}}</b></td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;TELEPHONE</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.spousetelephone|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.spousetelephone|upper}}</b></td>
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">24. FATHER'S SURNAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fathersurname|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.fathersurname|upper}}</b></td>
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
-              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fatherfirstname|upper}}</b></td>
+              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.fatherfirstname|upper}}</b></td>
               <td colspan="1" style="border: 0.5px solid #000;background-color:#EAEAEA;">NAME EXT</td>
-              <td colspan="1" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fatherextname|upper}}</b></td>
+              <td colspan="1" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.fatherextname|upper}}</b></td>
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.fathermiddlename|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.fathermiddlename|upper}}</b></td>
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">24. MOTHER'S MAIDEN</td>
@@ -285,15 +284,15 @@
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;SURNAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.mothersurname|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.mothersurname|upper}}</b></td>
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;FIRSTNAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.motherfirstname|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.motherfirstname|upper}}</b></td>
             </tr>
             <tr style="">
               <td colspan="2" style="padding-top:5px; text-align: left; background-color:#EAEAEA;border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;MIDDLENAME</td>
-              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{p.mothermiddlename|upper}}</b></td>
+              <td colspan="4" style="border: 0.5px solid #000;font-size:10px;"><b>{{profile.family_background.mothermiddlename|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -305,8 +304,8 @@
             </tr>
             {% for c in children %}
             <tr>
-              <td colspan="4" style="padding-top:5px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;"><b>{{c.firstname|upper}} {{c.middlename|upper}} {{c.surname|upper}}</b></td>
-              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;text-align:center;"><b>{{c.dob|date:"m/d/Y"}}</b></td>
+              <td colspan="4" style="padding-top:5px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;font-size:10px;"><b>{{c.firstname|upper}} {{c.middlename|upper}} {{c.surname|upper}}</b></td>
+              <td colspan="2" style="border: 0.5px solid #000;font-size:10px;text-align:center;"><b>{{c.date_of_birth|date:"m/d/Y"}}</b></td>
             </tr>
             {% endfor %}
             <tr>
@@ -336,16 +335,16 @@
         <td style="background-color:#EAEAEA;padding-top:1px; text-align: center; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;">From</td>
         <td style="background-color:#EAEAEA;padding-top:1px; text-align: center; border-left: 0.5px solid #000;border-top: 0.5px solid #000;border-bottom: 0.5px solid #000;">To</td>
       </tr>
-      {% for e in education.all %}
+      {% for e in educational_background %}
       <tr>
         <td colspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;padding:3px;vertical-align:top;"><b>{{e.level|upper}}</b></td>
-        <td colspan="3" style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.schoolname|upper}}</b></td>
+        <td colspan="3" style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.school_name|upper}}</b></td>
         <td colspan="2" style="border: 0.5px solid #000;padding:2px;font-size:10px;"><b>{{e.course|upper}}</b></td>
-        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.periodfrom|upper}}</b></td>
-        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.periodto|upper}}</b></td>
-        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{% if e.unitsearned > 0 %}{{e.unitsearned}}{% else %}&nbsp;{% endif %}</b></td>
-        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.periodto|upper}}</b></td>
-        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.academicreceived|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.period_from|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.period_to|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{% if e.units_earned > 0 %}{{e.units_earned}}{% else %}&nbsp;{% endif %}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.period_to|upper}}</b></td>
+        <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.academic_received|upper}}</b></td>
       </tr>
       {% endfor %}
       <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
@@ -386,12 +385,12 @@
         </tr>
         {% for e in eligibility %}
         <tr>
-          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px;font-size:10px;"><b>{{e.careerservice|upper}}</b></td>
+          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px;font-size:10px;"><b>{{e.career_service|upper}}</b></td>
           <td colspan="2" style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{% if e.rating > 0 %}{{e.rating}}{% else %}&nbsp;{% endif %}</b></td>
-          <td colspan="2"  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.dateofexamination}}</b></td>
-          <td colspan="3"  style="border: 0.5px solid #000;text-align:left;padding:2px;font-size:10px;"><b>{{e.placeofexamination|upper}}</b></td>
-          <td  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.number}}</b></td>
-          <td  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.dateofvalidity|upper}}</b></td>
+          <td colspan="2"  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.date_of_examination}}</b></td>
+          <td colspan="3"  style="border: 0.5px solid #000;text-align:left;padding:2px;font-size:10px;"><b>{{e.place_of_examination|upper}}</b></td>
+          <td  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.examinee_number}}</b></td>
+          <td  style="border: 0.5px solid #000;text-align:center;padding:2px;font-size:10px;"><b>{{e.date_of_validity|upper}}</b></td>
         </tr>
         {% endfor %}
         <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
@@ -676,19 +675,19 @@
           <td colspan="3" rowspan="5" style="border: 0.5px solid #000;padding-top:3px; vertical-align:top;" ></td>
         </tr>
         <tr>
-          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesname1|upper}}</b></td>
-          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesaddress1|upper}}</b></td>
-          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{p.referencestel1}}</b></td>
+          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{profile.referencesname1|upper}}</b></td>
+          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{profile.referencesaddress1|upper}}</b></td>
+          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{profile.referencestel1}}</b></td>
         </tr>
         <tr>
-          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesname2|upper}}</b></td>
-          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesaddress2|upper}}</b></td>
-          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{p.referencestel2}}</b></td>
+          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{profile.referencesname2|upper}}</b></td>
+          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{profile.referencesaddress2|upper}}</b></td>
+          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{profile.referencestel2}}</b></td>
         </tr>
         <tr>
-          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesname3|upper}}</b></td>
-          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{p.referencesaddress3|upper}}</b></td>
-          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{p.referencestel3}}</b></td>
+          <td colspan="3" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{profile.referencesname3|upper}}</b></td>
+          <td colspan="4" style="padding-top:2px;padding-left:3px; text-align: left; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000; font-size:10px;"><b>{{profile.referencesaddress3|upper}}</b></td>
+          <td colspan="2" style="padding-top:2px;padding-left:3px; border: 0.5px solid #000;padding-top:3px; vertical-align:top; font-size:10px;"><b>{{profile.referencestel3}}</b></td>
         </tr>
         <tr style="padding-bottom:19px;">
           <td colspan="9" style="padding-top:5px; text-align: left;background-color:#EAEAEA; border-left: 0.5px solid #000;border-bottom: 0.5px solid #000;border-top: 0.5px solid #000;font-size:10px;" colspan="2">
@@ -713,13 +712,13 @@
                 <td colspan="12" style="border: 0.5px solid #000;background-color:#EAEAEA;text-align:center; padding-top:6px;font-size:10px;">Government Issued ID <br>(i.e.Passport, GSIS, SSS, PRC, Driver's License, etc.)<br> PLEASE INDICATE ID Number and Date of Issuance</td>
               </tr>
               <tr>
-                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">Government Issued ID:&nbsp;&nbsp;&nbsp;&nbsp;<b>{{p.government_issued_id}}</b></td>
+                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">Government Issued ID:&nbsp;&nbsp;&nbsp;&nbsp;<b>{{profile.government_issued_id}}</b></td>
               </tr>
               <tr>
-                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">ID/License/Passport No.:&nbsp;<b>{{p.government_id_no}}</b></td>
+                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">ID/License/Passport No.:&nbsp;<b>{{profile.government_id_no}}</b></td>
               </tr>
               <tr>
-                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">Date/Place of Issuance:&nbsp;&nbsp;<b>{{p.government_date_issued}}</b></td>
+                <td colspan="12" style="border: 0.5px solid #000; text-align:left;padding-top:2px;padding-left:5px;font-size:12px;">Date/Place of Issuance:&nbsp;&nbsp;<b>{{profile.government_date_issued}}</b></td>
               </tr>
             </table>
           </td>
@@ -766,7 +765,6 @@
         <td colspan="12" style="padding: 3px; padding-top:2px">CS FORM 212 (Revised 2017), Page <pdf:pagenumber> of <pdf:pagecount></td>
       </div>
     </div>
-    {% endfor %}
   </div>
 </div>
 

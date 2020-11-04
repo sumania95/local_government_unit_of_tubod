@@ -15,7 +15,7 @@
     <table>
       <tr>
         <td>
-          <a href="#" type="button" class="btn btn-primary btn-sm" name="button"><i class="feather icon-user-plus mr-2"></i>New</a>
+          <button data-url="{% url 'api_main_children_create' %}" type="button" class="btn btn-primary btn-sm form-show" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
         </td>
       </tr>
     </table>
@@ -58,6 +58,21 @@
 
   };
   Children();
+
+  $(document).on('click', '.form-show', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
 </script>
 
 {% endblock  %}
