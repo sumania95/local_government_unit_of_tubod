@@ -109,6 +109,31 @@ class Eligibility(models.Model):
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
 
+class Work_Experience(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date_from = models.DateField()
+    date_to = models.DateField()
+    position_title = models.CharField(max_length = 200,blank=True)
+    department_office = models.CharField(max_length = 200,blank=True)
+    salary = models.DecimalField(default= 0,max_digits = 50,decimal_places=2)
+    pay_grade = models.CharField(max_length = 200,blank=True)
+    status = models.CharField(max_length = 200,blank=True)
+    is_governtment_service = models.BooleanField(default=False)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+class Voluntary_Work(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    organization = models.CharField(max_length = 200,blank=True)
+    date_from = models.DateField()
+    date_to = models.DateField()
+    no_hrs = models.IntegerField(default=0)
+    nature_of_work = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
 class Other_Information(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     is_question1 = models.BooleanField(default=False)

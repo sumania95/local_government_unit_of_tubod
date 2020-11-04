@@ -6,6 +6,8 @@ from .models import (
     Children,
     Educational_Background,
     Eligibility,
+    Work_Experience,
+    Voluntary_Work,
 )
 
 class Family_BackgroundForm(forms.ModelForm):
@@ -68,4 +70,18 @@ class EligibilityForm(forms.ModelForm):
             'place_of_examination',
             'examinee_number',
             'date_of_validity',
+        ]
+
+class Work_ExperienceForm(forms.ModelForm):
+    class Meta:
+        model = Work_Experience
+        fields = [
+            'date_from',
+            'date_to',
+            'position_title',
+            'department_office',
+            'salary',
+            'pay_grade',
+            'status',
+            'is_governtment_service',
         ]
