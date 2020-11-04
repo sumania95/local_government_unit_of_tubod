@@ -44,6 +44,7 @@ from .forms import (
     EligibilityForm,
     Work_ExperienceForm,
     Voluntary_WorkForm,
+    Learning_DevelopmentForm,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
@@ -447,6 +448,78 @@ class Main_Profile_Voluntary_Work_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Learning_Development_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        data['profile_learning_development_template'] = render_to_string('main/components/list_profile_learning_development.html')
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Table_AJAXView(LoginRequiredMixin,View):
+    queryset = Learning_Development.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('date_to')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_learning_development_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Learning_DevelopmentForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_learning_development_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Learning_DevelopmentForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        learning_development = Learning_Development.objects.get(id=pk)
+        form = Learning_DevelopmentForm(instance=learning_development)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'learning_development': learning_development,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_learning_development_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        learning_development = Learning_Development.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Learning_DevelopmentForm(request.POST,request.FILES,instance = learning_development)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
 # administrator =========================================
 class Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Learning_Development.objects.all()
@@ -463,8 +536,8 @@ class Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorH
             action = None
         if search or filter or action:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(title__icontains = search,typeofld = action).count()
-            profile = self.queryset.filter(title__icontains = search,typeofld = action).order_by('-fromdate')[:int(filter)]
+            data['counter'] = self.queryset.filter(title__icontains = search,type_of_ld = action).count()
+            profile = self.queryset.filter(title__icontains = search,type_of_ld = action).order_by('-date_from')[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_learning_development.html',{'profile':profile})
         return JsonResponse(data)
 
@@ -475,10 +548,10 @@ class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministrat
         limit = (now - relativedelta(years=5)).year
         print(limit)
         profile = Profile.objects.get(id=pk)
-        learning_development = Learning_Development.objects.filter(id=pk)
-        children = Children.objects.filter(profile_id=pk)
-        educational_background = Educational_Background.objects.filter(profile_id=pk)
-        eligibility = Eligibility.objects.filter(profile_id=pk)
+        learning_development = Learning_Development.objects.filter(profile_id=pk).all()
+        children = Children.objects.filter(profile_id=pk).all()
+        educational_background = Educational_Background.objects.filter(profile_id=pk).all()
+        eligibility = Eligibility.objects.filter(profile_id=pk).all()
         params = {
             'now':now,
             'profile': profile,

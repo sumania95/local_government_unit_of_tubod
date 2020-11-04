@@ -489,14 +489,14 @@
           <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">FROM</td>
           <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">TO</td>
         </tr>
-        {% for l in training %}
+        {% for l in learning_development %}
         <tr>
           <td colspan="4" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.title|upper}}</b></td>
-          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.fromdate|date:"m/d/Y"}}</b></td>
-          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.todate|date:"m/d/Y"}}</b></td>
-          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.nohrs}}</b></td>
-          <td colspan="2" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.typeofld|upper}}</b></td>
-          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.sponsoredby|upper}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.date_from|date:"m/d/Y"}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.date_to|date:"m/d/Y"}}</b></td>
+          <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.no_hrs}}</b></td>
+          <td colspan="2" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.type_of_ld|upper}}</b></td>
+          <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.sponsored_by|upper}}</b></td>
         </tr>
         {% endfor %}
         <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
@@ -574,9 +574,9 @@
             <br>
             <br>
             <br>
-            <br>
-            <br>
             <b>{% if p.is_question1 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
+            If YES, give details:
+            <br>_________________________________________________ <br>
             <b>{% if p.is_question2 %}(&#10003;) YES (&nbsp;&nbsp;&nbsp;) NO {% else %} (&nbsp;&nbsp;&nbsp;) YES (&#10003;) NO  {% endif %}</b><br>
             If YES, give details:
             <br>_________________________________________________

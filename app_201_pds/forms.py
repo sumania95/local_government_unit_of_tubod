@@ -8,6 +8,7 @@ from .models import (
     Eligibility,
     Work_Experience,
     Voluntary_Work,
+    Learning_Development,
 )
 
 class Family_BackgroundForm(forms.ModelForm):
@@ -95,4 +96,16 @@ class Voluntary_WorkForm(forms.ModelForm):
             'organization',
             'no_hrs',
             'nature_of_work',
+        ]
+
+class Learning_DevelopmentForm(forms.ModelForm):
+    class Meta:
+        model = Learning_Development
+        fields = [
+            'date_from',
+            'date_to',
+            'title',
+            'no_hrs',
+            'type_of_ld',
+            'sponsored_by',
         ]

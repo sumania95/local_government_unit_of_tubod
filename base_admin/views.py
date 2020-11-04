@@ -78,9 +78,9 @@ class Dashboard_Panels_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISM
         people_retirables.append(male_retirables)
         # TRAININGS
         trainings = []
-        Managerial = Learning_DevelopmentModel.objects.filter(typeofld = 'Managerial').all().count()
-        Supervision = Learning_DevelopmentModel.objects.filter(typeofld = 'Supervision').all().count()
-        Technical = Learning_DevelopmentModel.objects.filter(typeofld = 'Technical').all().count()
+        Managerial = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Managerial').all().count()
+        Supervision = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Supervision').all().count()
+        Technical = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Technical').all().count()
         trainings.append(Managerial)
         trainings.append(Supervision)
         trainings.append(Technical)
@@ -138,9 +138,9 @@ class Profile_Detail_Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNo
     def get(self, request, pk):
         data = dict()
         trainings = []
-        Managerial = Learning_DevelopmentModel.objects.filter(typeofld = 'Managerial',profile_id = pk).all().count()
-        Supervision = Learning_DevelopmentModel.objects.filter(typeofld = 'Supervision',profile_id = pk).all().count()
-        Technical = Learning_DevelopmentModel.objects.filter(typeofld = 'Technical',profile_id = pk).all().count()
+        Managerial = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Managerial',profile_id = pk).all().count()
+        Supervision = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Supervision',profile_id = pk).all().count()
+        Technical = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Technical',profile_id = pk).all().count()
         trainings.append(Managerial)
         trainings.append(Supervision)
         trainings.append(Technical)

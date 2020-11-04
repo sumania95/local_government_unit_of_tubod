@@ -6,13 +6,13 @@
     {{p.profile|upper}}
   </td>
   <td>{{p.title|slice:":50"}}</td>
-  <td>{{p.nohrs}}</td>
-  <td>{{p.typeofld}}</td>
+  <td>{{p.no_hrs}}</td>
+  <td>{{p.type_of_ld}}</td>
   <td>
-    {% if p.fromdate == p.todate %}
-    {{p.fromdate}}
+    {% if p.date_from == p.todate %}
+    {{p.date_from}}
     {% else %}
-    {{p.fromdate}}-{{p.todate}}
+    {{p.date_from}}-{{p.date_to}}
     {% endif %}
   </td>
 </tr>

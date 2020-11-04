@@ -61,6 +61,10 @@ from app_201_pds.views import (
     Main_Profile_Voluntary_Work_Table_AJAXView,
     Main_Profile_Voluntary_Work_Create_AJAXView,
     Main_Profile_Voluntary_Work_Update_AJAXView,
+    Main_Profile_Learning_Development_AJAXView,
+    Main_Profile_Learning_Development_Table_AJAXView,
+    Main_Profile_Learning_Development_Create_AJAXView,
+    Main_Profile_Learning_Development_Update_AJAXView,
 )
 
 urlpatterns = [
@@ -103,6 +107,10 @@ urlpatterns = [
     path('api/voluntary-work-list', Main_Profile_Voluntary_Work_Table_AJAXView.as_view(), name = 'api_main_voluntary_work_list'),
     path('api/voluntary-work/create', Main_Profile_Voluntary_Work_Create_AJAXView.as_view(), name = 'api_main_voluntary_work_create'),
     path('api/voluntary-work/update/<int:pk>', Main_Profile_Voluntary_Work_Update_AJAXView.as_view(), name = 'api_main_voluntary_work_update'),
+    path('api/learning-development', Main_Profile_Learning_Development_AJAXView.as_view(), name = 'api_main_learning_development'),
+    path('api/learning-development-list', Main_Profile_Learning_Development_Table_AJAXView.as_view(), name = 'api_main_learning_development_list'),
+    path('api/learning-development/create', Main_Profile_Learning_Development_Create_AJAXView.as_view(), name = 'api_main_learning_development_create'),
+    path('api/learning-development/update/<int:pk>', Main_Profile_Learning_Development_Update_AJAXView.as_view(), name = 'api_main_learning_development_update'),
     # NOTIFICATION
     path('api/notification/notification', Main_Notification_Template_AJAXView.as_view(), name = 'api_main_notification_notification'),
     path('api/notification/notification/content', Main_Notification_AJAXView.as_view(), name = 'api_main_notification_notification_content'),
