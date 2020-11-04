@@ -3,7 +3,7 @@
 {% load static %}
 
 <div class="card-body">
-  <form method="POST" enctype="multipart/form-data" data-url="#" class="custom-form">
+  <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_settings' %}" class="custom-form">
     {{form|crispy}}
     <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
   </form>

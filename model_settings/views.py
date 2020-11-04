@@ -35,10 +35,22 @@ class Settings_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,Vie
         context = {
             'form':form,
             'btn_name' : 'primary',
-            'btn_title' : 'Submit Post',
+            'btn_title' : 'Change',
         }
         data['html_form'] = render_to_string('administrator/ajax-filter-components/settings_forms.html',context)
         return JsonResponse(data)
     def post(self, request):
         data = dict()
+        if request.method == 'POST':
+            setting = Settings.objects.get(id=1)
+            form = SettingsForm(request.POST,request.FILES,instance = setting)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully changed.'
+                data['form_is_valid'] = True
+            else:
+                data['form_is_valid'] = False
+                data['message_type'] = error
+                data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
