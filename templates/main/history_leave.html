@@ -9,25 +9,8 @@
   <div class="col-md-2">
     <h5>Remaining</h5>
     <hr>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Sick Leave<span class="float-right">351</span></p>
-      </div>
-    </div>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Vacation Leave<span class="float-right">351</span></p>
-      </div>
-    </div>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Special Leave<span class="float-right">351</span></p>
-      </div>
-    </div>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Offset/Overtime<span class="float-right">351</span></p>
-      </div>
+    <div id="leave-remaining">
+
     </div>
   </div>
   <div class="col-md-10">
@@ -107,6 +90,18 @@
     });
 
   };
+  function Leave_Reamining(){
+    $.ajax({
+      url: '{% url 'api_main_leave_remaining' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#leave-remaining').html(data.profile_table);
+      },
+    });
+
+  };
+
   $('#search_history_leave').change(function() {
     History_leave();
   });
@@ -114,6 +109,7 @@
     History_leave();
   });
   History_leave();
+  Leave_Reamining();
 
 </script>
 

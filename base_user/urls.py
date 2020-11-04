@@ -19,6 +19,7 @@ from app_post.views import (
     Post_Comment_AJAXView,
 )
 from app_info_profile.views import (
+    Main_Profile_Leave_Remaining_Template_AJAXView,
     Main_Profile_Sidebar_AJAXView,
     Main_Profile_Basic_Info_AJAXView,
     Main_Notification_Template_AJAXView,
@@ -76,6 +77,7 @@ urlpatterns = [
     path('api/post/comment/<int:pk>', Post_Comment_AJAXView.as_view(), name = 'api_main_post_comment'),
     path('history-leave', History_Leave_Page.as_view(), name = 'main_history_leave'),
     path('api/history-leave', Profile_History_Leave_AJAXView.as_view(), name = 'api_main_history_leave'),
+    path('api/leave-remaining', Main_Profile_Leave_Remaining_Template_AJAXView.as_view(), name = 'api_main_leave_remaining'),
     path('history-leave/create', History_Leave_Create.as_view(), name = 'main_history_leave_create'),
     path('api/history-leave/create', Profile_History_Leave_Create_AJAXView.as_view(), name = 'api_main_history_leave_create'),
     path('earn-rewards', Earn_Rewards_Page.as_view(), name = 'main_earn_rewards'),

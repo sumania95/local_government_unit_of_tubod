@@ -44,6 +44,9 @@ from .forms import (
     ProfileForm,
     CustomAuthenticationForm,
 )
+from app_transaction.models import (
+    Deducted_Action_Transaction,
+)
 
 from time import strptime
 
@@ -82,6 +85,20 @@ class Logout(LoginRequiredMixin,View):
     def get(self, request):
         logout(request)
         return redirect('login')
+
+class Main_Profile_Leave_Remaining_Template_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        now = timezone.now()
+        profile = Profile.objects.get(id=self.request.user.profile.id)
+        special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = self.request.user.profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Sum('days'))['dsum']
+        print(special_leave)
+        context = {
+            'profile':profile,
+            'special_leave':3-special_leave,
+        }
+        data['profile_table'] = render_to_string('main/components/list_leave_remaining.html',context)
+        return JsonResponse(data)
 
 class Main_Notification_Template_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
