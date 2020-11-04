@@ -53,6 +53,14 @@ from app_201_pds.views import (
     Main_Profile_Eligibility_Table_AJAXView,
     Main_Profile_Eligibility_Create_AJAXView,
     Main_Profile_Eligibility_Update_AJAXView,
+    Main_Profile_Work_Experience_AJAXView,
+    Main_Profile_Work_Experience_Table_AJAXView,
+    Main_Profile_Work_Experience_Create_AJAXView,
+    Main_Profile_Work_Experience_Update_AJAXView,
+    Main_Profile_Voluntary_Work_AJAXView,
+    Main_Profile_Voluntary_Work_Table_AJAXView,
+    Main_Profile_Voluntary_Work_Create_AJAXView,
+    Main_Profile_Voluntary_Work_Update_AJAXView,
 )
 
 urlpatterns = [
@@ -87,6 +95,14 @@ urlpatterns = [
     path('api/eligibility-list', Main_Profile_Eligibility_Table_AJAXView.as_view(), name = 'api_main_eligibility_list'),
     path('api/eligibility/create', Main_Profile_Eligibility_Create_AJAXView.as_view(), name = 'api_main_eligibility_create'),
     path('api/eligibility/update/<int:pk>', Main_Profile_Eligibility_Update_AJAXView.as_view(), name = 'api_main_eligibility_update'),
+    path('api/work-experience', Main_Profile_Work_Experience_AJAXView.as_view(), name = 'api_main_work_experience'),
+    path('api/work-experience-list', Main_Profile_Work_Experience_Table_AJAXView.as_view(), name = 'api_main_work_experience_list'),
+    path('api/work-experience/create', Main_Profile_Work_Experience_Create_AJAXView.as_view(), name = 'api_main_work_experience_create'),
+    path('api/work-experience/update/<int:pk>', Main_Profile_Work_Experience_Update_AJAXView.as_view(), name = 'api_main_work_experience_update'),
+    path('api/voluntary-work', Main_Profile_Voluntary_Work_AJAXView.as_view(), name = 'api_main_voluntary_work'),
+    path('api/voluntary-work-list', Main_Profile_Voluntary_Work_Table_AJAXView.as_view(), name = 'api_main_voluntary_work_list'),
+    path('api/voluntary-work/create', Main_Profile_Voluntary_Work_Create_AJAXView.as_view(), name = 'api_main_voluntary_work_create'),
+    path('api/voluntary-work/update/<int:pk>', Main_Profile_Voluntary_Work_Update_AJAXView.as_view(), name = 'api_main_voluntary_work_update'),
     # NOTIFICATION
     path('api/notification/notification', Main_Notification_Template_AJAXView.as_view(), name = 'api_main_notification_notification'),
     path('api/notification/notification/content', Main_Notification_AJAXView.as_view(), name = 'api_main_notification_notification_content'),

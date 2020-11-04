@@ -34,14 +34,16 @@ from .models import (
     Children,
     Educational_Background,
     Eligibility,
-    Work_Experience
+    Work_Experience,
+    Voluntary_Work,
 )
 from .forms import (
     Family_BackgroundForm,
     ChildrenForm,
     Educational_BackgroundForm,
     EligibilityForm,
-    Work_ExperienceForm
+    Work_ExperienceForm,
+    Voluntary_WorkForm,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
@@ -304,7 +306,7 @@ class Main_Profile_Eligibility_Update_AJAXView(LoginRequiredMixin,View):
 class Main_Profile_Work_Experience_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
-        data['profile_educational_background_template'] = render_to_string('main/components/list_profile_educational_background.html')
+        data['profile_work_experience_template'] = render_to_string('main/components/list_profile_work_experience.html')
         return JsonResponse(data)
 
 class Main_Profile_Work_Experience_Table_AJAXView(LoginRequiredMixin,View):
@@ -319,8 +321,8 @@ class Main_Profile_Work_Experience_Table_AJAXView(LoginRequiredMixin,View):
         if filter:
             data['form_is_valid'] = True
             data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
-            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('level')[:int(filter)]
-            data['profile_table'] = render_to_string('main/components/list_profile_educational_background_table.html',{'profile':profile})
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('date_to')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_work_experience_table.html',{'profile':profile})
         return JsonResponse(data)
 
 class Main_Profile_Work_Experience_Create_AJAXView(LoginRequiredMixin,View):
@@ -333,7 +335,7 @@ class Main_Profile_Work_Experience_Create_AJAXView(LoginRequiredMixin,View):
             'btn_name': "primary",
             'btn_title': "Save",
         }
-        data['html_form'] = render_to_string('main/forms/profile_educational_background_forms.html',context)
+        data['html_form'] = render_to_string('main/forms/profile_work_experience_forms.html',context)
         return JsonResponse(data)
 
     def post(self, request):
@@ -350,23 +352,95 @@ class Main_Profile_Work_Experience_Create_AJAXView(LoginRequiredMixin,View):
 class Main_Profile_Work_Experience_Update_AJAXView(LoginRequiredMixin,View):
     def get(self, request,pk):
         data = dict()
-        educational_background = Work_Experience.objects.get(id=pk)
-        form = Work_ExperienceForm(instance=educational_background)
+        work_experience = Work_Experience.objects.get(id=pk)
+        form = Work_ExperienceForm(instance=work_experience)
         context = {
             'form': form,
             'is_Create': False,
-            'educational_background': educational_background,
+            'work_experience': work_experience,
             'btn_name': "primary",
             'btn_title': "Update",
         }
-        data['html_form'] = render_to_string('main/forms/profile_educational_background_forms.html',context)
+        data['html_form'] = render_to_string('main/forms/profile_work_experience_forms.html',context)
         return JsonResponse(data)
 
     def post(self, request,pk):
         data =  dict()
-        educational_background = Work_Experience.objects.get(id=pk)
+        work_experience = Work_Experience.objects.get(id=pk)
         if request.method == 'POST':
-            form = Work_ExperienceForm(request.POST,request.FILES,instance = educational_background)
+            form = Work_ExperienceForm(request.POST,request.FILES,instance = work_experience)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Voluntary_Work_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        data['profile_voluntary_work_template'] = render_to_string('main/components/list_profile_voluntary_work.html')
+        return JsonResponse(data)
+
+class Main_Profile_Voluntary_Work_Table_AJAXView(LoginRequiredMixin,View):
+    queryset = Voluntary_Work.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('date_to')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_voluntary_work_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Voluntary_Work_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Voluntary_WorkForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_voluntary_work_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Voluntary_WorkForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Voluntary_Work_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        voluntary_work = Voluntary_Work.objects.get(id=pk)
+        form = Voluntary_WorkForm(instance=voluntary_work)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'voluntary_work': voluntary_work,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_voluntary_work_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        voluntary_work = Voluntary_Work.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Voluntary_WorkForm(request.POST,request.FILES,instance = voluntary_work)
             if form.is_valid():
                 form.save()
                 data['message_type'] = success
