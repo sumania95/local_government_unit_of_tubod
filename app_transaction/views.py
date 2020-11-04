@@ -271,7 +271,7 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         form.instance.user_id = self.request.user.id
                         form.save()
                         Deducted_Transaction.objects.filter(id=pk).update(status = 2)
-                        Notification.objects.create(profile_id = profile.id,detail="Approved vacation leave",user_id = self.request.user.id)
+                        Notification.objects.create(profile_id = profile.id,detail="Approved special leave",user_id = self.request.user.id)
                         data['message_type'] = success
                         data['message_title'] = 'Successfully created.'
                         data['form_is_valid'] = True
