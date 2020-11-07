@@ -27,6 +27,77 @@ class Learning_Development(models.Model):
     def age(self):
         return int((now.date() - self.fromdate).days / 365.25)
 
+class References1(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 200)
+    address = models.CharField(max_length = 200)
+    tel_no = models.CharField(max_length = 200)
+
+class References2(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 200)
+    address = models.CharField(max_length = 200)
+    tel_no = models.CharField(max_length = 200)
+
+class References3(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 30)
+    address = models.CharField(max_length = 30)
+    tel_no = models.CharField(max_length = 30)
+
+class Government_Other_Info(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    issued_id = models.CharField(max_length = 30)
+    id_no = models.CharField(max_length = 30)
+    date_issued = models.CharField(max_length = 30)
+
+class Q34(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+
+class Q35(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+
+class Q36(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+
+class Q37(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+
+class Q38(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+
+class Q39(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+
+class Q40(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+    question_3 = models.BooleanField(default=False)
+    detail_3 = models.CharField(max_length = 30,blank=True)
+    question_4 = models.BooleanField(default=False)
+    detail_4 = models.CharField(max_length = 30,blank=True)
+
 class Family_Background(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     spousesurname = models.CharField(max_length = 200,blank=True)

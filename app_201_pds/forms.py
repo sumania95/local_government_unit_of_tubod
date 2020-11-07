@@ -9,6 +9,18 @@ from .models import (
     Work_Experience,
     Voluntary_Work,
     Learning_Development,
+    Q34,
+    Q35,
+    Q36,
+    Q37,
+    Q38,
+    Q39,
+    Q40,
+    References1,
+    References2,
+    References3,
+    Government_Other_Info,
+
 )
 
 class Family_BackgroundForm(forms.ModelForm):
@@ -108,4 +120,109 @@ class Learning_DevelopmentForm(forms.ModelForm):
             'no_hrs',
             'type_of_ld',
             'sponsored_by',
+        ]
+
+class Q34Form(forms.ModelForm):
+    class Meta:
+        model = Q34
+        fields = [
+            'question_1',
+            'detail_1',
+            'question_2',
+            'detail_2',
+        ]
+
+class Q35Form(forms.ModelForm):
+    class Meta:
+        model = Q35
+        fields = [
+            'question_1',
+            'detail_1',
+            'question_2',
+            'detail_2',
+        ]
+
+class Q36Form(forms.ModelForm):
+    class Meta:
+        model = Q36
+        fields = [
+            'question_1',
+            'detail_1',
+        ]
+
+class Q37Form(forms.ModelForm):
+    class Meta:
+        model = Q37
+        fields = [
+            'question_1',
+            'detail_1',
+        ]
+
+class Q38Form(forms.ModelForm):
+    class Meta:
+        model = Q38
+        fields = [
+            'question_1',
+            'detail_1',
+            'question_2',
+            'detail_2',
+        ]
+
+class Q39Form(forms.ModelForm):
+    class Meta:
+        model = Q39
+        fields = [
+            'question_1',
+            'detail_1',
+        ]
+
+class Q40Form(forms.ModelForm):
+    class Meta:
+        model = Q40
+        fields = [
+            'question_1',
+            'detail_1',
+            'question_2',
+            'detail_2',
+            'question_3',
+            'detail_3',
+            'question_4',
+            'detail_4',
+        ]
+
+class References1Form(forms.ModelForm):
+    class Meta:
+        model = References1
+        fields = [
+            'name',
+            'address',
+            'tel_no',
+        ]
+
+class References2Form(forms.ModelForm):
+    class Meta:
+        model = References2
+        fields = [
+            'name',
+            'address',
+            'tel_no',
+        ]
+
+
+class References3Form(forms.ModelForm):
+    class Meta:
+        model = References3
+        fields = [
+            'name',
+            'address',
+            'tel_no',
+        ]
+
+class Government_Other_InfoForm(forms.ModelForm):
+    class Meta:
+        model = Government_Other_Info
+        fields = [
+            'issued_id',
+            'id_no',
+            'date_issued',
         ]

@@ -36,6 +36,17 @@ from .models import (
     Eligibility,
     Work_Experience,
     Voluntary_Work,
+    Q34,
+    Q35,
+    Q36,
+    Q37,
+    Q38,
+    Q39,
+    Q40,
+    References1,
+    References2,
+    References3,
+    Government_Other_Info,
 )
 from .forms import (
     Family_BackgroundForm,
@@ -45,6 +56,17 @@ from .forms import (
     Work_ExperienceForm,
     Voluntary_WorkForm,
     Learning_DevelopmentForm,
+    Q34Form,
+    Q35Form,
+    Q36Form,
+    Q37Form,
+    Q38Form,
+    Q39Form,
+    Q40Form,
+    References1Form,
+    References2Form,
+    References3Form,
+    Government_Other_InfoForm,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
@@ -53,7 +75,6 @@ class Main_Profile_Family_Background_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
         profile = Family_Background.objects.filter(profile_id = self.request.user.profile.id).exists()
-        print(profile)
         if profile:
             form = Family_BackgroundForm(instance = self.request.user.profile.family_background)
         else:
@@ -84,6 +105,392 @@ class Main_Profile_Family_Background_AJAXView(LoginRequiredMixin,View):
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
+
+class Main_Profile_Q34_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q34.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q34Form(instance = self.request.user.profile.q34)
+        else:
+            form = Q34Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q34_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q34.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q34Form(request.POST,request.FILES,instance = self.request.user.profile.q34)
+            else:
+                form = Q34Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q35_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q35.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q35Form(instance = self.request.user.profile.q35)
+        else:
+            form = Q35Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q35_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q35.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q35Form(request.POST,request.FILES,instance = self.request.user.profile.q35)
+            else:
+                form = Q35Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q36_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q36.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q36Form(instance = self.request.user.profile.q36)
+        else:
+            form = Q36Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q36_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q36.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q36Form(request.POST,request.FILES,instance = self.request.user.profile.q36)
+            else:
+                form = Q36Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q37_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q37.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q37Form(instance = self.request.user.profile.q37)
+        else:
+            form = Q37Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q37_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q37.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q37Form(request.POST,request.FILES,instance = self.request.user.profile.q37)
+            else:
+                form = Q37Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q38_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q38.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q38Form(instance = self.request.user.profile.q38)
+        else:
+            form = Q38Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q38_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q38.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q38Form(request.POST,request.FILES,instance = self.request.user.profile.q38)
+            else:
+                form = Q38Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q39_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q39.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q39Form(instance = self.request.user.profile.q39)
+        else:
+            form = Q39Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q39_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q39.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q39Form(request.POST,request.FILES,instance = self.request.user.profile.q39)
+            else:
+                form = Q39Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q40_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q40.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q40Form(instance = self.request.user.profile.q40)
+        else:
+            form = Q40Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q40_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q40.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q40Form(request.POST,request.FILES,instance = self.request.user.profile.q40)
+            else:
+                form = Q40Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_References1_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = References1.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = References1Form(instance = self.request.user.profile.references1)
+        else:
+            form = References1Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/references1_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = References1.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = References1Form(request.POST,request.FILES,instance = self.request.user.profile.references1)
+            else:
+                form = References1Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_References2_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = References2.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = References2Form(instance = self.request.user.profile.references2)
+        else:
+            form = References2Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/references2_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = References2.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = References2Form(request.POST,request.FILES,instance = self.request.user.profile.references2)
+            else:
+                form = References2Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_References3_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = References3.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = References3Form(instance = self.request.user.profile.references3)
+        else:
+            form = References3Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/references3_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = References3.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = References3Form(request.POST,request.FILES,instance = self.request.user.profile.references3)
+            else:
+                form = References3Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Government_Other_Info_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Government_Other_Info.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Government_Other_InfoForm(instance = self.request.user.profile.government_other_info)
+        else:
+            form = Government_Other_InfoForm()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/government_other_info_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Government_Other_Info.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Government_Other_InfoForm(request.POST,request.FILES,instance = self.request.user.profile.government_other_info)
+            else:
+                form = Government_Other_InfoForm(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
 
 class Main_Profile_Children_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
