@@ -57,9 +57,6 @@
           <li class="nav-item">
             <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
           </li>
-          <li class="nav-item">
-            <a href="{% url 'main_voucher' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Internet Voucher</span></a>
-          </li>
         </ul>
       </div>
     </div>
@@ -104,10 +101,23 @@
                   <h6>My Application</h6>
                 </div>
                 <ul class="pro-body">
-                  <li class="notification">
+                  <li class="notification p-3">
+                    <table>
+                      <tr>
+                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
+                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>INVENTORY</a></td>
+                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>PROCUREMENT</a></td>
+                      </tr>
+                      <tr>
+                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
+                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>INVENTORY</a></td>
+                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>PROCUREMENT</a></td>
+                      </tr>
+                    </table>
                     {% if user.hr_administrator %}
-                    <a href="{% url 'dashboard' %}" type="button" class="btn btn-outline-primary btn-block" name="button"><i class="icon feather icon-home"></i><br>HRIS</a>
+
                     {% else %}
+
                     <div class="text-center">
                       <p>No Application Yet</p>
                     </div>
@@ -131,9 +141,16 @@
                 <div class="pro-head bg-warning">
                   <img src="{{user.profile.image.url}}" width="40px" height="40px" class="img-radius" alt="User-Profile-Image">
                   <span>{{user.profile.firstname|title}} {{user.profile.surname|title}}</span>
-                  <hr>
-                  <div class="text-center">
-                    <small>last login : {{user.last_login}}</small>
+                  <div class="pt-2">
+                    <table>
+                      <tr>
+                        {% if user.designation %}
+                        <td style="white-space:nowrap;width:50%;"><small>SL : {{user.profile.sl}}</small></td>
+                        <td style="white-space:nowrap;width:50%;"><small>VL : {{user.profile.vl}}</small></td>
+                        {% endif %}
+                        <td style="white-space:nowrap;width:50%;"><small>OT : {{user.profile.overtime}}</small></td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
                 <ul class="pro-body">

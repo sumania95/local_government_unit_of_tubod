@@ -91,7 +91,7 @@ class Main_Profile_Leave_Remaining_Template_AJAXView(LoginRequiredMixin,View):
         data = dict()
         now = timezone.now()
         profile = Profile.objects.get(id=self.request.user.profile.id)
-        special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = self.request.user.profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Sum('days'))['dsum']
+        special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = self.request.user.profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Coalesce(Sum('days'), Value(0)))['dsum']
         print(special_leave)
         context = {
             'profile':profile,

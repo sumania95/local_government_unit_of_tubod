@@ -64,7 +64,7 @@ class Main_Profile_Family_Background_AJAXView(LoginRequiredMixin,View):
             'btn_name': "primary",
             'btn_title': "Update",
         }
-        data['html_form'] = render_to_string('main/forms/family_background_forms.html',context)
+        data['html_form'] = render_to_string('main/forms/profile_family_background_forms.html',context)
         return JsonResponse(data)
 
     def post(self, request):

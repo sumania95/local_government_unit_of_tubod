@@ -1,3 +1,4 @@
+{% if profile.designation %}
 <div class="card mb-2">
   <div class="card-body p-2">
     <p class="m-b-0">Sick Leave<span class="float-right">{{profile.sl}}</span></p>
@@ -8,7 +9,6 @@
     <p class="m-b-0">Vacation Leave<span class="float-right">{{profile.vl}}</span></p>
   </div>
 </div>
-{% if profile.designation %}
 <div class="card mb-2">
   <div class="card-body p-2">
     <p class="m-b-0">Special Leave<span class="float-right">{{special_leave}}</span></p>
