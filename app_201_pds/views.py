@@ -157,6 +157,19 @@ class Main_Profile_Children_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Children_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Children.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
 class Main_Profile_Educational_Background_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -227,6 +240,19 @@ class Main_Profile_Educational_Background_Update_AJAXView(LoginRequiredMixin,Vie
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Educational_Background_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Educational_Background.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
         return JsonResponse(data)
 
 class Main_Profile_Eligibility_AJAXView(LoginRequiredMixin,View):
@@ -304,6 +330,19 @@ class Main_Profile_Eligibility_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Eligibility_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Eligibility.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
 class Main_Profile_Work_Experience_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -374,6 +413,19 @@ class Main_Profile_Work_Experience_Update_AJAXView(LoginRequiredMixin,View):
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Work_Experience_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Work_Experience.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
         return JsonResponse(data)
 
 class Main_Profile_Voluntary_Work_AJAXView(LoginRequiredMixin,View):
@@ -448,6 +500,19 @@ class Main_Profile_Voluntary_Work_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Voluntary_Work_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Voluntary_Work.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
 class Main_Profile_Learning_Development_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -518,6 +583,19 @@ class Main_Profile_Learning_Development_Update_AJAXView(LoginRequiredMixin,View)
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Learning_Development.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
         return JsonResponse(data)
 
 # administrator =========================================

@@ -194,6 +194,9 @@
 
 {% block 'script' %}
 <script>
+  $(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
   function Basic_Info(){
     $.ajax({
       url: '{% url 'api_main_basic_info' %}',

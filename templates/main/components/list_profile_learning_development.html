@@ -44,7 +44,7 @@
 
 {% block 'script' %}
 <script>
-  function Eligibility(){
+  function Learning_Development(){
     var filter = $("#filter-profile-info-learning-development").val();
     $.ajax({
       url: '{% url 'api_main_learning_development_list' %}',
@@ -58,7 +58,7 @@
     });
 
   };
-  Eligibility();
+  Learning_Development();
 
   $(document).on('click', '.form-show', function(){
     var btn = $(this);
