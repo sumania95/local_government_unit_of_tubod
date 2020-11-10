@@ -47,16 +47,16 @@
           <li class="nav-item">
             <a href="{% url 'dashboard' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
           </li>
-          <li class="nav-item {% block 'active' %}{% endblock %}">
+          <li class="nav-item {% block 'profile_active' %}{% endblock %}">
             <a href="{% url 'profile' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Profile</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% block 'designation_active' %}{% endblock %}">
             <a href="{% url 'designation' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-briefcase"></i></span><span class="pcoded-mtext">Designation</span></a>
           </li>
           <li class="nav-item">
             <a href="{% url 'learning_development' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Trainings</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% block 'reward_active' %}{% endblock %}">
             <a href="{% url 'rewards_recognitions' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-award"></i></span><span class="pcoded-mtext">Reward & Recognition</span></a>
           </li>
           <li class="nav-item">
@@ -68,18 +68,18 @@
           <li class="nav-item pcoded-menu-caption">
             <label>Others</label>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% block 'transaction_active' %}{% endblock %}">
             <a href="{% url 'transaction' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Transaction</span> <span class="badge badge-danger">New</span></a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a href="{% url 'dtr_print' %}" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">D T R</span> <span class="badge badge-danger ml-2">New</span></a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a href="{% url 'settings' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a href="{% url 'activity_logs' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Activity Logs</span></a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a href="{% url 'logout' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-log-out text-danger"></i></span><span class="pcoded-mtext">Sign Out</span></a>
           </li>

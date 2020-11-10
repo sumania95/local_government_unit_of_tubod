@@ -5,7 +5,7 @@
 <div class="modal-header p-2">
   <h5 class="modal-title" >Learning Development</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_learning_development_create' %}{% else %}{% url 'api_main_learning_development_update' learning_development.id %}{% endif %}" class="custom-form">
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_learning_development_create' %}{% else %}{% url 'api_main_learning_development_update' learning_development.id %}{% endif %}" class="custom-form-learning-development">
   <div class="modal-body p-2">
     {{form|crispy}}
   </div>
@@ -18,6 +18,18 @@
 {% block 'script' %}
 <script>
   $(document).ready(function () {
+    $("body").delegate("#id_date_from", "focusin", function(){
+      $(this).datepicker({
+        autoclose: true,
+        format : 'yyyy-mm-dd',
+      });
+    });
+    $("body").delegate("#id_date_to", "focusin", function(){
+      $(this).datepicker({
+        autoclose: true,
+        format : 'yyyy-mm-dd',
+      });
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -39,7 +51,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form").submit(function (event) {
+    $(".custom-form-learning-development").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({

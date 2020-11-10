@@ -3,7 +3,7 @@
 {% load static %}
 
 <div class="card-body">
-  <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_references2' %}" class="custom-form">
+  <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_references2' %}" class="custom-form-references-2">
     {{form|crispy}}
     <input type="hidden" name="profile_id" value="{{profile.id}}">
     <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
@@ -34,7 +34,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form").submit(function (event) {
+    $(".custom-form-references-2").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({

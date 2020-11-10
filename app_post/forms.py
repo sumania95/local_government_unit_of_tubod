@@ -20,8 +20,9 @@ class PostForm(forms.ModelForm):
             'description',
         ]
 
+
 class CommentForm(forms.ModelForm):
-    description = forms.CharField(label="",)
+    description = forms.CharField(label="")
     class Meta:
         model = Comment
         fields = [

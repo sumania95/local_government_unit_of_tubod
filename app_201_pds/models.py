@@ -12,9 +12,9 @@ type = (
 class Learning_Development(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length = 200,blank=True)
-    date_from = models.DateField()
-    date_to = models.DateField()
-    no_hrs = models.IntegerField(default=0)
+    date_from = models.DateField(default=timezone.now())
+    date_to = models.DateField(default=timezone.now())
+    no_hrs = models.IntegerField(default=8)
     type_of_ld = models.CharField(max_length=100,choices=type)
     sponsored_by = models.CharField(max_length = 200,blank=True)
 
@@ -134,7 +134,7 @@ class Children(models.Model):
     firstname = models.CharField(max_length = 200)
     middlename = models.CharField(max_length = 200,blank=True)
     extname = models.CharField(max_length = 200,blank=True)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(default=timezone.now())
     civil_status = models.CharField(max_length=10,choices=civil_status)
 
     date_created = models.DateTimeField(auto_now_add = True)
@@ -149,9 +149,11 @@ class Children(models.Model):
         return '%s: %s' % (self.surname, self.firstname)
 
 level_education = (
-    ('1', 'Managerial',),
-    ('2', 'Supervisory',),
-    ('3', 'Technical',),
+    ('1', 'Elementary',),
+    ('2', 'Secondary',),
+    ('3', 'Vocational / Trade Course',),
+    ('4', 'College',),
+    ('5', 'Graduate Studies',),
 )
 
 class Educational_Background(models.Model):
@@ -159,10 +161,10 @@ class Educational_Background(models.Model):
     level = models.CharField(max_length=100,choices=level_education)
     school_name = models.CharField(max_length = 200,blank=True)
     course = models.CharField(max_length = 200,blank=True)
-    period_from = models.IntegerField(default=0)
-    period_to = models.IntegerField(default=0)
+    period_from = models.IntegerField(default=timezone.now().year)
+    period_to = models.IntegerField(default=timezone.now().year)
     units_earned = models.IntegerField(default=0)
-    year_graduated = models.IntegerField(default=0)
+    year_graduated = models.IntegerField(default=timezone.now().year)
     academic_received = models.CharField(max_length = 200,blank=True)
 
     date_created = models.DateTimeField(auto_now_add = True)
@@ -182,8 +184,8 @@ class Eligibility(models.Model):
 
 class Work_Experience(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    date_from = models.DateField()
-    date_to = models.DateField()
+    date_from = models.DateField(default=timezone.now())
+    date_to = models.DateField(default=timezone.now())
     position_title = models.CharField(max_length = 200)
     department_office = models.CharField(max_length = 200)
     salary = models.DecimalField(default= 0,max_digits = 50,decimal_places=2)
@@ -197,8 +199,8 @@ class Work_Experience(models.Model):
 class Voluntary_Work(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     organization = models.CharField(max_length = 200,blank=True)
-    date_from = models.DateField()
-    date_to = models.DateField()
+    date_from = models.DateField(default=timezone.now())
+    date_to = models.DateField(default=timezone.now())
     no_hrs = models.IntegerField(default=0)
     nature_of_work = models.CharField(max_length = 200,blank=True)
 

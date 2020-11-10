@@ -6,8 +6,8 @@
   <div class="card-footer border p-2">
     ({{p.date_of_birth|date:"d"}})
     <img src="{{p.image.url}}" width="40px" height="40px" class=" border border-success rounded-circle img-radius wid-40" alt="User Image">
-    <a class="users-list-name" href="#">
-      {{p.firstname|title}} {{p.surname|title}}
+    <a class="users-list-name text-success" href="#">
+      <b>{{p.firstname|upper}} {{p.surname|upper}}</b>
     </a>
   </div>
   {% empty %}
@@ -22,8 +22,8 @@
   </div>
   {% for p in profile_awardee|slice:"3" %}
   <div class="card-footer p-2">
-    <a class="users-list-name text-dark" href="#">
-      {{p.profile__firstname}} {{p.profile__surname}} ({{p.total}})
+    <a class="users-list-name text-success" href="#">
+      <b>{{p.profile__firstname|upper}} {{p.profile__surname|upper}} ({{p.total}})</b>
     </a>
     <i class="ml-2 fa fa-trophy text-success"></i>
     <i class="fa fa-trophy text-success"></i>

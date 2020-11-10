@@ -1,14 +1,15 @@
 {% for p in profile %}
 <tr>
-  <td>{{p.date_from|date:"m.d.Y"}}-{{p.date_to|date:"m.d.Y"}}</td>
+  <td>{{p.date_from|date:"M d, Y"}}-{{p.date_to|date:"M d, Y"}}</td>
   <td>{{p.description}}</td>
   <td>{{p.get_leave_type_display}}</td>
+  <td>{% if p.rejected_transaction %}{{p.rejected_transaction.remarks}}{% else %}p.deducted_action_transaction.remarks{% endif %}</td>
   <td>{{p.date_created}}</td>
   <td>
     {% if p.deducted_action_transaction %}
-    APPROVED
+    <span class="badge badge-success">APPROVED</span>
     {% elif p.rejected_transaction %}
-    REJECTED
+    <span class="badge badge-danger">REJECTED</span>
     {% else %}
     <a href="#" type="button" class="btn btn-danger btn-sm">Remove</a>
     {% endif %}

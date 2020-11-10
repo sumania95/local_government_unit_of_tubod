@@ -43,4 +43,5 @@ class ProfileForm(forms.ModelForm):
             'telephone',
             'mobile',
             'email',
+            'image',
         ]

@@ -61,6 +61,7 @@
       </div>
     </div>
   </nav>
+
   <!-- [ navigation menu ] end -->
   <!-- [ Header ] start -->
   <header class="navbar pcoded-header navbar-expand-lg navbar-light header-yellow">
@@ -88,9 +89,6 @@
               </button>
             </div>
           </li>
-          <li class="nav-item">
-            <a href="#!" class="full-screen" onclick="javascript:toggleFullScreen()"><i class="feather icon-maximize"></i></a>
-          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li>
@@ -102,22 +100,9 @@
                 </div>
                 <ul class="pro-body">
                   <li class="notification p-3">
-                    <table>
-                      <tr>
-                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
-                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>INVENTORY</a></td>
-                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>PROCUREMENT</a></td>
-                      </tr>
-                      <tr>
-                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
-                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>INVENTORY</a></td>
-                        <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>PROCUREMENT</a></td>
-                      </tr>
-                    </table>
                     {% if user.hr_administrator %}
-
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
                     {% else %}
-
                     <div class="text-center">
                       <p>No Application Yet</p>
                     </div>
@@ -144,7 +129,7 @@
                   <div class="pt-2">
                     <table>
                       <tr>
-                        {% if user.designation %}
+                        {% if user.profile.designation %}
                         <td style="white-space:nowrap;width:50%;"><small>SL : {{user.profile.sl}}</small></td>
                         <td style="white-space:nowrap;width:50%;"><small>VL : {{user.profile.vl}}</small></td>
                         {% endif %}
@@ -267,6 +252,7 @@
   </script>
   {% block 'script' %}
   {% endblock %}
+
 
 
 </body>

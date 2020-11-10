@@ -1,7 +1,9 @@
 
 {% extends 'main/base.html' %}
 {% load static %}
-
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
 {% block 'content' %}
 <!-- [ Main Content ] start -->
 <div class="row">
@@ -22,10 +24,10 @@
               <li><a class="nav-link text-left" id="v-pills-learning-development-tab" data-toggle="pill" href="#v-pills-learning-development" role="tab" aria-controls="v-pills-learning-development" aria-selected="false">Trainings</a></li>
               <li><a class="nav-link text-left" id="v-pills-others-tab" data-toggle="pill" href="#v-pills-others" role="tab" aria-controls="v-pills-others" aria-selected="false">Other Related Info</a></li>
               <li><a class="nav-link text-left" id="v-pills-references-tab" data-toggle="pill" href="#v-pills-references" role="tab" aria-controls="v-pills-references" aria-selected="false">References / ID'S</a></li>
-              <hr>
+              <!-- <hr>
               <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Real Properties</a></li>
               <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Personal Properties</a></li>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Liabilities</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Liabilities</a></li> -->
 
             </ul>
           </div>
@@ -58,95 +60,93 @@
               <div class="tab-pane fade" id="v-pills-others" role="tabpanel" aria-labelledby="v-pills-others-tab">
                 <div class="accordion" id="accordionExample">
                   <div class="card">
-                    <div class="card-header" id="headingOne">
+                    <div class="card-header p-2" id="headingOne">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                          34. Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of bureau or office or to the person who has immediate supervision over you in the Office, Bureau or Department where you will be apppointed,<br>
+                          Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of bureau or office or to the person who has immediate supervision over you in the Office, Bureau or Department where you will be apppointed,<br>
                           a. within the third degree?<br>
                           b. within the fourth degree (for Local Government Unit - Career Employees)?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseOne" class="card-body collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div id="collapseOne" class="card-body p-2 collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                       <!-- One -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingTwo">
+                    <div class="card-header p-2" id="headingTwo">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          35. <br>
                           a. Have you ever been found guilty of any administrative offense? <br>
                           b. Have you been criminally charged before any court?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseTwo" class="collapse card-body" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div id="collapseTwo" class="collapse card-body p-2" aria-labelledby="headingTwo" data-parent="#accordionExample">
                       <!-- Two -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingThree">
+                    <div class="card-header p-2" id="headingThree">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          36. Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
+                          Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseThree" class="card-body collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div id="collapseThree" class="card-body p-2 collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                       <!-- Three -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingFour">
+                    <div class="card-header p-2" id="headingFour">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                          37. Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?
+                          Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseFour" class="card-body collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <div id="collapseFour" class="card-body p-2 collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                       <!-- Four -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingFive">
+                    <div class="card-header p-2" id="headingFive">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                          38. <br>
                           a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)? <br>
                           b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseFive" class="card-body collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div id="collapseFive" class="card-body p-2 collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                       <!-- Five -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingSix">
+                    <div class="card-header p-2" id="headingSix">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                          39. Have you acquired the status of an immigrant or permanent resident of another country?
+                          Have you acquired the status of an immigrant or permanent resident of another country?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseSix" class="card-body collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                    <div id="collapseSix" class="card-body p-2 collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                       <!-- Six -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingSeven">
+                    <div class="card-header p-2" id="headingSeven">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                          40. Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items: <br>
+                          Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items: <br>
                           a. Are you a member of any indigenous group? <br>
                           b. Are you a person with disability? <br>
                           c. Are you a solo parent?
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseSeven" class="card-body collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                    <div id="collapseSeven" class="card-body p-2 collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                       <!-- Seven -->
                     </div>
                   </div>
@@ -155,50 +155,50 @@
               <div class="tab-pane fade" id="v-pills-references" role="tabpanel" aria-labelledby="v-pills-references-tab">
                 <div class="accordion" id="accordionExample">
                   <div class="card">
-                    <div class="card-header" id="headingReferences1">
+                    <div class="card-header p-2" id="headingReferences1">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseReferences1" aria-expanded="false" aria-controls="collapseReferences1">
                           References 1
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseReferences1" class="card-body collapse" aria-labelledby="headingReferences1" data-parent="#accordionExample">
+                    <div id="collapseReferences1" class="card-body p-2 collapse" aria-labelledby="headingReferences1" data-parent="#accordionExample">
                       <!-- References1 -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingReferences2">
+                    <div class="card-header p-2" id="headingReferences2">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseReferences2" aria-expanded="false" aria-controls="collapseReferences2">
                           References 2
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseReferences2" class="card-body collapse" aria-labelledby="headingReferences2" data-parent="#accordionExample">
+                    <div id="collapseReferences2" class="card-body p-2 collapse" aria-labelledby="headingReferences2" data-parent="#accordionExample">
                       <!-- References2 -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingReferences3">
+                    <div class="card-header p-2" id="headingReferences3">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseReferences3" aria-expanded="false" aria-controls="collapseReferences3">
                           References 3
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseReferences3" class="card-body collapse" aria-labelledby="headingReferences3" data-parent="#accordionExample">
+                    <div id="collapseReferences3" class="card-body p-2 collapse" aria-labelledby="headingReferences3" data-parent="#accordionExample">
                       <!-- References3 -->
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="headingGovernment_Other_Info">
+                    <div class="card-header p-2" id="headingGovernment_Other_Info">
                       <h5 class="mb-0">
                         <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseGovernment_Other_Info" aria-expanded="false" aria-controls="collapseGovernment_Other_Info">
                           Government ID
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseGovernment_Other_Info" class="card-body collapse" aria-labelledby="headingGovernment_Other_Info" data-parent="#accordionExample">
+                    <div id="collapseGovernment_Other_Info" class="card-body p-2 collapse" aria-labelledby="headingGovernment_Other_Info" data-parent="#accordionExample">
                       <!-- References3 -->
                     </div>
                   </div>
@@ -222,8 +222,8 @@
 </div>
 
 {% endblock %}
-
 {% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
 <script>
   $(document).on('click', '.confirm-delete', function(){
     return confirm('Are you sure you want to remove this?');

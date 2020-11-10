@@ -6,14 +6,7 @@
 {% block 'content' %}
 <!-- [ Main Content ] start -->
 <div class="row">
-  <div class="col-md-2">
-    <h5>Remaining</h5>
-    <hr>
-    <div id="leave-remaining">
-
-    </div>
-  </div>
-  <div class="col-md-10">
+  <div class="col-md-12">
     <div class="card">
       <div class="card-header p-2">
         <table>
@@ -45,9 +38,10 @@
               <tr>
                 <th style="white-space:nowrap;width:1%;">Date Range</th>
                 <th>Description</th>
-                <th>Type</th>
-                <th>Date Modified</th>
-                <th style="white-space:nowrap;width:100px;">Action</th>
+                <th style="white-space:nowrap;width:10%">Type</th>
+                <th>Remarks</th>
+                <th style="white-space:nowrap;width:5%">Date Modified</th>
+                <th style="white-space:nowrap;width:5%">STATUS/Action</th>
               </tr>
             </thead>
             <tbody id="table-history-leave-ajax">
@@ -90,17 +84,6 @@
     });
 
   };
-  function Leave_Reamining(){
-    $.ajax({
-      url: '{% url 'api_main_leave_remaining' %}',
-      type: 'get',
-      dataType: 'json',
-      success:function(data){
-        $('#leave-remaining').html(data.profile_table);
-      },
-    });
-
-  };
 
   $('#search_history_leave').change(function() {
     History_leave();
@@ -109,7 +92,6 @@
     History_leave();
   });
   History_leave();
-  Leave_Reamining();
 
 </script>
 
