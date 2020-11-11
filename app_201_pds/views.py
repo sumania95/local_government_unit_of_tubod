@@ -1029,21 +1029,61 @@ class Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorH
 class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request,pk):
         now = timezone.now()
-
         limit = (now - relativedelta(years=5)).year
-        print(limit)
         profile = Profile.objects.get(id=pk)
-        learning_development = Learning_Development.objects.filter(profile_id=pk).all()
         children = Children.objects.filter(profile_id=pk).all()
         educational_background = Educational_Background.objects.filter(profile_id=pk).all()
         eligibility = Eligibility.objects.filter(profile_id=pk).all()
+        learning_development = Learning_Development.objects.filter(profile_id=pk).all()
+        work_experience = Work_Experience.objects.filter(profile_id=pk)
+        voluntary_work = Voluntary_Work.objects.filter(profile_id=pk)
+        try:
+            family_background = Family_Background.objects.filter(profile_id=pk).first()
+            q34 = Q34.objects.filter(profile_id=pk).first()
+            q35 = Q35.objects.filter(profile_id=pk).first()
+            q36 = Q36.objects.filter(profile_id=pk).first()
+            q37 = Q37.objects.filter(profile_id=pk).first()
+            q38 = Q38.objects.filter(profile_id=pk).first()
+            q39 = Q39.objects.filter(profile_id=pk).first()
+            q40 = Q40.objects.filter(profile_id=pk).first()
+            references1 = References1.objects.filter(profile_id=pk).first()
+            references2 = References2.objects.filter(profile_id=pk).first()
+            references3 = References3.objects.filter(profile_id=pk).first()
+            government_other_info = Government_Other_Info.objects.filter(profile_id=pk).first()
+        except KeyError:
+            family_background = None
+            q34 = None
+            q35 = None
+            q36 = None
+            q37 = None
+            q38 = None
+            q39 = None
+            q40 = None
+            references1 = None
+            references2 = None
+            references3 = None
+            government_other_info = None
         params = {
             'now':now,
             'profile': profile,
-            'learning_development': learning_development,
             'children': children,
+            'family_background': family_background,
             'educational_background': educational_background,
             'eligibility': eligibility,
+            'learning_development': learning_development,
+            'work_experience': work_experience,
+            'voluntary_work': voluntary_work,
+            'q34':q34,
+            'q35':q35,
+            'q36':q36,
+            'q37':q37,
+            'q38':q38,
+            'q39':q39,
+            'q40':q40,
+            'references1':references1,
+            'references2':references2,
+            'references3':references3,
+            'government_other_info':government_other_info,
         }
         pdf = Render.render('pdf/personal_data_sheet.html', params)
         return pdf
@@ -1051,7 +1091,7 @@ class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministrat
 class Print_SALN_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request,pk):
         now = timezone.now()
-        profile = Profile.objects.filter(id=pk)[:1]
+        profile = Profile.objects.get(id=pk)
         params = {
             'now': now,
             'profile': profile,

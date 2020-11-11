@@ -37,7 +37,7 @@ class Profile(models.Model):
     sss = models.CharField(max_length = 200,blank=True)
     tin = models.CharField(max_length = 200,blank=True)
     agency_no = models.CharField(max_length = 200,blank=True)
-    citizenship = models.CharField(max_length = 200)
+    citizenship = models.CharField(default = 'Filipino',max_length = 200)
     residential_address = models.CharField(max_length = 200,blank=True)
     zipcode_1 = models.CharField(max_length = 200,blank=True)
     permanent_address = models.CharField(max_length = 200,blank=True)

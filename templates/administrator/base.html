@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>SPRING HRIS</title>
+  <title>S P R I N G</title>
   <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 11]>
@@ -18,7 +18,7 @@
   <meta name="keywords" content="">
   <meta name="author" content="Codedthemes" />
   <!-- Favicon icon -->
-  <link rel="icon" href="{% static 'premium/assets/images/favicon.ico'%}" type="image/x-icon">
+  <link rel="icon" href="{% static 'icon/lgutubodlogo.png'%}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'premium/assets/sweetalert2/sweetalert2.min.css'%}">
   <!-- vendor css -->
   <link rel="stylesheet" href="{% static 'premium/assets/css/style.css'%}">
@@ -71,9 +71,9 @@
           <li class="nav-item {% block 'transaction_active' %}{% endblock %}">
             <a href="{% url 'transaction' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Transaction</span> <span class="badge badge-danger">New</span></a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{% url 'dtr_print' %}" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">D T R</span> <span class="badge badge-danger ml-2">New</span></a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{% url 'settings' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
           </li>

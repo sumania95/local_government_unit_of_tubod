@@ -91,7 +91,8 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '2021_hris',
+        # 'NAME': '2021_hris',
+        'NAME': '2021_hris_backup',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

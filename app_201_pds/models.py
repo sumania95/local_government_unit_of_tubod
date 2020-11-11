@@ -27,6 +27,29 @@ class Learning_Development(models.Model):
     def age(self):
         return int((now.date() - self.fromdate).days / 365.25)
 
+class Skill_Hobbies(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    description = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+
+class Member_Organization(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    description = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+class Non_Academic(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    description = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+
 class References1(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length = 200)

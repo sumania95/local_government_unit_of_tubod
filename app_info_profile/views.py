@@ -43,6 +43,7 @@ from app_rewards_recognitions.models import (
 from .forms import (
     ProfileForm,
     CustomAuthenticationForm,
+    UsernameForm,
 )
 from app_transaction.models import (
     Deducted_Action_Transaction,
@@ -253,10 +254,10 @@ class Profile_Detail_Security_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrat
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)
-                Notification.objects.create(profile_id = profile.id,detail="Changed password",user_id = self.request.user.id)
+                Notification.objects.create(profile_id = profile.id,detail="Password changed.",user_id = self.request.user.id)
                 data['valid'] = True
                 data['message_type'] = success
-                data['message_title'] = 'Successfully updated.'
+                data['message_title'] = 'Successfully changed.'
                 data['url'] = reverse('profile_detail',kwargs={'pk':profile.id})
             else:
                 error_message = form.errors.as_json()
@@ -265,6 +266,51 @@ class Profile_Detail_Security_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrat
                 data['message_type'] = error
                 new_password2 = y['new_password2']
                 for p in new_password2:
+                    data['message_title'] = p['message']
+        return JsonResponse(data)
+
+class Profile_Detail_Username_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
+        data = dict()
+        try:
+            profile_id = self.request.GET.get('profile_id')
+        except KeyError:
+            profile_id = None
+        profile = Profile.objects.get(pk=profile_id)
+        form = UsernameForm(instance=profile.user)
+        context = {
+            'form': form,
+            'profile': profile,
+            'btn_name': "primary",
+            'btn_title': "Submit",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/username_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        try:
+            profile_id = self.request.POST.get('profile_id')
+        except KeyError:
+            profile_id = None
+        profile = Profile.objects.get(pk=profile_id)
+
+        if request.method == 'POST':
+            form = UsernameForm(instance=profile.user,data=request.POST)
+            if form.is_valid():
+                user = form.save()
+                Notification.objects.create(profile_id = profile.id,detail="Username changed.",user_id = self.request.user.id)
+                data['valid'] = True
+                data['message_type'] = success
+                data['message_title'] = 'Successfully changed.'
+                data['url'] = reverse('profile_detail',kwargs={'pk':profile.id})
+            else:
+                error_message = form.errors.as_json()
+                y = json.loads(error_message)
+                data['valid'] = False
+                data['message_type'] = error
+                username = y['username']
+                for p in username:
                     data['message_title'] = p['message']
         return JsonResponse(data)
 

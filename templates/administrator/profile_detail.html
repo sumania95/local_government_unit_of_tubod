@@ -16,7 +16,7 @@
       </div>
       <hr>
       <div>
-        <p>@&nbsp;&nbsp;&nbsp;{{object.user.username}} <a href="#" class="pull-right"><i class="feather ml-2 icon-edit-1"></i>Edit</a></p>
+        <p>@&nbsp;&nbsp;&nbsp;{{object.user.username}} <a href="{% url 'profile_detail_username' object.id %}" class="pull-right"><i class="feather ml-2 icon-edit-1"></i>Edit</a></p>
       </div>
       <p><i class="feather icon-users mr-2"></i>{{object.firstname|upper}} {{object.surname|upper}}<br></p>
       <p><i class="feather icon-tablet mr-2"></i>{% if object.mobile %}{{object.mobile}}{% else %}NOT AVAILABLE{% endif %}</p>
@@ -29,7 +29,7 @@
       <a href="{% url 'profile_detail_security' object.id %}" type="button" class="btn-danger btn-sm" name="button"><i class="feather mr-2 icon-lock"></i>Security</a>
       <hr>
       <a href="{% url 'print_profile_personal_data_sheet' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>PDS</a>
-      <a href="{% url 'print_profile_saln' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>SALN</a>
+      <!-- <a href="{% url 'print_profile_saln' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>SALN</a> -->
     </div>
   </div>
   <div class="card">

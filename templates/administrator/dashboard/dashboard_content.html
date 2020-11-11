@@ -471,8 +471,8 @@
           height: 320,
           type: 'pie',
         },
-        labels: ['Managerial', 'Supervisory', 'Technical'],
-        series: {{trainings}},
+        labels: ['Single', 'Married', 'Widowed','Separated','Annulled'],
+        series: {{civil_status_list}},
         colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
         legend: {
           show: true,
@@ -483,6 +483,62 @@
           gradient: {
             shade: 'light',
             inverseColors: true,
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          dropShadow: {
+            enabled: false,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#civil-status-pie2"),
+      options
+      );
+      chart.render();
+    });
+    $(function() {
+      var options = {
+        chart: {
+          height: 320,
+          type: 'donut',
+        },
+        labels: ['Single', 'Married', 'Widowed','Separated','Annulled'],
+        series: {{civil_status_list}},
+        colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            inverseColors: true,
+          }
+        },
+        legend: {
+          show: true,
+          position: 'bottom',
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                name: {
+                  show: true
+                },
+                value: {
+                  show: true
+                }
+              }
+            }
           }
         },
         dataLabels: {

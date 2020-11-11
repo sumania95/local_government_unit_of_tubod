@@ -85,6 +85,17 @@ class Dashboard_Panels_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISM
         trainings.append(Supervision)
         trainings.append(Technical)
 
+        civil_status_list = []
+        single = ProfileModel.objects.filter(civil_status = 1).count()
+        married = ProfileModel.objects.filter(civil_status = 2).count()
+        widowed = ProfileModel.objects.filter(civil_status = 3).count()
+        separated = ProfileModel.objects.filter(civil_status = 4).count()
+        anulled = ProfileModel.objects.filter(civil_status = 5).count()
+        civil_status_list.append(single)
+        civil_status_list.append(married)
+        civil_status_list.append(widowed)
+        civil_status_list.append(separated)
+        civil_status_list.append(anulled)
         context = {
             'people_designate':people_designate,
             'people_contractual':people_contractual,
@@ -94,6 +105,7 @@ class Dashboard_Panels_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISM
             'total_users':total_users,
             'total_designates':total_designates,
             'total_contractual':total_contractual,
+            'civil_status_list':civil_status_list,
         }
         data['form_is_valid'] = True
         data['dashboard_content'] = render_to_string('administrator/dashboard/dashboard_content.html',context)
@@ -124,6 +136,19 @@ class Profile_Update(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,Templa
 class Profile_Detail_Security(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/action-components/profile_security_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['profile'] = ProfileModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
+
+class Profile_Detail_Username(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/profile_username_update.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

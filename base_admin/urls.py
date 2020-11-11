@@ -10,6 +10,7 @@ from .views import (
     Profile_Detail,
     Profile_Detail_Learning_Development_AJAXView,
     Profile_Detail_Security,
+    Profile_Detail_Username,
     Profile_Detail_Service_Create,
     Profile_Detail_Service_Update,
     Designation,
@@ -41,6 +42,8 @@ from app_info_profile.views import (
     Profile_Update_AJAXView,
     Profile_Update_Save_AJAXView,
     Profile_Detail_Security_AJAXView,
+    Profile_Detail_Username_AJAXView,
+
 )
 from app_designation.views import (
     Designated_AJAXView,
@@ -115,6 +118,8 @@ urlpatterns = [
     path('profile/update/<int:pk>', Profile_Update.as_view(), name = 'profile_update'),
     path('profile/security/<int:pk>', Profile_Detail_Security.as_view(), name = 'profile_detail_security'),
     path('api/profile/security', Profile_Detail_Security_AJAXView.as_view(), name = 'api_profile_detail_security'),
+    path('profile/username/<int:pk>', Profile_Detail_Username.as_view(), name = 'profile_detail_username'),
+    path('api/profile/username', Profile_Detail_Username_AJAXView.as_view(), name = 'api_profile_detail_username'),
     path('api/profile/learning-development/<int:pk>', Profile_Detail_Learning_Development_AJAXView.as_view(), name = 'api_profile_detail_learning_development'),
     path('profile/service-record/create/<int:pk>', Profile_Detail_Service_Create.as_view(), name = 'profile_detail_service_record_create'),
     path('api/profile/service-record/create', Service_Record_Create_AJAXView.as_view(), name = 'api_profile_detail_service_record_create'),
