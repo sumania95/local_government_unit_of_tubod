@@ -43,6 +43,7 @@ from app_info_profile.views import (
     Profile_Update_Save_AJAXView,
     Profile_Detail_Security_AJAXView,
     Profile_Detail_Username_AJAXView,
+    Notification_AJAXView,
 
 )
 from app_designation.views import (
@@ -176,7 +177,8 @@ urlpatterns = [
     path('api/transaction/batch-generated/create/save', Transaction_Batch_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_batch_generated_create_save'),
     path('settings', Settings.as_view(), name = 'settings'),
     path('api/settings', Settings_AJAXView.as_view(), name = 'api_settings'),
-    path('activity-logs', Activity_Logs.as_view(), name = 'activity_logs'),
+    path('audit-logs', Activity_Logs.as_view(), name = 'audit_logs'),
+    path('api/audit-log', Notification_AJAXView.as_view(), name = 'api_audit_log'),
     path('dtr/print', Daily_Time_Records_Print.as_view(), name = 'dtr_print'),
     path('api/dtr/print', Daily_Time_Records_AJAXView.as_view(), name = 'api_dtr_print'),
 

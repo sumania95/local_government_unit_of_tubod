@@ -48,7 +48,8 @@ from .forms import (
 from app_transaction.models import (
     Deducted_Action_Transaction,
 )
-
+#datetime
+import datetime
 from time import strptime
 
 success = 'success'
@@ -312,6 +313,29 @@ class Profile_Detail_Username_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrat
                 username = y['username']
                 for p in username:
                     data['message_title'] = p['message']
+        return JsonResponse(data)
+
+# LOG AUDIT
+class Notification_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    queryset = Notification.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            datepicker1 = self.request.GET.get('datepicker1')
+            datepicker2 = self.request.GET.get('datepicker2')
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            datepicker1 = None
+            datepicker2 = None
+            filter = None
+        start =datetime.datetime.strptime(datepicker1+' 00:00:00', "%Y-%m-%d %H:%M:%S")
+        end =datetime.datetime.strptime(datepicker2+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        if start or end or filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(date_created__range = [start,end]).count()
+            notification = self.queryset.filter(date_created__range = [start,end]).order_by('date_created')[:int(filter)]
+            data['notification_table'] = render_to_string('administrator/ajax-filter-table/table_notification_list.html',{'notification':notification})
         return JsonResponse(data)
 
 class Profile_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
