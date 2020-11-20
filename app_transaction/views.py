@@ -31,6 +31,7 @@ from django.contrib.auth.views import LoginView
 
 from .models import (
     Deducted_Transaction,
+    Deducted_Action_Transaction,
     Rejected_Transaction,
     Generated_Transaction,
 )
@@ -47,12 +48,14 @@ from app_designation.models import (
 
 from .forms import (
     Deducted_TransactionForm,
+    User_Deducted_Contractual_TransactionForm,
     User_Deducted_TransactionForm,
     Deducted_Action_TransactionForm,
     Rejected_TransactionForm,
     Generated_TransactionForm,
     Batch_Generated_TransactionForm,
 )
+from django.utils import timezone
 
 from time import strptime
 
@@ -116,6 +119,17 @@ class Profile_History_Leave_Create_AJAXView(LoginRequiredMixin,View):
                 data['form_is_valid'] = False
                 data['message_type'] = error
                 data['message_title'] = 'An error occurred.'
+        return JsonResponse(data)
+
+class Profile_History_Leave_Delete_Save_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        leave = Deducted_Transaction.objects.get(id=pk)
+        if request.method == 'POST':
+            Deducted_Transaction.objects.filter(id=pk).delete()
+            Notification.objects.create(profile_id = leave.profile_id,detail="Request leave removed.",user_id = self.request.user.id)
+            data['message_type'] = success
+            data['message_title'] = 'Successfully saved.'
         return JsonResponse(data)
 
 # administrator ==================
@@ -205,6 +219,7 @@ class Transaction_Approved_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdminis
 class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def post(self, request,pk):
         data =  dict()
+        now = timezone.now()
         if request.method == 'POST':
             deducted_transaction = Deducted_Transaction.objects.get(id=pk)
             profile = Profile.objects.get(id=deducted_transaction.profile_id)
@@ -254,20 +269,29 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                     data['message_title'] = 'Insufficient Vacation Leave'
 
             elif deducted_transaction.leave_type == '3':
-                if form.is_valid():
-                    form.instance.deducted_transaction_id = pk
-                    form.instance.user_id = self.request.user.id
-                    form.save()
-                    Deducted_Transaction.objects.filter(id=pk).update(status = 2)
-                    Notification.objects.create(profile_id = profile.id,detail="Approved vacation leave",user_id = self.request.user.id)
-                    data['message_type'] = success
-                    data['message_title'] = 'Successfully created.'
-                    data['form_is_valid'] = True
-                    data['url'] = reverse('transaction')
-                else:
+                special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Coalesce(Sum('days'), Value(0)))['dsum']
+                number_of_days = self.request.POST.get('days')
+                print(number_of_days)
+                print(special_leave)
+                if (float(special_leave) + float(number_of_days)) > 3:
                     data['form_is_valid'] = False
                     data['message_type'] = error
-                    data['message_title'] = 'An error occurred.'
+                    data['message_title'] = 'Insufficient Special Leave.'
+                else:
+                    if form.is_valid():
+                        form.instance.deducted_transaction_id = pk
+                        form.instance.user_id = self.request.user.id
+                        form.save()
+                        Deducted_Transaction.objects.filter(id=pk).update(status = 2)
+                        Notification.objects.create(profile_id = profile.id,detail="Approved special leave",user_id = self.request.user.id)
+                        data['message_type'] = success
+                        data['message_title'] = 'Successfully created.'
+                        data['form_is_valid'] = True
+                        data['url'] = reverse('transaction')
+                    else:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'An error occurred.'
 
             elif deducted_transaction.leave_type == '4':
                 if form.instance.days < profile.overtime:

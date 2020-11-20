@@ -38,6 +38,18 @@ class DesignationForm(forms.ModelForm):
         queryset01=Profile.objects.exclude(id__in = Designation.objects.values('profile_id'))
         self.fields['profile']=forms.ModelChoiceField(queryset = queryset01.exclude(id__in = Contractual.objects.values('profile_id')).order_by('surname','firstname'))
 
+class ContractualUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Contractual
+        fields = [
+            'positiontitle',
+            'status',
+            'basic_salary',
+            'department',
+            'date_appointed',
+        ]
+
+
 class ContractualForm(forms.ModelForm):
     class Meta:
         model = Contractual

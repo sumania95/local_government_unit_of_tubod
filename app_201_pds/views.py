@@ -36,6 +36,17 @@ from .models import (
     Eligibility,
     Work_Experience,
     Voluntary_Work,
+    Q34,
+    Q35,
+    Q36,
+    Q37,
+    Q38,
+    Q39,
+    Q40,
+    References1,
+    References2,
+    References3,
+    Government_Other_Info,
 )
 from .forms import (
     Family_BackgroundForm,
@@ -44,6 +55,18 @@ from .forms import (
     EligibilityForm,
     Work_ExperienceForm,
     Voluntary_WorkForm,
+    Learning_DevelopmentForm,
+    Q34Form,
+    Q35Form,
+    Q36Form,
+    Q37Form,
+    Q38Form,
+    Q39Form,
+    Q40Form,
+    References1Form,
+    References2Form,
+    References3Form,
+    Government_Other_InfoForm,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
@@ -52,7 +75,6 @@ class Main_Profile_Family_Background_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
         profile = Family_Background.objects.filter(profile_id = self.request.user.profile.id).exists()
-        print(profile)
         if profile:
             form = Family_BackgroundForm(instance = self.request.user.profile.family_background)
         else:
@@ -63,7 +85,7 @@ class Main_Profile_Family_Background_AJAXView(LoginRequiredMixin,View):
             'btn_name': "primary",
             'btn_title': "Update",
         }
-        data['html_form'] = render_to_string('main/forms/family_background_forms.html',context)
+        data['html_form'] = render_to_string('main/forms/profile_family_background_forms.html',context)
         return JsonResponse(data)
 
     def post(self, request):
@@ -83,6 +105,392 @@ class Main_Profile_Family_Background_AJAXView(LoginRequiredMixin,View):
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
+
+class Main_Profile_Q34_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q34.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q34Form(instance = self.request.user.profile.q34)
+        else:
+            form = Q34Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q34_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q34.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q34Form(request.POST,request.FILES,instance = self.request.user.profile.q34)
+            else:
+                form = Q34Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q35_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q35.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q35Form(instance = self.request.user.profile.q35)
+        else:
+            form = Q35Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q35_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q35.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q35Form(request.POST,request.FILES,instance = self.request.user.profile.q35)
+            else:
+                form = Q35Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q36_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q36.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q36Form(instance = self.request.user.profile.q36)
+        else:
+            form = Q36Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q36_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q36.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q36Form(request.POST,request.FILES,instance = self.request.user.profile.q36)
+            else:
+                form = Q36Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q37_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q37.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q37Form(instance = self.request.user.profile.q37)
+        else:
+            form = Q37Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q37_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q37.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q37Form(request.POST,request.FILES,instance = self.request.user.profile.q37)
+            else:
+                form = Q37Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q38_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q38.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q38Form(instance = self.request.user.profile.q38)
+        else:
+            form = Q38Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q38_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q38.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q38Form(request.POST,request.FILES,instance = self.request.user.profile.q38)
+            else:
+                form = Q38Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q39_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q39.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q39Form(instance = self.request.user.profile.q39)
+        else:
+            form = Q39Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q39_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q39.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q39Form(request.POST,request.FILES,instance = self.request.user.profile.q39)
+            else:
+                form = Q39Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Q40_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Q40.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Q40Form(instance = self.request.user.profile.q40)
+        else:
+            form = Q40Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/q40_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Q40.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Q40Form(request.POST,request.FILES,instance = self.request.user.profile.q40)
+            else:
+                form = Q40Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_References1_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = References1.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = References1Form(instance = self.request.user.profile.references1)
+        else:
+            form = References1Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/references1_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = References1.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = References1Form(request.POST,request.FILES,instance = self.request.user.profile.references1)
+            else:
+                form = References1Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_References2_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = References2.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = References2Form(instance = self.request.user.profile.references2)
+        else:
+            form = References2Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/references2_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = References2.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = References2Form(request.POST,request.FILES,instance = self.request.user.profile.references2)
+            else:
+                form = References2Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_References3_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = References3.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = References3Form(instance = self.request.user.profile.references3)
+        else:
+            form = References3Form()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/references3_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = References3.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = References3Form(request.POST,request.FILES,instance = self.request.user.profile.references3)
+            else:
+                form = References3Form(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Government_Other_Info_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        profile = Government_Other_Info.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if profile:
+            form = Government_Other_InfoForm(instance = self.request.user.profile.government_other_info)
+        else:
+            form = Government_Other_InfoForm()
+        context = {
+            'form': form,
+            'is_Create': False,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/government_other_info_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        profile = Government_Other_Info.objects.filter(profile_id = self.request.user.profile.id).exists()
+        if request.method == 'POST':
+            if profile:
+                form = Government_Other_InfoForm(request.POST,request.FILES,instance = self.request.user.profile.government_other_info)
+            else:
+                form = Government_Other_InfoForm(request.POST,request.FILES)
+            if form.is_valid():
+                if profile:
+                    form.save()
+                else:
+                    form.instance.profile_id = self.request.user.profile.id
+                    form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
 
 class Main_Profile_Children_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
@@ -156,6 +564,19 @@ class Main_Profile_Children_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Children_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Children.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
 class Main_Profile_Educational_Background_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -226,6 +647,19 @@ class Main_Profile_Educational_Background_Update_AJAXView(LoginRequiredMixin,Vie
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Educational_Background_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Educational_Background.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
         return JsonResponse(data)
 
 class Main_Profile_Eligibility_AJAXView(LoginRequiredMixin,View):
@@ -303,6 +737,19 @@ class Main_Profile_Eligibility_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Eligibility_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Eligibility.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
 class Main_Profile_Work_Experience_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -373,6 +820,19 @@ class Main_Profile_Work_Experience_Update_AJAXView(LoginRequiredMixin,View):
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Work_Experience_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Work_Experience.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
         return JsonResponse(data)
 
 class Main_Profile_Voluntary_Work_AJAXView(LoginRequiredMixin,View):
@@ -447,6 +907,104 @@ class Main_Profile_Voluntary_Work_Update_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+class Main_Profile_Voluntary_Work_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Voluntary_Work.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        data['profile_learning_development_template'] = render_to_string('main/components/list_profile_learning_development.html')
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Table_AJAXView(LoginRequiredMixin,View):
+    queryset = Learning_Development.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('date_to')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_learning_development_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Learning_DevelopmentForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_learning_development_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Learning_DevelopmentForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        learning_development = Learning_Development.objects.get(id=pk)
+        form = Learning_DevelopmentForm(instance=learning_development)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'learning_development': learning_development,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_learning_development_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        learning_development = Learning_Development.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Learning_DevelopmentForm(request.POST,request.FILES,instance = learning_development)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Learning_Development_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Learning_Development.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
 # administrator =========================================
 class Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Learning_Development.objects.all()
@@ -463,29 +1021,69 @@ class Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorH
             action = None
         if search or filter or action:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(title__icontains = search,typeofld = action).count()
-            profile = self.queryset.filter(title__icontains = search,typeofld = action).order_by('-fromdate')[:int(filter)]
+            data['counter'] = self.queryset.filter(title__icontains = search,type_of_ld = action).count()
+            profile = self.queryset.filter(title__icontains = search,type_of_ld = action).order_by('-date_from')[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_learning_development.html',{'profile':profile})
         return JsonResponse(data)
 
 class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request,pk):
         now = timezone.now()
-
         limit = (now - relativedelta(years=5)).year
-        print(limit)
         profile = Profile.objects.get(id=pk)
-        learning_development = Learning_Development.objects.filter(id=pk)
-        children = Children.objects.filter(profile_id=pk)
-        educational_background = Educational_Background.objects.filter(profile_id=pk)
-        eligibility = Eligibility.objects.filter(profile_id=pk)
+        children = Children.objects.filter(profile_id=pk).all()
+        educational_background = Educational_Background.objects.filter(profile_id=pk).all()
+        eligibility = Eligibility.objects.filter(profile_id=pk).all()
+        learning_development = Learning_Development.objects.filter(profile_id=pk).all()
+        work_experience = Work_Experience.objects.filter(profile_id=pk)
+        voluntary_work = Voluntary_Work.objects.filter(profile_id=pk)
+        try:
+            family_background = Family_Background.objects.filter(profile_id=pk).first()
+            q34 = Q34.objects.filter(profile_id=pk).first()
+            q35 = Q35.objects.filter(profile_id=pk).first()
+            q36 = Q36.objects.filter(profile_id=pk).first()
+            q37 = Q37.objects.filter(profile_id=pk).first()
+            q38 = Q38.objects.filter(profile_id=pk).first()
+            q39 = Q39.objects.filter(profile_id=pk).first()
+            q40 = Q40.objects.filter(profile_id=pk).first()
+            references1 = References1.objects.filter(profile_id=pk).first()
+            references2 = References2.objects.filter(profile_id=pk).first()
+            references3 = References3.objects.filter(profile_id=pk).first()
+            government_other_info = Government_Other_Info.objects.filter(profile_id=pk).first()
+        except KeyError:
+            family_background = None
+            q34 = None
+            q35 = None
+            q36 = None
+            q37 = None
+            q38 = None
+            q39 = None
+            q40 = None
+            references1 = None
+            references2 = None
+            references3 = None
+            government_other_info = None
         params = {
             'now':now,
             'profile': profile,
-            'learning_development': learning_development,
             'children': children,
+            'family_background': family_background,
             'educational_background': educational_background,
             'eligibility': eligibility,
+            'learning_development': learning_development,
+            'work_experience': work_experience,
+            'voluntary_work': voluntary_work,
+            'q34':q34,
+            'q35':q35,
+            'q36':q36,
+            'q37':q37,
+            'q38':q38,
+            'q39':q39,
+            'q40':q40,
+            'references1':references1,
+            'references2':references2,
+            'references3':references3,
+            'government_other_info':government_other_info,
         }
         pdf = Render.render('pdf/personal_data_sheet.html', params)
         return pdf
@@ -493,7 +1091,7 @@ class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministrat
 class Print_SALN_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request,pk):
         now = timezone.now()
-        profile = Profile.objects.filter(id=pk)[:1]
+        profile = Profile.objects.get(id=pk)
         params = {
             'now': now,
             'profile': profile,

@@ -1,3 +1,4 @@
+{% load static %}
 <div class="card-header p-2">
   <table>
     <tr>
@@ -15,7 +16,7 @@
     <table>
       <tr>
         <td>
-          <button data-url="{% url 'api_main_children_create' %}" type="button" class="btn btn-primary btn-sm form-show" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
+          <button data-url="{% url 'api_main_children_create' %}" type="button" class="btn btn-primary btn-sm form-show-children-create" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
         </td>
       </tr>
     </table>
@@ -59,7 +60,7 @@
   };
   Children();
 
-  $(document).on('click', '.form-show', function(){
+  $(document).on('click', '.form-show-children-create', function(){
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),

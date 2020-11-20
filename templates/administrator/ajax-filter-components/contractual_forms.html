@@ -3,10 +3,11 @@
 {% load static %}
 {% block 'link' %}
 <link rel="stylesheet" href="{% static 'premium/assets/select2/dist/css/select2.min.css'%}">
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
 {% endblock %}
 
 <div class="card-body">
-  <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_designation_contractual_create' %}" class="custom-form">
+  <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_designation_contractual_create' %}{% else %}{% url 'api_designation_contractual_update_save' contractual.id %}{% endif %}" class="custom-form">
     {{form|crispy}}
     <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
   </form>
@@ -14,9 +15,14 @@
 
 {% block 'script' %}
 <script src="{% static 'premium/assets/select2/dist/js/select2.full.min.js' %}"></script>
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
 <script>
   $(document).ready(function () {
     $('#id_profile').select2();
+    $('#id_date_appointed').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {

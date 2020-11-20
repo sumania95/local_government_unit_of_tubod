@@ -9,7 +9,7 @@
   <td>{{p.department.name}}</td>
   <td>{{p.date_appointed}}</td>
   <td>
-    <button type="button" class="btn btn-info btn-sm show-form-create" data-url="#">Update</button>
+    <a href="{% url 'designation_contractual_update' p.id %}" type="button" class="btn btn-info btn-sm">Update</a>
     <form data-url="{% url 'api_designation_contractual_delete_save' p.id %}" method="post" class="d-inline-block custom-form">
       <button type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
     </form>

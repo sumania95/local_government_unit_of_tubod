@@ -1,7 +1,9 @@
 {% load crispy_forms_tags %}
 
 {% load static %}
-
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
 <div class="card-body">
   <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_profile_create' %}{% else %}{% url 'api_profile_update_save' profile.id %}{% endif %}" class="custom-form">
     {{form|crispy}}
@@ -10,8 +12,13 @@
 </div>
 
 {% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
 <script>
   $(document).ready(function () {
+    $('#id_date_of_birth').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {

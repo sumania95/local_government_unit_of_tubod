@@ -43,8 +43,13 @@ from app_rewards_recognitions.models import (
 from .forms import (
     ProfileForm,
     CustomAuthenticationForm,
+    UsernameForm,
 )
-
+from app_transaction.models import (
+    Deducted_Action_Transaction,
+)
+#datetime
+import datetime
 from time import strptime
 
 success = 'success'
@@ -82,6 +87,20 @@ class Logout(LoginRequiredMixin,View):
     def get(self, request):
         logout(request)
         return redirect('login')
+
+class Main_Profile_Leave_Remaining_Template_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        now = timezone.now()
+        profile = Profile.objects.get(id=self.request.user.profile.id)
+        special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = self.request.user.profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Coalesce(Sum('days'), Value(0)))['dsum']
+        print(special_leave)
+        context = {
+            'profile':profile,
+            'special_leave':3-special_leave,
+        }
+        data['profile_table'] = render_to_string('main/components/list_leave_remaining.html',context)
+        return JsonResponse(data)
 
 class Main_Notification_Template_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
@@ -236,10 +255,10 @@ class Profile_Detail_Security_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrat
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)
-                Notification.objects.create(profile_id = profile.id,detail="Changed password",user_id = self.request.user.id)
+                Notification.objects.create(profile_id = profile.id,detail="Password changed.",user_id = self.request.user.id)
                 data['valid'] = True
                 data['message_type'] = success
-                data['message_title'] = 'Successfully updated.'
+                data['message_title'] = 'Successfully changed.'
                 data['url'] = reverse('profile_detail',kwargs={'pk':profile.id})
             else:
                 error_message = form.errors.as_json()
@@ -249,6 +268,74 @@ class Profile_Detail_Security_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrat
                 new_password2 = y['new_password2']
                 for p in new_password2:
                     data['message_title'] = p['message']
+        return JsonResponse(data)
+
+class Profile_Detail_Username_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
+        data = dict()
+        try:
+            profile_id = self.request.GET.get('profile_id')
+        except KeyError:
+            profile_id = None
+        profile = Profile.objects.get(pk=profile_id)
+        form = UsernameForm(instance=profile.user)
+        context = {
+            'form': form,
+            'profile': profile,
+            'btn_name': "primary",
+            'btn_title': "Submit",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/username_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        try:
+            profile_id = self.request.POST.get('profile_id')
+        except KeyError:
+            profile_id = None
+        profile = Profile.objects.get(pk=profile_id)
+
+        if request.method == 'POST':
+            form = UsernameForm(instance=profile.user,data=request.POST)
+            if form.is_valid():
+                user = form.save()
+                Notification.objects.create(profile_id = profile.id,detail="Username changed.",user_id = self.request.user.id)
+                data['valid'] = True
+                data['message_type'] = success
+                data['message_title'] = 'Successfully changed.'
+                data['url'] = reverse('profile_detail',kwargs={'pk':profile.id})
+            else:
+                error_message = form.errors.as_json()
+                y = json.loads(error_message)
+                data['valid'] = False
+                data['message_type'] = error
+                username = y['username']
+                for p in username:
+                    data['message_title'] = p['message']
+        return JsonResponse(data)
+
+# LOG AUDIT
+class Notification_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    queryset = Notification.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            datepicker1 = self.request.GET.get('datepicker1')
+            datepicker2 = self.request.GET.get('datepicker2')
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            datepicker1 = None
+            datepicker2 = None
+            filter = None
+        start =datetime.datetime.strptime(datepicker1+' 00:00:00', "%Y-%m-%d %H:%M:%S")
+        end =datetime.datetime.strptime(datepicker2+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        if start or end or filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(date_created__range = [start,end]).count()
+            notification = self.queryset.filter(date_created__range = [start,end]).order_by('date_created')[:int(filter)]
+            data['notification_table'] = render_to_string('administrator/ajax-filter-table/table_notification_list.html',{'notification':notification})
         return JsonResponse(data)
 
 class Profile_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):

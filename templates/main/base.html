@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-  <title>SPRING HRIS</title>
+  <title>S P R I N G</title>
   <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 11]>
@@ -19,7 +19,7 @@
   <meta name="keywords" content="">
   <meta name="author" content="Codedthemes" />
   <!-- Favicon icon -->
-  <link rel="icon" href="{% static 'premium/assets/images/favicon.ico'%}" type="image/x-icon">
+  <link rel="icon" href="{% static 'icon/lgutubodlogo.png'%}" type="image/x-icon">
 
   <!-- prism css -->
   <link rel="stylesheet" href="{% static 'premium/assets/css/plugins/prism-coy.css'%}">
@@ -57,13 +57,11 @@
           <li class="nav-item">
             <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
           </li>
-          <li class="nav-item">
-            <a href="{% url 'main_voucher' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Internet Voucher</span></a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
+
   <!-- [ navigation menu ] end -->
   <!-- [ Header ] start -->
   <header class="navbar pcoded-header navbar-expand-lg navbar-light header-yellow">
@@ -91,9 +89,6 @@
               </button>
             </div>
           </li>
-          <li class="nav-item">
-            <a href="#!" class="full-screen" onclick="javascript:toggleFullScreen()"><i class="feather icon-maximize"></i></a>
-          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li>
@@ -104,9 +99,9 @@
                   <h6>My Application</h6>
                 </div>
                 <ul class="pro-body">
-                  <li class="notification">
+                  <li class="notification p-3">
                     {% if user.hr_administrator %}
-                    <a href="{% url 'dashboard' %}" type="button" class="btn btn-outline-primary btn-block" name="button"><i class="icon feather icon-home"></i><br>HRIS</a>
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
                     {% else %}
                     <div class="text-center">
                       <p>No Application Yet</p>
@@ -123,61 +118,6 @@
             </div>
           </li>
           <li>
-            <div class="dropdown">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-message-circle"></i><span class="badge bg-primary">5</span></a>
-              <div class="dropdown-menu dropdown-menu-right notification">
-                <div class="card-header p-2">
-                  <h6>Messages</h6>
-                  <input type="search" class="form-control" name="" value="" placeholder="Search...">
-                </div>
-                <ul class="noti-body">
-                  <li class="n-title">
-                    <p class="m-b-0">NEW</p>
-                  </li>
-                  <li class="notification">
-                    <div class="media">
-                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-1.jpg'%}" alt="Generic placeholder image">
-                      <div class="media-body">
-                        <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
-                        <p>New ticket Added</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="n-title">
-                    <p class="m-b-0">EARLIER</p>
-                  </li>
-                  <li class="notification">
-                    <div class="media">
-                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-2.jpg'%}" alt="Generic placeholder image">
-                      <div class="media-body">
-                        <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
-                        <p>Prchace New Theme and make payment</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="notification">
-                    <div class="media">
-                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-1.jpg'%}" alt="Generic placeholder image">
-                      <div class="media-body">
-                        <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
-                        <p>currently login</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="notification">
-                    <div class="media">
-                      <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-2.jpg'%}" alt="Generic placeholder image">
-                      <div class="media-body">
-                        <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                        <p>Prchace New Theme and make payment</p>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
             <div class="dropdown drp-user">
               <a href="#!" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{user.profile.image.url}}" width="40px" height="40px" class="img-radius wid-40" alt="User-Profile-Image">
@@ -186,9 +126,16 @@
                 <div class="pro-head bg-warning">
                   <img src="{{user.profile.image.url}}" width="40px" height="40px" class="img-radius" alt="User-Profile-Image">
                   <span>{{user.profile.firstname|title}} {{user.profile.surname|title}}</span>
-                  <hr>
-                  <div class="text-center">
-                    <small>last login : {{user.last_login}}</small>
+                  <div class="pt-2">
+                    <table>
+                      <tr>
+                        {% if user.profile.designation %}
+                        <td style="white-space:nowrap;width:50%;"><small>SL : {{user.profile.sl}}</small></td>
+                        <td style="white-space:nowrap;width:50%;"><small>VL : {{user.profile.vl}}</small></td>
+                        {% endif %}
+                        <td style="white-space:nowrap;width:50%;"><small>OT : {{user.profile.overtime}}</small></td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
                 <ul class="pro-body">
@@ -305,6 +252,7 @@
   </script>
   {% block 'script' %}
   {% endblock %}
+
 
 
 </body>

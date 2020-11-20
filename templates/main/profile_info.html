@@ -1,7 +1,9 @@
 
 {% extends 'main/base.html' %}
 {% load static %}
-
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
 {% block 'content' %}
 <!-- [ Main Content ] start -->
 <div class="row">
@@ -19,37 +21,173 @@
               <li><a class="nav-link text-left" id="v-pills-eligibility-tab" data-toggle="pill" href="#v-pills-eligibility" role="tab" aria-controls="v-pills-eligibility" aria-selected="false">Eligibility</a></li>
               <li><a class="nav-link text-left" id="v-pills-work-experience-tab" data-toggle="pill" href="#v-pills-work-experience" role="tab" aria-controls="v-pills-work-experience" aria-selected="false">Work Experience</a></li>
               <li><a class="nav-link text-left" id="v-pills-voluntary-work-tab" data-toggle="pill" href="#v-pills-voluntary-work" role="tab" aria-controls="v-pills-voluntary-work" aria-selected="false">Voluntary Work</a></li>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Trainings</a></li>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Other Related Info</a></li>
-              <hr>
+              <li><a class="nav-link text-left" id="v-pills-learning-development-tab" data-toggle="pill" href="#v-pills-learning-development" role="tab" aria-controls="v-pills-learning-development" aria-selected="false">Trainings</a></li>
+              <li><a class="nav-link text-left" id="v-pills-skill_member_academic-tab" data-toggle="pill" href="#v-pills-skill_member_academic" role="tab" aria-controls="v-pills-skill_member_academic" aria-selected="false">Skills & Hobbies | Organization | Non Academic</a></li>
+              <li><a class="nav-link text-left" id="v-pills-others-tab" data-toggle="pill" href="#v-pills-others" role="tab" aria-controls="v-pills-others" aria-selected="false">Q&A</a></li>
+              <li><a class="nav-link text-left" id="v-pills-references-tab" data-toggle="pill" href="#v-pills-references" role="tab" aria-controls="v-pills-references" aria-selected="false">References / ID'S</a></li>
+              <!-- <hr>
               <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Real Properties</a></li>
               <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Personal Properties</a></li>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Liabilities</a></li>
+              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Liabilities</a></li> -->
 
             </ul>
           </div>
           <div class="col-md-9 col-sm-12">
             <div class="tab-content" id="v-pills-tabContent">
-              <div class="tab-pane fade active show" id="v-pills-basic-info" role="tabpanel" aria-labelledby="v-pills-basic-info-tab">
+              <div class="tab-pane fade p-2 active show" id="v-pills-basic-info" role="tabpanel" aria-labelledby="v-pills-basic-info-tab">
                 <!-- Profile Basic Info -->
               </div>
-              <div class="tab-pane fade" id="v-pills-family-background" role="tabpanel" aria-labelledby="v-pills-family-background-tab">
+              <div class="tab-pane fade p-2" id="v-pills-family-background" role="tabpanel" aria-labelledby="v-pills-family-background-tab">
                 <!-- Family Background -->
               </div>
-              <div class="tab-pane fade" id="v-pills-children" role="tabpanel" aria-labelledby="v-pills-children-tab">
+              <div class="tab-pane fade p-2" id="v-pills-children" role="tabpanel" aria-labelledby="v-pills-children-tab">
                 <!-- Children -->
               </div>
-              <div class="tab-pane fade" id="v-pills-educational-background" role="tabpanel" aria-labelledby="v-pills-educational-background-tab">
+              <div class="tab-pane fade p-2" id="v-pills-educational-background" role="tabpanel" aria-labelledby="v-pills-educational-background-tab">
                 <!-- Educational Background -->
               </div>
-              <div class="tab-pane fade" id="v-pills-eligibility" role="tabpanel" aria-labelledby="v-pills-eligibility-tab">
+              <div class="tab-pane fade p-2" id="v-pills-eligibility" role="tabpanel" aria-labelledby="v-pills-eligibility-tab">
                 <!-- Eligibility -->
               </div>
-              <div class="tab-pane fade" id="v-pills-work-experience" role="tabpanel" aria-labelledby="v-pills-work-experience-tab">
+              <div class="tab-pane fade p-2" id="v-pills-work-experience" role="tabpanel" aria-labelledby="v-pills-work-experience-tab">
                 <!-- Work Experience -->
               </div>
-              <div class="tab-pane fade" id="v-pills-voluntary-work" role="tabpanel" aria-labelledby="v-pills-voluntary-work-tab">
+              <div class="tab-pane fade p-2" id="v-pills-voluntary-work" role="tabpanel" aria-labelledby="v-pills-voluntary-work-tab">
                 <!-- Voluntary Work -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-learning-development" role="tabpanel" aria-labelledby="v-pills-learning-development-tab">
+                <!-- Voluntary Work -->
+              </div>
+              <div class="tab-pane fade" id="v-pills-others" role="tabpanel" aria-labelledby="v-pills-others-tab">
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header p-2" id="headingOne">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                          Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of bureau or office or to the person who has immediate supervision over you in the Office, Bureau or Department where you will be apppointed,<br>
+                          a. within the third degree?<br>
+                          b. within the fourth degree (for Local Government Unit - Career Employees)?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseOne" class="card-body p-2 collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <!-- One -->
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2" id="headingTwo">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          a. Have you ever been found guilty of any administrative offense? <br>
+                          b. Have you been criminally charged before any court?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse card-body p-2" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <!-- Two -->
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2" id="headingThree">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseThree" class="card-body p-2 collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                      <!-- Three -->
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2" id="headingFour">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseFour" class="card-body p-2 collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                      <!-- Four -->
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2" id="headingFive">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                          a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)? <br>
+                          b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseFive" class="card-body p-2 collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                      <!-- Five -->
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2" id="headingSix">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                          Have you acquired the status of an immigrant or permanent resident of another country?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseSix" class="card-body p-2 collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                      <!-- Six -->
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2" id="headingSeven">
+                      <h5 class="mb-0">
+                        <a href="#!" class="collapsed text-dark" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                          Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items: <br>
+                          a. Are you a member of any indigenous group? <br>
+                          b. Are you a person with disability? <br>
+                          c. Are you a solo parent?
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseSeven" class="card-body p-2 collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                      <!-- Seven -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="v-pills-references" role="tabpanel" aria-labelledby="v-pills-references-tab">
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="card-title">References 1</h5>
+                    </div>
+                    <div class="card-body p-2" id="collapseReferences1">
+
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="card-title">References 2</h5>
+                    </div>
+                    <div class="card-body p-2" id="collapseReferences2">
+
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="card-title">References 3</h5>
+                    </div>
+                    <div class="card-body p-2" id="collapseReferences3">
+
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5 class="card-title">Governement Info</h5>
+                    </div>
+                    <div class="card-body p-2" id="collapseGovernment_Other_Info">
+
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -69,9 +207,12 @@
 </div>
 
 {% endblock %}
-
 {% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
 <script>
+  $(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
   function Basic_Info(){
     $.ajax({
       url: '{% url 'api_main_basic_info' %}',
@@ -148,6 +289,143 @@
       },
     });
   };
+  function Learning_Development_Template(){
+    $.ajax({
+      url: '{% url 'api_main_learning_development' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-learning-development').html(data.profile_learning_development_template);
+      },
+    });
+  };
+  function Q34(){
+    $.ajax({
+      url: '{% url 'api_main_q34' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseOne').html(data.html_form);
+      },
+    });
+
+  };
+  function Q35(){
+    $.ajax({
+      url: '{% url 'api_main_q35' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseTwo').html(data.html_form);
+      },
+    });
+
+  };
+  function Q36(){
+    $.ajax({
+      url: '{% url 'api_main_q36' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseThree').html(data.html_form);
+      },
+    });
+
+  };
+  function Q37(){
+    $.ajax({
+      url: '{% url 'api_main_q37' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseFour').html(data.html_form);
+      },
+    });
+
+  };
+  function Q38(){
+    $.ajax({
+      url: '{% url 'api_main_q38' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseFive').html(data.html_form);
+      },
+    });
+
+  };
+  function Q39(){
+    $.ajax({
+      url: '{% url 'api_main_q39' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseSix').html(data.html_form);
+      },
+    });
+
+  };
+  function Q40(){
+    $.ajax({
+      url: '{% url 'api_main_q40' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseSeven').html(data.html_form);
+      },
+    });
+  };
+  function References1(){
+    $.ajax({
+      url: '{% url 'api_main_references1' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseReferences1').html(data.html_form);
+      },
+    });
+  };
+  function References2(){
+    $.ajax({
+      url: '{% url 'api_main_references2' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseReferences2').html(data.html_form);
+      },
+    });
+  };
+  function References3(){
+    $.ajax({
+      url: '{% url 'api_main_references3' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseReferences3').html(data.html_form);
+      },
+    });
+  };
+  function Government_Other_Info(){
+    $.ajax({
+      url: '{% url 'api_main_government_other_info' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#collapseGovernment_Other_Info').html(data.html_form);
+      },
+    });
+  };
+  Government_Other_Info();
+  Q34();
+  Q35();
+  Q36();
+  Q37();
+  Q38();
+  Q39();
+  Q40();
+  References1();
+  References2();
+  References3();
   Basic_Info();
   Family_Background();
   Children_Template();
@@ -155,6 +433,7 @@
   Eligibility_Template();
   Work_Experience_Template();
   Voluntary_Work_Template();
+  Learning_Development_Template();
 
 </script>
 

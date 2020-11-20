@@ -40,46 +40,60 @@
 </div>
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-header p-2">
-        <h5>TRAININGS</h5>
-      </div>
-      <div class="card-body p-2">
-        <div id="bar-chart-2"></div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
+
+  <div class="col-md-4">
     <div class="card">
       <div class="card-header p-2">
         <h5>DESIGNATED</h5>
       </div>
       <div class="card-body p-2">
-        <div id="pie-chart-1" style="width:100%"></div>
+        <div id="designate-pie" style="width:100%"></div>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="card">
       <div class="card-header p-2">
         <h5>CONTRACTUAL</h5>
       </div>
       <div class="card-body p-2">
-        <div id="pie-chart-2" style="width:100%"></div>
+        <div id="contractual-pie" style="width:100%"></div>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="card">
       <div class="card-header p-2">
         <h5>RETIRABLES</h5>
       </div>
       <div class="card-body p-2">
-        <div id="radialBar-chart-1" style="width:100%"></div>
+        <div id="retirables-pie" style="width:100%"></div>
       </div>
     </div>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>TRAININGS</h5>
+      </div>
+      <div class="card-body p-2">
+        <div id="learning-development-pie"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header p-2">
+        <h5>CIVIL STATUS</h5>
+      </div>
+      <div class="card-body p-2">
+        <div id="civil-status-pie"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 <div class="row">
   <div class="col-md-6">
@@ -181,7 +195,7 @@
         }]
       }
       var chart = new ApexCharts(
-      document.querySelector("#pie-chart-1"),
+      document.querySelector("#designate-pie"),
       options
       );
       chart.render();
@@ -260,7 +274,7 @@
         }]
       }
       var chart = new ApexCharts(
-      document.querySelector("#pie-chart-2"),
+      document.querySelector("#contractual-pie"),
       options
       );
       chart.render();
@@ -338,7 +352,7 @@
         }]
       }
       var chart = new ApexCharts(
-      document.querySelector("#radialBar-chart-1"),
+      document.querySelector("#retirables-pie"),
       options
       );
       chart.render();
@@ -446,7 +460,104 @@
         }]
       }
       var chart = new ApexCharts(
-      document.querySelector("#bar-chart-2"),
+      document.querySelector("#learning-development-pie"),
+      options
+      );
+      chart.render();
+    });
+    $(function() {
+      var options = {
+        chart: {
+          height: 320,
+          type: 'pie',
+        },
+        labels: ['Single', 'Married', 'Widowed','Separated','Annulled'],
+        series: {{civil_status_list}},
+        colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+        legend: {
+          show: true,
+          position: 'bottom',
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            inverseColors: true,
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          dropShadow: {
+            enabled: false,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#civil-status-pie2"),
+      options
+      );
+      chart.render();
+    });
+    $(function() {
+      var options = {
+        chart: {
+          height: 320,
+          type: 'donut',
+        },
+        labels: ['Single', 'Married', 'Widowed','Separated','Annulled'],
+        series: {{civil_status_list}},
+        colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            inverseColors: true,
+          }
+        },
+        legend: {
+          show: true,
+          position: 'bottom',
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                name: {
+                  show: true
+                },
+                value: {
+                  show: true
+                }
+              }
+            }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          dropShadow: {
+            enabled: false,
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      }
+      var chart = new ApexCharts(
+      document.querySelector("#civil-status-pie"),
       options
       );
       chart.render();

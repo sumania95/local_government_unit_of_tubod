@@ -3,6 +3,7 @@
 {% load static %}
 {% block 'link' %}
 <link rel="stylesheet" href="{% static 'premium/assets/select2/dist/css/select2.min.css'%}">
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
 {% endblock %}
 
 <div class="card-body">
@@ -14,9 +15,19 @@
 
 {% block 'script' %}
 <script src="{% static 'premium/assets/select2/dist/js/select2.full.min.js' %}"></script>
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
+
 <script>
   $(document).ready(function () {
     $('#id_profile').select2();
+    $('#id_date_from').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
+    $('#id_date_to').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -86,7 +97,7 @@
       });
     };
     LoadProfile();
-    
+
 });
 
 </script>

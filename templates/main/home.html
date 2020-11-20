@@ -7,9 +7,11 @@
 <!-- [ Main Content ] start -->
 <div class="row">
   <div class="col-sm-9">
+    {% if user.hr_administrator %}
     <div class="card mb-2" id="form">
       <!-- POST -->
     </div>
+    {% endif %}
     <div id="list_post">
 
     </div>
@@ -100,7 +102,9 @@
     });
 
   };
+  {% if user.hr_administrator %}
   CreatePost();
+  {% endif %}
 </script>
 
 {% endblock %}

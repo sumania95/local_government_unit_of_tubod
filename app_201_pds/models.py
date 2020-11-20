@@ -12,11 +12,11 @@ type = (
 class Learning_Development(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length = 200,blank=True)
-    fromdate = models.DateField()
-    todate = models.DateField()
-    nohrs = models.IntegerField(default=0)
-    typeofld = models.CharField(max_length=100,choices=type)
-    sponsoredby = models.CharField(max_length = 200,blank=True)
+    date_from = models.DateField(default=timezone.now())
+    date_to = models.DateField(default=timezone.now())
+    no_hrs = models.IntegerField(default=8)
+    type_of_ld = models.CharField(max_length=100,choices=type)
+    sponsored_by = models.CharField(max_length = 200,blank=True)
 
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
@@ -26,6 +26,100 @@ class Learning_Development(models.Model):
     @property
     def age(self):
         return int((now.date() - self.fromdate).days / 365.25)
+
+class Skill_Hobbies(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    description = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+
+class Member_Organization(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    description = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+class Non_Academic(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    description = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+
+class References1(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 200)
+    address = models.CharField(max_length = 200)
+    tel_no = models.CharField(max_length = 200)
+
+class References2(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 200)
+    address = models.CharField(max_length = 200)
+    tel_no = models.CharField(max_length = 200)
+
+class References3(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 30)
+    address = models.CharField(max_length = 30)
+    tel_no = models.CharField(max_length = 30)
+
+class Government_Other_Info(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    issued_id = models.CharField(max_length = 30)
+    id_no = models.CharField(max_length = 30)
+    date_issued = models.CharField(max_length = 30)
+
+class Q34(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+
+class Q35(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+
+class Q36(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+
+class Q37(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+
+class Q38(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+
+class Q39(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+
+class Q40(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    question_1 = models.BooleanField(default=False)
+    detail_1 = models.CharField(max_length = 30,blank=True)
+    question_2 = models.BooleanField(default=False)
+    detail_2 = models.CharField(max_length = 30,blank=True)
+    question_3 = models.BooleanField(default=False)
+    detail_3 = models.CharField(max_length = 30,blank=True)
+    question_4 = models.BooleanField(default=False)
+    detail_4 = models.CharField(max_length = 30,blank=True)
 
 class Family_Background(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
@@ -63,7 +157,7 @@ class Children(models.Model):
     firstname = models.CharField(max_length = 200)
     middlename = models.CharField(max_length = 200,blank=True)
     extname = models.CharField(max_length = 200,blank=True)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(default=timezone.now())
     civil_status = models.CharField(max_length=10,choices=civil_status)
 
     date_created = models.DateTimeField(auto_now_add = True)
@@ -78,9 +172,11 @@ class Children(models.Model):
         return '%s: %s' % (self.surname, self.firstname)
 
 level_education = (
-    ('1', 'Managerial',),
-    ('2', 'Supervisory',),
-    ('3', 'Technical',),
+    ('1', 'Elementary',),
+    ('2', 'Secondary',),
+    ('3', 'Vocational / Trade Course',),
+    ('4', 'College',),
+    ('5', 'Graduate Studies',),
 )
 
 class Educational_Background(models.Model):
@@ -88,10 +184,10 @@ class Educational_Background(models.Model):
     level = models.CharField(max_length=100,choices=level_education)
     school_name = models.CharField(max_length = 200,blank=True)
     course = models.CharField(max_length = 200,blank=True)
-    period_from = models.IntegerField(default=0)
-    period_to = models.IntegerField(default=0)
+    period_from = models.IntegerField(default=timezone.now().year)
+    period_to = models.IntegerField(default=timezone.now().year)
     units_earned = models.IntegerField(default=0)
-    year_graduated = models.IntegerField(default=0)
+    year_graduated = models.IntegerField(default=timezone.now().year)
     academic_received = models.CharField(max_length = 200,blank=True)
 
     date_created = models.DateTimeField(auto_now_add = True)
@@ -111,8 +207,8 @@ class Eligibility(models.Model):
 
 class Work_Experience(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    date_from = models.DateField()
-    date_to = models.DateField()
+    date_from = models.DateField(default=timezone.now())
+    date_to = models.DateField(default=timezone.now())
     position_title = models.CharField(max_length = 200)
     department_office = models.CharField(max_length = 200)
     salary = models.DecimalField(default= 0,max_digits = 50,decimal_places=2)
@@ -126,51 +222,10 @@ class Work_Experience(models.Model):
 class Voluntary_Work(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     organization = models.CharField(max_length = 200,blank=True)
-    date_from = models.DateField()
-    date_to = models.DateField()
+    date_from = models.DateField(default=timezone.now())
+    date_to = models.DateField(default=timezone.now())
     no_hrs = models.IntegerField(default=0)
     nature_of_work = models.CharField(max_length = 200,blank=True)
 
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
-
-class Other_Information(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    is_question1 = models.BooleanField(default=False)
-    label1 = models.CharField(max_length = 30,blank=True)
-    is_question2 = models.BooleanField(default=False)
-    label2 = models.CharField(max_length = 30,blank=True)
-    is_question3 = models.BooleanField(default=False)
-    label3 = models.CharField(max_length = 30,blank=True)
-    is_question4 = models.BooleanField(default=False)
-    label4 = models.CharField(max_length = 30,blank=True)
-    is_question5 = models.BooleanField(default=False)
-    label5 = models.CharField(max_length = 30,blank=True)
-    is_question6 = models.BooleanField(default=False)
-    label6 = models.CharField(max_length = 30,blank=True)
-    is_question7 = models.BooleanField(default=False)
-    label7 = models.CharField(max_length = 30,blank=True)
-    is_question8 = models.BooleanField(default=False)
-    label8 = models.CharField(max_length = 30,blank=True)
-    is_question9 = models.BooleanField(default=False)
-    label9 = models.CharField(max_length = 30,blank=True)
-    is_question9 = models.BooleanField(default=False)
-    label9 = models.CharField(max_length = 30,blank=True)
-    is_question10 = models.BooleanField(default=False)
-    label10 = models.CharField(max_length = 30,blank=True)
-    is_question11 = models.BooleanField(default=False)
-    label11 = models.CharField(max_length = 30,blank=True)
-    is_question12 = models.BooleanField(default=False)
-    label12 = models.CharField(max_length = 30,blank=True)
-
-class Reference(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    referencesname1 = models.CharField(max_length = 200,blank=True)
-    referencesaddress1 = models.CharField(max_length = 200,blank=True)
-    referencestel1 = models.CharField(max_length = 200,blank=True)
-    referencesname2 = models.CharField(max_length = 200,blank=True)
-    referencesaddress2 = models.CharField(max_length = 200,blank=True)
-    referencestel2 = models.CharField(max_length = 200,blank=True)
-    referencesname3 = models.CharField(max_length = 200,blank=True)
-    referencesaddress3 = models.CharField(max_length = 200,blank=True)
-    referencestel3 = models.CharField(max_length = 200,blank=True)

@@ -1,11 +1,9 @@
 {% load crispy_forms_tags %}
-
 {% load static %}
-
 <div class="modal-header p-2">
   <h5 class="modal-title" >Children</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_children_create' %}{% else %}{% url 'api_main_children_update' children.id %}{% endif %}" class="custom-form">
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_children_create' %}{% else %}{% url 'api_main_children_update' children.id %}{% endif %}" class="custom-form-children">
   <div class="modal-body p-2">
     {{form|crispy}}
   </div>
@@ -14,10 +12,17 @@
     <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
   </div>
 </form>
-
 {% block 'script' %}
+
+
 <script>
   $(document).ready(function () {
+    $("body").delegate("#id_date_of_birth", "focusin", function(){
+      $(this).datepicker({
+        autoclose: true,
+        format : 'yyyy-mm-dd',
+      });
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -39,7 +44,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form").submit(function (event) {
+    $(".custom-form-children").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({

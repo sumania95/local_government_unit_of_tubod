@@ -1,17 +1,30 @@
 {% load crispy_forms_tags %}
 
 {% load static %}
-
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
 <div class="card-body">
-  <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_history_leave_create' %}{% endif %}" class="custom-form">
+  <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_history_leave_create' %}{% endif %}" class="custom-form-apply-leave">
     {{form|crispy}}
     <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
   </form>
 </div>
 
 {% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
 <script>
   $(document).ready(function () {
+    var $datepicker1 = $('#id_date_from');
+    $datepicker1.datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
+    var $datepicker2 = $('#id_date_to');
+    $datepicker2.datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -33,7 +46,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form").submit(function (event) {
+    $(".custom-form-apply-leave").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({

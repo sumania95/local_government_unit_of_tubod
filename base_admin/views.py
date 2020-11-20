@@ -78,13 +78,24 @@ class Dashboard_Panels_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISM
         people_retirables.append(male_retirables)
         # TRAININGS
         trainings = []
-        Managerial = Learning_DevelopmentModel.objects.filter(typeofld = 'Managerial').all().count()
-        Supervision = Learning_DevelopmentModel.objects.filter(typeofld = 'Supervision').all().count()
-        Technical = Learning_DevelopmentModel.objects.filter(typeofld = 'Technical').all().count()
+        Managerial = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Managerial').all().count()
+        Supervision = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Supervision').all().count()
+        Technical = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Technical').all().count()
         trainings.append(Managerial)
         trainings.append(Supervision)
         trainings.append(Technical)
 
+        civil_status_list = []
+        single = ProfileModel.objects.filter(civil_status = 1).count()
+        married = ProfileModel.objects.filter(civil_status = 2).count()
+        widowed = ProfileModel.objects.filter(civil_status = 3).count()
+        separated = ProfileModel.objects.filter(civil_status = 4).count()
+        anulled = ProfileModel.objects.filter(civil_status = 5).count()
+        civil_status_list.append(single)
+        civil_status_list.append(married)
+        civil_status_list.append(widowed)
+        civil_status_list.append(separated)
+        civil_status_list.append(anulled)
         context = {
             'people_designate':people_designate,
             'people_contractual':people_contractual,
@@ -94,6 +105,7 @@ class Dashboard_Panels_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISM
             'total_users':total_users,
             'total_designates':total_designates,
             'total_contractual':total_contractual,
+            'civil_status_list':civil_status_list,
         }
         data['form_is_valid'] = True
         data['dashboard_content'] = render_to_string('administrator/dashboard/dashboard_content.html',context)
@@ -134,13 +146,26 @@ class Profile_Detail_Security(LoginRequiredMixin,LogoutIfNotAdministratorHRISMix
             pass
         return context
 
+class Profile_Detail_Username(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/profile_username_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['profile'] = ProfileModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
+
 class Profile_Detail_Learning_Development_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request, pk):
         data = dict()
         trainings = []
-        Managerial = Learning_DevelopmentModel.objects.filter(typeofld = 'Managerial',profile_id = pk).all().count()
-        Supervision = Learning_DevelopmentModel.objects.filter(typeofld = 'Supervision',profile_id = pk).all().count()
-        Technical = Learning_DevelopmentModel.objects.filter(typeofld = 'Technical',profile_id = pk).all().count()
+        Managerial = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Managerial',profile_id = pk).all().count()
+        Supervision = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Supervision',profile_id = pk).all().count()
+        Technical = Learning_DevelopmentModel.objects.filter(type_of_ld = 'Technical',profile_id = pk).all().count()
         trainings.append(Managerial)
         trainings.append(Supervision)
         trainings.append(Technical)
@@ -201,6 +226,19 @@ class Designation_Designated_Create(LoginRequiredMixin,LogoutIfNotAdministratorH
 class Designation_Contractual_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/action-components/contractual_create.html'
+
+class Designation_Contractual_Update(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/contractual_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['contractual'] = ContractualModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
 
 class Learning_Development(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'

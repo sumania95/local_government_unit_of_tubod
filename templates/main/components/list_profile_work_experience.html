@@ -44,7 +44,7 @@
 
 {% block 'script' %}
 <script>
-  function Children(){
+  function Work_Experience(){
     var filter = $("#filter-profile-info-work-experience").val();
     $.ajax({
       url: '{% url 'api_main_work_experience_list' %}',
@@ -58,7 +58,7 @@
     });
 
   };
-  Children();
+  Work_Experience();
   $(document).on('click', '.form-show', function(){
     var btn = $(this);
     $.ajax({

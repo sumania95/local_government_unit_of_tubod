@@ -11,6 +11,4 @@ class SettingsForm(forms.ModelForm):
         fields = [
             'name',
             'address',
-            'dtr_from',
-            'dtr_to',
         ]

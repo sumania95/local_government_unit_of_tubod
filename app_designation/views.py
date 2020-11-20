@@ -25,7 +25,6 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.template import RequestContext
-
 from .models import (
     Designation,
     Designationlog,
@@ -33,23 +32,18 @@ from .models import (
     Plantilla,
 )
 from app_info_profile.models import Notification
-
-from .forms import PlantillaForm,DesignationForm,ContractualForm
-
+from .forms import PlantillaForm,DesignationForm,ContractualForm,ContractualUpdateForm
 from time import strptime
-
 success = 'success'
 info = 'info'
 error = 'error'
 warning = 'warning'
 question = 'question'
-
 import calendar
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
 from django.shortcuts import render
 from .render import Render
-
 
 class Designated_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Plantilla.objects.all()
@@ -91,7 +85,6 @@ class Contractual_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,
             contractual = self.queryset.order_by('surname','firstname')[:int(filter)]
             data['contractual_table'] = render_to_string('administrator/ajax-filter-table/table_contractual.html',{'contractual':contractual})
         return JsonResponse(data)
-
 
 class Designated_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request):
@@ -164,6 +157,38 @@ class Contractual_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRI
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully saved.'
+                data['url'] = reverse('designation')
+        return JsonResponse(data)
+
+class Contractual_Update_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
+        data = dict()
+        try:
+            contractual_id = self.request.GET.get('contractual_id')
+        except KeyError:
+            contractual_id = None
+        contractual = Contractual.objects.get(pk=contractual_id)
+        form = ContractualUpdateForm(instance = contractual)
+        context = {
+            'form': form,
+            'contractual':contractual,
+            'is_Create': False,
+            'btn_name': "warning",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/contractual_forms.html',context)
+        return JsonResponse(data)
+
+class Contractual_Update_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        contractual = Contractual.objects.get(pk=pk)
+        if request.method == 'POST':
+            form = ContractualUpdateForm(request.POST,request.FILES,instance = contractual)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
                 data['url'] = reverse('designation')
         return JsonResponse(data)
 

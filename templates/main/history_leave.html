@@ -6,31 +6,7 @@
 {% block 'content' %}
 <!-- [ Main Content ] start -->
 <div class="row">
-  <div class="col-md-2">
-    <h5>Remaining</h5>
-    <hr>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Sick Leave<span class="float-right">351</span></p>
-      </div>
-    </div>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Vacation Leave<span class="float-right">351</span></p>
-      </div>
-    </div>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Special Leave<span class="float-right">351</span></p>
-      </div>
-    </div>
-    <div class="card mb-2">
-      <div class="card-body p-2">
-        <p class="m-b-0">Offset/Overtime<span class="float-right">351</span></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-10">
+  <div class="col-md-12">
     <div class="card">
       <div class="card-header p-2">
         <table>
@@ -62,9 +38,10 @@
               <tr>
                 <th style="white-space:nowrap;width:1%;">Date Range</th>
                 <th>Description</th>
-                <th>Type</th>
-                <th>Date Modified</th>
-                <th style="white-space:nowrap;width:100px;">Action</th>
+                <th style="white-space:nowrap;width:10%">Type</th>
+                <th>Remarks</th>
+                <th style="white-space:nowrap;width:5%">Date Modified</th>
+                <th style="white-space:nowrap;width:5%">STATUS/Action</th>
               </tr>
             </thead>
             <tbody id="table-history-leave-ajax">
@@ -91,6 +68,9 @@
 
 {% block 'script' %}
 <script>
+  $(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
   function History_leave(){
     var filter = $("#filter_history_leave").val();
     var search = $("#search_history_leave").val();
@@ -107,6 +87,7 @@
     });
 
   };
+
   $('#search_history_leave').change(function() {
     History_leave();
   });

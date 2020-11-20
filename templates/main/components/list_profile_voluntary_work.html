@@ -44,7 +44,7 @@
 
 {% block 'script' %}
 <script>
-  function Children(){
+  function Voluntary_Work(){
     var filter = $("#filter-profile-info-voluntary-work").val();
     $.ajax({
       url: '{% url 'api_main_voluntary_work_list' %}',
@@ -58,7 +58,7 @@
     });
 
   };
-  Children();
+  Voluntary_Work();
   $(document).on('click', '.form-show', function(){
     var btn = $(this);
     $.ajax({
