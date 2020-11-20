@@ -35,19 +35,6 @@ civil_status = (
 )
 
 class ProfileForm(forms.ModelForm):
-    # firstname = forms.CharField(label='')
-    # middlename = forms.CharField(label='')
-    # surname = forms.CharField(label='')
-    # ext_name = forms.CharField(label='')
-    # date_of_birth = forms.DateField(label='')
-    # place_of_birth = forms.DateField(label='')
-    # sex = forms.ChoiceField(label="",choices=gender)
-    # civil_status = forms.ChoiceField(label="",choices=civil_status)
-    # height = forms.CharField(label='')
-    # weight = forms.CharField(label='')
-    # blood_type = forms.CharField(label='')
-    # gsis = forms.CharField(label='')
-    # pagibig = forms.CharField(label='')
     class Meta:
         model = Profile
         fields = [
@@ -78,3 +65,59 @@ class ProfileForm(forms.ModelForm):
             'email',
             'image',
         ]
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['firstname'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['middlename'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['surname'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['ext_name'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['date_of_birth'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['place_of_birth'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['sex'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['civil_status'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['height'].widget.attrs={
+            'class': 'form-control-sm',}
+
+        self.fields['weight'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['blood_type'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['gsis'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['pagibig'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['philhealth'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['sss'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['tin'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['agency_no'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['citizenship'].widget.attrs={
+            'class': 'form-control-sm',}
+
+        self.fields['residential_address'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['zipcode_1'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['permanent_address'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['zipcode_2'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['telephone'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['mobile'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['email'].widget.attrs={
+            'class': 'form-control-sm',}
+        self.fields['image'].widget.attrs={
+            'class': 'form-control-sm',}

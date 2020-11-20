@@ -16,6 +16,10 @@ leave_type = (
     ('4', 'Offset',),
 )
 
+leave_type_contractual = (
+    ('4', 'Offset',),
+)
+
 class Deducted_TransactionForm(forms.ModelForm):
     class Meta:
         model = Deducted_Transaction
@@ -26,6 +30,17 @@ class Deducted_TransactionForm(forms.ModelForm):
             'date_from',
             'date_to',
         ]
+class User_Deducted_Contractual_TransactionForm(forms.ModelForm):
+    leave_type = forms.ChoiceField(choices=leave_type_contractual)
+    class Meta:
+        model = Deducted_Transaction
+        fields = [
+            'description',
+            'leave_type',
+            'date_from',
+            'date_to',
+        ]
+
 class User_Deducted_TransactionForm(forms.ModelForm):
     class Meta:
         model = Deducted_Transaction

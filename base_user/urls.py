@@ -39,6 +39,7 @@ from app_internet.views import (
 from app_transaction.views import (
     Profile_History_Leave_AJAXView,
     Profile_History_Leave_Create_AJAXView,
+    Profile_History_Leave_Delete_Save_AJAXView,
 )
 from app_201_pds.views import (
     Main_Profile_Family_Background_AJAXView,
@@ -94,6 +95,7 @@ urlpatterns = [
     path('api/post/comment/<int:pk>', Post_Comment_AJAXView.as_view(), name = 'api_main_post_comment'),
     path('history-leave', History_Leave_Page.as_view(), name = 'main_history_leave'),
     path('api/history-leave', Profile_History_Leave_AJAXView.as_view(), name = 'api_main_history_leave'),
+    path('api/history-leave/delete/<int:pk>', Profile_History_Leave_Delete_Save_AJAXView.as_view(), name = 'api_main_history_leave_delete_save'),
     path('api/leave-remaining', Main_Profile_Leave_Remaining_Template_AJAXView.as_view(), name = 'api_main_leave_remaining'),
     path('history-leave/create', History_Leave_Create.as_view(), name = 'main_history_leave_create'),
     path('api/history-leave/create', Profile_History_Leave_Create_AJAXView.as_view(), name = 'api_main_history_leave_create'),

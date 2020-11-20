@@ -1,6 +1,6 @@
 {% for p in profile %}
 <tr>
-  <td>{{p.date_from|date:"m.d.Y"}}-{{p.date_to|date:"m.d.Y"}}</td>
+  <td>{{p.date_from|date:"M. d, Y"}}-{{p.date_to|date:"M. d, Y"}}</td>
   <td>{{p.profile.surname|upper}}, {{p.profile.firstname|upper}}</td>
   <td>{{p.description}}</td>
   <td>{{p.deducted_action_transaction.days}}</td>

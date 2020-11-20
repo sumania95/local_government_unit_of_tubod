@@ -48,6 +48,7 @@ from app_designation.models import (
 
 from .forms import (
     Deducted_TransactionForm,
+    User_Deducted_Contractual_TransactionForm,
     User_Deducted_TransactionForm,
     Deducted_Action_TransactionForm,
     Rejected_TransactionForm,
@@ -118,6 +119,17 @@ class Profile_History_Leave_Create_AJAXView(LoginRequiredMixin,View):
                 data['form_is_valid'] = False
                 data['message_type'] = error
                 data['message_title'] = 'An error occurred.'
+        return JsonResponse(data)
+
+class Profile_History_Leave_Delete_Save_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        leave = Deducted_Transaction.objects.get(id=pk)
+        if request.method == 'POST':
+            Deducted_Transaction.objects.filter(id=pk).delete()
+            Notification.objects.create(profile_id = leave.profile_id,detail="Request leave removed.",user_id = self.request.user.id)
+            data['message_type'] = success
+            data['message_title'] = 'Successfully saved.'
         return JsonResponse(data)
 
 # administrator ==================

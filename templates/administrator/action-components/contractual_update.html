@@ -1,0 +1,35 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block 'designation_active' %}active{% endblock %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>New Contractual</h5>
+  <hr>
+  <div class="card mb-3" id="form">
+
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block 'script' %}
+
+<script>
+  function filterload(){
+    $.ajax({
+      url: '{% url 'api_designation_contractual_update' %}',
+      data: {contractual_id: {{contractual.id}}},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#form').html(data.html_form);
+      },
+    });
+
+  };
+  filterload();
+</script>
+
+{% endblock %}

@@ -68,6 +68,9 @@
 
 {% block 'script' %}
 <script>
+  $(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
   function History_leave(){
     var filter = $("#filter_history_leave").val();
     var search = $("#search_history_leave").val();

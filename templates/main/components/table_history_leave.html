@@ -11,7 +11,9 @@
     {% elif p.rejected_transaction %}
     <span class="badge badge-danger">REJECTED</span>
     {% else %}
-    <a href="#" type="button" class="btn btn-danger btn-sm">Remove</a>
+    <form class="custom-form-remove-leave" data-url ="{% url 'api_main_history_leave_delete_save' p.id %}" method="post">
+      <button type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
+    </form>
     {% endif %}
   </td>
 </tr>
@@ -46,7 +48,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form").submit(function (event) {
+    $(".custom-form-remove-leave").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -64,6 +66,7 @@
             type: data.message_type,
             title: data.message_title
           });
+          History_leave();
         },
         error:function(error){
           Toast.fire({

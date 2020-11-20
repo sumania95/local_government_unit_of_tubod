@@ -227,6 +227,19 @@ class Designation_Contractual_Create(LoginRequiredMixin,LogoutIfNotAdministrator
     LOGIN_URL = 'login'
     template_name = 'administrator/action-components/contractual_create.html'
 
+class Designation_Contractual_Update(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/contractual_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['contractual'] = ContractualModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
+
 class Learning_Development(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/learning_development.html'

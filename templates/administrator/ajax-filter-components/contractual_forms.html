@@ -7,7 +7,7 @@
 {% endblock %}
 
 <div class="card-body">
-  <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_designation_contractual_create' %}" class="custom-form">
+  <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_designation_contractual_create' %}{% else %}{% url 'api_designation_contractual_update_save' contractual.id %}{% endif %}" class="custom-form">
     {{form|crispy}}
     <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
   </form>
