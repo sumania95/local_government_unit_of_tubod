@@ -6,10 +6,15 @@ from .views import (
     History_Leave_Page,
     History_Leave_Create,
     Earn_Rewards_Page,
-    Voucher_Page,
-    Voucher_Create,
+    Accomplishment_Page,
     Profile_Info_Page,
     Security_Page,
+)
+
+from app_performance_management.views import (
+    Main_Accomplishment_AJAXView,
+    Main_Accomplishment_Create_AJAXView,
+    Main_Accomplishment_Update_AJAXView,
 )
 
 from app_post.views import (
@@ -31,10 +36,6 @@ from app_rewards_recognitions.views import (
     Earn_Rewards_AJAXView,
 )
 
-from app_internet.views import (
-    Main_Voucher_AJAXView,
-    Main_Voucher_Create_AJAXView,
-)
 
 from app_transaction.views import (
     Profile_History_Leave_AJAXView,
@@ -101,10 +102,10 @@ urlpatterns = [
     path('api/history-leave/create', Profile_History_Leave_Create_AJAXView.as_view(), name = 'api_main_history_leave_create'),
     path('earn-rewards', Earn_Rewards_Page.as_view(), name = 'main_earn_rewards'),
     path('api/earn-rewards', Earn_Rewards_AJAXView.as_view(), name = 'api_main_earn_rewards'),
-    path('voucher', Voucher_Page.as_view(), name = 'main_voucher'),
-    path('api/voucher', Main_Voucher_AJAXView.as_view(), name = 'api_main_voucher'),
-    # path('voucher/create', Voucher_Create.as_view(), name = 'main_voucher_create'),
-    # path('api/voucher/create', Main_Voucher_Create_AJAXView.as_view(), name = 'api_main_voucher_create'),
+    path('accomplishment', Accomplishment_Page.as_view(), name = 'main_accomplishment'),
+    path('api/accomplishment', Main_Accomplishment_AJAXView.as_view(), name = 'api_main_accomplishment'),
+    path('api/accomplishment/create', Main_Accomplishment_Create_AJAXView.as_view(), name = 'api_main_accomplishment_create'),
+    path('api/accomplishment/update/<int:pk>', Main_Accomplishment_Update_AJAXView.as_view(), name = 'api_main_accomplishment_update'),
     path('profile-info', Profile_Info_Page.as_view(), name = 'main_profile_info'),
     path('api/basic-info', Main_Profile_Basic_Info_AJAXView.as_view(), name = 'api_main_basic_info'),
     path('api/family-background', Main_Profile_Family_Background_AJAXView.as_view(), name = 'api_main_family_background'),

@@ -3,12 +3,21 @@ from django.forms import ModelForm
 
 from .models import (
     Accomplishment,
+    Year,
 )
 
 class AccomplishmentForm(forms.ModelForm):
 
     class Meta:
-        model = Comment
+        model = Accomplishment
         fields = [
             'core_function_output',
+        ]
+
+class YearForm(forms.ModelForm):
+
+    class Meta:
+        model = Year
+        fields = [
+            'year',
         ]

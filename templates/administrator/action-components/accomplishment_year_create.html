@@ -1,0 +1,33 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Year</h5>
+  <hr>
+  <div class="card mb-3" id="form">
+
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block 'script' %}
+
+<script>
+  function filterload(){
+    $.ajax({
+      url: '{% url 'api_accomplishment_year_create' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#form').html(data.html_form);
+      },
+    });
+
+  };
+  filterload();
+</script>
+
+{% endblock %}

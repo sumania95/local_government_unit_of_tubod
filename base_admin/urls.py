@@ -21,6 +21,8 @@ from .views import (
     # Designation_Plantilla_Update,
     Learning_Development,
     Performance_Management,
+    Accomplishment_Year,
+    Accomplishment_Year_Create,
     Rewards_Recognitions,
     Rewards_Recognitions_Create,
     Rewards_Recognitions_Update,
@@ -81,6 +83,11 @@ from app_rewards_recognitions.views import (
     Rewards_Recognitions_Create_AJAXView,
     Rewards_Recognitions_Update_AJAXView,
     Rewards_Recognitions_Update_Save_AJAXView,
+)
+
+from app_performance_management.views import (
+    Accomplishment_Year_AJAXView,
+    Accomplishment_Year_Create_AJAXView,
 )
 
 from app_transaction.views import (
@@ -156,6 +163,10 @@ urlpatterns = [
     path('learning-development', Learning_Development.as_view(), name = 'learning_development'),
     path('api/learning-development', Learning_Development_AJAXView.as_view(), name = 'api_learning_development'),
     path('performance-management', Performance_Management.as_view(), name = 'performance_management'),
+    path('accomplishment/year', Accomplishment_Year.as_view(), name = 'accomplishment_year'),
+    path('api/accomplishment/year', Accomplishment_Year_AJAXView.as_view(), name = 'api_accomplishment_year'),
+    path('accomplishment/year_create', Accomplishment_Year_Create.as_view(), name = 'accomplishment_year_create'),
+    path('api/accomplishment/year_create', Accomplishment_Year_Create_AJAXView.as_view(), name = 'api_accomplishment_year_create'),
     path('rewards-recognitions', Rewards_Recognitions.as_view(), name = 'rewards_recognitions'),
     path('api/rewards-recognitions', Rewards_Recognitions_AJAXView.as_view(), name = 'api_rewards_recognitions'),
     path('rewards-recognitions/create', Rewards_Recognitions_Create.as_view(), name = 'rewards_recognitions_create'),

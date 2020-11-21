@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app_designation',
     'app_department',
     'app_rewards_recognitions',
+    'app_performance_management',
     'app_transaction',
     'app_post',
     'app_user_type',

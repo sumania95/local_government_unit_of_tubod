@@ -248,6 +248,14 @@ class Performance_Management(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixi
     LOGIN_URL = 'login'
     template_name = 'administrator/performance_management.html'
 
+class Accomplishment_Year(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_year.html'
+
+class Accomplishment_Year_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/accomplishment_year_create.html'
+
 class Rewards_Recognitions(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/rewards_recognitions.html'

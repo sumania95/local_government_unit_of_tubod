@@ -43,8 +43,8 @@ class Earn_Rewards_Page(LoginRequiredMixin,TemplateView):
 class History_Leave_Create(LoginRequiredMixin,TemplateView):
     template_name = 'main/components/apply_leave_create.html'
 
-class Voucher_Page(LoginRequiredMixin,TemplateView):
-    template_name = 'main/voucher.html'
+class Accomplishment_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'main/accomplishment.html'
 
 class Voucher_Create(LoginRequiredMixin,TemplateView):
     template_name = 'main/components/voucher_create.html'
