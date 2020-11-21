@@ -3,15 +3,13 @@
   <td>{{forloop.counter}}</td>
   <td>{{p.core_function_output}}</td>
   <td>
-    {% for indicator in p.success_indicator.all %}
-    <li>{{p.description}}</li>
+    {% for indicator in p.indicator.all %}
+    <li>{{indicator.description}}</li>
     {% empty %}
-    <li>No Success Indicator Yet</li>
-    <li>No Success Indicator Yet</li>
     <li>No Success Indicator Yet</li>
     {% endfor %}
   </td>
-  <td><button data-url="{% url 'api_main_accomplishment_update' p.id %}" type="button" class="btn btn-primary btn-sm form-show-update" name="button">Update</button></td>
+  <td><button data-url="{% url 'api_main_accomplishment_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update" name="button">Update</button></td>
 </tr>
 {% empty %}
 <tr>

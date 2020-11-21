@@ -1,18 +1,8 @@
-{% for p in year %}
+{% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>
-    {{p.year}}
-  </td>
-  <td>
-    {% if p.is_active %}
-      <span class="badge badge-success">Activated</span>
-    {% else %}
-      <form class="custom-form" data-url="{% url 'api_accomplishment_year_activate' p.id %}" method="post">
-        <button type="submit" class="btn btn-secondary btn-sm confirm-activate" name="button">Activate</button>
-      </form>
-    {% endif %}
-  </td>
+  <td>{{p.accomplishment__profile__designation__plantilla__department__name|title}}</td>
+  <td>{{p.total_avg}}</td>
 </tr>
 {% empty %}
 <tr>
@@ -21,6 +11,22 @@
 {% endfor %}
 
 {% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-add-indicator', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+</script>
 <script>
   $(document).ready(function () {
     function getCookie(name) {
@@ -44,7 +50,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form").submit(function (event) {
+    $(".custom-form-delete-indicator").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -62,7 +68,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          Accomplishment_Year();
+          Accomplishment_Indicator();
         },
         error:function(error){
           Toast.fire({

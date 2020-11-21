@@ -20,7 +20,9 @@ from .views import (
     # Designation_Plantilla_Create,
     # Designation_Plantilla_Update,
     Learning_Development,
+    Accomplishment_Indicator,
     Performance_Management,
+    Accomplishment_OPCR,
     Accomplishment_Year,
     Accomplishment_Year_Create,
     Rewards_Recognitions,
@@ -86,8 +88,14 @@ from app_rewards_recognitions.views import (
 )
 
 from app_performance_management.views import (
+    Accomplishment_Indicator_AJAXView,
+    Accomplishment_Indicator_Create_AJAXView,
+    Accomplishment_Indicator_Remove_AJAXView,
+    Accomplishment_IPCR_AJAXView,
+    Accomplishment_OPCR_LIST_AJAXView,
     Accomplishment_Year_AJAXView,
     Accomplishment_Year_Create_AJAXView,
+    Accomplishment_Year_Activate_AJAXView,
 )
 
 from app_transaction.views import (
@@ -162,11 +170,19 @@ urlpatterns = [
     path('api/contractual', Contractual_AJAXView.as_view(), name = 'api_contractual'),
     path('learning-development', Learning_Development.as_view(), name = 'learning_development'),
     path('api/learning-development', Learning_Development_AJAXView.as_view(), name = 'api_learning_development'),
+    path('accomplishment/indicator', Accomplishment_Indicator.as_view(), name = 'accomplishment_indicator'),
+    path('api/accomplishment/indicator', Accomplishment_Indicator_AJAXView.as_view(), name = 'api_accomplishment_indicator'),
+    path('api/accomplishment/indicator/create/save/<int:pk>', Accomplishment_Indicator_Create_AJAXView.as_view(), name = 'api_accomplishment_indicator_create_save'),
+    path('api/accomplishment/indicator/remove/<int:pk>', Accomplishment_Indicator_Remove_AJAXView.as_view(), name = 'api_accomplishment_indicator_remove'),
     path('performance-management', Performance_Management.as_view(), name = 'performance_management'),
+    path('api/accomplishment/ipcr', Accomplishment_IPCR_AJAXView.as_view(), name = 'api_accomplishment_ipcr'),
+    path('accomplishment/opcr', Accomplishment_OPCR.as_view(), name = 'accomplishment_opcr'),
+    path('api/accomplishment/opcr', Accomplishment_OPCR_LIST_AJAXView.as_view(), name = 'api_accomplishment_opcr_list'),
     path('accomplishment/year', Accomplishment_Year.as_view(), name = 'accomplishment_year'),
     path('api/accomplishment/year', Accomplishment_Year_AJAXView.as_view(), name = 'api_accomplishment_year'),
     path('accomplishment/year_create', Accomplishment_Year_Create.as_view(), name = 'accomplishment_year_create'),
-    path('api/accomplishment/year_create', Accomplishment_Year_Create_AJAXView.as_view(), name = 'api_accomplishment_year_create'),
+    path('api/accomplishment/year/create', Accomplishment_Year_Create_AJAXView.as_view(), name = 'api_accomplishment_year_create'),
+    path('api/accomplishment/year/activate/<int:pk>', Accomplishment_Year_Activate_AJAXView.as_view(), name = 'api_accomplishment_year_activate'),
     path('rewards-recognitions', Rewards_Recognitions.as_view(), name = 'rewards_recognitions'),
     path('api/rewards-recognitions', Rewards_Recognitions_AJAXView.as_view(), name = 'api_rewards_recognitions'),
     path('rewards-recognitions/create', Rewards_Recognitions_Create.as_view(), name = 'rewards_recognitions_create'),

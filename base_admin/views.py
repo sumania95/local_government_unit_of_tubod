@@ -19,6 +19,9 @@ from app_transaction.models import Deducted_Transaction as Deducted_TransactionM
 from app_201_pds.models import (
     Learning_Development as Learning_DevelopmentModel,
 )
+from app_performance_management.models import (
+    Year as YearModel,
+)
 
 #functions
 from django.db.models.functions import Coalesce,Concat
@@ -244,9 +247,41 @@ class Learning_Development(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,
     LOGIN_URL = 'login'
     template_name = 'administrator/learning_development.html'
 
+class Accomplishment_Indicator(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_indicator.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['year'] = YearModel.objects.all().order_by('-year')
+        except Exception as e:
+            pass
+        return context
+
 class Performance_Management(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/performance_management.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['year'] = YearModel.objects.all().order_by('-year')
+        except Exception as e:
+            pass
+        return context
+
+class Accomplishment_OPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_opcr.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['year'] = YearModel.objects.all().order_by('-year')
+        except Exception as e:
+            pass
+        return context
 
 class Accomplishment_Year(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'

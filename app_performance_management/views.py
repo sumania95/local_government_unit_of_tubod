@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 #functions
 from django.db.models.functions import Coalesce,Concat
-from django.db.models import Q,F,Sum,Count
+from django.db.models import Q,F,Sum,Count,Avg
 from django.db.models import Value
 from django.urls import reverse
 #auth
@@ -28,6 +28,8 @@ from django.template import RequestContext
 
 from .models import (
     Accomplishment,
+    Success_Indicator,
+    Rating,
     Year,
 )
 
@@ -37,6 +39,7 @@ from app_info_profile.models import (
 
 from .forms import (
     AccomplishmentForm,
+    Success_IndicatorForm,
     YearForm,
 )
 
@@ -122,6 +125,100 @@ class Main_Accomplishment_Update_AJAXView(LoginRequiredMixin,View):
 
 # ADMINISTRATOR
 
+class Accomplishment_Indicator_AJAXView(LoginRequiredMixin,View):
+    queryset = Rating.objects.all()
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(year = Year.objects.filter(is_active=True).first()).count()
+            profile = self.queryset.filter(year = Year.objects.filter(is_active=True).first()).order_by('date_created')[:int(filter)]
+            data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_indicator.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Accomplishment_Indicator_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        accomplishment = Accomplishment.objects.get(id=pk)
+        form = Success_IndicatorForm()
+        context = {
+            'form': form,
+            'accomplishment': accomplishment,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/accomplishment_indicator_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        accomplishment = Accomplishment.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Success_IndicatorForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.user_id = self.request.user.profile.id
+                p = form.save()
+                accomplishment.indicator.add(p)
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Accomplishment_Indicator_Remove_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            Success_Indicator.objects.filter(id=pk).delete()
+            data['message_type'] = success
+            data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+
+class Accomplishment_IPCR_AJAXView(LoginRequiredMixin,View):
+    queryset = Rating.objects
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+            search = self.request.GET.get('search')
+            year = self.request.GET.get('year')
+        except KeyError:
+            filter = None
+            search = None
+            year = None
+        if filter or year or search:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year_id = year).order_by('year').annotate(total_ratings=Sum('ratings')).count()
+            profile = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year_id = year).order_by('year').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
+            data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_ipcr.html',{'profile':profile})
+        return JsonResponse(data)
+
+
+class Accomplishment_OPCR_LIST_AJAXView(LoginRequiredMixin,View):
+    queryset = Rating.objects
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+            year = self.request.GET.get('year')
+            search = self.request.GET.get('search')
+        except KeyError:
+            filter = None
+            year = None
+            search = None
+        if filter or year:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year_id = year).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings')).count()
+            profile = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year_id = year).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
+            print(profile)
+            data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_opcr.html',{'profile':profile})
+        return JsonResponse(data)
+
 class Accomplishment_Year_AJAXView(LoginRequiredMixin,View):
     queryset = Year.objects.all()
 
@@ -156,9 +253,22 @@ class Accomplishment_Year_Create_AJAXView(LoginRequiredMixin,View):
         if request.method == 'POST':
             form = YearForm(request.POST,request.FILES)
             if form.is_valid():
+                Year.objects.update(is_active=False)
+                form.instance.is_active = True
                 form.instance.profile_id = self.request.user.profile.id
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully saved.'
                 data['url'] = reverse('accomplishment_year')
+        return JsonResponse(data)
+
+class Accomplishment_Year_Activate_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            Year.objects.update(is_active=False)
+            Year.objects.filter(id=pk).update(is_active=True)
+            data['message_type'] = success
+            data['message_title'] = 'Successfully saved.'
+            data['url'] = reverse('accomplishment_year')
         return JsonResponse(data)

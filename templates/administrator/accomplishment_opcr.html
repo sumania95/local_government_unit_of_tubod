@@ -1,0 +1,92 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>OPCR</h5>
+  <hr>
+
+</div>
+<div class="col-md-12">
+  <div class="card mb-1">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_accomplishment_opcr" id="filter_accomplishment_opcr">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+          <td>Year</td>
+          <td>
+            <select class="form-control" name="year_accomplishment_opcr" id="year_accomplishment_opcr">
+              {% for p in year %}
+              <option value="{{p.id}}">{{p.year}} {% if p.is_active %}<small class="ml-3">(Active)</small>{% endif %}</option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table border table-hover">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Department</th>
+              <th style="white-space:nowrap;width:10%;">Rating</th>
+            </tr>
+          </thead>
+          <tbody id="table-accomplishment-opcr-ajax">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer" id="counter_accomplishment_opcr">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.confirm-activate', function(){
+    return confirm('Are you sure you want to activate this?');
+  });
+  function Accomplishment_OPCR(){
+    var filter = $("#filter_accomplishment_opcr").val();
+    var search = $("#search_accomplishment_opcr").val();
+    var year = $("#year_accomplishment_opcr").val();
+    $.ajax({
+      url: '{% url 'api_accomplishment_opcr_list' %}',
+      type: 'get',
+      data: {filter:filter,search:search,year:year},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_accomplishment_opcr').html(data.counter + " record(s) found");
+        $('#table-accomplishment-opcr-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+
+  $('#filter_accomplishment_opcr').change(function() {
+    Accomplishment_OPCR();
+  });
+  $('#search_accomplishment_opcr').change(function() {
+    Accomplishment_OPCR();
+  });
+  $('#year_accomplishment_opcr').change(function() {
+    Accomplishment_OPCR();
+  });
+  Accomplishment_OPCR();
+</script>
+
+{% endblock %}

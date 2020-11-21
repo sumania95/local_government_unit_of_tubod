@@ -40,7 +40,8 @@
           <thead>
             <tr>
               <th style="white-space:nowrap;width:1%;">#</th>
-              <th style="white-space:nowrap;width:25%;">Year</th>
+              <th>Year</th>
+              <th style="white-space:nowrap;width:1%;">Action</th>
             </tr>
           </thead>
           <tbody id="table-accomplishment-year-ajax">
@@ -57,6 +58,9 @@
 
 {% block 'script' %}
 <script>
+  $(document).on('click', '.confirm-activate', function(){
+    return confirm('Are you sure you want to activate this?');
+  });
   function Accomplishment_Year(){
     var filter = $("#filter_accomplishment_year").val();
     $.ajax({
