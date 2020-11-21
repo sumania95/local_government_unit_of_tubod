@@ -213,6 +213,23 @@ class Designation(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateV
     LOGIN_URL = 'login'
     template_name = 'administrator/designation.html'
 
+class Designation_Plantilla_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/plantilla_create.html'
+
+class Designation_Plantilla_Update(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/plantilla_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['plantilla'] = PlantillaModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
+
 class Designation_Designated_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/action-components/designated_create.html'
@@ -247,6 +264,14 @@ class Learning_Development(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,
     LOGIN_URL = 'login'
     template_name = 'administrator/learning_development.html'
 
+class Accomplishment(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment.html'
+
+class Accomplishment_Detail(DetailView):
+    model = DesignationModel
+    template_name = 'administrator/accomplishment_detail.html'
+
 class Accomplishment_Indicator(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_indicator.html'
@@ -259,9 +284,9 @@ class Accomplishment_Indicator(LoginRequiredMixin,LogoutIfNotAdministratorHRISMi
             pass
         return context
 
-class Performance_Management(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+class Accomplishment_IPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
-    template_name = 'administrator/performance_management.html'
+    template_name = 'administrator/accomplishment_ipcr.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

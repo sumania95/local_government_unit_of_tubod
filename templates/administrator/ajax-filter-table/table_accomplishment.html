@@ -1,0 +1,14 @@
+{% for p in profile %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>{{p.profile|title}}</td>
+  <td>{{p.plantilla.department}}</td>
+  <td>
+    <a href="{% url 'accomplishment_detail' p.id %}" type="button" class="btn btn-primary btn-sm" name="button"><i class="feather icon-monitor mr-2"></i>Commitment</a>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}

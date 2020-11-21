@@ -18,6 +18,7 @@
 
 <script>
   function filterload(){
+    console.log({{plantilla.id}})
     $.ajax({
       url: '{% url 'api_designation_plantilla_update' %}',
       data: {plantilla_id: {{plantilla.id}}},

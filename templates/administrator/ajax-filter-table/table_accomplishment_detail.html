@@ -1,24 +1,25 @@
-{% for p in profile %}
+{% for p in accomplishment %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.accomplishment__profile__surname|title}}, {{p.accomplishment__profile__firstname|title}}</td>
-  <td>{{p.total_avg|floatformat:2}}</td>
+  <td>{{p.core_function_output}}</td>
   <td>
-    {% if p.total_avg > 4.59 %}
-    <span class="badge badge-success">Outstanding</span>
-    {% elif p.total_avg > 4.19 %}
-    <span class="badge badge-success">Very Satisfactory</span>
-    {% elif p.total_avg > 3.79 %}
-    <span class="badge badge-success">Satisfactory</span>
-    {% elif p.total_avg > 3.39 %}
-    <span class="badge badge-warning">Unsatisfactory</span>
-    {% elif p.total_avg >= 0 %}
-    <span class="badge badge-danger">Poor</span>
-    {% endif %}
+    {% for indicator in p.indicator.all %}
+    <li>
+      <form class="d-inline-block custom-form-delete-indicator mb-1" data-url="{% url 'api_accomplishment_indicator_remove' indicator.id %}" method="post">
+        <button type="button" class="btn btn-warning btn-sm" name="button"><i class="feather icon-edit"></i></button>
+        <button type="submit" class="btn btn-danger btn-sm confirm-delete-indicator" name="button"><i class="feather icon-x"></i></button>
+      </form>
+      {{indicator.description}}
+    </li>
+    {% empty %}
+    <li>No Success Indicator Yet</li>
+    {% endfor %}
   </td>
   <td>
-    <button type="button" class="btn btn-secondary btn-sm" name="button">PRINT</button>
+    <button data-url="{% url 'api_accomplishment_indicator_create_save' p.id %}" type="button" class="btn btn-primary btn-sm form-show-add-indicator" name="button"><i class="feather icon-plus"></i>Success Indicator</button>
+    <button data-url="{% url 'api_accomplishment_detail_rating_create_save' p.id %}" type="button" class="btn btn-success btn-sm form-show-rate" name="button">Rate</button>
   </td>
+
 </tr>
 {% empty %}
 <tr>
@@ -29,6 +30,21 @@
 {% block 'script' %}
 <script>
   $(document).on('click', '.form-show-add-indicator', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+
+  $(document).on('click', '.form-show-rate', function(){
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),

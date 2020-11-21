@@ -3,7 +3,7 @@
 
 {% block 'content' %}
 <div class="col-md-12">
-  <h5>Performance Management</h5>
+  <h5>Individual Performance Commitment and Review</h5>
   <hr>
 
 </div>
@@ -20,14 +20,6 @@
               <option value="50">50</option>
             </select>
           </td>
-          <td>Year</td>
-          <td>
-            <select class="form-control" name="year_accomplishment_ipcr" id="year_accomplishment_ipcr">
-              {% for p in year %}
-              <option value="{{p.id}}">{{p.year}} {% if p.is_active %}<small class="ml-3">(Active)</small>{% endif %}</option>
-              {% endfor %}
-            </select>
-          </td>
         </tr>
       </table>
       <div class="card-header-right">
@@ -35,6 +27,9 @@
           <tr>
             <td>
               <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_accomplishment_ipcr" id="search_accomplishment_ipcr">
+            </td>
+            <td>
+              <button type="button" class="btn btn-secondary btn-sm" name="button"><i class="feather icon-printer"></i>Print</button>
             </td>
           </tr>
         </table>
@@ -71,12 +66,11 @@
   function Accomplishment_IPCR(){
     var filter = $("#filter_accomplishment_ipcr").val();
     var search = $("#search_accomplishment_ipcr").val();
-    var year = $("#year_accomplishment_ipcr").val();
 
     $.ajax({
       url: '{% url 'api_accomplishment_ipcr' %}',
       type: 'get',
-      data: {filter:filter,search:search,year:year},
+      data: {filter:filter,search:search},
       dataType: 'json',
       success:function(data){
         $('#counter_accomplishment_ipcr').html(data.counter + " record(s) found");
@@ -90,9 +84,6 @@
     Accomplishment_IPCR();
   });
   $('#search_accomplishment_ipcr').change(function() {
-    Accomplishment_IPCR();
-  });
-  $('#year_accomplishment_ipcr').change(function() {
     Accomplishment_IPCR();
   });
   Accomplishment_IPCR();

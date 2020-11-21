@@ -1,48 +1,20 @@
-{% for p in profile %}
-<tr>
-  <td>{{forloop.counter}}</td>
-  <td>{{p.accomplishment__profile__surname|title}}, {{p.accomplishment__profile__firstname|title}}</td>
-  <td>{{p.total_avg|floatformat:2}}</td>
-  <td>
-    {% if p.total_avg > 4.59 %}
-    <span class="badge badge-success">Outstanding</span>
-    {% elif p.total_avg > 4.19 %}
-    <span class="badge badge-success">Very Satisfactory</span>
-    {% elif p.total_avg > 3.79 %}
-    <span class="badge badge-success">Satisfactory</span>
-    {% elif p.total_avg > 3.39 %}
-    <span class="badge badge-warning">Unsatisfactory</span>
-    {% elif p.total_avg >= 0 %}
-    <span class="badge badge-danger">Poor</span>
-    {% endif %}
-  </td>
-  <td>
-    <button type="button" class="btn btn-secondary btn-sm" name="button">PRINT</button>
-  </td>
-</tr>
-{% empty %}
-<tr>
-  <td colspan="12" class="text-center">No data available</td>
-</tr>
-{% endfor %}
-
+{% load crispy_forms_tags %}
+{% load static %}
+<div class="modal-header p-2">
+  <h5 class="modal-title" >Rate Accomplishment</h5>
+</div>
+<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_accomplishment_detail_rating_create_save' accomplishment.id %}" class="custom-form-accomplishment-indicator">
+  <div class="modal-body p-2">
+    {{form|crispy}}
+  </div>
+  <div class="modal-footer p-2">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
+  </div>
+</form>
 {% block 'script' %}
-<script>
-  $(document).on('click', '.form-show-add-indicator', function(){
-    var btn = $(this);
-    $.ajax({
-      url: btn.attr("data-url"),
-      type: 'get',
-      dataType:'json',
-      beforeSend: function(){
-        $('#modal-show').modal('show');
-      },
-      success: function(data){
-        $('#modal-show .modal-content').html(data.html_form);
-      }
-    });
-  });
-</script>
+
+
 <script>
   $(document).ready(function () {
     function getCookie(name) {
@@ -66,7 +38,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-delete-indicator").submit(function (event) {
+    $(".custom-form-accomplishment-indicator").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -84,7 +56,8 @@
             type: data.message_type,
             title: data.message_title
           });
-          Accomplishment_Indicator();
+          Accomplishment_Detail();
+          $('#modal-show').modal('hide');
         },
         error:function(error){
           Toast.fire({

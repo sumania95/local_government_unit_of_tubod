@@ -33,6 +33,10 @@ from .models import (
     Year,
 )
 
+from app_designation.models import (
+    Designation,
+)
+
 from app_info_profile.models import (
     Profile
 )
@@ -41,6 +45,7 @@ from .forms import (
     AccomplishmentForm,
     Success_IndicatorForm,
     YearForm,
+    RatingForm,
 )
 
 from time import strptime
@@ -125,6 +130,68 @@ class Main_Accomplishment_Update_AJAXView(LoginRequiredMixin,View):
 
 # ADMINISTRATOR
 
+class Accomplishment_AJAXView(LoginRequiredMixin,View):
+    queryset = Designation.objects.all()
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+            search = self.request.GET.get('search')
+        except KeyError:
+            filter = None
+            search = None
+        if filter or search:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search)).count()
+            profile = self.queryset.filter(Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search)).order_by('profile__surname','profile__firstname')[:int(filter)]
+            data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Accomplishment_Detail_AJAXView(LoginRequiredMixin,View):
+    queryset = Accomplishment.objects.all()
+    def get(self, request):
+        data = dict()
+        try:
+            id = self.request.GET.get('id')
+        except KeyError:
+            id = None
+        if id:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = id).exclude(id__in = Rating.objects.values('accomplishment__id').filter(year=Year.objects.filter(is_active=True).first())).count()
+            accomplishment = self.queryset.filter(profile_id = id).exclude(id__in = Rating.objects.values('accomplishment__id').filter(year=Year.objects.filter(is_active=True).first())).order_by('date_created')
+            data['accomplishment_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_detail.html',{'accomplishment':accomplishment})
+        return JsonResponse(data)
+
+class Accomplishment_Detail_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        accomplishment = Accomplishment.objects.get(id=pk)
+        form = RatingForm()
+        context = {
+            'form': form,
+            'accomplishment': accomplishment,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/accomplishment_detail_rating_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            form = RatingForm(request.POST,request.FILES)
+            accomplishment = Accomplishment.objects.get(id=pk)
+            if form.is_valid():
+                form.instance.accomplishment_id = pk
+                form.instance.year = Year.objects.filter(is_active=True).first()
+                form.instance.user_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+                data['url'] = reverse('accomplishment_detail',kwargs={'pk':accomplishment.profile.id})
+        return JsonResponse(data)
+
 class Accomplishment_Indicator_AJAXView(LoginRequiredMixin,View):
     queryset = Rating.objects.all()
     def get(self, request):
@@ -185,15 +252,13 @@ class Accomplishment_IPCR_AJAXView(LoginRequiredMixin,View):
         try:
             filter = self.request.GET.get('filter')
             search = self.request.GET.get('search')
-            year = self.request.GET.get('year')
         except KeyError:
             filter = None
             search = None
-            year = None
-        if filter or year or search:
+        if filter or search:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year_id = year).order_by('year').annotate(total_ratings=Sum('ratings')).count()
-            profile = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year_id = year).order_by('year').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
+            data['counter'] = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year = Year.objects.filter(is_active=True).first()).order_by('year').annotate(total_ratings=Sum('ratings')).count()
+            profile = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year = Year.objects.filter(is_active=True).first()).order_by('year').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_ipcr.html',{'profile':profile})
         return JsonResponse(data)
 
@@ -205,16 +270,14 @@ class Accomplishment_OPCR_LIST_AJAXView(LoginRequiredMixin,View):
         data = dict()
         try:
             filter = self.request.GET.get('filter')
-            year = self.request.GET.get('year')
             search = self.request.GET.get('search')
         except KeyError:
             filter = None
-            year = None
             search = None
-        if filter or year:
+        if filter or search:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year_id = year).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings')).count()
-            profile = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year_id = year).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
+            data['counter'] = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year = Year.objects.filter(is_active=True).first()).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings')).count()
+            profile = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year = Year.objects.filter(is_active=True).first()).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
             print(profile)
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_opcr.html',{'profile':profile})
         return JsonResponse(data)

@@ -5,6 +5,7 @@ from .models import (
     Accomplishment,
     Success_Indicator,
     Year,
+    Rating,
 )
 
 class AccomplishmentForm(forms.ModelForm):
@@ -26,4 +27,12 @@ class Success_IndicatorForm(forms.ModelForm):
         model = Success_Indicator
         fields = [
             'description',
+        ]
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = [
+            'ratings',
+            'remarks',
         ]

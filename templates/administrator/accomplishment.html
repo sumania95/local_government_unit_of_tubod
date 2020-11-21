@@ -3,9 +3,8 @@
 
 {% block 'content' %}
 <div class="col-md-12">
-  <h5>Office Performance Commitment and Review</h5>
+  <h5>Accomplishment</h5>
   <hr>
-
 </div>
 <div class="col-md-12">
   <div class="card mb-1">
@@ -14,7 +13,7 @@
         <tr>
           <td>Filter</td>
           <td>
-            <select class="form-control" name="filter_accomplishment_opcr" id="filter_accomplishment_opcr">
+            <select class="form-control" name="filter_accomplishment" id="filter_accomplishment">
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
@@ -26,7 +25,7 @@
         <table>
           <tr>
             <td>
-              <button type="button" class="btn btn-secondary btn-sm" name="button"><i class="feather icon-printer"></i>Print</button>
+              <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_accomplishment" id="search_accomplishment">
             </td>
           </tr>
         </table>
@@ -40,16 +39,17 @@
           <thead>
             <tr>
               <th style="white-space:nowrap;width:1%;">#</th>
-              <th>Department</th>
-              <th style="white-space:nowrap;width:10%;">Rating</th>
+              <th>Name</th>
+              <th style="white-space:nowrap;width:15%;">Department</th>
+              <th style="white-space:nowrap;width:100px;">Action</th>
             </tr>
           </thead>
-          <tbody id="table-accomplishment-opcr-ajax">
+          <tbody id="table-accomplishment-ajax">
           </tbody>
         </table>
       </div>
     </div>
-    <div class="card-footer" id="counter_accomplishment_opcr">
+    <div class="card-footer" id="counter_accomplishment">
     </div>
   </div>
 </div>
@@ -58,32 +58,30 @@
 
 {% block 'script' %}
 <script>
-  $(document).on('click', '.confirm-activate', function(){
-    return confirm('Are you sure you want to activate this?');
-  });
-  function Accomplishment_OPCR(){
-    var filter = $("#filter_accomplishment_opcr").val();
-    var search = $("#search_accomplishment_opcr").val();
+  function Accomplishment_IPCR(){
+    var filter = $("#filter_accomplishment").val();
+    var search = $("#search_accomplishment").val();
+
     $.ajax({
-      url: '{% url 'api_accomplishment_opcr_list' %}',
+      url: '{% url 'api_accomplishment' %}',
       type: 'get',
       data: {filter:filter,search:search},
       dataType: 'json',
       success:function(data){
-        $('#counter_accomplishment_opcr').html(data.counter + " record(s) found");
-        $('#table-accomplishment-opcr-ajax').html(data.profile_table);
+        $('#counter_accomplishment').html(data.counter + " record(s) found");
+        $('#table-accomplishment-ajax').html(data.profile_table);
       },
     });
 
   };
 
-  $('#filter_accomplishment_opcr').change(function() {
-    Accomplishment_OPCR();
+  $('#filter_accomplishment').change(function() {
+    Accomplishment_IPCR();
   });
-  $('#search_accomplishment_opcr').change(function() {
-    Accomplishment_OPCR();
+  $('#search_accomplishment').change(function() {
+    Accomplishment_IPCR();
   });
-  Accomplishment_OPCR();
+  Accomplishment_IPCR();
 </script>
 
 {% endblock %}

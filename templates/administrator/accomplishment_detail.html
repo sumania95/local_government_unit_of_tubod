@@ -1,0 +1,74 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Employee Accomplishment Information</h5>
+  <hr>
+
+</div>
+<div class="col-md-12">
+  <div class="card mb-2">
+    <div class="card-header p-0">
+      <table class="table m-0">
+        <tr>
+          <td colspan="6">Name : <b>{{object.profile|upper}}</b></td>
+          <td colspan="6">Position : <b>{{object.plantilla.positiontitle|upper}}</b></td>
+        </tr>
+        <tr>
+          <td colspan="12">Department : <b>{{object.plantilla.department|upper}}</b></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table border table-hover">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Core Function (Output)</th>
+              <th>Success Indicator</th>
+              <th style="white-space:nowrap;width:5%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-accomplishment-detail-ajax">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer" id="counter_accomplishment_detail">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.confirm-delete-indicator', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
+  function Accomplishment_Detail(){
+    $.ajax({
+      url: '{% url 'api_accomplishment_detail' %}',
+      type: 'get',
+      data: {id:{{object.profile.id}}},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_accomplishment_detail').html(data.counter + " record(s) found");
+        $('#table-accomplishment-detail-ajax').html(data.accomplishment_table);
+      },
+    });
+
+  };
+  Accomplishment_Detail();
+</script>
+
+{% endblock %}

@@ -1,23 +1,12 @@
-{% for p in profile %}
+{% load imagefit %}
+{% for p in plantilla %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.accomplishment__profile__surname|title}}, {{p.accomplishment__profile__firstname|title}}</td>
-  <td>{{p.total_avg|floatformat:2}}</td>
+  <td>{{p.positiontitle|upper}}</td>
+  <td>{{p.get_status_display}}</td>
+  <td>{{p.department}}</td>
   <td>
-    {% if p.total_avg > 4.59 %}
-    <span class="badge badge-success">Outstanding</span>
-    {% elif p.total_avg > 4.19 %}
-    <span class="badge badge-success">Very Satisfactory</span>
-    {% elif p.total_avg > 3.79 %}
-    <span class="badge badge-success">Satisfactory</span>
-    {% elif p.total_avg > 3.39 %}
-    <span class="badge badge-warning">Unsatisfactory</span>
-    {% elif p.total_avg >= 0 %}
-    <span class="badge badge-danger">Poor</span>
-    {% endif %}
-  </td>
-  <td>
-    <button type="button" class="btn btn-secondary btn-sm" name="button">PRINT</button>
+    <a href="{% url 'designation_plantilla_update' p.id %}" type="button" class="btn btn-primary btn-sm">Update</a>
   </td>
 </tr>
 {% empty %}
@@ -27,22 +16,6 @@
 {% endfor %}
 
 {% block 'script' %}
-<script>
-  $(document).on('click', '.form-show-add-indicator', function(){
-    var btn = $(this);
-    $.ajax({
-      url: btn.attr("data-url"),
-      type: 'get',
-      dataType:'json',
-      beforeSend: function(){
-        $('#modal-show').modal('show');
-      },
-      success: function(data){
-        $('#modal-show .modal-content').html(data.html_form);
-      }
-    });
-  });
-</script>
 <script>
   $(document).ready(function () {
     function getCookie(name) {
@@ -66,7 +39,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-delete-indicator").submit(function (event) {
+    $(".custom-form").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -84,7 +57,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          Accomplishment_Indicator();
+          Designated();
         },
         error:function(error){
           Toast.fire({

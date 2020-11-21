@@ -45,6 +45,81 @@ from app_user_type.decorators import LogoutIfNotAdministratorHRISMixin
 from django.shortcuts import render
 from .render import Render
 
+class Plantilla_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    queryset = Plantilla.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+            search = self.request.GET.get('search')
+        except KeyError:
+            filter = None
+            search = None
+        if filter or search:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(positiontitle__icontains = search).count()
+            plantilla = self.queryset.filter(positiontitle__icontains = search).order_by('positiontitle')[:int(filter)]
+            data['plantilla_table'] = render_to_string('administrator/ajax-filter-table/table_plantilla.html',{'plantilla':plantilla})
+        return JsonResponse(data)
+
+class Plantilla_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
+        data = dict()
+        form = PlantillaForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Submit",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/plantilla_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = PlantillaForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+                data['url'] = reverse('designation')
+        return JsonResponse(data)
+
+class Plantilla_Update_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
+        data = dict()
+        try:
+            plantilla_id = self.request.GET.get('plantilla_id')
+        except KeyError:
+            plantilla_id = None
+        print(plantilla_id)
+        plantilla = Plantilla.objects.get(id=plantilla_id)
+        form = PlantillaForm(instance=plantilla)
+        context = {
+            'form': form,
+            'plantilla': plantilla,
+            'is_Create': False,
+            'btn_name': "warning",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('administrator/ajax-filter-components/plantilla_forms.html',context)
+        return JsonResponse(data)
+
+class Plantilla_Update_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            plantilla = Plantilla.objects.get(id=pk)
+            form = PlantillaForm(request.POST,request.FILES,instance=plantilla)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+                data['url'] = reverse('designation')
+        return JsonResponse(data)
+
 class Designated_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Plantilla.objects.all()
 
