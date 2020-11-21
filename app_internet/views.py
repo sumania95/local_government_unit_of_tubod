@@ -52,6 +52,7 @@ from django.shortcuts import render
 from django.utils import timezone
 import routeros_api
 import random
+
 class Main_Voucher_AJAXView(LoginRequiredMixin,View):
     queryset = Voucher.objects.all()
 

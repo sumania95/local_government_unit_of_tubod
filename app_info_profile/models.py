@@ -24,7 +24,7 @@ class Profile(models.Model):
     firstname = models.CharField(max_length = 200)
     middlename = models.CharField(max_length = 200,blank=True)
     ext_name = models.CharField(max_length = 200,blank=True)
-    date_of_birth = models.DateField(default=timezone.now())
+    date_of_birth = models.DateField(default=timezone.now)
     place_of_birth = models.CharField(max_length = 200)
     sex = models.CharField(max_length=10,choices=gender)
     civil_status = models.CharField(max_length=10,choices=civil_status)

@@ -22,8 +22,8 @@ class Deducted_Transaction(models.Model):
     description = models.CharField(max_length = 200)
     leave_type = models.CharField(max_length=50,choices=leave_type)
     status = models.CharField(default=1,max_length=50,choices=status)
-    date_from = models.DateField(default=timezone.now())
-    date_to = models.DateField(default=timezone.now())
+    date_from = models.DateField(default=timezone.now)
+    date_to = models.DateField(default=timezone.now)
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
 

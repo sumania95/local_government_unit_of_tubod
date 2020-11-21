@@ -244,6 +244,10 @@ class Learning_Development(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,
     LOGIN_URL = 'login'
     template_name = 'administrator/learning_development.html'
 
+class Performance_Management(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/performance_management.html'
+
 class Rewards_Recognitions(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/rewards_recognitions.html'

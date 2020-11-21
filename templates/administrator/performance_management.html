@@ -1,0 +1,98 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Performance Management</h5>
+  <hr>
+
+</div>
+<div class="col-md-12">
+  <div class="card mb-1">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_rewards_recognitions" id="filter_rewards_recognitions">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+          <td>Year</td>
+          <td>
+            <select class="form-control" name="filter_rewards_recognitions" id="filter_rewards_recognitions">
+              <option value="10">2020</option>
+              <option value="25">2019</option>
+              <option value="50">2018</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_rewards_recognitions" id="search_rewards_recognitions">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table border table-hover">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th style="white-space:nowrap;width:25%;">Name</th>
+              <th>Title</th>
+              <th style="white-space:nowrap;width:15%;">Sponsored</th>
+              <th style="white-space:nowrap;width:15%;">Date</th>
+              <th style="white-space:nowrap;width:100px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-rewards-recognitions-ajax">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer" id="counter_rewards_recognitions">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  function Rewards_Recognitions(){
+    var filter = $("#filter_rewards_recognitions").val();
+    var search = $("#search_rewards_recognitions").val();
+
+    $.ajax({
+      url: '{% url 'api_rewards_recognitions' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_rewards_recognitions').html(data.counter + " record(s) found");
+        $('#table-rewards-recognitions-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+
+  $('#filter_rewards_recognitions').change(function() {
+    Rewards_Recognitions();
+  });
+  $('#search_rewards_recognitions').change(function() {
+    Rewards_Recognitions();
+  });
+  Rewards_Recognitions();
+</script>
+
+{% endblock %}
