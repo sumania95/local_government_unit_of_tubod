@@ -5,3 +5,5 @@ from .models import *
 
 
 admin.site.register(Designationlog)
+admin.site.register(Designation)
+admin.site.register(Plantilla)

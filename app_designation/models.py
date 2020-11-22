@@ -36,7 +36,7 @@ class Plantilla(models.Model):
 class Designation(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     plantilla = models.OneToOneField(Plantilla, on_delete=models.CASCADE)
-    date_appointed = models.DateField(default=timezone.now())
+    date_appointed = models.DateField(default=timezone.now)
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
 
@@ -64,7 +64,7 @@ class Contractual(models.Model):
     status = models.CharField(max_length=50,choices=contract_status)
     basic_salary = models.DecimalField(default= 0,max_digits = 50,decimal_places=2)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    date_appointed = models.DateField(default=timezone.now())
+    date_appointed = models.DateField(default=timezone.now)
 
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)

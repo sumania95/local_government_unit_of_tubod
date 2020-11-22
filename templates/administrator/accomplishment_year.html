@@ -1,0 +1,85 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Accomplishment Year</h5>
+  <hr>
+
+</div>
+<div class="col-md-12">
+  <div class="card mb-1">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_accomplishment_year" id="filter_accomplishment_year">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <a href="{% url 'accomplishment_year_create' %}" type="button" class="btn btn-primary btn-sm" name="button">Add New</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table border table-hover">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Year</th>
+              <th style="white-space:nowrap;width:1%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-accomplishment-year-ajax">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer" id="counter_accomplishment_year">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.confirm-activate', function(){
+    return confirm('Are you sure you want to activate this?');
+  });
+  function Accomplishment_Year(){
+    var filter = $("#filter_accomplishment_year").val();
+    $.ajax({
+      url: '{% url 'api_accomplishment_year' %}',
+      type: 'get',
+      data: {filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_accomplishment_year').html(data.counter + " record(s) found");
+        $('#table-accomplishment-year-ajax').html(data.year_table);
+      },
+    });
+
+  };
+
+  $('#filter_accomplishment_year').change(function() {
+    Accomplishment_Year();
+  });
+  Accomplishment_Year();
+</script>
+
+{% endblock %}

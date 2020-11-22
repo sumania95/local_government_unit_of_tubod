@@ -1,0 +1,89 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Individual Performance Commitment and Review</h5>
+  <hr>
+
+</div>
+<div class="col-md-12">
+  <div class="card mb-1">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_accomplishment_ipcr" id="filter_accomplishment_ipcr">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_accomplishment_ipcr" id="search_accomplishment_ipcr">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table border table-hover">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Name</th>
+              <th style="white-space:nowrap;width:15%;">Rating</th>
+              <th style="white-space:nowrap;width:15%;">Qualitative</th>
+              <th style="white-space:nowrap;width:100px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-accomplishment-ipcr-ajax">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer" id="counter_accomplishment_ipcr">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  function Accomplishment_IPCR(){
+    var filter = $("#filter_accomplishment_ipcr").val();
+    var search = $("#search_accomplishment_ipcr").val();
+
+    $.ajax({
+      url: '{% url 'api_accomplishment_ipcr' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_accomplishment_ipcr').html(data.counter + " record(s) found");
+        $('#table-accomplishment-ipcr-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+
+  $('#filter_accomplishment_ipcr').change(function() {
+    Accomplishment_IPCR();
+  });
+  $('#search_accomplishment_ipcr').change(function() {
+    Accomplishment_IPCR();
+  });
+  Accomplishment_IPCR();
+</script>
+
+{% endblock %}

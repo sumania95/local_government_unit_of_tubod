@@ -19,6 +19,9 @@ from app_transaction.models import Deducted_Transaction as Deducted_TransactionM
 from app_201_pds.models import (
     Learning_Development as Learning_DevelopmentModel,
 )
+from app_performance_management.models import (
+    Year as YearModel,
+)
 
 #functions
 from django.db.models.functions import Coalesce,Concat
@@ -210,6 +213,23 @@ class Designation(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateV
     LOGIN_URL = 'login'
     template_name = 'administrator/designation.html'
 
+class Designation_Plantilla_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/plantilla_create.html'
+
+class Designation_Plantilla_Update(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/plantilla_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['plantilla'] = PlantillaModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
+
 class Designation_Designated_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/action-components/designated_create.html'
@@ -243,6 +263,30 @@ class Designation_Contractual_Update(LoginRequiredMixin,LogoutIfNotAdministrator
 class Learning_Development(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/learning_development.html'
+
+class Accomplishment(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment.html'
+
+class Accomplishment_Detail(DetailView):
+    model = DesignationModel
+    template_name = 'administrator/accomplishment_detail.html'
+
+class Accomplishment_IPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_ipcr.html'
+
+class Accomplishment_OPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_opcr.html'
+
+class Accomplishment_Year(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_year.html'
+
+class Accomplishment_Year_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/accomplishment_year_create.html'
 
 class Rewards_Recognitions(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
@@ -310,6 +354,18 @@ class Transaction_Generated_Create(LoginRequiredMixin,LogoutIfNotAdministratorHR
 class Settings(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/settings.html'
+
+class Department(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/department.html'
+
+class Internet_Ticket(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/internet_ticket.html'
+
+class Internet_Ticket_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/internet_ticket_create.html'
 
 class Activity_Logs(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'

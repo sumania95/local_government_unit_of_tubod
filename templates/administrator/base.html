@@ -59,9 +59,16 @@
           <li class="nav-item {% block 'reward_active' %}{% endblock %}">
             <a href="{% url 'rewards_recognitions' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-award"></i></span><span class="pcoded-mtext">Reward & Recognition</span></a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">IPCR & OPCR</span></a>
-          </li>
+          <li class="nav-item pcoded-hasmenu">
+					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">IPCR & OPCR</span> <span class="badge badge-danger">New</span></a>
+              <ul class="pcoded-submenu">
+                <li><a href="{% url 'accomplishment' %}">Accomplishment</a></li>
+                <li><a href="{% url 'accomplishment_ipcr' %}">IPCR (Individual)</a></li>
+                <li><a href="{% url 'accomplishment_opcr' %}">OPCR (Office)</a></li>
+                <!-- <li><a href="#">Semester</a></li> -->
+                <li><a href="{% url 'accomplishment_year' %}">Year</a></li>
+              </ul>
+					</li>
           <li class="nav-item">
             <a href="{% url 'retirables' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user-x"></i></span><span class="pcoded-mtext">Retirables</span></a>
           </li>
@@ -72,11 +79,16 @@
             <a href="{% url 'transaction' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Transaction</span> <span class="badge badge-danger">New</span></a>
           </li>
           <!-- <li class="nav-item">
-            <a href="{% url 'dtr_print' %}" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">D T R</span> <span class="badge badge-danger ml-2">New</span></a>
+            <a href="{% url 'dtr_print' %}" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Attendance Records</span></a>
           </li> -->
-          <li class="nav-item">
-            <a href="{% url 'settings' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
-          </li>
+          <li class="nav-item pcoded-hasmenu">
+					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Utilities</span></a>
+					    <ul class="pcoded-submenu">
+                <li><a href="{% url 'department' %}">Department</a></li>
+                <li><a href="{% url 'internet_ticket' %}">Internet Ticket</a></li>
+                <li><a href="{% url 'settings' %}">Settings</a></li>
+					    </ul>
+					</li>
           <li class="nav-item">
             <a href="{% url 'audit_logs' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Activity Logs</span></a>
           </li>

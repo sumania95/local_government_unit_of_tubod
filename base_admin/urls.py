@@ -14,12 +14,18 @@ from .views import (
     Profile_Detail_Service_Create,
     Profile_Detail_Service_Update,
     Designation,
+    Designation_Plantilla_Create,
+    Designation_Plantilla_Update,
     Designation_Designated_Create,
     Designation_Contractual_Create,
     Designation_Contractual_Update,
-    # Designation_Plantilla_Create,
-    # Designation_Plantilla_Update,
     Learning_Development,
+    Accomplishment,
+    Accomplishment_Detail,
+    Accomplishment_IPCR,
+    Accomplishment_OPCR,
+    Accomplishment_Year,
+    Accomplishment_Year_Create,
     Rewards_Recognitions,
     Rewards_Recognitions_Create,
     Rewards_Recognitions_Update,
@@ -30,6 +36,9 @@ from .views import (
     Transaction_Rejected_Create,
     Transaction_Generated_Create,
     Settings,
+    Department,
+    Internet_Ticket,
+    Internet_Ticket_Create,
     Activity_Logs,
 )
 from app_201_pds.views import (
@@ -48,6 +57,10 @@ from app_info_profile.views import (
 
 )
 from app_designation.views import (
+    Plantilla_AJAXView,
+    Plantilla_Create_AJAXView,
+    Plantilla_Update_AJAXView,
+    Plantilla_Update_Save_AJAXView,
     Designated_AJAXView,
     Contractual_AJAXView,
     Designated_Create_AJAXView,
@@ -82,6 +95,21 @@ from app_rewards_recognitions.views import (
     Rewards_Recognitions_Update_Save_AJAXView,
 )
 
+from app_performance_management.views import (
+    Accomplishment_AJAXView,
+    Accomplishment_Detail_AJAXView,
+    Accomplishment_Detail_List_AJAXView,
+    Accomplishment_Detail_Rating_Create_AJAXView,
+    Accomplishment_Indicator_Create_AJAXView,
+    Accomplishment_Indicator_Update_AJAXView,
+    Accomplishment_Indicator_Remove_AJAXView,
+    Accomplishment_IPCR_AJAXView,
+    Accomplishment_OPCR_LIST_AJAXView,
+    Accomplishment_Year_AJAXView,
+    Accomplishment_Year_Create_AJAXView,
+    Accomplishment_Year_Activate_AJAXView,
+)
+
 from app_transaction.views import (
     Transaction_Request_Pending_AJAXView,
     Transaction_Request_Pending_Create_AJAXView,
@@ -96,6 +124,17 @@ from app_transaction.views import (
     Transaction_Generated_Create_AJAXView,
     Transaction_Generated_Create_Save_AJAXView,
     Transaction_Batch_Generated_Create_Save_AJAXView,
+)
+
+from app_department.views import (
+    Department_AJAXView,
+    Department_Create_AJAXView,
+    Department_Update_AJAXView,
+)
+from app_internet.views import (
+    Internet_Ticket_AJAXView,
+    Internet_Ticket_Create_AJAXView,
+    Internet_Ticket_Print,
 )
 
 from app_dtr.views import (
@@ -139,8 +178,15 @@ urlpatterns = [
     path('api/profile/service-record', Service_Record_AJAXView.as_view(), name = 'api_profile_service_record'),
     path('service-record/print/<int:pk>', Service_Record_Print.as_view(), name = 'service_record_print'),
     path('designation', Designation.as_view(), name = 'designation'),
+    path('designation/plantilla/create', Designation_Plantilla_Create.as_view(), name = 'designation_plantilla_create'),
+    path('designation/plantilla/update/<int:pk>', Designation_Plantilla_Update.as_view(), name = 'designation_plantilla_update'),
+    path('designation', Designation.as_view(), name = 'designation'),
     path('contractual/print', Print_Contract_Contractual_Report.as_view(), name = 'print_contractual'),
     path('designation/designated/create/<int:pk>', Designation_Designated_Create.as_view(), name = 'designation_designated_create'),
+    path('api/plantilla', Plantilla_AJAXView.as_view(), name = 'api_plantilla'),
+    path('api/designation/plantilla/create', Plantilla_Create_AJAXView.as_view(), name = 'api_designation_plantilla_create'),
+    path('api/designation/plantilla/update', Plantilla_Update_AJAXView.as_view(), name = 'api_designation_plantilla_update'),
+    path('api/designation/plantilla/update/save/<int:pk>', Plantilla_Update_Save_AJAXView.as_view(), name = 'api_designation_plantilla_update_save'),
     path('api/designation/designated/create', Designated_Create_AJAXView.as_view(), name = 'api_designation_designated_create'),
     path('api/designation/designated/create/save/<int:pk>', Designated_Create_Save_AJAXView.as_view(), name = 'api_designation_designated_create_save'),
     path('api/designation/designated/delete/save/<int:pk>', Designated_Delete_Save_AJAXView.as_view(), name = 'api_designation_designated_delete_save'),
@@ -154,6 +200,24 @@ urlpatterns = [
     path('api/contractual', Contractual_AJAXView.as_view(), name = 'api_contractual'),
     path('learning-development', Learning_Development.as_view(), name = 'learning_development'),
     path('api/learning-development', Learning_Development_AJAXView.as_view(), name = 'api_learning_development'),
+    path('accomplishment', Accomplishment.as_view(), name = 'accomplishment'),
+    path('accomplishment/detail/<int:pk>', Accomplishment_Detail.as_view(), name = 'accomplishment_detail'),
+    path('api/accomplishment/detail', Accomplishment_Detail_AJAXView.as_view(), name = 'api_accomplishment_detail'),
+    path('api/accomplishment/detail/list', Accomplishment_Detail_List_AJAXView.as_view(), name = 'api_accomplishment_detail_list'),
+    path('api/accomplishment/detail/rating/create/save/<int:pk>', Accomplishment_Detail_Rating_Create_AJAXView.as_view(), name = 'api_accomplishment_detail_rating_create_save'),
+    path('api/accomplishment', Accomplishment_AJAXView.as_view(), name = 'api_accomplishment'),
+    path('api/accomplishment/indicator/create/save/<int:pk>', Accomplishment_Indicator_Create_AJAXView.as_view(), name = 'api_accomplishment_indicator_create_save'),
+    path('api/accomplishment/indicator/update/<int:pk>', Accomplishment_Indicator_Update_AJAXView.as_view(), name = 'api_accomplishment_indicator_update'),
+    path('api/accomplishment/indicator/remove/<int:pk>', Accomplishment_Indicator_Remove_AJAXView.as_view(), name = 'api_accomplishment_indicator_remove'),
+    path('accomplishment/ipcr', Accomplishment_IPCR.as_view(), name = 'accomplishment_ipcr'),
+    path('api/accomplishment/ipcr', Accomplishment_IPCR_AJAXView.as_view(), name = 'api_accomplishment_ipcr'),
+    path('accomplishment/opcr', Accomplishment_OPCR.as_view(), name = 'accomplishment_opcr'),
+    path('api/accomplishment/opcr', Accomplishment_OPCR_LIST_AJAXView.as_view(), name = 'api_accomplishment_opcr_list'),
+    path('accomplishment/year', Accomplishment_Year.as_view(), name = 'accomplishment_year'),
+    path('api/accomplishment/year', Accomplishment_Year_AJAXView.as_view(), name = 'api_accomplishment_year'),
+    path('accomplishment/year_create', Accomplishment_Year_Create.as_view(), name = 'accomplishment_year_create'),
+    path('api/accomplishment/year/create', Accomplishment_Year_Create_AJAXView.as_view(), name = 'api_accomplishment_year_create'),
+    path('api/accomplishment/year/activate/<int:pk>', Accomplishment_Year_Activate_AJAXView.as_view(), name = 'api_accomplishment_year_activate'),
     path('rewards-recognitions', Rewards_Recognitions.as_view(), name = 'rewards_recognitions'),
     path('api/rewards-recognitions', Rewards_Recognitions_AJAXView.as_view(), name = 'api_rewards_recognitions'),
     path('rewards-recognitions/create', Rewards_Recognitions_Create.as_view(), name = 'rewards_recognitions_create'),
@@ -182,11 +246,20 @@ urlpatterns = [
     path('api/transaction/generated/create/save', Transaction_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_generated_create_save'),
     path('api/transaction/batch-generated/create/save', Transaction_Batch_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_batch_generated_create_save'),
     path('settings', Settings.as_view(), name = 'settings'),
+    path('internet-ticket', Internet_Ticket.as_view(), name = 'internet_ticket'),
+    path('internet-ticket/create', Internet_Ticket_Create.as_view(), name = 'internet_ticket_create'),
+    path('api/internet-ticket', Internet_Ticket_AJAXView.as_view(), name = 'api_internet_ticket'),
+    path('api/internet-ticket/create', Internet_Ticket_Create_AJAXView.as_view(), name = 'api_internet_ticket_create'),
+    path('department', Department.as_view(), name = 'department'),
+    path('api/department', Department_AJAXView.as_view(), name = 'api_department'),
+    path('api/department/create', Department_Create_AJAXView.as_view(), name = 'api_department_create'),
+    path('api/department/update/<int:pk>', Department_Update_AJAXView.as_view(), name = 'api_department_update'),
     path('api/settings', Settings_AJAXView.as_view(), name = 'api_settings'),
     path('audit-logs', Activity_Logs.as_view(), name = 'audit_logs'),
     path('api/audit-log', Notification_AJAXView.as_view(), name = 'api_audit_log'),
     path('dtr/print', Daily_Time_Records_Print.as_view(), name = 'dtr_print'),
     path('api/dtr/print', Daily_Time_Records_AJAXView.as_view(), name = 'api_dtr_print'),
+    path('internet/ticket/print/<int:pk>', Internet_Ticket_Print.as_view(), name = 'internet_ticket_print'),
 
     # path(str(random.randint(0000000000, 9999999999)) + '/activity-logs', Activity_Logs.as_view(), name = 'activity_logs'),
 ]

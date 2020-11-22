@@ -55,7 +55,10 @@
             <a href="{% url 'main_history_leave' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">History Leave</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
+            <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'main_accomplishment' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Accomplishment</span></a>
           </li>
         </ul>
       </div>
@@ -101,7 +104,9 @@
                 <ul class="pro-body">
                   <li class="notification p-3">
                     {% if user.hr_administrator %}
-                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn btn-block w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>S P R I N G</a></td>
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING(HR)</a></td>
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-success"></i><br>PMT (IPCR)</a></td>
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-danger"></i><br>IMS (STOCK)</a></td>
                     {% else %}
                     <div class="text-center">
                       <p>No Application Yet</p>

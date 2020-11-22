@@ -12,8 +12,8 @@ class Service_Record(models.Model):
     branch = models.CharField(max_length = 200)
     lwabs = models.CharField(max_length = 200)
     separtion_date = models.CharField(max_length = 200)
-    date_from = models.DateField(default = timezone.now())
-    date_to = models.DateField(default = timezone.now())
+    date_from = models.DateField(default = timezone.now)
+    date_to = models.DateField(default = timezone.now)
 
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)

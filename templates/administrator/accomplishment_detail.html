@@ -1,0 +1,128 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Employee Accomplishment Information</h5>
+  <hr>
+
+</div>
+<div class="col-md-12">
+  <div class="card mb-2">
+    <div class="card-header p-0">
+      <table class="table m-0">
+        <tr>
+          <td colspan="6">Name : <b>{{object.profile|upper}}</b></td>
+          <td colspan="6">Position : <b>{{object.plantilla.positiontitle|upper}}</b></td>
+        </tr>
+        <tr>
+          <td colspan="12">Department : <b>{{object.plantilla.department|upper}}</b></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="card mb-2">
+    <div class="card-header p-0 border border-success">
+      <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-accomplishment-tab" data-toggle="pill" href="#pills-accomplishment" role="tab" aria-controls="pills-accomplishment" aria-selected="true">Commitment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-accomplished-tab" data-toggle="pill" href="#pills-accomplished" role="tab" aria-controls="pills-accomplished" aria-selected="true">Rate Actual Accomplishment</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-accomplishment" role="tabpanel" aria-labelledby="pills-accomplishment-tab">
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table border table-hover">
+              <thead>
+                <tr>
+                  <th style="white-space:nowrap;width:1%;">#</th>
+                  <th>Core Function (Output)</th>
+                  <th>Success Indicator</th>
+                  <th style="white-space:nowrap;width:5%;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-actual-accomplishment-detail-ajax">
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer" id="counter_actual_accomplishment_detail">
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-accomplished" role="tabpanel" aria-labelledby="pills-accomplished-tab">
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table border table-hover">
+              <thead>
+                <tr>
+                  <th style="white-space:nowrap;width:1%;">#</th>
+                  <th>Core Function (Output)</th>
+                  <th>Success Indicator</th>
+                  <th>Actual Accomplishment</th>
+                  <th style="white-space:nowrap;width:5%;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-actual-accomplished-detail-ajax">
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer" id="counter_actual_accomplished_detail">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.confirm-delete-indicator', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
+
+  function Accomplishment_Detail(){
+    $.ajax({
+      url: '{% url 'api_accomplishment_detail' %}',
+      type: 'get',
+      data: {id:{{object.profile.id}}},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_actual_accomplished_detail').html(data.counter + " record(s) found");
+        $('#table-actual-accomplished-detail-ajax').html(data.actual_accomplishment_table);
+      },
+    });
+
+  };
+  Accomplishment_Detail();
+  function Accomplishment_Detail_List(){
+    $.ajax({
+      url: '{% url 'api_accomplishment_detail_list' %}',
+      type: 'get',
+      data: {id:{{object.profile.id}}},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_actual_accomplishment_detail').html(data.counter + " record(s) found");
+        $('#table-actual-accomplishment-detail-ajax').html(data.actual_accomplishment_table);
+      },
+    });
+
+  };
+  Accomplishment_Detail_List();
+</script>
+
+{% endblock %}

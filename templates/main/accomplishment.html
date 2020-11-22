@@ -1,0 +1,183 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load imagefit %}
+
+
+{% block 'content' %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-2">
+      <div class="card-header p-0 border border-success">
+        <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-accomplishment-tab" data-toggle="pill" href="#pills-accomplishment" role="tab" aria-controls="pills-accomplishment" aria-selected="true">Accomplishment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-accomplished-tab" data-toggle="pill" href="#pills-accomplished" role="tab" aria-controls="pills-accomplished" aria-selected="true">Accomplished</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-accomplishment" role="tabpanel" aria-labelledby="pills-accomplishment-tab">
+        <div class="card">
+          <div class="card-header p-2">
+            <table>
+              <tr>
+                <td>Filter</td>
+                <td>
+                  <select class="form-control" name="filter_accomplishment" id="filter_accomplishment">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <div class="card-header-right">
+              <table>
+                <tr>
+                  <td>
+                    <button data-url="{% url 'api_main_accomplishment_create' %}" type="button" class="btn btn-primary btn-sm form-show-accomplishment-create" name="button">Add New</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover m-b-0">
+                <thead>
+                  <tr>
+                    <th style="white-space:nowrap;width:1%;">#</th>
+                    <th>Core Function Outpot</th>
+                    <th>Success Indicator</th>
+                    <th style="white-space:nowrap;width:5%">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="table-accomplishment-ajax">
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer p-2" id="counter-accomplishment">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pills-accomplished" role="tabpanel" aria-labelledby="pills-accomplished-tab">
+        <div class="card">
+          <div class="card-header p-2">
+            <table>
+              <tr>
+                <td>Filter</td>
+                <td>
+                  <select class="form-control" name="filter_accomplished" id="filter_accomplished">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover m-b-0">
+                <thead>
+                  <tr>
+                    <th style="white-space:nowrap;width:1%;">#</th>
+                    <th>Core Function Outpot</th>
+                    <th>Success Indicator</th>
+                    <th>Actual Accomplishment</th>
+                  </tr>
+                </thead>
+                <tbody id="table-accomplished-ajax">
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer p-2" id="counter-accomplished">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- [ horizontal-layout ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+<!-- /.content -->
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
+  function Accomplishment(){
+    var filter = $("#filter_accomplishment").val();
+    var search = $("#search_accomplishment").val();
+
+    $.ajax({
+      url: '{% url 'api_main_accomplishment' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-accomplishment').html(data.counter + " record(s) found");
+        $('#table-accomplishment-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+  $('#filter_accomplishment').change(function() {
+    Accomplishment();
+  });
+  Accomplishment();
+
+  function Accomplished(){
+    var filter = $("#filter_accomplished").val();
+    var search = $("#search_accomplished").val();
+
+    $.ajax({
+      url: '{% url 'api_main_accomplished' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-accomplished').html(data.counter + " record(s) found");
+        $('#table-accomplished-ajax').html(data.profile_table);
+      },
+    });
+
+  };
+  $('#filter_accomplished').change(function() {
+    Accomplished();
+  });
+  Accomplished();
+
+  $(document).on('click', '.form-show-accomplishment-create', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+
+</script>
+
+{% endblock %}
