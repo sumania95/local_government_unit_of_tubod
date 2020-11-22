@@ -1,9 +1,9 @@
 {% load crispy_forms_tags %}
 {% load static %}
 <div class="modal-header p-2">
-  <h5 class="modal-title" >Add New Success Indicator</h5>
+  <h5 class="modal-title" >Success Indicator</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_accomplishment_indicator_create_save' accomplishment.id %}" class="custom-form-accomplishment-indicator">
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_accomplishment_indicator_create_save' accomplishment.id %}{% else %}{% url 'api_accomplishment_indicator_update' success_indicator.id %}{% endif %}" class="custom-form-accomplishment-indicator">
   <div class="modal-body p-2">
     {{form|crispy}}
   </div>
@@ -56,7 +56,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          Accomplishment_Indicator();
+          Accomplishment_Detail_List();
           $('#modal-show').modal('hide');
         },
         error:function(error){

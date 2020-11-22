@@ -1,0 +1,16 @@
+{% for p in internet_ticket %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>
+    GENERATED {{p.id}} (<small>{{p.date_created}}</small>)
+  </td>
+  <td>{{p.no_ticket}}</td>
+  <td>
+    <a href="{% url 'internet_ticket_print' p.id %}" target="_blank" type="button" class="btn btn-secondary btn-sm" name="button">Print</a>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}

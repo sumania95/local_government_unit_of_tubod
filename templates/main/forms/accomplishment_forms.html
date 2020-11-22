@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 <div class="modal-header p-2">
-  <h5 class="modal-title" >Children</h5>
+  <h5 class="modal-title" >Accomplishment</h5>
 </div>
 <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_accomplishment_create' %}{% else %}{% url 'api_main_accomplishment_update' accomplishment.id %}{% endif %}" class="custom-form-accomplishment">
   <div class="modal-body p-2">

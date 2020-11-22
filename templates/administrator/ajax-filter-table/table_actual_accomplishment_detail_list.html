@@ -1,4 +1,4 @@
-{% for p in accomplishment %}
+{% for p in actual_accomplishment %}
 <tr>
   <td>{{forloop.counter}}</td>
   <td>{{p.core_function_output}}</td>
@@ -6,7 +6,7 @@
     {% for indicator in p.indicator.all %}
     <li>
       <form class="d-inline-block custom-form-delete-indicator mb-1" data-url="{% url 'api_accomplishment_indicator_remove' indicator.id %}" method="post">
-        <button type="button" class="btn btn-warning btn-sm" name="button"><i class="feather icon-edit"></i></button>
+        <button data-url="{% url 'api_accomplishment_indicator_update' indicator.id %}" type="button" class="btn btn-warning btn-sm form-show-update-indicator" name="button"><i class="feather icon-edit"></i></button>
         <button type="submit" class="btn btn-danger btn-sm confirm-delete-indicator" name="button"><i class="feather icon-x"></i></button>
       </form>
       {{indicator.description}}
@@ -17,7 +17,6 @@
   </td>
   <td>
     <button data-url="{% url 'api_accomplishment_indicator_create_save' p.id %}" type="button" class="btn btn-primary btn-sm form-show-add-indicator" name="button"><i class="feather icon-plus"></i>Success Indicator</button>
-    <button data-url="{% url 'api_accomplishment_detail_rating_create_save' p.id %}" type="button" class="btn btn-success btn-sm form-show-rate" name="button">Rate</button>
   </td>
 
 </tr>
@@ -43,8 +42,7 @@
       }
     });
   });
-
-  $(document).on('click', '.form-show-rate', function(){
+  $(document).on('click', '.form-show-update-indicator', function(){
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),

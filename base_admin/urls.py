@@ -22,7 +22,6 @@ from .views import (
     Learning_Development,
     Accomplishment,
     Accomplishment_Detail,
-    Accomplishment_Indicator,
     Accomplishment_IPCR,
     Accomplishment_OPCR,
     Accomplishment_Year,
@@ -37,6 +36,9 @@ from .views import (
     Transaction_Rejected_Create,
     Transaction_Generated_Create,
     Settings,
+    Department,
+    Internet_Ticket,
+    Internet_Ticket_Create,
     Activity_Logs,
 )
 from app_201_pds.views import (
@@ -96,9 +98,10 @@ from app_rewards_recognitions.views import (
 from app_performance_management.views import (
     Accomplishment_AJAXView,
     Accomplishment_Detail_AJAXView,
-    Accomplishment_Detail_Create_AJAXView,
-    Accomplishment_Indicator_AJAXView,
+    Accomplishment_Detail_List_AJAXView,
+    Accomplishment_Detail_Rating_Create_AJAXView,
     Accomplishment_Indicator_Create_AJAXView,
+    Accomplishment_Indicator_Update_AJAXView,
     Accomplishment_Indicator_Remove_AJAXView,
     Accomplishment_IPCR_AJAXView,
     Accomplishment_OPCR_LIST_AJAXView,
@@ -121,6 +124,17 @@ from app_transaction.views import (
     Transaction_Generated_Create_AJAXView,
     Transaction_Generated_Create_Save_AJAXView,
     Transaction_Batch_Generated_Create_Save_AJAXView,
+)
+
+from app_department.views import (
+    Department_AJAXView,
+    Department_Create_AJAXView,
+    Department_Update_AJAXView,
+)
+from app_internet.views import (
+    Internet_Ticket_AJAXView,
+    Internet_Ticket_Create_AJAXView,
+    Internet_Ticket_Print,
 )
 
 from app_dtr.views import (
@@ -189,11 +203,11 @@ urlpatterns = [
     path('accomplishment', Accomplishment.as_view(), name = 'accomplishment'),
     path('accomplishment/detail/<int:pk>', Accomplishment_Detail.as_view(), name = 'accomplishment_detail'),
     path('api/accomplishment/detail', Accomplishment_Detail_AJAXView.as_view(), name = 'api_accomplishment_detail'),
-    path('api/accomplishment/detail/rating/create/save/<int:pk>', Accomplishment_Detail_Create_AJAXView.as_view(), name = 'api_accomplishment_detail_rating_create_save'),
+    path('api/accomplishment/detail/list', Accomplishment_Detail_List_AJAXView.as_view(), name = 'api_accomplishment_detail_list'),
+    path('api/accomplishment/detail/rating/create/save/<int:pk>', Accomplishment_Detail_Rating_Create_AJAXView.as_view(), name = 'api_accomplishment_detail_rating_create_save'),
     path('api/accomplishment', Accomplishment_AJAXView.as_view(), name = 'api_accomplishment'),
-    path('accomplishment/indicator', Accomplishment_Indicator.as_view(), name = 'accomplishment_indicator'),
-    path('api/accomplishment/indicator', Accomplishment_Indicator_AJAXView.as_view(), name = 'api_accomplishment_indicator'),
     path('api/accomplishment/indicator/create/save/<int:pk>', Accomplishment_Indicator_Create_AJAXView.as_view(), name = 'api_accomplishment_indicator_create_save'),
+    path('api/accomplishment/indicator/update/<int:pk>', Accomplishment_Indicator_Update_AJAXView.as_view(), name = 'api_accomplishment_indicator_update'),
     path('api/accomplishment/indicator/remove/<int:pk>', Accomplishment_Indicator_Remove_AJAXView.as_view(), name = 'api_accomplishment_indicator_remove'),
     path('accomplishment/ipcr', Accomplishment_IPCR.as_view(), name = 'accomplishment_ipcr'),
     path('api/accomplishment/ipcr', Accomplishment_IPCR_AJAXView.as_view(), name = 'api_accomplishment_ipcr'),
@@ -232,11 +246,20 @@ urlpatterns = [
     path('api/transaction/generated/create/save', Transaction_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_generated_create_save'),
     path('api/transaction/batch-generated/create/save', Transaction_Batch_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_batch_generated_create_save'),
     path('settings', Settings.as_view(), name = 'settings'),
+    path('internet-ticket', Internet_Ticket.as_view(), name = 'internet_ticket'),
+    path('internet-ticket/create', Internet_Ticket_Create.as_view(), name = 'internet_ticket_create'),
+    path('api/internet-ticket', Internet_Ticket_AJAXView.as_view(), name = 'api_internet_ticket'),
+    path('api/internet-ticket/create', Internet_Ticket_Create_AJAXView.as_view(), name = 'api_internet_ticket_create'),
+    path('department', Department.as_view(), name = 'department'),
+    path('api/department', Department_AJAXView.as_view(), name = 'api_department'),
+    path('api/department/create', Department_Create_AJAXView.as_view(), name = 'api_department_create'),
+    path('api/department/update/<int:pk>', Department_Update_AJAXView.as_view(), name = 'api_department_update'),
     path('api/settings', Settings_AJAXView.as_view(), name = 'api_settings'),
     path('audit-logs', Activity_Logs.as_view(), name = 'audit_logs'),
     path('api/audit-log', Notification_AJAXView.as_view(), name = 'api_audit_log'),
     path('dtr/print', Daily_Time_Records_Print.as_view(), name = 'dtr_print'),
     path('api/dtr/print', Daily_Time_Records_AJAXView.as_view(), name = 'api_dtr_print'),
+    path('internet/ticket/print/<int:pk>', Internet_Ticket_Print.as_view(), name = 'internet_ticket_print'),
 
     # path(str(random.randint(0000000000, 9999999999)) + '/activity-logs', Activity_Logs.as_view(), name = 'activity_logs'),
 ]

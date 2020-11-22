@@ -3,9 +3,10 @@ from django.forms import ModelForm
 
 from .models import (
     Accomplishment,
+    Actual_Accomplishment,
     Success_Indicator,
     Year,
-    Rating,
+    Rating_Accomplishment,
 )
 
 class AccomplishmentForm(forms.ModelForm):
@@ -13,6 +14,14 @@ class AccomplishmentForm(forms.ModelForm):
         model = Accomplishment
         fields = [
             'core_function_output',
+        ]
+
+class Actual_AccomplishmentForm(forms.ModelForm):
+    actual_accomplishment = forms.CharField(widget=forms.Textarea(attrs={'rows': 3,'style' : "white-space: pre-wrap"},),)
+    class Meta:
+        model = Actual_Accomplishment
+        fields = [
+            'actual_accomplishment',
         ]
 
 class YearForm(forms.ModelForm):
@@ -29,9 +38,9 @@ class Success_IndicatorForm(forms.ModelForm):
             'description',
         ]
 
-class RatingForm(forms.ModelForm):
+class Rating_AccomplishmentForm(forms.ModelForm):
     class Meta:
-        model = Rating
+        model = Rating_Accomplishment
         fields = [
             'ratings',
             'remarks',

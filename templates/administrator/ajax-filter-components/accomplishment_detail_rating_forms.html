@@ -3,7 +3,7 @@
 <div class="modal-header p-2">
   <h5 class="modal-title" >Rate Accomplishment</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_accomplishment_detail_rating_create_save' accomplishment.id %}" class="custom-form-accomplishment-indicator">
+<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_accomplishment_detail_rating_create_save' actual_accomplishment.id %}" class="custom-form-accomplishment-indicator">
   <div class="modal-body p-2">
     {{form|crispy}}
   </div>

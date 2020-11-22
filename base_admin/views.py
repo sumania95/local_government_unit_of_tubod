@@ -272,41 +272,13 @@ class Accomplishment_Detail(DetailView):
     model = DesignationModel
     template_name = 'administrator/accomplishment_detail.html'
 
-class Accomplishment_Indicator(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
-    LOGIN_URL = 'login'
-    template_name = 'administrator/accomplishment_indicator.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['year'] = YearModel.objects.all().order_by('-year')
-        except Exception as e:
-            pass
-        return context
-
 class Accomplishment_IPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_ipcr.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['year'] = YearModel.objects.all().order_by('-year')
-        except Exception as e:
-            pass
-        return context
-
 class Accomplishment_OPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_opcr.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['year'] = YearModel.objects.all().order_by('-year')
-        except Exception as e:
-            pass
-        return context
 
 class Accomplishment_Year(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
@@ -382,6 +354,18 @@ class Transaction_Generated_Create(LoginRequiredMixin,LogoutIfNotAdministratorHR
 class Settings(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/settings.html'
+
+class Department(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/department.html'
+
+class Internet_Ticket(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/internet_ticket.html'
+
+class Internet_Ticket_Create(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/action-components/internet_ticket_create.html'
 
 class Activity_Logs(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'

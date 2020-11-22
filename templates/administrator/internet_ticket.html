@@ -1,0 +1,84 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Internet Ticket</h5>
+  <hr>
+</div>
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_internet_ticket" id="filter_internet_ticket">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td><a href="{% url 'internet_ticket_create' %}" type="button" class="btn btn-primary btn-sm" name="button">Generate</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Generated</th>
+              <th style="white-space:nowrap;width:5%;">Number Generated</th>
+              <th style="white-space:nowrap;width:1%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-internet-ticket-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter_internet_ticket">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function Internet_Ticket(){
+    var filter = $("#filter_internet_ticket").val();
+    var search = $("#search_internet_ticket").val();
+
+    $.ajax({
+      url: '{% url 'api_internet_ticket' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_internet_ticket').html(data.counter + " record(s) found");
+        $('#table-internet-ticket-ajax').html(data.internet_ticket_table);
+      },
+    });
+
+  };
+
+  $('#filter_internet_ticket').change(function() {
+    Internet_Ticket();
+  });
+  Internet_Ticket();
+</script>
+
+{% endblock %}

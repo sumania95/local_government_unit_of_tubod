@@ -19,17 +19,11 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Codedthemes" />
 	<!-- Favicon icon -->
-	<link rel="icon" href="{% static 'premium/assets/images/favicon.ico'%}" type="image/x-icon">
-
+	<link rel="icon" href="{% static 'icon/lgutubodlogo.png'%}" type="image/x-icon">
 	<!-- vendor css -->
 	<link rel="stylesheet" href="{% static 'premium/assets/css/style.css'%}">
 
-
-
-
 </head>
-
-<!-- [ auth-signin ] start -->
 <div class="auth-wrapper">
 	<div class="auth-content">
 		<div class="card">
@@ -37,14 +31,11 @@
 				<div class="col-md-12">
 					<div class="card-body">
 						<form method="POST" action="{% url 'login' %}">
-							<img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4">
-							<h4 class="mb-3 f-w-400 text-center">Signin</h4>
+							<h4 class="mb-3 f-w-400 text-center">SPRING HRIS LOGIN</h4>
 							{% load crispy_forms_tags %}
 							{% csrf_token %}
 							{{form|crispy}}
 							<button type="submit" class="btn btn-block btn-primary mb-4">Signin</button>
-							<p class="mb-2 text-muted">Forgot password? <a href="auth-reset-password.html" class="f-w-400">Reset</a></p>
-							<p class="mb-0 text-muted">Don’t have an account? <a href="auth-signup.html" class="f-w-400">Signup</a></p>
 						</form>
 					</div>
 				</div>
@@ -52,15 +43,8 @@
 		</div>
 	</div>
 </div>
-<!-- [ auth-signin ] end -->
-
-<!-- Required Js -->
 <script src="{% static 'premium/assets/js/vendor-all.min.js'%}"></script>
 <script src="{% static 'premium/assets/js/plugins/bootstrap.min.js'%}"></script>
 <script src="{% static 'premium/assets/js/waves.min.js'%}"></script>
-
-
-
 </body>
-
 </html>

@@ -1,0 +1,44 @@
+{% for p in actual_accomplishment %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>{{p.accomplishment.core_function_output}}</td>
+  <td>
+    {% for indicator in p.accomplishment.indicator.all %}
+    <li>
+      {{indicator.description}}
+    </li>
+    {% empty %}
+    <li>No Success Indicator Yet</li>
+    {% endfor %}
+  </td>
+  <td>{{p.actual_accomplishment}}</td>
+
+  <td>
+    <button data-url="{% url 'api_accomplishment_detail_rating_create_save' p.id %}" type="button" class="btn btn-success btn-sm form-show-rate" name="button">Rate</button>
+  </td>
+
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-rate', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+</script>
+{% endblock %}
