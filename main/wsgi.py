@@ -19,6 +19,6 @@ if path_home not in sys.path:
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings_production')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings_deployment')
 
 application = get_wsgi_application()
