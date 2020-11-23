@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (
-    Actual_Accomplishment,
+    # Actual_Accomplishment,
     Rating_Accomplishment,
     Accomplishment,
     Success_Indicator,
@@ -9,7 +9,7 @@ from .models import (
 )
 
 
-admin.site.register(Actual_Accomplishment)
+# admin.site.register(Actual_Accomplishment)
 admin.site.register(Rating_Accomplishment)
 admin.site.register(Accomplishment)
 admin.site.register(Success_Indicator)

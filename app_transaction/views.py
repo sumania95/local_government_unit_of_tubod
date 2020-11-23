@@ -228,7 +228,6 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
             if deducted_transaction.leave_type == '1':
                 if form.is_valid():
                     if float(form.instance.days) < float(profile.sl):
-                        print(form.instance.days)
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(sl=F('sl')-form.instance.days)

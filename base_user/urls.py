@@ -13,8 +13,8 @@ from .views import (
 
 from app_performance_management.views import (
     Main_Accomplishment_AJAXView,
-    Main_Complied_Create_AJAXView,
-    Main_Accomplished_AJAXView,
+    # Main_Complied_Create_AJAXView,
+    # Main_Accomplished_AJAXView,
     Main_Accomplishment_Create_AJAXView,
     Main_Accomplishment_Update_AJAXView,
 )
@@ -106,10 +106,10 @@ urlpatterns = [
     path('api/earn-rewards', Earn_Rewards_AJAXView.as_view(), name = 'api_main_earn_rewards'),
     path('accomplishment', Accomplishment_Page.as_view(), name = 'main_accomplishment'),
     path('api/accomplishment', Main_Accomplishment_AJAXView.as_view(), name = 'api_main_accomplishment'),
-    path('api/accomplished', Main_Accomplished_AJAXView.as_view(), name = 'api_main_accomplished'),
+    # path('api/accomplished', Main_Accomplished_AJAXView.as_view(), name = 'api_main_accomplished'),
     path('api/accomplishment/create', Main_Accomplishment_Create_AJAXView.as_view(), name = 'api_main_accomplishment_create'),
     path('api/accomplishment/update/<int:pk>', Main_Accomplishment_Update_AJAXView.as_view(), name = 'api_main_accomplishment_update'),
-    path('api/accomplied/create/<int:pk>', Main_Complied_Create_AJAXView.as_view(), name = 'api_main_complied_create'),
+    # path('api/accomplied/create/<int:pk>', Main_Complied_Create_AJAXView.as_view(), name = 'api_main_complied_create'),
     path('profile-info', Profile_Info_Page.as_view(), name = 'main_profile_info'),
     path('api/basic-info', Main_Profile_Basic_Info_AJAXView.as_view(), name = 'api_main_basic_info'),
     path('api/family-background', Main_Profile_Family_Background_AJAXView.as_view(), name = 'api_main_family_background'),

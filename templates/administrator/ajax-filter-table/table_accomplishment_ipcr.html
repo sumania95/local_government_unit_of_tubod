@@ -1,7 +1,7 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.actual_accomplishment__accomplishment__profile__surname|title}}, {{p.actual_accomplishment__accomplishment__profile__firstname|title}}</td>
+  <td>{{p.accomplishment__profile__surname|title}}, {{p.accomplishment__profile__firstname|title}}</td>
   <td>{{p.total_avg|floatformat:2}}</td>
   <td>
     {% if p.total_avg > 4.59 %}

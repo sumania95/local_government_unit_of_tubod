@@ -34,22 +34,24 @@ class Accomplishment(models.Model):
     def __str__(self):
         return str(self.core_function_output)
 
-
-class Actual_Accomplishment(models.Model):
-    accomplishment = models.ForeignKey(Accomplishment, on_delete=models.CASCADE)
-    actual_accomplishment = models.CharField(max_length = 200)
-    year = models.ForeignKey(Year, on_delete=models.CASCADE)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(auto_now_add = True)
-    date_updated = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return str(self.actual_accomplishment)
+#
+# class Actual_Accomplishment(models.Model):
+#     accomplishment = models.ForeignKey(Accomplishment, on_delete=models.CASCADE)
+#     actual_accomplishment = models.CharField(max_length = 200)
+#     year = models.ForeignKey(Year, on_delete=models.CASCADE)
+#     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+#     date_created = models.DateTimeField(auto_now_add = True)
+#     date_updated = models.DateTimeField(auto_now = True)
+#
+#     def __str__(self):
+#         return str(self.actual_accomplishment)
 
 class Rating_Accomplishment(models.Model):
-    actual_accomplishment = models.ForeignKey(Actual_Accomplishment, on_delete=models.CASCADE)
+    accomplishment = models.ForeignKey(Accomplishment, on_delete=models.CASCADE)
+    actual_accomplishment = models.CharField(max_length = 200)
     ratings = models.FloatField(default=0)
-    remarks = models.CharField(max_length = 200)
+    remarks = models.CharField(max_length = 200,blank=True)
+    year = models.ForeignKey(Year, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)

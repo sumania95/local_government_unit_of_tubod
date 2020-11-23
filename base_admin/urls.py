@@ -99,8 +99,9 @@ from app_rewards_recognitions.views import (
 
 from app_performance_management.views import (
     Accomplishment_AJAXView,
-    Accomplishment_Detail_AJAXView,
+    # Accomplishment_Detail_AJAXView,
     Accomplishment_Detail_List_AJAXView,
+    # Accomplishment_Detail_Complied_Create_AJAXView,
     Accomplishment_Detail_Rating_Create_AJAXView,
     Accomplishment_Indicator_Create_AJAXView,
     Accomplishment_Indicator_Update_AJAXView,
@@ -206,8 +207,9 @@ urlpatterns = [
     path('api/learning-development', Learning_Development_AJAXView.as_view(), name = 'api_learning_development'),
     path('accomplishment', Accomplishment.as_view(), name = 'accomplishment'),
     path('accomplishment/detail/<int:pk>', Accomplishment_Detail.as_view(), name = 'accomplishment_detail'),
-    path('api/accomplishment/detail', Accomplishment_Detail_AJAXView.as_view(), name = 'api_accomplishment_detail'),
+    # path('api/accomplishment/detail', Accomplishment_Detail_AJAXView.as_view(), name = 'api_accomplishment_detail'),
     path('api/accomplishment/detail/list', Accomplishment_Detail_List_AJAXView.as_view(), name = 'api_accomplishment_detail_list'),
+    # path('api/accomplishment/detail/complied/create/save/<int:pk>', Accomplishment_Detail_Complied_Create_AJAXView.as_view(), name = 'api_accomplishment_detail_complied_create_save'),
     path('api/accomplishment/detail/rating/create/save/<int:pk>', Accomplishment_Detail_Rating_Create_AJAXView.as_view(), name = 'api_accomplishment_detail_rating_create_save'),
     path('api/accomplishment', Accomplishment_AJAXView.as_view(), name = 'api_accomplishment'),
     path('api/accomplishment/indicator/create/save/<int:pk>', Accomplishment_Indicator_Create_AJAXView.as_view(), name = 'api_accomplishment_indicator_create_save'),
