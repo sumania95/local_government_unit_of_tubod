@@ -224,9 +224,11 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
             deducted_transaction = Deducted_Transaction.objects.get(id=pk)
             profile = Profile.objects.get(id=deducted_transaction.profile_id)
             form = Deducted_Action_TransactionForm(request.POST,request.FILES)
+            # SICKLEAVE
             if deducted_transaction.leave_type == '1':
-                if form.instance.days < profile.sl:
-                    if form.is_valid():
+                if form.is_valid():
+                    if float(form.instance.days) < float(profile.sl):
+                        print(form.instance.days)
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(sl=F('sl')-form.instance.days)
@@ -240,19 +242,19 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                     else:
                         data['form_is_valid'] = False
                         data['message_type'] = error
-                        data['message_title'] = 'An error occurred.'
+                        data['message_title'] = 'Insufficient Sick Leave'
                 else:
                     data['form_is_valid'] = False
                     data['message_type'] = error
-                    data['message_title'] = 'Insufficient Sick Leave'
+                    data['message_title'] = 'An error occurred.'
+            # VACATIONLEAVE
             elif deducted_transaction.leave_type == '2':
-                if form.instance.days < profile.vl:
-                    if form.is_valid():
+                if form.is_valid():
+                    if float(form.instance.days) < float(profile.vl):
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(vl=F('vl')-form.instance.days)
                         Notification.objects.create(profile_id = profile.id,detail="Approved vacation leave",user_id = self.request.user.id)
-
                         form.save()
                         Deducted_Transaction.objects.filter(id=pk).update(status = 2)
                         data['message_type'] = success
@@ -262,23 +264,21 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                     else:
                         data['form_is_valid'] = False
                         data['message_type'] = error
-                        data['message_title'] = 'An error occurred.'
+                        data['message_title'] = 'Insufficient Vacation Leave'
                 else:
                     data['form_is_valid'] = False
                     data['message_type'] = error
-                    data['message_title'] = 'Insufficient Vacation Leave'
-
+                    data['message_title'] = 'An error occurred.'
+            # SPECIALLEAVE
             elif deducted_transaction.leave_type == '3':
                 special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Coalesce(Sum('days'), Value(0)))['dsum']
                 number_of_days = self.request.POST.get('days')
-                print(number_of_days)
-                print(special_leave)
-                if (float(special_leave) + float(number_of_days)) > 3:
-                    data['form_is_valid'] = False
-                    data['message_type'] = error
-                    data['message_title'] = 'Insufficient Special Leave.'
-                else:
-                    if form.is_valid():
+                if form.is_valid():
+                    if (float(special_leave) + float(form.instance.days)) > 3:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'Insufficient Special Leave.'
+                    else:
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         form.save()
@@ -288,14 +288,14 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['message_title'] = 'Successfully created.'
                         data['form_is_valid'] = True
                         data['url'] = reverse('transaction')
-                    else:
-                        data['form_is_valid'] = False
-                        data['message_type'] = error
-                        data['message_title'] = 'An error occurred.'
-
+                else:
+                    data['form_is_valid'] = False
+                    data['message_type'] = error
+                    data['message_title'] = 'An error occurred.'
+            # OFFSETLEAVE
             elif deducted_transaction.leave_type == '4':
-                if form.instance.days < profile.overtime:
-                    if form.is_valid():
+                if form.is_valid():
+                    if float(form.instance.days) < float(profile.overtime):
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(overtime=F('overtime')-form.instance.days)
@@ -309,11 +309,11 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                     else:
                         data['form_is_valid'] = False
                         data['message_type'] = error
-                        data['message_title'] = 'An error occurred.'
+                        data['message_title'] = 'Insufficient Overtime'
                 else:
                     data['form_is_valid'] = False
                     data['message_type'] = error
-                    data['message_title'] = 'Insufficient Overtime'
+                    data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
 
 class Transaction_Rejected_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):

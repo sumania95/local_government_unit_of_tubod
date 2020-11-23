@@ -1,0 +1,40 @@
+{% for p in profile_assign %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>
+    {{p.profile}}
+  </td>
+  <td>
+    {{p.id}}
+  </td>
+  <td>
+    <button data-url="#" type="submit" class="btn btn-danger btn-sm" name="button">Time Adjustment</button>
+    <button data-url="{% url 'api_dtr_profile_assign_update' p.id %}" type="submit" class="btn btn-warning btn-sm form-show-update-profile-assign" name="button">Update</button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-update-profile-assign', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+
+</script>
+
+{% endblock %}

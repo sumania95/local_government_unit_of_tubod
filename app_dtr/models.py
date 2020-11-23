@@ -10,7 +10,7 @@ class Dtr_Assign(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
 
 class Dtr(models.Model):
+    user_id = models.ForeignKey(Dtr_Assign, on_delete=models.CASCADE)
     timestamp = models.DateTimeField()
     status = models.CharField(max_length = 1000)
     punch = models.CharField(max_length = 1000)
-    user_id = models.ForeignKey(Dtr_Assign, on_delete=models.CASCADE)

@@ -78,15 +78,19 @@
           <li class="nav-item {% block 'transaction_active' %}{% endblock %}">
             <a href="{% url 'transaction' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Transaction</span> <span class="badge badge-danger">New</span></a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="{% url 'dtr_print' %}" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Attendance Records</span></a>
-          </li> -->
           <li class="nav-item pcoded-hasmenu">
-					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Utilities</span></a>
+					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="fa fa-fingerprint"></i></span><span class="pcoded-mtext">Biometric</span></a>
+					    <ul class="pcoded-submenu">
+                <li><a href="{% url 'dtr_profile_assign' %}">Profile Assign</a></li>
+                <li><a href="{% url 'dtr_download_report' %}">Download & Reports</a></li>
+					    </ul>
+					</li>
+          <li class="nav-item pcoded-hasmenu">
+					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Utilities</span></a>
 					    <ul class="pcoded-submenu">
                 <li><a href="{% url 'department' %}">Department</a></li>
                 <li><a href="{% url 'internet_ticket' %}">Internet Ticket</a></li>
-                <li><a href="{% url 'settings' %}">Settings</a></li>
+                <li><a href="{% url 'settings' %}">Maintenance</a></li>
 					    </ul>
 					</li>
           <li class="nav-item">
@@ -130,12 +134,12 @@
           <div class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-layers"></i></a>
             <div class="dropdown-menu dropdown-menu-right notification">
-              <div class="noti-head">
-                <h6 class="d-inline-block m-b-0">My Apps</h6>
+              <div class="card-header p-2">
+                <h6>My Application</h6>
               </div>
               <ul class="pro-body">
                 <li class="notification">
-                  <a href="{% url 'main_home' %}" type="button" class="btn btn-outline-primary" name="button"><i class="icon feather icon-home"></i><br>SPRING HRIS</a>
+                  <td style="white-space:nowrap;width:50%;"><a href="{% url 'main_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING(HR)</a></td>
                 </li>
               </ul>
             </div>

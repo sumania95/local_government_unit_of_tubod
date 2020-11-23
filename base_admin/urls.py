@@ -35,6 +35,8 @@ from .views import (
     Transaction_Approved_Create,
     Transaction_Rejected_Create,
     Transaction_Generated_Create,
+    Dtr_Assign,
+    Dtr_Download_Report,
     Settings,
     Department,
     Internet_Ticket,
@@ -138,8 +140,10 @@ from app_internet.views import (
 )
 
 from app_dtr.views import (
+    Dtr_Assign_AJAXView,
+    Dtr_Assign_Create_AJAXView,
+    Dtr_Assign_Update_AJAXView,
     Daily_Time_Records_Print,
-    Daily_Time_Records_AJAXView,
 )
 
 from model_settings.views import Settings_AJAXView
@@ -245,6 +249,11 @@ urlpatterns = [
     path('api/transaction/generated/create', Transaction_Generated_Create_AJAXView.as_view(), name = 'api_transaction_generated_create'),
     path('api/transaction/generated/create/save', Transaction_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_generated_create_save'),
     path('api/transaction/batch-generated/create/save', Transaction_Batch_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_batch_generated_create_save'),
+    path('dtr/profile-assign', Dtr_Assign.as_view(), name = 'dtr_profile_assign'),
+    path('api/dtr/profile-assign', Dtr_Assign_AJAXView.as_view(), name = 'api_dtr_profile_assign'),
+    path('api/dtr/profile-assign/create', Dtr_Assign_Create_AJAXView.as_view(), name = 'api_dtr_profile_assign_create'),
+    path('api/dtr/profile-assign/update/<int:pk>', Dtr_Assign_Update_AJAXView.as_view(), name = 'api_dtr_profile_assign_update'),
+    path('dtr/download-report', Dtr_Download_Report.as_view(), name = 'dtr_download_report'),
     path('settings', Settings.as_view(), name = 'settings'),
     path('internet-ticket', Internet_Ticket.as_view(), name = 'internet_ticket'),
     path('internet-ticket/create', Internet_Ticket_Create.as_view(), name = 'internet_ticket_create'),
@@ -258,7 +267,6 @@ urlpatterns = [
     path('audit-logs', Activity_Logs.as_view(), name = 'audit_logs'),
     path('api/audit-log', Notification_AJAXView.as_view(), name = 'api_audit_log'),
     path('dtr/print', Daily_Time_Records_Print.as_view(), name = 'dtr_print'),
-    path('api/dtr/print', Daily_Time_Records_AJAXView.as_view(), name = 'api_dtr_print'),
     path('internet/ticket/print/<int:pk>', Internet_Ticket_Print.as_view(), name = 'internet_ticket_print'),
 
     # path(str(random.randint(0000000000, 9999999999)) + '/activity-logs', Activity_Logs.as_view(), name = 'activity_logs'),

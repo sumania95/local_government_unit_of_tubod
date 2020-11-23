@@ -351,6 +351,14 @@ class Transaction_Generated_Create(LoginRequiredMixin,LogoutIfNotAdministratorHR
     LOGIN_URL = 'login'
     template_name = 'administrator/transaction/transaction_generated_create.html'
 
+class Dtr_Assign(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/dtr_profile_assign.html'
+
+class Dtr_Download_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/dtr_download_report.html'
+
 class Settings(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/settings.html'
