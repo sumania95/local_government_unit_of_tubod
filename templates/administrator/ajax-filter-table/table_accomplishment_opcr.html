@@ -1,7 +1,7 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.actual_accomplishment__accomplishment__profile__designation__plantilla__department__name|title}}</td>
+  <td>{{p.accomplishment__profile__designation__plantilla__department__name|title}}</td>
   <td>{{p.total_avg|floatformat:2}}</td>
 </tr>
 {% empty %}

@@ -1,0 +1,108 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Profile Assign</h5>
+  <hr>
+</div>
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_profile_assign" id="filter_profile_assign">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_profile_assign" id="search_profile_assign" value="">
+            </td>
+            <td><button data-url="{% url 'api_dtr_profile_assign_create' %}" type="button" class="btn btn-primary btn-sm form-show-new-profile_assign" name="button">Add New</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Name</th>
+              <th style="white-space:nowrap;width:1%;">Biometric ID</th>
+              <th style="white-space:nowrap;width:1%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-profile-assign-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter_profile_assign">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-new-profile_assign', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+
+</script>
+<script>
+  function Dtr_Assign(){
+    var filter = $("#filter_profile_assign").val();
+    var search = $("#search_profile_assign").val();
+
+    $.ajax({
+      url: '{% url 'api_dtr_profile_assign' %}',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_profile_assign').html(data.counter + " record(s) found");
+        $('#table-profile-assign-ajax').html(data.profile_assign_table);
+      },
+    });
+
+  };
+
+  $('#filter_profile_assign').change(function() {
+    Dtr_Assign();
+  });
+  $('#search_profile_assign').change(function() {
+    Dtr_Assign();
+  });
+  Dtr_Assign();
+</script>
+
+{% endblock %}

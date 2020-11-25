@@ -10,9 +10,6 @@
     {% endfor %}
   </td>
   <td>
-    {% if p.indicator.all|length > 0 %}
-    <button data-url="{% url 'api_main_complied_create' p.id %}" type="button" class="btn btn-success btn-sm form-show-accomplished" name="button"><i class="feather icon-check mr-1"></i>Complied</button>
-    {% endif %}
     <button data-url="{% url 'api_main_accomplishment_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update" name="button">Update</button>
   </td>
 </tr>

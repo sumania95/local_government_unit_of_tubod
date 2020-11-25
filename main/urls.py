@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls import url
 
 from django.views.static import serve
-from app_info_profile.views import (
+from model_hris.info_profile.views import (
     Login,
     Logout,
 )
@@ -33,8 +33,9 @@ urlpatterns = [
     path('login', Login.as_view(), name = 'login'),
     path('logout', Logout.as_view(), name = 'logout'),
     path('admin/', admin.site.urls),
-    path('x/',include('base_admin.urls')),
-    path('',include('base_user.urls')),
+    # path('x/',include('base_admin.urls')),
+    path('x/',include('app_hris.urls')),
+    path('',include('app_hris_user.urls')),
     url(r'^imagefit/', include('imagefit.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

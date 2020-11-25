@@ -53,13 +53,21 @@
           }
         },
         success: function(data){
-          Toast.fire({
-            type: data.message_type,
-            title: data.message_title
-          });
-          if (data.url){
-            window.location.href = data.url;
+          if(data.form_is_valid){
+            Toast.fire({
+              type: data.message_type,
+              title: data.message_title
+            });
+            if (data.url){
+              window.location.href = data.url;
+            }
+          }else{
+            Toast.fire({
+              type: data.message_type,
+              title: data.message_title
+            });
           }
+
         },
         error:function(error){
           Toast.fire({
