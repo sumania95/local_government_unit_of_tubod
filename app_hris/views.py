@@ -55,13 +55,13 @@ from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 
 from .forms import SettingsForm
-from .models import Settings
+from .models import Settings as SettingsModel
 
 
 class Settings_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request):
         data = dict()
-        setting = Settings.objects.get(id=1)
+        setting = SettingsModel.objects.first()
         form = SettingsForm(instance=setting)
         context = {
             'form':form,

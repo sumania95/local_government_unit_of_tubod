@@ -103,7 +103,7 @@
                 </div>
                 <ul class="pro-body">
                   <li class="notification p-3">
-                    {% if user.hr_administrator %}
+                    {% if user.administrator %}
                     <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING(HR)</a></td>
                     {% else %}
                     <div class="text-center">
