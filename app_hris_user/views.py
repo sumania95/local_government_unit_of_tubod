@@ -27,7 +27,7 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.template import RequestContext
-
+from app_hris.models import Administrator as AdministratorModel
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
