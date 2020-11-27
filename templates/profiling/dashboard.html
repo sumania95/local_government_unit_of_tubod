@@ -1,0 +1,32 @@
+{% extends 'profiling/base.html' %}
+{% load static %}
+
+
+{% block 'content' %}
+<!-- <div class="col-12">
+  <h5>Dashboard</h5>
+  <hr>
+</div> -->
+<div class="col-12" id="dashboard_content">
+
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function DashbaordLoad(){
+    $.ajax({
+      url: '{% url 'api_dashboard' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#dashboard_content').html(data.dashboard_content);
+      },
+    });
+
+  };
+  DashbaordLoad();
+
+</script>
+{% endblock %}

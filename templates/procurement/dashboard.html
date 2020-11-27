@@ -1,4 +1,4 @@
-{% extends 'administrator/base.html' %}
+{% extends 'procurement/base.html' %}
 {% load static %}
 
 
@@ -64,19 +64,4 @@
 <script src="{% static 'premium/assets/js/plugins/apexcharts.min.js'%}"></script>
 <script src="{% static 'premium/assets/js/pages/chart-apex.js'%}"></script>
 <script src="{% static 'premium/assets/js/pages/dashboard-main.js'%}"></script>
-
-<script>
-  function DashbaordLoad(){
-    $.ajax({
-      url: '{% url 'api_dashboard' %}',
-      type: 'get',
-      dataType: 'json',
-      success:function(data){
-        $('#dashboard_content').html(data.dashboard_content);
-      },
-    });
-
-  };
-  DashbaordLoad();
-</script>
 {% endblock %}

@@ -33,9 +33,10 @@ urlpatterns = [
     path('login', Login.as_view(), name = 'login'),
     path('logout', Logout.as_view(), name = 'logout'),
     path('admin/', admin.site.urls),
-    # path('x/',include('base_admin.urls')),
     path('x/',include('app_hris.urls')),
     path('',include('app_hris_user.urls')),
+    # path('p/',include('app_procurement.urls')),
+    path('p/',include('app_profiling.urls')),
     url(r'^imagefit/', include('imagefit.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

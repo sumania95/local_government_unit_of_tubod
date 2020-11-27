@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>SPRING HRIS</title>
+  <title>SPRING PPMP</title>
   <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 11]>
@@ -45,40 +45,16 @@
             <label>Navigation</label>
           </li>
           <li class="nav-item">
-            <a href="{% url 'dashboard' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-          </li>
-          <li class="nav-item {% block 'active' %}{% endblock %}">
-            <a href="{% url 'profile' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Profile</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'designation' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-briefcase"></i></span><span class="pcoded-mtext">Designation</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Classification</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'learning_development' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Trainings</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Milestone</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'rewards_recognitions' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-award"></i></span><span class="pcoded-mtext">Reward & Recognition</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">IPCR & OPCR</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'retirables' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user-x"></i></span><span class="pcoded-mtext">Retirables</span></a>
-          </li>
-          <li class="nav-item pcoded-menu-caption">
-            <label>Others</label>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'transaction' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Transaction</span> <span class="badge badge-danger">New</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'dtr_print' %}" target="_blank" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">D T R</span> <span class="badge badge-danger ml-2">New</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'settings' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'activity_logs' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Activity Logs</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Method</span></a>
           </li>
           <li class="nav-item">
             <a href="{% url 'logout' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-log-out text-danger"></i></span><span class="pcoded-mtext">Sign Out</span></a>
@@ -89,15 +65,14 @@
   </nav>
   <!-- [ navigation menu ] end -->
   <!-- [ Header ] start -->
-  <header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed header-yellow">
+  <header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed header-green">
 
 
     <div class="m-header">
       <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
       <a href="{% url 'dashboard' %}" class="b-brand text-center">
         <!-- ========   change your logo hear   ============ -->
-        <i class="feather icon-droplet mr-2"></i>
-        SPRING HRIS
+        GOVPH | <b>&nbsp;&nbsp;S P R I N G P P M P</b>
         <!-- <img src="{% static 'premium/assets/images/logo.png'%}" alt="" class="logo">
         <img src="{% static 'premium/assets/images/logo-icon.png'%}" alt="" class="logo-thumb"> -->
       </a>
@@ -126,67 +101,6 @@
                   <a href="{% url 'main_home' %}" type="button" class="btn btn-outline-primary" name="button"><i class="icon feather icon-home"></i><br>SPRING HRIS</a>
                 </li>
               </ul>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i><span class="badge bg-danger"><span class="sr-only"></span></span></a>
-            <div class="dropdown-menu dropdown-menu-right notification">
-              <div class="noti-head">
-                <h6 class="d-inline-block m-b-0">Notifications</h6>
-                <div class="float-right">
-                  <a href="#!" class="m-r-10">mark as read</a>
-                  <a href="#!">clear all</a>
-                </div>
-              </div>
-              <ul class="noti-body">
-                <li class="n-title">
-                  <p class="m-b-0">NEW</p>
-                </li>
-                <li class="notification">
-                  <div class="media">
-                    <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-1.jpg'%}" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
-                      <p>New ticket Added</p>
-                    </div>
-                  </div>
-                </li>
-                <li class="n-title">
-                  <p class="m-b-0">EARLIER</p>
-                </li>
-                <li class="notification">
-                  <div class="media">
-                    <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-2.jpg'%}" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
-                      <p>Prchace New Theme and make payment</p>
-                    </div>
-                  </div>
-                </li>
-                <li class="notification">
-                  <div class="media">
-                    <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-1.jpg'%}" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
-                      <p>currently login</p>
-                    </div>
-                  </div>
-                </li>
-                <li class="notification">
-                  <div class="media">
-                    <img class="img-radius" src="{% static 'premium/assets/images/user/avatar-2.jpg'%}" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                      <p>Prchace New Theme and make payment</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <div class="noti-footer">
-                <a href="#!">show all</a>
-              </div>
             </div>
           </div>
         </li>

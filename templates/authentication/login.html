@@ -31,7 +31,7 @@
 				<div class="col-md-12">
 					<div class="card-body">
 						<form method="POST" action="{% url 'login' %}">
-							<h4 class="mb-3 f-w-400 text-center">SPRING HRIS LOGIN</h4>
+							<h4 class="mb-3 f-w-400 text-center">SPRING LOGIN</h4>
 							{% load crispy_forms_tags %}
 							{% csrf_token %}
 							{{form|crispy}}

@@ -322,6 +322,10 @@ class Accomplishment_OPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,T
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_opcr.html'
 
+class Accomplishment_Semester(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_semester.html'
+
 class Accomplishment_Year(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_year.html'

@@ -105,9 +105,10 @@
                   <h6>My Application</h6>
                 </div>
                 <ul class="pro-body">
-                  <li class="notification p-3">
+                  <li class="notification">
                     {% if user.administrator %}
-                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING(HR)</a></td>
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING HRIS</a></td>
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'profiling_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-users fa-2x text-danger"></i><br>SPRING TIPS</a></td>
                     {% else %}
                     <div class="text-center">
                       <p>No Application Yet</p>
