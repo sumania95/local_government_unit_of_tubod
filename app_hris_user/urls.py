@@ -6,6 +6,7 @@ from .views import (
     History_Leave_Page,
     History_Leave_Create,
     Earn_Rewards_Page,
+    Document_Page,
     Accomplishment_Page,
     Profile_Info_Page,
     Security_Page,
@@ -36,6 +37,10 @@ from model_hris.info_profile.views import (
 
 from model_hris.rewards_recognitions.views import (
     Earn_Rewards_AJAXView,
+)
+
+from model_hris.document.views import (
+    Main_Document_AJAXView,
 )
 
 
@@ -104,6 +109,8 @@ urlpatterns = [
     path('api/history-leave/create', Profile_History_Leave_Create_AJAXView.as_view(), name = 'api_main_history_leave_create'),
     path('earn-rewards', Earn_Rewards_Page.as_view(), name = 'main_earn_rewards'),
     path('api/earn-rewards', Earn_Rewards_AJAXView.as_view(), name = 'api_main_earn_rewards'),
+    path('document', Document_Page.as_view(), name = 'main_document'),
+    path('api/document', Main_Document_AJAXView.as_view(), name = 'api_main_document'),
     path('accomplishment', Accomplishment_Page.as_view(), name = 'main_accomplishment'),
     path('api/accomplishment', Main_Accomplishment_AJAXView.as_view(), name = 'api_main_accomplishment'),
     # path('api/accomplished', Main_Accomplished_AJAXView.as_view(), name = 'api_main_accomplished'),

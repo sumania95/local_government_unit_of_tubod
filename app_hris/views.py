@@ -409,6 +409,10 @@ class Department(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateVi
     LOGIN_URL = 'login'
     template_name = 'administrator/department.html'
 
+class Document(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/document.html'
+
 class Internet_Ticket(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/internet_ticket.html'

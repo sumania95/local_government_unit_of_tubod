@@ -27,7 +27,7 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.template import RequestContext
-
+from app_hris.models import Administrator as AdministratorModel
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -39,6 +39,9 @@ class History_Leave_Page(LoginRequiredMixin,TemplateView):
 
 class Earn_Rewards_Page(LoginRequiredMixin,TemplateView):
     template_name = 'main/earn_rewards.html'
+
+class Document_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'main/form.html'
 
 class History_Leave_Create(LoginRequiredMixin,TemplateView):
     template_name = 'main/components/apply_leave_create.html'

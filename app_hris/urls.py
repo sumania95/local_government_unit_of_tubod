@@ -39,6 +39,7 @@ from app_hris.views import (
     Settings,
     Settings_AJAXView,
     Department,
+    Document,
     Internet_Ticket,
     Internet_Ticket_Create,
     Activity_Logs,
@@ -126,6 +127,13 @@ from model_hris.department.views import (
     Department_AJAXView,
     Department_Create_AJAXView,
     Department_Update_AJAXView,
+)
+
+from model_hris.document.views import (
+    Document_AJAXView,
+    Document_Create_AJAXView,
+    Document_Update_AJAXView,
+    Document_Delete_AJAXView,
 )
 from model_hris.internet.views import (
     Internet_Ticket_AJAXView,
@@ -254,6 +262,11 @@ urlpatterns = [
     path('api/department', Department_AJAXView.as_view(), name = 'api_department'),
     path('api/department/create', Department_Create_AJAXView.as_view(), name = 'api_department_create'),
     path('api/department/update/<int:pk>', Department_Update_AJAXView.as_view(), name = 'api_department_update'),
+    path('document', Document.as_view(), name = 'document'),
+    path('api/document', Document_AJAXView.as_view(), name = 'api_document'),
+    path('api/document/create', Document_Create_AJAXView.as_view(), name = 'api_document_create'),
+    path('api/document/update/<int:pk>', Document_Update_AJAXView.as_view(), name = 'api_document_update'),
+    path('api/document/delete/<int:pk>', Document_Delete_AJAXView.as_view(), name = 'api_document_delete'),
     path('api/settings', Settings_AJAXView.as_view(), name = 'api_settings'),
     path('audit-logs', Activity_Logs.as_view(), name = 'audit_logs'),
     path('api/audit-log', Notification_AJAXView.as_view(), name = 'api_audit_log'),
