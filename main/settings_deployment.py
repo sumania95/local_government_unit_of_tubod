@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'model_hris.info_profile',
     'model_hris.designation',
     'model_hris.department',
+    'model_hris.document',
     'model_hris.rewards_recognitions',
     'model_hris.performance_management',
     'model_hris.transaction',

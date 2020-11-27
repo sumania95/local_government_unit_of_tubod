@@ -1,21 +1,42 @@
-{% load crispy_forms_tags %}
+{% for p in document %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>
+    {{p.name}}
+  </td>
+  <td>
+    <a href="{{p.file.url}}" type="button" download class="btn btn-primary btn-sm" name="button">Download</a>
+    <button data-url="{% url 'api_document_update' p.id %}" type="submit" class="btn btn-warning btn-sm form-show-update-document" name="button">Update</button>
+    <form class="custom-form-document d-inline" data-url="{% url 'api_document_delete' p.id %}" method="post">
+      <button type="submit" class="btn btn-danger btn-sm confirm-delete" name="button">Delete</button>
+    </form>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}
 
-{% load static %}
-
-<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_basic_info' %}" class="custom-form-profile-basic-info">
-  {{form|crispy}}
-  <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
-</form>
-{% block 'link' %}
-<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
-{% endblock %}
 {% block 'script' %}
 <script>
-  var $datepicker1 = $('#id_date_of_birth');
-  $datepicker1.datepicker({
-    autoclose: true,
-    format : 'yyyy-mm-dd',
+  $(document).on('click', '.form-show-update-document', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
   });
+
+</script>
+<script>
   $(document).ready(function () {
     function getCookie(name) {
       var cookieValue = null;
@@ -38,17 +59,14 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-profile-basic-info").submit(function (event) {
+    $(".custom-form-document").submit(function (event) {
       event.preventDefault();
       var form = $(this);
-      var formData = new FormData($(form)[0]);
       $.ajax({
         url: form.attr('data-url'),
-        data: formData,
+        data: form.serialize(),
         type: form.attr('method'),
         dataType: 'json',
-        processData: false,
-        contentType: false,
         beforeSend: function(xhr, settings) {
           if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -59,9 +77,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          if (data.url){
-            window.location.href = data.url;
-          }
+          Document();
         },
         error:function(error){
           Toast.fire({

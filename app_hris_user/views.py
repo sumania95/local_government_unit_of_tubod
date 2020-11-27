@@ -40,6 +40,9 @@ class History_Leave_Page(LoginRequiredMixin,TemplateView):
 class Earn_Rewards_Page(LoginRequiredMixin,TemplateView):
     template_name = 'main/earn_rewards.html'
 
+class Document_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'main/form.html'
+
 class History_Leave_Create(LoginRequiredMixin,TemplateView):
     template_name = 'main/components/apply_leave_create.html'
 
