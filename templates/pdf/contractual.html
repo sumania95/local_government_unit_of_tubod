@@ -71,10 +71,10 @@
   <div style="text-align: left;">
     <td>
       <p style="font-size:14px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are hereby appointed as <b>{{p.positiontitle}}</b> Status as <b>{{p.status}}</b> at <b>{{p.department}}</b> with compensation rate of <b>{{p.basicsalary}}</b> per day.
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are hereby appointed as <b>{{p.positiontitle}}</b> Status as <b>{{p.status}}</b> at <b>{{p.department}}</b> with compensation rate of <b>{{p.basic_salary}}</b> per day.
       </p>
       <p style="font-size:14px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The nature of this appointment is contractual basis inclusive for three months from {{d.fromdate|date:"F d, Y"}} to {{d.todate|date:"F d, Y"}} and may be terminated as funds exhausted, and if the services may no longer needed.
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The nature of this appointment is contractual basis inclusive for three months from {{setting.from_date|date:"F d, Y"}} to {{setting.to_date|date:"F d, Y"}} and may be terminated as funds exhausted, and if the services may no longer needed.
       </p>
       <p style="font-size:14px;">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This appointment shall take effect on the date of signing by the appointing officer/authority.
@@ -110,7 +110,7 @@
     </tr>
     <tr>
       <td colspan="8"></td>
-      <td colspan="4" style="text-align: left; font-size:14px; padding-top:10px;">Date of Signing: {{d.fromdate|date:"F d, Y"}}</td>
+      <td colspan="4" style="text-align: left; font-size:14px; padding-top:10px;">Date of Signing: {{setting.from_date|date:"F d, Y"}}</td>
     </tr>
   </table>
   <div style="text-align: center; padding-top:10px;">

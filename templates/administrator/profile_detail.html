@@ -29,7 +29,8 @@
       <a href="{% url 'profile_detail_security' object.id %}" type="button" class="btn-danger btn-sm" name="button"><i class="feather mr-2 icon-lock"></i>Security</a>
       <hr>
       <a href="{% url 'print_profile_personal_data_sheet' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>PDS</a>
-      <!-- <a href="{% url 'print_profile_saln' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>SALN</a> -->
+      <a href="#" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>SALN</a>
+      <a href="#" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>Leave</a>
     </div>
   </div>
   <div class="card">
@@ -42,7 +43,32 @@
   </div>
 </div>
 <div class="col-md-9">
-  <div class="card">
+  <div class="row mb-0">
+    <!-- order-card start -->
+    <div class="col-md-4">
+      <div class="card bg-c-blue order-card">
+        <div class="card-body p-1">
+          <h3 class="text-right text-white"><span class="float-left">SL</span><span>{{object.sl}}</span></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-c-green order-card">
+        <div class="card-body p-1">
+          <h3 class="text-right text-white"><span class="float-left">VL</span><span>{{object.sl}}</span></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-c-red order-card">
+        <div class="card-body p-1">
+          <h3 class="text-right text-white"><span class="float-left">OT</span><span>{{object.overtime}}</span></h3>
+        </div>
+      </div>
+    </div>
+    <!-- order-card end -->
+  </div>
+  <div class="card mt-0">
     <div class="card-header border p-2">
       <h5>Service Record</h5>
     </div>

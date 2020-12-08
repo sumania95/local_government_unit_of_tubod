@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Model, ForeignKey, ManyToManyField
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Administrator(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -14,3 +15,5 @@ class Administrator(models.Model):
 class Settings(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
+    from_date = models.DateField(default=timezone.now)
+    to_date = models.DateField(default=timezone.now)

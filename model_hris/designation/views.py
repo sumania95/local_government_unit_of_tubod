@@ -34,6 +34,7 @@ from model_hris.designation.models import (
 from model_hris.info_profile.models import Notification
 from model_hris.designation.forms import PlantillaForm,DesignationForm,ContractualForm,ContractualUpdateForm
 from model_hris.designation.render import Render
+from app_hris.models import Settings
 
 from time import strptime
 success = 'success'
@@ -285,8 +286,10 @@ class Contractual_Delete_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrat
 class Print_Contract_Contractual_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request):
         profile = Contractual.objects.all().order_by('profile__surname')
+        setting = Settings.objects.first()
         params = {
             'profile': profile,
+            'setting': setting,
         }
         pdf = Render.render('pdf/contractual.html', params)
         return pdf
