@@ -15,5 +15,12 @@ class Administrator(models.Model):
 class Settings(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
+    budget_title = models.CharField(default = "Municipal Budget Officer",max_length=200)
+    budget_name = models.CharField(default = "Lymarie A. Malicdem",max_length=200)
+    treasury_title = models.CharField(default = "Municipal Treasury Officer",max_length=200)
+    treasury_name = models.CharField(default = "Jerry I. Fillalan",max_length=200)
+    hr_title = models.CharField(default = "Human Resources Management Officer",max_length=200)
+    hr_name = models.CharField(default = "Adonis G. Cuevas",max_length=200)
+    mayor_name = models.CharField(default = "Richelle B. Romarate, MSCE",max_length=200)
     from_date = models.DateField(default=timezone.now)
     to_date = models.DateField(default=timezone.now)

@@ -58,6 +58,11 @@ class Deducted_Action_TransactionForm(forms.ModelForm):
             'days',
             'remarks',
         ]
+    def clean(self,*args,**kwargs):
+        days = self.cleaned_data.get('days')
+        if days == 0:
+            raise forms.ValidationError('Warning: Zero is not allowed.')
+        return super().clean()
 
 class Rejected_TransactionForm(forms.ModelForm):
     class Meta:

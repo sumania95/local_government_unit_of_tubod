@@ -226,6 +226,8 @@ class Daily_Time_Records_Print(LoginRequiredMixin,LogoutIfNotAdministratorHRISMi
         pdf = Render.render('pdf/dtr.html', params)
         return pdf
 
+from datetime import datetime
+
 class QR_Daily_Time_Records_Print(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request):
         data =  dict()
@@ -235,6 +237,7 @@ class QR_Daily_Time_Records_Print(LoginRequiredMixin,LogoutIfNotAdministratorHRI
         except Exception as e:
             datepicker1 = None
             datepicker2 = None
+        print(datepicker1.strftime('%Y-%m-%d'))
         data['form_is_valid'] = True
         data['url'] = reverse('dtr_qr_code_print')
         profile = Profile.objects.filter(id__in = Scan_Attendace.objects.values('profile_id').filter(timestamp__month = 11,timestamp__year = 2020)).order_by('surname','firstname')
@@ -281,61 +284,3 @@ class QR_Daily_Time_Records_Print(LoginRequiredMixin,LogoutIfNotAdministratorHRI
         }
         pdf = Render.render('pdf/dtr.html', params)
         return pdf
-        # if datepicker1.month == datepicker2.month:
-        #     if datepicker1.day > datepicker2.day:
-        #         data['message_type'] = error
-        #         data['message_title'] = 'Invalid date!'
-        #         data['form_is_valid'] = False
-        #         return JsonResponse(data)
-        #     else:
-        #         data['form_is_valid'] = True
-        #         data['url'] = reverse('dtr_qr_code_print')
-        #         profile = Dtr_Assign.objects.exclude(id__in = Dtr.objects.values('user_id').filter(timestamp__month = month,timestamp__year = year)).order_by('profile__lastname','profile__surname')
-        #         attendances = []
-        #         for p in profile:
-        #             attendance = {
-        #             'profile' : Profile.objects.get(id=p.profile.id),
-        #             'day1': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 1,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day2': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 2,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day3': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 3,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day4': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 4,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day5': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 5,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day6': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 6,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day7': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 7,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day8': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 8,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day9': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 9,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day10': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 10,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day11': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 11,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day12': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 12,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day13': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 13,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day14': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 14,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day15': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 15,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day16': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 16,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day17': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 17,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day18': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 18,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day19': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 19,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day20': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 20,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day21': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 21,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day22': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 22,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day23': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 23,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day24': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 24,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day25': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 25,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day26': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 26,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day27': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 27,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day28': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 28,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day29': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 29,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day30': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 30,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             'day31': Dtr.objects.filter(user_id = p.profile_id,timestamp__day = 31,timestamp__month = datepicker1.month,timestamp__year = datepicker1.year).order_by('timestamp__hour','timestamp__minute')[:4],
-        #             }
-        #             attendances.append(attendance)
-        #         params = {
-        #             'final': attendances,
-        #
-        #         }
-        #         pdf = Render.render('pdf/dtr.html', params)
-        #         return pdf
-        # else:
-        #     data['message_type'] = error
-        #     data['message_title'] = 'Invalid date!'
-        #     data['form_is_valid'] = False
-        #     return JsonResponse(data)

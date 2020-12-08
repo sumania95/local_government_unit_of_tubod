@@ -56,7 +56,11 @@ from dateutil.relativedelta import relativedelta
 
 from .forms import SettingsForm
 from .models import Settings as SettingsModel
-
+success = 'success'
+info = 'info'
+error = 'error'
+warning = 'warning'
+question = 'question'
 
 class Settings_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request):
@@ -73,7 +77,7 @@ class Settings_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,Vie
     def post(self, request):
         data = dict()
         if request.method == 'POST':
-            setting = Settings.objects.get(id=1)
+            setting = SettingsModel.objects.get(id=1)
             form = SettingsForm(request.POST,request.FILES,instance = setting)
             if form.is_valid():
                 form.save()

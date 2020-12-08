@@ -8,7 +8,7 @@
   <h5>Daily Time Records</h5>
   <hr>
   <div class="card mb-3">
-    <form class="custom-form" action="{% url 'dtr_qr_code_print' %}" method="get">
+    <form class="custom-form" target="_blank" action="{% url 'dtr_qr_code_print' %}" method="get">
       <div class="card-header p-2">
         <table>
           <tr>
@@ -20,7 +20,7 @@
                     <i class="far fa-calendar-alt"></i>
                   </span>
                 </div>
-                <input type="text" class="form-control pull-right" id="datepicker1">
+                <input type="text" class="form-control pull-right" name="datepicker1" id="datepicker1">
               </div>
             </td>
             <td style="padding-left:5px;">
@@ -30,7 +30,7 @@
                     <i class="far fa-calendar-alt"></i>
                   </span>
                 </div>
-                <input type="text" class="form-control pull-right" id="datepicker2">
+                <input type="text" class="form-control pull-right" name="datepicker2" id="datepicker2">
               </div>
             </td>
             <td><button type="submit" class="btn btn-primary btn-sm" name="button">PRINT DTR</button></td>

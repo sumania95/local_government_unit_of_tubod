@@ -207,8 +207,12 @@ class Transaction_Approved_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdminis
         except KeyError:
             request_pending_id = None
         form = Deducted_Action_TransactionForm()
+        deducted_transaction = Deducted_Transaction.objects.get(id=request_pending_id)
+        profile = Profile.objects.get(id=deducted_transaction.profile_id)
         context = {
             'form':form,
+            'profile':profile,
+            'deducted_transaction':deducted_transaction,
             'request_pending_id':request_pending_id,
             'is_Create': True,
             'btn_name' : 'primary',
@@ -227,7 +231,7 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
             # SICKLEAVE
             if deducted_transaction.leave_type == '1':
                 if form.is_valid():
-                    if float(form.instance.days) < float(profile.sl):
+                    if float(form.instance.days) <= float(profile.sl):
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(sl=F('sl')-form.instance.days)
@@ -243,13 +247,18 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['message_type'] = error
                         data['message_title'] = 'Insufficient Sick Leave'
                 else:
-                    data['form_is_valid'] = False
-                    data['message_type'] = error
-                    data['message_title'] = 'An error occurred.'
+                    if float(form.instance.days) == 0:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'Zero is not allowed.'
+                    else:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'An error occurred.'
             # VACATIONLEAVE
             elif deducted_transaction.leave_type == '2':
                 if form.is_valid():
-                    if float(form.instance.days) < float(profile.vl):
+                    if float(form.instance.days) <= float(profile.vl):
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(vl=F('vl')-form.instance.days)
@@ -265,9 +274,14 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['message_type'] = error
                         data['message_title'] = 'Insufficient Vacation Leave'
                 else:
-                    data['form_is_valid'] = False
-                    data['message_type'] = error
-                    data['message_title'] = 'An error occurred.'
+                    if float(form.instance.days) == 0:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'Zero is not allowed.'
+                    else:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'An error occurred.'
             # SPECIALLEAVE
             elif deducted_transaction.leave_type == '3':
                 special_leave = Deducted_Action_Transaction.objects.filter(deducted_transaction__profile_id = profile.id,deducted_transaction__leave_type = 3,deducted_transaction__date_from__year = now.year).aggregate(dsum=Coalesce(Sum('days'), Value(0)))['dsum']
@@ -288,13 +302,18 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['form_is_valid'] = True
                         data['url'] = reverse('transaction')
                 else:
-                    data['form_is_valid'] = False
-                    data['message_type'] = error
-                    data['message_title'] = 'An error occurred.'
+                    if float(form.instance.days) == 0:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'Zero is not allowed.'
+                    else:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'An error occurred.'
             # OFFSETLEAVE
             elif deducted_transaction.leave_type == '4':
                 if form.is_valid():
-                    if float(form.instance.days) < float(profile.overtime):
+                    if float(form.instance.days) <= float(profile.overtime):
                         form.instance.deducted_transaction_id = pk
                         form.instance.user_id = self.request.user.id
                         Profile.objects.filter(id=profile.id).update(overtime=F('overtime')-form.instance.days)
@@ -310,9 +329,14 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['message_type'] = error
                         data['message_title'] = 'Insufficient Overtime'
                 else:
-                    data['form_is_valid'] = False
-                    data['message_type'] = error
-                    data['message_title'] = 'An error occurred.'
+                    if float(form.instance.days) == 0:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'Zero is not allowed.'
+                    else:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
 
 class Transaction_Rejected_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
