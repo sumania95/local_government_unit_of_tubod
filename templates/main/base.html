@@ -106,13 +106,17 @@
                 </div>
                 <ul class="pro-body">
                   <li class="notification">
-                    {% if user.administrator %}
+                    {% if user.administrator and user.tips_administrator %}
                     <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING HRIS</a></td>
                     <td style="white-space:nowrap;width:50%;"><a href="{% url 'tips_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-users fa-2x text-danger"></i><br>SPRING TIPS</a></td>
+                    {% elif user.tips_administrator %}
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'tips_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-users fa-2x text-danger"></i><br>SPRING TIPS</a></td>
+                    {% elif user.administrator %}
+                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'dashboard' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING HRIS</a></td>
                     {% else %}
-                    <div class="text-center">
-                      <p>No Application Yet</p>
-                    </div>
+                      <div class="text-center">
+                        <p>No Application Yet</p>
+                      </div>
                     {% endif %}
                   </li>
                 </ul>

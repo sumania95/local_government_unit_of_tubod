@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% load imagefit %}
-
+{% load qr_code %}
 
 {% block 'content' %}
 <!-- [ Main Content ] start -->
@@ -18,6 +18,11 @@
 
   </div>
   <div class="col-md-3">
+    <div class="card">
+      <div class="card-body p-2 text-center">
+        {% qr_from_text qr_profile size="S" %}
+      </div>
+    </div>
     <div id="main_sidebar">
 
     </div>

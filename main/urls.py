@@ -39,6 +39,7 @@ urlpatterns = [
     path('p/',include('app_profiling.urls')),
     path('api/',include('model_hris.dtr.api.urls')),
     url(r'^imagefit/', include('imagefit.urls')),
+    path('qr_code/', include('qr_code.urls', namespace="qr_code")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

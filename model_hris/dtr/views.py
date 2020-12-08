@@ -237,45 +237,48 @@ class QR_Daily_Time_Records_Print(LoginRequiredMixin,LogoutIfNotAdministratorHRI
         except Exception as e:
             datepicker1 = None
             datepicker2 = None
-        print(datepicker1.strftime('%Y-%m-%d'))
+        print(datetime.strptime(datepicker1, "%Y-%m-%d"))
+        start = datetime.strptime(datepicker1, "%Y-%m-%d")
+        end = datetime.strptime(datepicker2, "%Y-%m-%d")
+        print(start.month)
         data['form_is_valid'] = True
         data['url'] = reverse('dtr_qr_code_print')
-        profile = Profile.objects.filter(id__in = Scan_Attendace.objects.values('profile_id').filter(timestamp__month = 11,timestamp__year = 2020)).order_by('surname','firstname')
+        profile = Profile.objects.filter(id__in = Scan_Attendace.objects.values('profile_id').filter(timestamp__month = 12,timestamp__year = 2020)).order_by('surname','firstname')
         attendances = []
         for p in profile:
             attendance = {
             'profile' : Profile.objects.get(id=p.id),
-            'day1': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 1,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day2': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 2,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day3': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 3,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day4': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 4,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day5': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 5,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day6': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 6,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day7': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 7,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day8': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 8,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day9': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 9,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day10': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 10,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day11': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 11,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day12': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 12,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day13': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 13,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day14': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 14,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day15': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 15,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day16': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 16,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day17': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 17,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day18': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 18,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day19': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 19,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day20': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 20,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day21': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 21,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day22': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 22,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day23': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 23,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day24': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 24,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day25': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 25,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day26': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 26,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day27': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 27,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day28': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 28,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day29': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 29,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day30': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 30,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-            'day31': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 31,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day1': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 1,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day2': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 2,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day3': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 3,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day4': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 4,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day5': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 5,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day6': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 6,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day7': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 7,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day8': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 8,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day9': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 9,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day10': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 10,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day11': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 11,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day12': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 12,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day13': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 13,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day14': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 14,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day15': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 15,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day16': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 16,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day17': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 17,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day18': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 18,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day19': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 19,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day20': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 20,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day21': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 21,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day22': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 22,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day23': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 23,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day24': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 24,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day25': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 25,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day26': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 26,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day27': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 27,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day28': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 28,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day29': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 29,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day30': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 30,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
+            # 'day31': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 31,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
             }
             attendances.append(attendance)
         params = {

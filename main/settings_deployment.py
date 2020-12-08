@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'rest_framework',
+    'qr_code',
     'imagefit',
     'crispy_forms',
     'model_hris.dtr',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'model_hris.transaction',
     'model_hris.post',
     'app_hris',
+    'app_profiling',
 ]
 
 MIDDLEWARE = [
