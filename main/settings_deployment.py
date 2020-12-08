@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'rest_framework',
+    'qr_code',
     'imagefit',
     'crispy_forms',
     'model_hris.dtr',

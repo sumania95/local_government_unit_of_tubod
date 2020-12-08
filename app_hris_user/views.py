@@ -34,6 +34,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Home_Page(LoginRequiredMixin,TemplateView):
     template_name = 'main/home.html'
 
+    def get(self, request, *args, **kwargs):
+        name = str(self.request.user.profile.id) + "|" + str(self.request.user.profile)
+        context = {'qr_profile': name}
+        return render(request, self.template_name,context=context)
+
 class History_Leave_Page(LoginRequiredMixin,TemplateView):
     template_name = 'main/history_leave.html'
 
