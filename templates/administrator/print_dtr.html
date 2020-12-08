@@ -1,0 +1,103 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Daily Time Records</h5>
+  <hr>
+  <div class="card mb-3">
+    <form class="custom-form" target="_blank" action="{% url 'dtr_qr_code_print' %}" method="get">
+      <div class="card-header p-2">
+        <table>
+          <tr>
+            <td><b>Date :</b></td>
+            <td style="padding-left:5px;">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control pull-right" name="datepicker1" id="datepicker1">
+              </div>
+            </td>
+            <td style="padding-left:5px;">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control pull-right" name="datepicker2" id="datepicker2">
+              </div>
+            </td>
+            <td><button type="submit" class="btn btn-primary btn-sm" name="button">PRINT DTR</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
+<script>
+  var $datepicker1 = $('#datepicker1');
+  $datepicker1.datepicker({
+    autoclose: true,
+    format : 'yyyy-mm-dd',
+  });
+  $datepicker1.datepicker('setDate', new Date());
+
+  var $datepicker2 = $('#datepicker2');
+  $datepicker2.datepicker({
+    autoclose: true,
+    format : 'yyyy-mm-dd',
+  });
+  $datepicker2.datepicker('setDate', new Date());
+
+  $(document).on('click', '.form-show-new-profile_assign', function(){
+    var btn = $(this);
+    var datepicker1 = $('#datepicker1');
+    var datepicker2 = $('#datepicker2');
+    $.ajax({
+      url: btn.attr("data-url"),
+      data: {datepicker1:datepicker1,datepicker2:datepicker2},
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $("#btn-submit").attr("disabled", true);
+        $('#btn-submit').html('<span class="spinner-border spinner-border-sm" role="status"></span><span class="sr-only mr-2"></span> PRINTING DTR...')
+      },
+      success: function(data){
+        $("#btn-submit").attr("disabled", false);
+        $('#btn-submit').html('PRINT DTR');
+        if(data.form_is_valid){
+          window.open(
+            data.url,
+            '_blank' // <- This is what makes it open in a new window.
+          );
+        }else{
+          Toast.fire({
+            type: data.message_type,
+            title: data.message_title
+          });
+        }
+      },
+      error:function(error){
+        $("#btn-submit").attr("disabled", false);
+        $('#btn-submit').html('PRINT DTR');
+        Toast.fire({
+          type: 'error',
+          title: 'ERROR Connection Lost.'
+        });
+      },
+    });
+  });
+</script>
+
+{% endblock %}

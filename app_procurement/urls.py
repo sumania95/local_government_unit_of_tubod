@@ -2,9 +2,9 @@ from django.urls import path
 from .import views
 
 from .views import (
-    Home,
+    Proc_Home_Page,
 )
 
 urlpatterns = [
-    path('', Home.as_view(), name = 'main_home'),
+    path('', Proc_Home_Page.as_view(), name = 'proc_home'),
 ]

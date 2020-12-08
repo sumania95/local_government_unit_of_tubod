@@ -25,7 +25,7 @@ SECRET_KEY = 'i*y3k+6m09(2gka7y-+c-l-2&b!p3_+__)lmy+o2q7x9o%kmt#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','172.16.1.2']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','172.16.1.2','172.16.1.3']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'rest_framework',
     'imagefit',
     'crispy_forms',
     'model_hris.dtr',

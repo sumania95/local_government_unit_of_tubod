@@ -1,0 +1,107 @@
+{% extends 'tips/base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Person</h5>
+  <hr>
+</div>
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_person" id="filter_person">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_person" id="search_person" value="">
+            </td>
+            <td><button data-url="#" type="button" class="btn btn-primary btn-sm form-show-new-person" name="button">New</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Name</th>
+              <th style="white-space:nowrap;width:1%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-person-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter_person">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-new-person', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+
+</script>
+<script>
+  function Department(){
+    var filter = $("#filter_person").val();
+    var search = $("#search_person").val();
+
+    $.ajax({
+      url: '#',
+      type: 'get',
+      data: {filter:filter,search:search},
+      dataType: 'json',
+      success:function(data){
+        $('#counter_person').html(data.counter + " record(s) found");
+        $('#table-person-ajax').html(data.person_table);
+      },
+    });
+
+  };
+
+  $('#filter_person').change(function() {
+    Department();
+  });
+  $('#search_person').change(function() {
+    Department();
+  });
+  Department();
+</script>
+
+{% endblock %}

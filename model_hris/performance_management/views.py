@@ -29,7 +29,7 @@ from django.template import RequestContext
 from model_hris.performance_management.models import (
     Accomplishment,
     Success_Indicator,
-    # Actual_Accomplishment,
+    Semester,
     Rating_Accomplishment,
     Year,
 )
@@ -160,8 +160,8 @@ class Accomplishment_Detail_List_AJAXView(LoginRequiredMixin,View):
             id = None
         if id:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(profile_id=id).exclude(id__in = Rating_Accomplishment.objects.values('accomplishment__id').filter(year=Year.objects.filter(is_active=True).first())).count()
-            actual_accomplishment = self.queryset.filter(profile_id=id).exclude(id__in = Rating_Accomplishment.objects.values('accomplishment__id').filter(year=Year.objects.filter(is_active=True).first())).order_by('date_created')
+            data['counter'] = self.queryset.filter(profile_id=id).exclude(id__in = Rating_Accomplishment.objects.values('accomplishment__id').filter(year=Year.objects.filter(is_active=True).first(),semester=Semester.objects.filter(is_active=True).first())).count()
+            actual_accomplishment = self.queryset.filter(profile_id=id).exclude(id__in = Rating_Accomplishment.objects.values('accomplishment__id').filter(year=Year.objects.filter(is_active=True).first(),semester=Semester.objects.filter(is_active=True).first())).order_by('date_created')
             data['actual_accomplishment_table'] = render_to_string('administrator/ajax-filter-table/table_actual_accomplishment_detail_list.html',{'actual_accomplishment':actual_accomplishment})
         return JsonResponse(data)
 
@@ -188,6 +188,7 @@ class Accomplishment_Detail_Rating_Create_AJAXView(LoginRequiredMixin,View):
             if form.is_valid():
                 form.instance.accomplishment_id = pk
                 form.instance.year = Year.objects.filter(is_active=True).first()
+                form.instance.semester = Semester.objects.filter(is_active=True).first()
                 form.instance.user_id = self.request.user.profile.id
                 form.save()
                 data['message_type'] = success
@@ -272,8 +273,8 @@ class Accomplishment_IPCR_AJAXView(LoginRequiredMixin,View):
             search = None
         if filter or search:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year = Year.objects.filter(is_active=True).first()).order_by('year').annotate(total_ratings=Sum('ratings')).count()
-            profile = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year = Year.objects.filter(is_active=True).first()).order_by('year').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
+            data['counter'] = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year=Year.objects.filter(is_active=True).first(),semester=Semester.objects.filter(is_active=True).first()).order_by('year').annotate(total_ratings=Sum('ratings')).count()
+            profile = self.queryset.values('accomplishment__profile__firstname','accomplishment__profile__surname','year').filter(year=Year.objects.filter(is_active=True).first(),semester=Semester.objects.filter(is_active=True).first()).order_by('year').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_ipcr.html',{'profile':profile})
         return JsonResponse(data)
 
@@ -291,10 +292,26 @@ class Accomplishment_OPCR_LIST_AJAXView(LoginRequiredMixin,View):
             search = None
         if filter or search:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year = Year.objects.filter(is_active=True).first()).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings')).count()
-            profile = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year = Year.objects.filter(is_active=True).first()).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
+            data['counter'] = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year=Year.objects.filter(is_active=True).first(),semester=Semester.objects.filter(is_active=True).first()).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings')).count()
+            profile = self.queryset.values('accomplishment__profile__designation__plantilla__department__name').filter(year=Year.objects.filter(is_active=True).first(),semester=Semester.objects.filter(is_active=True).first()).order_by('accomplishment__profile__designation__plantilla__department__name').annotate(total_ratings=Sum('ratings'),total_count=Count('ratings'),total_avg=Avg('ratings'))[:int(filter)]
             print(profile)
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_opcr.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Accomplishment_Semester_AJAXView(LoginRequiredMixin,View):
+    queryset = Semester.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.count()
+            semester = self.queryset.order_by('date_created')[:int(filter)]
+            data['semester_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_semester.html',{'semester':semester})
         return JsonResponse(data)
 
 class Accomplishment_Year_AJAXView(LoginRequiredMixin,View):
@@ -311,6 +328,17 @@ class Accomplishment_Year_AJAXView(LoginRequiredMixin,View):
             data['counter'] = self.queryset.count()
             year = self.queryset.order_by('date_created')[:int(filter)]
             data['year_table'] = render_to_string('administrator/ajax-filter-table/table_accomplishment_year.html',{'year':year})
+        return JsonResponse(data)
+
+class Accomplishment_Semester_Activate_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            Semester.objects.update(is_active=False)
+            Semester.objects.filter(id=pk).update(is_active=True)
+            data['message_type'] = success
+            data['message_title'] = 'Successfully saved.'
+            data['url'] = reverse('accomplishment_semester')
         return JsonResponse(data)
 
 class Accomplishment_Year_Create_AJAXView(LoginRequiredMixin,View):

@@ -58,11 +58,11 @@
   </div>
   <div style="text-align: left; padding-top:20px; font-size:14px;">
     <td>
-      {% if p.profile.sex == 'Male' %}
+      {% if p.profile.sex == '1' %}
       <b><u>Mr.</u></b>/<b>Mrs.</b>/<b>Ms.</b>
-      {% elif p.profile.sex == 'Female' and p.profile.civilstatus == 'Married' or p.profile.civilstatus == 'Widowed' or p.profile.civilstatus == 'Separated' %}
+      {% elif p.profile.sex == '2' and p.profile.civil_status == '2' or p.profile.civil_status == '3' or p.profile.civil_status == '4' %}
       <b>Mr.</b>/<b><u>Mrs.</u></b>/<b>Ms.</b>
-      {% elif p.profile.sex == 'Female' and p.profile.civilstatus == 'Single' or p.profile.civilstatus == 'Annulled' %}
+      {% elif p.profile.sex == '2' and p.profile.civil_status == '1' or p.profile.civil_status == '5' %}
       <b>Mr.</b>/<b>Mrs.</b>/<b><u>Ms.</u></b>
       {% endif %}
       : <b>{{p.profile.firstname|upper}} {{p.profile.middlename|upper|slice:1}}. {{p.profile.surname|upper}}</b>
@@ -71,10 +71,10 @@
   <div style="text-align: left;">
     <td>
       <p style="font-size:14px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are hereby appointed as <b>{{p.positiontitle}}</b> Status as <b>{{p.status}}</b> at <b>{{p.department}}</b> with compensation rate of <b>{{p.basicsalary}}</b> per day.
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are hereby appointed as <b>{{p.positiontitle}}</b> Status as <b>{{p.status}}</b> at <b>{{p.department}}</b> with compensation rate of <b>{{p.basic_salary}}</b> per day.
       </p>
       <p style="font-size:14px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The nature of this appointment is contractual basis inclusive for three months from {{d.fromdate|date:"F d, Y"}} to {{d.todate|date:"F d, Y"}} and may be terminated as funds exhausted, and if the services may no longer needed.
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The nature of this appointment is contractual basis inclusive for three months from {{setting.from_date|date:"F d, Y"}} to {{setting.to_date|date:"F d, Y"}} and may be terminated as funds exhausted, and if the services may no longer needed.
       </p>
       <p style="font-size:14px;">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This appointment shall take effect on the date of signing by the appointing officer/authority.
@@ -87,10 +87,10 @@
     </div>
 
     <div style="text-align: left; font-size:14px; padding-top:40px;">
-      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADONIS G. CUEVAS</b></td>
+      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{setting.hr_name|upper}}</b></td>
     </div>
     <div style="text-align: left; font-size:14px;">
-      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HRMO</b></td>
+      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{setting.hr_title|title}}</b></td>
     </div>
 
   </div>
@@ -102,7 +102,7 @@
     </tr>
     <tr>
       <td colspan="8"></td>
-      <td colspan="4" style="text-align: left; font-size:14px; padding-top:25px;"><b>RICHELLE B. ROMARATE, MSCE</b></td>
+      <td colspan="4" style="text-align: left; font-size:14px; padding-top:25px;"><b>{{setting.mayor_name|upper}}</b></td>
     </tr>
     <tr>
       <td colspan="8"></td>
@@ -110,7 +110,7 @@
     </tr>
     <tr>
       <td colspan="8"></td>
-      <td colspan="4" style="text-align: left; font-size:14px; padding-top:10px;">Date of Signing: {{d.fromdate|date:"F d, Y"}}</td>
+      <td colspan="4" style="text-align: left; font-size:14px; padding-top:10px;">Date of Signing: {{setting.from_date|date:"F d, Y"}}</td>
     </tr>
   </table>
   <div style="text-align: center; padding-top:10px;">
@@ -125,14 +125,14 @@
   </div>
   <table>
     <tr style="text-align: left; font-size:14px; padding-top:25px;">
-      <td colspan="4"><b>VIRGINIA P. ACUZAR</b></td>
+      <td colspan="4"><b>{{setting.budget_name|upper}}</b></td>
       <td colspan="4"></td>
-      <td colspan="4"><b>LYMARIE A. MALICDEM</b></td>
+      <td colspan="4"><b>{{setting.treasury_name|upper}}</b></td>
     </tr>
     <tr style="text-align: left; font-size:14px;">
-      <td colspan="4">Acting Municipal Budget Officer</td>
+      <td colspan="4">{{setting.budget_title|title}}</td>
       <td colspan="4"></td>
-      <td colspan="4">Acting Municipal Treasurer</td>
+      <td colspan="4">{{setting.treasury_title|title}}</td>
     </tr>
   </table>
   <div style="text-align: left; padding-top:20px;padding-bottom:10px;">

@@ -56,7 +56,11 @@ from dateutil.relativedelta import relativedelta
 
 from .forms import SettingsForm
 from .models import Settings as SettingsModel
-
+success = 'success'
+info = 'info'
+error = 'error'
+warning = 'warning'
+question = 'question'
 
 class Settings_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def get(self, request):
@@ -73,7 +77,7 @@ class Settings_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,Vie
     def post(self, request):
         data = dict()
         if request.method == 'POST':
-            setting = Settings.objects.get(id=1)
+            setting = SettingsModel.objects.get(id=1)
             form = SettingsForm(request.POST,request.FILES,instance = setting)
             if form.is_valid():
                 form.save()
@@ -322,6 +326,10 @@ class Accomplishment_OPCR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,T
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_opcr.html'
 
+class Accomplishment_Semester(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/accomplishment_semester.html'
+
 class Accomplishment_Year(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/accomplishment_year.html'
@@ -396,6 +404,10 @@ class Transaction_Generated_Create(LoginRequiredMixin,LogoutIfNotAdministratorHR
 class Dtr_Assign(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/dtr_profile_assign.html'
+
+class Print_DTR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/print_dtr.html'
 
 class Dtr_Download_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'

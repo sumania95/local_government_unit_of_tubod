@@ -6,7 +6,35 @@
 {% endblock %}
 
 <div class="card-body">
+  <div class="table-responsive">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td style="white-space:nowrap;width:5%;">Name</td>
+          <td>{{deducted_transaction.profile|upper}}</td>
+        </tr>
+        {% if profile.designation %}
+        <tr>
+          <td>Sick Leave</td>
+          <td>{{profile.sl}}</td>
+        </tr>
+        <tr>
+          <td>Vacation Leave</td>
+          <td>{{profile.vl}}</td>
+        </tr>
+        {% endif %}
+        <tr>
+          <td>Offset/Overtime</td>
+          <td>{{profile.overtime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <form method="POST" enctype="multipart/form-data" data-url="{% url 'api_transaction_approved_create_save' request_pending_id %}" class="custom-form">
+    <div class="form-group">
+      <label for="">Leave Type</label>
+      <label for="" class="form-control" disabled >{{deducted_transaction.get_leave_type_display}}</label>
+    </div>
     {{form|crispy}}
     <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
   </form>
