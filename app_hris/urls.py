@@ -37,6 +37,7 @@ from app_hris.views import (
     Transaction_Generated_Create,
     Dtr_Assign,
     Dtr_Download_Report,
+    Print_DTR,
     Settings,
     Settings_AJAXView,
     Department,
@@ -149,6 +150,7 @@ from model_hris.dtr.views import (
     Dtr_Assign_Create_AJAXView,
     Dtr_Assign_Update_AJAXView,
     Daily_Time_Records_Print,
+    QR_Daily_Time_Records_Print,
 )
 
 import random
@@ -254,6 +256,8 @@ urlpatterns = [
     path('api/transaction/generated/create', Transaction_Generated_Create_AJAXView.as_view(), name = 'api_transaction_generated_create'),
     path('api/transaction/generated/create/save', Transaction_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_generated_create_save'),
     path('api/transaction/batch-generated/create/save', Transaction_Batch_Generated_Create_Save_AJAXView.as_view(), name = 'api_transaction_batch_generated_create_save'),
+    path('dtr/print', Print_DTR.as_view(), name = 'print_dtr'),
+    path('dtr/dtr_qr-code-print', QR_Daily_Time_Records_Print.as_view(), name = 'dtr_qr_code_print'),
     path('dtr/profile-assign', Dtr_Assign.as_view(), name = 'dtr_profile_assign'),
     path('api/dtr/profile-assign', Dtr_Assign_AJAXView.as_view(), name = 'api_dtr_profile_assign'),
     path('api/dtr/profile-assign/create', Dtr_Assign_Create_AJAXView.as_view(), name = 'api_dtr_profile_assign_create'),

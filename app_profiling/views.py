@@ -30,5 +30,8 @@ from django.template import RequestContext
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class Profiling_Dashboard_Page(LoginRequiredMixin,TemplateView):
-    template_name = 'profiling/dashboard.html'
+class Tips_Dashboard_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/dashboard.html'
+
+class Tips_Person_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/person.html'

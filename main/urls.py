@@ -37,6 +37,7 @@ urlpatterns = [
     path('',include('app_hris_user.urls')),
     # path('p/',include('app_procurement.urls')),
     path('p/',include('app_profiling.urls')),
+    path('api/',include('model_hris.dtr.api.urls')),
     url(r'^imagefit/', include('imagefit.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

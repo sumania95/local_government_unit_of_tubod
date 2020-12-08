@@ -17,8 +17,8 @@ class Dtr(models.Model):
 
 
 class Scan_Attendace(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add = True)
-    
+
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)

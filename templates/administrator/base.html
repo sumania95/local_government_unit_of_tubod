@@ -78,13 +78,13 @@
           <li class="nav-item {% block 'transaction_active' %}{% endblock %}">
             <a href="{% url 'transaction' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">Transaction</span> <span class="badge badge-danger">New</span></a>
           </li>
-          <li class="nav-item pcoded-hasmenu">
+          <!-- <li class="nav-item pcoded-hasmenu">
 					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="fa fa-fingerprint"></i></span><span class="pcoded-mtext">Biometric</span></a>
 					    <ul class="pcoded-submenu">
                 <li><a href="{% url 'dtr_profile_assign' %}">Profile Assign</a></li>
                 <li><a href="{% url 'dtr_download_report' %}">Download & Reports</a></li>
 					    </ul>
-					</li>
+					</li> -->
           <li class="nav-item pcoded-hasmenu">
 					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Utilities</span></a>
 					    <ul class="pcoded-submenu">
@@ -94,6 +94,9 @@
                 <li><a href="{% url 'settings' %}">Maintenance</a></li>
 					    </ul>
 					</li>
+          <li class="nav-item">
+            <a href="{% url 'print_dtr' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-codepen"></i></span><span class="pcoded-mtext">QR Code DTR</span></a>
+          </li>
           <li class="nav-item">
             <a href="{% url 'audit_logs' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">Activity Logs</span></a>
           </li>

@@ -401,6 +401,10 @@ class Dtr_Assign(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateVi
     LOGIN_URL = 'login'
     template_name = 'administrator/dtr_profile_assign.html'
 
+class Print_DTR(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
+    LOGIN_URL = 'login'
+    template_name = 'administrator/print_dtr.html'
+
 class Dtr_Download_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,TemplateView):
     LOGIN_URL = 'login'
     template_name = 'administrator/dtr_download_report.html'
