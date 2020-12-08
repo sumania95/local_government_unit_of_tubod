@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'model_hris.transaction',
     'model_hris.post',
     'app_hris',
+    'app_profiling',
 ]
 
 MIDDLEWARE = [
