@@ -248,9 +248,6 @@ class QR_Daily_Time_Records_Print(LoginRequiredMixin,LogoutIfNotAdministratorHRI
         for p in profile:
             attendance = {
             'profile' : Profile.objects.get(id=p.id),
-            for x in range(start.day,end.day):
-                'day1': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 1,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
-
             # 'day1': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 1,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
             # 'day2': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 2,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
             # 'day3': Scan_Attendace.objects.filter(profile_id = p.id,timestamp__day = 3,timestamp__month = 11,timestamp__year = 2020).order_by('timestamp__hour','timestamp__minute')[:4],
