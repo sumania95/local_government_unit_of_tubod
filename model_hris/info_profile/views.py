@@ -36,6 +36,7 @@ from model_hris.info_profile.models import (
 )
 from model_hris.designation.models import (
     Designation,
+    Contractual,
 )
 from model_hris.rewards_recognitions.models import (
     Rewards_Recognitions,
@@ -151,7 +152,14 @@ class Main_Profile_Sidebar_AJAXView(LoginRequiredMixin,View):
         current_month = now.month
         current_year = now.year
         data['form_is_valid'] = True
-        profile = self.queryset.filter(date_of_birth__month=current_month).order_by('date_of_birth__day','surname')
+        data_profile = []
+        designation = Designation.objects.all()
+        contractual = Contractual.objects.all()
+        for p in designation:
+            data_profile.append(p.profile_id)
+        for c in contractual:
+            data_profile.append(c.profile_id)
+        profile = self.queryset.filter(date_of_birth__month=current_month,id__in = data_profile).order_by('date_of_birth__day','surname')
         profile_awardee = Rewards_Recognitions.objects.values('profile__surname','profile__firstname','profile__image').annotate(total=Count('pk')).order_by('-total')
         context = {
             'profile':profile,
