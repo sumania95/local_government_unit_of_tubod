@@ -1,7 +1,7 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.level}}</td>
+  <td>{{p.get_level_display}}</td>
   <td>{{p.course}}</td>
   <td>{{p.period_from}}-{{p.period_to}}</td>
   <td>

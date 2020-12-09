@@ -1,0 +1,78 @@
+<div class="card-header p-2">
+  <table>
+    <tr>
+      <td>Filter</td>
+      <td>
+        <select class="form-control" name="filter-profile-info-work-experience" id="filter-profile-info-work-experience">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <div class="card-header-right">
+    <table>
+      <tr>
+        <td>
+          <button data-url="{% url 'api_main_work_experience_create' %}" type="button" class="btn btn-primary btn-sm form-show" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="card-body p-0">
+  <div class="table-responsive">
+    <table class="table">
+      <thead style="padding-bottom:2px;">
+        <tr>
+          <th style="white-space:nowrap;width:15%;">Date</th>
+          <th>Position Title</th>
+          <th>Status</th>
+          <th style="white-space:nowrap;width:15%;">Is GovPH</th>
+          <th style="white-space:nowrap;width:20%;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-profile-info-work-experience">
+
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer" id="counter-profile-info-work-experience">
+</div>
+
+{% block 'script' %}
+<script>
+  function Work_Experience(){
+    var filter = $("#filter-profile-info-work-experience").val();
+    $.ajax({
+      url: '{% url 'api_main_work_experience_list' %}',
+      type: 'get',
+      data:{filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-profile-info-work-experience').html(data.counter + " record(s) found");
+        $('#table-profile-info-work-experience').html(data.profile_table);
+      },
+    });
+
+  };
+  Work_Experience();
+  $(document).on('click', '.form-show', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+</script>
+
+{% endblock  %}
