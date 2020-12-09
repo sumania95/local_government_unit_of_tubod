@@ -9,6 +9,9 @@ from model_hris.pds.models import (
     Work_Experience,
     Voluntary_Work,
     Learning_Development,
+    Skill_Hobbies,
+    Non_Academic,
+    Member_Organization,
     Q34,
     Q35,
     Q36,
@@ -85,8 +88,42 @@ class Family_BackgroundForm(forms.ModelForm):
         self.fields['mothermiddlename'].widget.attrs={
             'class': 'form-control-sm',}
 
+# Skill_Hobbies
 
+class Skill_HobbiesForm(forms.ModelForm):
+    class Meta:
+        model = Skill_Hobbies
+        fields = [
+            'description',
+        ]
+    def __init__(self, *args, **kwargs):
+        super(Skill_HobbiesForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs={
+            'class': 'form-control-sm',}
 
+class Non_AcademicForm(forms.ModelForm):
+    class Meta:
+        model = Non_Academic
+        fields = [
+            'description',
+        ]
+    def __init__(self, *args, **kwargs):
+        super(Non_AcademicForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs={
+            'class': 'form-control-sm',}
+
+class Member_OrganizationForm(forms.ModelForm):
+    class Meta:
+        model = Member_Organization
+        fields = [
+            'description',
+        ]
+    def __init__(self, *args, **kwargs):
+        super(Member_OrganizationForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs={
+            'class': 'form-control-sm',}
+
+# children
 class ChildrenForm(forms.ModelForm):
     class Meta:
         model = Children

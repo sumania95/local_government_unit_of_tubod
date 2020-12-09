@@ -1,9 +1,10 @@
+{% load static %}
 <div class="card-header p-2">
   <table>
     <tr>
       <td>Filter</td>
       <td>
-        <select class="form-control" name="filter-profile-info-education-background" id="filter-profile-info-education-background">
+        <select class="form-control" name="filter-profile-info-skill-hobbies" id="filter-profile-info-skill-hobbies">
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
@@ -15,7 +16,7 @@
     <table>
       <tr>
         <td>
-          <button data-url="{% url 'api_main_educational_background_create' %}" type="button" class="btn btn-primary btn-sm form-show" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
+          <button data-url="{% url 'api_main_skill_hobbies_create' %}" type="button" class="btn btn-primary btn-sm form-show-skill-hobbies-create" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
         </td>
       </tr>
     </table>
@@ -27,40 +28,38 @@
       <thead style="padding-bottom:2px;">
         <tr>
           <th style="white-space:nowrap;width:1%;">#</th>
-          <th style="white-space:nowrap;width:15%;">Level</th>
-          <th>School Name</th>
-          <th style="white-space:nowrap;width:20%;">Period</th>
+          <th>Description</th>
           <th style="white-space:nowrap;width:20%;">Action</th>
         </tr>
       </thead>
-      <tbody id="table-profile-info-education-background">
+      <tbody id="table-profile-info-skill-hobbies">
 
       </tbody>
     </table>
   </div>
 </div>
-<div class="card-footer" id="counter-profile-info-education-background">
+<div class="card-footer" id="counter-profile-info-skill-hobbies">
 </div>
 
 {% block 'script' %}
 <script>
-  function Educational_Background(){
-    var filter = $("#filter-profile-info-education-background").val();
+  function Children(){
+    var filter = $("#filter-profile-info-skill-hobbies").val();
     $.ajax({
-      url: '{% url 'api_main_education_background_list' %}',
+      url: '{% url 'api_main_skill_hobbies_list' %}',
       type: 'get',
       data:{filter:filter},
       dataType: 'json',
       success:function(data){
-        $('#counter-profile-info-education-background').html(data.counter + " record(s) found");
-        $('#table-profile-info-education-background').html(data.profile_table);
+        $('#counter-profile-info-skill-hobbies').html(data.counter + " record(s) found");
+        $('#table-profile-info-skill-hobbies').html(data.profile_table);
       },
     });
 
   };
-  Educational_Background();
+  Children();
 
-  $(document).on('click', '.form-show', function(){
+  $(document).on('click', '.form-show-skill-hobbies-create', function(){
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),

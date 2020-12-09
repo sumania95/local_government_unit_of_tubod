@@ -1,41 +1,28 @@
-{% for p in profile %}
-<tr>
-  <td>{{forloop.counter}}</td>
-  <td>{{p.get_level_display}}</td>
-  <td>{{p.school_name}}</td>
-  <td>{{p.period_from}}-{{p.period_to}}</td>
-  <td>
-    <form data-url="{% url 'api_main_educational_background_delete' p.id %}" method="post" class="custom-form-educational-background d-inline-block">
-      <button data-url="{% url 'api_main_educational_background_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
-      <button  type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
-    </form>
-  </td>
-</tr>
-{% empty %}
-<tr>
-  <td colspan="12" class="text-center">No data available</td>
-</tr>
-{% endfor %}
-
+{% load crispy_forms_tags %}
+{% load static %}
+<div class="modal-header p-2">
+  <h5 class="modal-title" >Members & Organization</h5>
+</div>
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_member_organization_create' %}{% else %}{% url 'api_main_member_organization_update' member_organization.id %}{% endif %}" class="custom-form-meber-organization">
+  <div class="modal-body p-2">
+    {{form|crispy}}
+  </div>
+  <div class="modal-footer p-2">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
+  </div>
+</form>
 {% block 'script' %}
-<script>
-  $(document).on('click', '.form-show-update', function(){
-    var btn = $(this);
-    $.ajax({
-      url: btn.attr("data-url"),
-      type: 'get',
-      dataType:'json',
-      beforeSend: function(){
-        $('#modal-show').modal('show');
-      },
-      success: function(data){
-        $('#modal-show .modal-content').html(data.html_form);
-      }
-    });
-  });
-</script>
+
+
 <script>
   $(document).ready(function () {
+    $("body").delegate("#id_date_of_birth", "focusin", function(){
+      $(this).datepicker({
+        autoclose: true,
+        format : 'yyyy-mm-dd',
+      });
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -57,7 +44,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-educational-background").submit(function (event) {
+    $(".custom-form-meber-organization").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -75,7 +62,8 @@
             type: data.message_type,
             title: data.message_title
           });
-          Educational_Background_Template();
+          Member_Organization_Template();
+          $('#modal-show').modal('hide');
         },
         error:function(error){
           Toast.fire({

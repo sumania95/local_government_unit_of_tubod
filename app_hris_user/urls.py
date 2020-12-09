@@ -92,6 +92,24 @@ from model_hris.pds.views import (
     Main_Profile_Learning_Development_Create_AJAXView,
     Main_Profile_Learning_Development_Update_AJAXView,
     Main_Profile_Learning_Development_Delete_AJAXView,
+    # skill & hobbies
+    Main_Profile_Skill_Hobbies_AJAXView,
+    Main_Profile_Skill_Hobbies_Table_AJAXView,
+    Main_Profile_Skill_Hobbies_Create_AJAXView,
+    Main_Profile_Skill_Hobbies_Update_AJAXView,
+    Main_Profile_Skill_Hobbies_Delete_AJAXView,
+    # non academic
+    Main_Profile_Non_Academic_AJAXView,
+    Main_Profile_Non_Academic_Table_AJAXView,
+    Main_Profile_Non_Academic_Create_AJAXView,
+    Main_Profile_Non_Academic_Update_AJAXView,
+    Main_Profile_Non_Academic_Delete_AJAXView,
+    # member organization
+    Main_Profile_Member_Organization_AJAXView,
+    Main_Profile_Member_Organization_Table_AJAXView,
+    Main_Profile_Member_Organization_Create_AJAXView,
+    Main_Profile_Member_Organization_Update_AJAXView,
+    Main_Profile_Member_Organization_Delete_AJAXView,
 )
 
 urlpatterns = [
@@ -111,8 +129,8 @@ urlpatterns = [
     path('api/earn-rewards', Earn_Rewards_AJAXView.as_view(), name = 'api_main_earn_rewards'),
     path('document', Document_Page.as_view(), name = 'main_document'),
     path('api/document', Main_Document_AJAXView.as_view(), name = 'api_main_document'),
-    path('accomplishment', Accomplishment_Page.as_view(), name = 'main_accomplishment'),
-    path('api/accomplishment', Main_Accomplishment_AJAXView.as_view(), name = 'api_main_accomplishment'),
+    path('ipcr-opcr', Accomplishment_Page.as_view(), name = 'main_accomplishment'),
+    path('api/ipcr-opcr', Main_Accomplishment_AJAXView.as_view(), name = 'api_main_accomplishment'),
     # path('api/accomplished', Main_Accomplished_AJAXView.as_view(), name = 'api_main_accomplished'),
     path('api/accomplishment/create', Main_Accomplishment_Create_AJAXView.as_view(), name = 'api_main_accomplishment_create'),
     path('api/accomplishment/update/<int:pk>', Main_Accomplishment_Update_AJAXView.as_view(), name = 'api_main_accomplishment_update'),
@@ -167,6 +185,24 @@ urlpatterns = [
     path('api/learning-development/create', Main_Profile_Learning_Development_Create_AJAXView.as_view(), name = 'api_main_learning_development_create'),
     path('api/learning-development/update/<int:pk>', Main_Profile_Learning_Development_Update_AJAXView.as_view(), name = 'api_main_learning_development_update'),
     path('api/learning-development/delete/<int:pk>', Main_Profile_Learning_Development_Delete_AJAXView.as_view(), name = 'api_main_learning_development_delete'),
+    # SKILLS & HOBBIES
+    path('api/skill-hobbies', Main_Profile_Skill_Hobbies_AJAXView.as_view(), name = 'api_main_skill_hobbies'),
+    path('api/skill-hobbies-list', Main_Profile_Skill_Hobbies_Table_AJAXView.as_view(), name = 'api_main_skill_hobbies_list'),
+    path('api/skill-hobbies/create', Main_Profile_Skill_Hobbies_Create_AJAXView.as_view(), name = 'api_main_skill_hobbies_create'),
+    path('api/skill-hobbies/update/<int:pk>', Main_Profile_Skill_Hobbies_Update_AJAXView.as_view(), name = 'api_main_skill_hobbies_update'),
+    path('api/skill-hobbies/delete/<int:pk>', Main_Profile_Skill_Hobbies_Delete_AJAXView.as_view(), name = 'api_main_skill_hobbies_delete'),
+    # NON ACADEMIC
+    path('api/non-academic', Main_Profile_Non_Academic_AJAXView.as_view(), name = 'api_main_non_academic'),
+    path('api/non-academic-list', Main_Profile_Non_Academic_Table_AJAXView.as_view(), name = 'api_main_non_academic_list'),
+    path('api/non-academic/create', Main_Profile_Non_Academic_Create_AJAXView.as_view(), name = 'api_main_non_academic_create'),
+    path('api/non-academic/update/<int:pk>', Main_Profile_Non_Academic_Update_AJAXView.as_view(), name = 'api_main_non_academic_update'),
+    path('api/non-academic/delete/<int:pk>', Main_Profile_Non_Academic_Delete_AJAXView.as_view(), name = 'api_main_non_academic_delete'),
+    # MEMBER ORGANIZATION
+    path('api/member-organization', Main_Profile_Member_Organization_AJAXView.as_view(), name = 'api_main_member_organization'),
+    path('api/member-organization-list', Main_Profile_Member_Organization_Table_AJAXView.as_view(), name = 'api_main_member_organization_list'),
+    path('api/member-organization/create', Main_Profile_Member_Organization_Create_AJAXView.as_view(), name = 'api_main_member_organization_create'),
+    path('api/member-organization/update/<int:pk>', Main_Profile_Member_Organization_Update_AJAXView.as_view(), name = 'api_main_member_organization_update'),
+    path('api/member-organization/delete/<int:pk>', Main_Profile_Member_Organization_Delete_AJAXView.as_view(), name = 'api_main_member_organization_delete'),
     # NOTIFICATION
     path('api/notification/notification', Main_Notification_Template_AJAXView.as_view(), name = 'api_main_notification_notification'),
     path('api/notification/notification/content', Main_Notification_AJAXView.as_view(), name = 'api_main_notification_notification_content'),

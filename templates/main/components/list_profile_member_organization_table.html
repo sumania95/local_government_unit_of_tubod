@@ -1,12 +1,10 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.get_level_display}}</td>
-  <td>{{p.school_name}}</td>
-  <td>{{p.period_from}}-{{p.period_to}}</td>
+  <td>{{p.description}}</td>
   <td>
-    <form data-url="{% url 'api_main_educational_background_delete' p.id %}" method="post" class="custom-form-educational-background d-inline-block">
-      <button data-url="{% url 'api_main_educational_background_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
+    <form data-url="{% url 'api_main_member_organization_delete' p.id %}" method="post" class="custom-form-member-organization d-inline-block">
+      <button data-url="{% url 'api_main_member_organization_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
       <button  type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
     </form>
   </td>
@@ -57,7 +55,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-educational-background").submit(function (event) {
+    $(".custom-form-member-organization").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -75,7 +73,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          Educational_Background_Template();
+          Member_Organization_Template();
         },
         error:function(error){
           Toast.fire({
