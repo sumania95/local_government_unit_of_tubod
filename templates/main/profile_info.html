@@ -22,7 +22,9 @@
               <li><a class="nav-link text-left" id="v-pills-work-experience-tab" data-toggle="pill" href="#v-pills-work-experience" role="tab" aria-controls="v-pills-work-experience" aria-selected="false">Work Experience</a></li>
               <li><a class="nav-link text-left" id="v-pills-voluntary-work-tab" data-toggle="pill" href="#v-pills-voluntary-work" role="tab" aria-controls="v-pills-voluntary-work" aria-selected="false">Voluntary Work</a></li>
               <li><a class="nav-link text-left" id="v-pills-learning-development-tab" data-toggle="pill" href="#v-pills-learning-development" role="tab" aria-controls="v-pills-learning-development" aria-selected="false">Trainings</a></li>
-              <li><a class="nav-link text-left" id="v-pills-skill_member_academic-tab" data-toggle="pill" href="#v-pills-skill_member_academic" role="tab" aria-controls="v-pills-skill_member_academic" aria-selected="false">Skills & Hobbies | Organization | Non Academic</a></li>
+              <li><a class="nav-link text-left" id="v-pills-skill-hobbies-tab" data-toggle="pill" href="#v-pills-skill-hobbies" role="tab" aria-controls="v-pills-skill-hobbies" aria-selected="false">Skills & Hobbies</a></li>
+              <li><a class="nav-link text-left" id="v-pills-non-academic-tab" data-toggle="pill" href="#v-pills-non-academic" role="tab" aria-controls="v-pills-non-academic" aria-selected="false">Non Academic</a></li>
+              <li><a class="nav-link text-left" id="v-pills-member-organization-tab" data-toggle="pill" href="#v-pills-member-organization" role="tab" aria-controls="v-pills-member-organization" aria-selected="false">Members Organization</a></li>
               <li><a class="nav-link text-left" id="v-pills-others-tab" data-toggle="pill" href="#v-pills-others" role="tab" aria-controls="v-pills-others" aria-selected="false">Q&A</a></li>
               <li><a class="nav-link text-left" id="v-pills-references-tab" data-toggle="pill" href="#v-pills-references" role="tab" aria-controls="v-pills-references" aria-selected="false">References / ID'S</a></li>
               <!-- <hr>
@@ -57,6 +59,15 @@
               </div>
               <div class="tab-pane fade p-2" id="v-pills-learning-development" role="tabpanel" aria-labelledby="v-pills-learning-development-tab">
                 <!-- Voluntary Work -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-skill-hobbies" role="tabpanel" aria-labelledby="v-pills-skill-hobbies-tab">
+                <!-- Skills & Hobbies -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-non-academic" role="tabpanel" aria-labelledby="v-pills-non-academic-tab">
+                <!-- Non Academic -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-member-organization" role="tabpanel" aria-labelledby="v-pills-member-organization-tab">
+                <!-- Members Organization -->
               </div>
               <div class="tab-pane fade" id="v-pills-others" role="tabpanel" aria-labelledby="v-pills-others-tab">
                 <div class="accordion" id="accordionExample">
@@ -299,6 +310,42 @@
       },
     });
   };
+  function Skill_Hobbies_Template(){
+    $.ajax({
+      url: '{% url 'api_main_skill_hobbies' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-skill-hobbies').html(data.profile_skill_hobbies_template);
+      },
+    });
+
+  };
+
+  function Non_Academic_Template(){
+    $.ajax({
+      url: '{% url 'api_main_non_academic' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-non-academic').html(data.profile_non_academic_template);
+      },
+    });
+
+  };
+
+  function Member_Organization_Template(){
+    $.ajax({
+      url: '{% url 'api_main_member_organization' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-member-organization').html(data.profile_member_organization_template);
+      },
+    });
+
+  };
+
   function Q34(){
     $.ajax({
       url: '{% url 'api_main_q34' %}',
@@ -434,6 +481,9 @@
   Work_Experience_Template();
   Voluntary_Work_Template();
   Learning_Development_Template();
+  Skill_Hobbies_Template();
+  Non_Academic_Template();
+  Member_Organization_Template();
 
 </script>
 

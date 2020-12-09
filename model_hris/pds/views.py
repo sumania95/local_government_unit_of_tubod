@@ -46,6 +46,9 @@ from model_hris.pds.models import (
     References2,
     References3,
     Government_Other_Info,
+    Skill_Hobbies,
+    Non_Academic,
+    Member_Organization,
 )
 from model_hris.pds.render import Render
 from model_hris.pds.forms import (
@@ -67,6 +70,9 @@ from model_hris.pds.forms import (
     References2Form,
     References3Form,
     Government_Other_InfoForm,
+    Skill_HobbiesForm,
+    Non_AcademicForm,
+    Member_OrganizationForm,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_hris.decorators import LogoutIfNotAdministratorHRISMixin
@@ -491,7 +497,267 @@ class Main_Profile_Government_Other_Info_AJAXView(LoginRequiredMixin,View):
                 data['message_title'] = 'Successfully updated.'
         return JsonResponse(data)
 
+# skills
+class Main_Profile_Skill_Hobbies_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        data['profile_skill_hobbies_template'] = render_to_string('main/components/list_profile_skill_hobbies.html')
+        return JsonResponse(data)
 
+class Main_Profile_Skill_Hobbies_Table_AJAXView(LoginRequiredMixin,View):
+    queryset = Skill_Hobbies.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('description')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_skill_hobbies_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Skill_Hobbies_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Skill_HobbiesForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_skill_hobbies_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Skill_HobbiesForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Skill_Hobbies_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        skill_hobbies = Skill_Hobbies.objects.get(id=pk)
+        form = Skill_HobbiesForm(instance=skill_hobbies)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'skill_hobbies': skill_hobbies,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_skill_hobbies_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        skill_hobbies = Skill_Hobbies.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Skill_HobbiesForm(request.POST,request.FILES,instance = skill_hobbies)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Skill_Hobbies_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Skill_Hobbies.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
+# non_academic
+
+class Main_Profile_Non_Academic_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        data['profile_non_academic_template'] = render_to_string('main/components/list_profile_non_academic.html')
+        return JsonResponse(data)
+
+class Main_Profile_Non_Academic_Table_AJAXView(LoginRequiredMixin,View):
+    queryset = Non_Academic.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('description')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_non_academic_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Non_Academic_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Non_AcademicForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_non_academic_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Non_AcademicForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Non_Academic_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        non_academic = Non_Academic.objects.get(id=pk)
+        form = Non_AcademicForm(instance=non_academic)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'non_academic': non_academic,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_non_academic_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        non_academic = Non_Academic.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Non_AcademicForm(request.POST,request.FILES,instance = non_academic)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Non_Academic_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Non_Academic.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
+# member organization
+
+class Main_Profile_Member_Organization_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        data['profile_member_organization_template'] = render_to_string('main/components/list_profile_member_organization.html')
+        return JsonResponse(data)
+
+class Main_Profile_Member_Organization_Table_AJAXView(LoginRequiredMixin,View):
+    queryset = Member_Organization.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter')
+        except KeyError:
+            filter = None
+        if filter:
+            data['form_is_valid'] = True
+            data['counter'] = self.queryset.filter(profile_id = self.request.user.profile.id).count()
+            profile = self.queryset.filter(profile_id = self.request.user.profile.id).order_by('description')[:int(filter)]
+            data['profile_table'] = render_to_string('main/components/list_profile_member_organization_table.html',{'profile':profile})
+        return JsonResponse(data)
+
+class Main_Profile_Member_Organization_Create_AJAXView(LoginRequiredMixin,View):
+    def get(self, request):
+        data = dict()
+        form = Member_OrganizationForm()
+        context = {
+            'form': form,
+            'is_Create': True,
+            'btn_name': "primary",
+            'btn_title': "Save",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_member_organization_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request):
+        data =  dict()
+        if request.method == 'POST':
+            form = Member_OrganizationForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.instance.profile_id = self.request.user.profile.id
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully saved.'
+        return JsonResponse(data)
+
+class Main_Profile_Member_Organization_Update_AJAXView(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        data = dict()
+        member_organization = Member_Organization.objects.get(id=pk)
+        form = Member_OrganizationForm(instance=member_organization)
+        context = {
+            'form': form,
+            'is_Create': False,
+            'member_organization': member_organization,
+            'btn_name': "primary",
+            'btn_title': "Update",
+        }
+        data['html_form'] = render_to_string('main/forms/profile_member_organization_forms.html',context)
+        return JsonResponse(data)
+
+    def post(self, request,pk):
+        data =  dict()
+        member_organization = Member_Organization.objects.get(id=pk)
+        if request.method == 'POST':
+            form = Member_OrganizationForm(request.POST,request.FILES,instance = member_organization)
+            if form.is_valid():
+                form.save()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+        return JsonResponse(data)
+
+class Main_Profile_Member_Organization_Delete_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            if pk:
+                Member_Organization.objects.get(id=pk).delete()
+                data['message_type'] = success
+                data['message_title'] = 'Successfully deleted.'
+            else:
+                data['message_type'] = error
+                data['message_title'] = 'Error Connection Lost.'
+        return JsonResponse(data)
+
+# children
 class Main_Profile_Children_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
@@ -537,6 +803,7 @@ class Main_Profile_Children_Create_AJAXView(LoginRequiredMixin,View):
                 data['message_type'] = success
                 data['message_title'] = 'Successfully saved.'
         return JsonResponse(data)
+
 
 class Main_Profile_Children_Update_AJAXView(LoginRequiredMixin,View):
     def get(self, request,pk):
