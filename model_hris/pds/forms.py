@@ -160,8 +160,6 @@ class EligibilityForm(forms.ModelForm):
         super(EligibilityForm, self).__init__(*args, **kwargs)
         self.fields['career_service'].widget.attrs={
             'class': 'form-control-sm',}
-        self.fields['rating'].widget.attrs={
-            'class': 'form-control-sm',}
         self.fields['date_of_examination'].widget.attrs={
             'class': 'form-control-sm',}
         self.fields['place_of_examination'].widget.attrs={
@@ -193,8 +191,6 @@ class Work_ExperienceForm(forms.ModelForm):
         self.fields['position_title'].widget.attrs={
             'class': 'form-control-sm',}
         self.fields['department_office'].widget.attrs={
-            'class': 'form-control-sm',}
-        self.fields['salary'].widget.attrs={
             'class': 'form-control-sm',}
         self.fields['pay_grade'].widget.attrs={
             'class': 'form-control-sm',}

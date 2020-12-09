@@ -3,7 +3,7 @@
   <td>{{p.date_from}}-{{p.date_to}}</td>
   <td>{{p.position_title}}</td>
   <td>{{p.status}}</td>
-  <td>{{p.is_governtment_service}}</td>
+  <td>{% if p.is_governtment_service %}Yes{% else %}No{% endif %}</td>
   <td>
       <button data-url="{% url 'api_main_work_experience_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
       <form data-url="{% url 'api_main_work_experience_delete' p.id %}" method="post" class="custom-form-work-experience d-inline-block">

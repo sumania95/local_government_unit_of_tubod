@@ -3,7 +3,7 @@
 {% load static %}
 
 <div class="modal-header p-2">
-  <h5 class="modal-title" >Children</h5>
+  <h5 class="modal-title" >Voluntary Work</h5>
 </div>
 <form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_voluntary_work_create' %}{% else %}{% url 'api_main_voluntary_work_update' voluntary_work.id %}{% endif %}" class="custom-form-voluntary-work">
   <div class="modal-body p-2">
