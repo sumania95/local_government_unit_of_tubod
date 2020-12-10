@@ -2,7 +2,7 @@
 {% load static %}
 {% load imagefit %}
 {% load qr_code %}
-
+{% block 'main_home_active' %}text-danger{% endblock %}
 {% block 'content' %}
 <!-- [ Main Content ] start -->
 <div class="row">
@@ -21,6 +21,9 @@
     <div class="card">
       <div class="card-body p-2 text-center">
         {% qr_from_text qr_profile size="S" %}
+      </div>
+      <div class="card-footer text-center">
+        <button type="button" class="btn btn-secondary btn-sm" disabled name="button">Download QR ID <span class="badge badge-danger">on going ...</span></button>
       </div>
     </div>
     <div id="main_sidebar">
