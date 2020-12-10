@@ -1298,12 +1298,12 @@ class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministrat
         now = timezone.now()
         limit = (now - relativedelta(years=5)).year
         profile = Profile.objects.get(id=pk)
-        children = Children.objects.filter(profile_id=pk).all()
-        educational_background = Educational_Background.objects.filter(profile_id=pk).all()
+        children = Children.objects.filter(profile_id=pk).all().order_by('date_of_birth')
+        educational_background = Educational_Background.objects.filter(profile_id=pk).all().order_by('level')
         eligibility = Eligibility.objects.filter(profile_id=pk).all()
-        learning_development = Learning_Development.objects.filter(profile_id=pk).all()
-        work_experience = Work_Experience.objects.filter(profile_id=pk)
-        voluntary_work = Voluntary_Work.objects.filter(profile_id=pk)
+        learning_development = Learning_Development.objects.filter(profile_id=pk).all().order_by('-date_from')
+        work_experience = Work_Experience.objects.filter(profile_id=pk).order_by('-date_from')
+        voluntary_work = Voluntary_Work.objects.filter(profile_id=pk).order_by('-date_from')
         try:
             family_background = Family_Background.objects.filter(profile_id=pk).first()
             q34 = Q34.objects.filter(profile_id=pk).first()
@@ -1317,6 +1317,68 @@ class Print_Personal_Data_Sheet_Report(LoginRequiredMixin,LogoutIfNotAdministrat
             references2 = References2.objects.filter(profile_id=pk).first()
             references3 = References3.objects.filter(profile_id=pk).first()
             government_other_info = Government_Other_Info.objects.filter(profile_id=pk).first()
+        except KeyError:
+            family_background = None
+            q34 = None
+            q35 = None
+            q36 = None
+            q37 = None
+            q38 = None
+            q39 = None
+            q40 = None
+            references1 = None
+            references2 = None
+            references3 = None
+            government_other_info = None
+        params = {
+            'now':now,
+            'profile': profile,
+            'children': children,
+            'family_background': family_background,
+            'educational_background': educational_background,
+            'eligibility': eligibility,
+            'learning_development': learning_development,
+            'work_experience': work_experience,
+            'voluntary_work': voluntary_work,
+            'q34':q34,
+            'q35':q35,
+            'q36':q36,
+            'q37':q37,
+            'q38':q38,
+            'q39':q39,
+            'q40':q40,
+            'references1':references1,
+            'references2':references2,
+            'references3':references3,
+            'government_other_info':government_other_info,
+        }
+        pdf = Render.render('pdf/personal_data_sheet.html', params)
+        return pdf
+
+class Self_Print_Personal_Data_Sheet_Report(LoginRequiredMixin,View):
+    def get(self, request):
+        now = timezone.now()
+        limit = (now - relativedelta(years=5)).year
+        profile = Profile.objects.get(id=self.request.user.profile.id)
+        children = Children.objects.filter(profile_id=self.request.user.profile.id).all().order_by('date_of_birth')
+        educational_background = Educational_Background.objects.filter(profile_id=self.request.user.profile.id).all().order_by('level')
+        eligibility = Eligibility.objects.filter(profile_id=self.request.user.profile.id).all()
+        learning_development = Learning_Development.objects.filter(profile_id=self.request.user.profile.id).all().order_by('-date_from')
+        work_experience = Work_Experience.objects.filter(profile_id=self.request.user.profile.id).order_by('-date_from')
+        voluntary_work = Voluntary_Work.objects.filter(profile_id=self.request.user.profile.id).order_by('-date_from')
+        try:
+            family_background = Family_Background.objects.filter(profile_id=self.request.user.profile.id).first()
+            q34 = Q34.objects.filter(profile_id=self.request.user.profile.id).first()
+            q35 = Q35.objects.filter(profile_id=self.request.user.profile.id).first()
+            q36 = Q36.objects.filter(profile_id=self.request.user.profile.id).first()
+            q37 = Q37.objects.filter(profile_id=self.request.user.profile.id).first()
+            q38 = Q38.objects.filter(profile_id=self.request.user.profile.id).first()
+            q39 = Q39.objects.filter(profile_id=self.request.user.profile.id).first()
+            q40 = Q40.objects.filter(profile_id=self.request.user.profile.id).first()
+            references1 = References1.objects.filter(profile_id=self.request.user.profile.id).first()
+            references2 = References2.objects.filter(profile_id=self.request.user.profile.id).first()
+            references3 = References3.objects.filter(profile_id=self.request.user.profile.id).first()
+            government_other_info = Government_Other_Info.objects.filter(profile_id=self.request.user.profile.id).first()
         except KeyError:
             family_background = None
             q34 = None

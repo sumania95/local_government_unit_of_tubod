@@ -110,9 +110,14 @@ from model_hris.pds.views import (
     Main_Profile_Member_Organization_Create_AJAXView,
     Main_Profile_Member_Organization_Update_AJAXView,
     Main_Profile_Member_Organization_Delete_AJAXView,
+
+
+    # PRINT PDS
+    Self_Print_Personal_Data_Sheet_Report,
 )
 
 urlpatterns = [
+    path('201-file/print/pds', Self_Print_Personal_Data_Sheet_Report.as_view(), name = 'main_self_print_pds'),
     path('', Home_Page.as_view(), name = 'main_home'),
     path('api/post', Post_AJAXView.as_view(), name = 'api_main_post'),
     path('api/main/sidebar', Main_Profile_Sidebar_AJAXView.as_view(), name = 'api_main_sidebar'),
