@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from .settings_config import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,36 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','172.16.1.2','172.16.1.3']
 
-
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'rest_framework',
-    'qr_code',
-    'imagefit',
-    'crispy_forms',
-    'model_hris.dtr',
-    'model_hris.internet',
-    'model_hris.pds',
-    'model_hris.service_records',
-    'model_hris.info_profile',
-    'model_hris.designation',
-    'model_hris.department',
-    'model_hris.document',
-    'model_hris.rewards_recognitions',
-    'model_hris.performance_management',
-    'model_hris.transaction',
-    'model_hris.post',
-    'app_hris',
-    'app_profiling',
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
