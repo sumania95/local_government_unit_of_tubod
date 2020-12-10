@@ -3,7 +3,7 @@
   <td>{{p.date_from|date:"M d, Y"}}-{{p.date_to|date:"M d, Y"}}</td>
   <td>{{p.description}}</td>
   <td>{{p.get_leave_type_display}}</td>
-  <td>{% if p.rejected_transaction %}{{p.rejected_transaction.remarks}}{% else %}p.deducted_action_transaction.remarks{% endif %}</td>
+  <td>{% if p.rejected_transaction %}{{p.rejected_transaction.remarks}}{% else %}{{p.deducted_action_transaction.remarks}}{% endif %}</td>
   <td>{{p.date_created}}</td>
   <td>
     {% if p.deducted_action_transaction %}
