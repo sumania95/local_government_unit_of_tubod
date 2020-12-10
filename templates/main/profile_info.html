@@ -8,12 +8,33 @@
 <!-- [ Main Content ] start -->
 <div class="row">
   <div class="col-md-12">
+    <div class="card mb-1">
+      <div class="card-header p-3">
+        <table>
+          <tr>
+            <td><b>PERSONAL INFORMATION</b></td>
+          </tr>
+        </table>
+        <div class="card-header-right">
+          <table>
+            <tr>
+              <td>
+                <a href="{% url 'main_self_print_pds' %}" target="_blank" type="button" class="btn btn-secondary btn-sm" name="button"><span class="badge badge-danger">NEW</span> PRINT PDS</a>
+              </td>
+              <!-- <td>
+                <button type="button" class="btn btn-secondary btn-sm" name="button">PRINT SALN</button>
+              </td> -->
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
     <div class="card">
       <div class="card-body">
-        <h5 class="mb-3">Personal Information</h5>
         <div class="row">
           <div class="col-md-3 col-sm-12">
             <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <h5>Personal Data Sheet</h5>
               <li><a class="nav-link text-left active" id="v-pills-basic-info-tab" data-toggle="pill" href="#v-pills-basic-info" role="tab" aria-controls="v-pills-basic-info" aria-selected="true">Basic Information</a></li>
               <li><a class="nav-link text-left" id="v-pills-family-background-tab" data-toggle="pill" href="#v-pills-family-background" role="tab" aria-controls="v-pills-family-background" aria-selected="false">Family Background</a></li>
               <li><a class="nav-link text-left" id="v-pills-children-tab" data-toggle="pill" href="#v-pills-children" role="tab" aria-controls="v-pills-children" aria-selected="false">Children</a></li>
@@ -27,11 +48,11 @@
               <li><a class="nav-link text-left" id="v-pills-member-organization-tab" data-toggle="pill" href="#v-pills-member-organization" role="tab" aria-controls="v-pills-member-organization" aria-selected="false">Members Organization</a></li>
               <li><a class="nav-link text-left" id="v-pills-others-tab" data-toggle="pill" href="#v-pills-others" role="tab" aria-controls="v-pills-others" aria-selected="false">Q&A</a></li>
               <li><a class="nav-link text-left" id="v-pills-references-tab" data-toggle="pill" href="#v-pills-references" role="tab" aria-controls="v-pills-references" aria-selected="false">References / ID'S</a></li>
-              <!-- <hr>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Real Properties</a></li>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Personal Properties</a></li>
-              <li><a class="nav-link text-left" id="v-pills-educational-background-tab" data-toggle="pill" href="#v-pills-educational-background" role="tab" aria-controls="v-pills-educational-background" aria-selected="false">Liabilities</a></li> -->
-
+              <h5>SALN</h5>
+              <li><span class="badge badge-success ml-3">ON GOING.....</span></li>
+              <!-- <li><a class="nav-link text-left" id="v-pills-#-tab" data-toggle="pill" href="#v-pills-#" role="tab" aria-controls="v-pills-#" aria-selected="false">Real Properties</a></li>
+              <li><a class="nav-link text-left" id="v-pills-#-tab" data-toggle="pill" href="#v-pills-#" role="tab" aria-controls="v-pills-#" aria-selected="false">Personal Properties</a></li>
+              <li><a class="nav-link text-left" id="v-pills-#-tab" data-toggle="pill" href="#v-pills-#" role="tab" aria-controls="v-pills-#" aria-selected="false">Liabilities</a></li> -->
             </ul>
           </div>
           <div class="col-md-9 col-sm-12">

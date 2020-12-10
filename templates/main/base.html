@@ -49,19 +49,19 @@
             <label>Navigation</label>
           </li>
           <li class="nav-item">
-            <a href="{% url 'main_home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Home</span></a>
+            <a href="{% url 'main_home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home {% block 'main_home_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">Home</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'main_history_leave' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file"></i></span><span class="pcoded-mtext">History Leave</span></a>
+            <a href="{% url 'main_history_leave' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file {% block 'main_history_leave_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">History Leave</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
+            <a href="{% url 'main_earn_rewards' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder {% block 'main_earn_rewards_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">Earn Rewards</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'main_document' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Documents</span></a>
+            <a href="{% url 'main_document' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder {% block 'main_document_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">Documents</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'main_accomplishment' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity"></i></span><span class="pcoded-mtext">IPCR/OPCR</span></a>
+            <a href="{% url 'main_accomplishment' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity {% block 'main_accomplishment_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">IPCR/OPCR</span></a>
           </li>
         </ul>
       </div>

@@ -1,7 +1,7 @@
 {% for p in post %}
 <div class="card p-2 mb-2">
     <div class="card-header p-2">
-        <h5 class="text-success">{{p.profile.firstname|upper}} {{p.profile.surname|upper}}</h5><br>
+        <h5 class="text-success">{{p.profile.firstname|upper}} {{p.profile.surname|upper}} {% if forloop.first %}<span class="badge badge-warning ml-1">NEW ANNOUNCEMENT</span>{% endif %}</h5><br>
         <small><i class="feather icon-globe mr-1"></i>Public - {{p.date_created}}</small>
         <!-- <div class="card-header-right">
             <div class="btn-group card-option">

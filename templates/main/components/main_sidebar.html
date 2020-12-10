@@ -9,6 +9,7 @@
     <a class="users-list-name text-success" href="#">
       <b>{{p.firstname|upper}} {{p.surname|upper}}</b>
     </a>
+    {% if p.date_of_birth|date:"d" == now|date:"d" %}<span class="badge badge-warning">bornday <i class="fa fa-gift mr-1"></i><i class="fa fa-gift mr-1"></i><i class="fa fa-gift"></i></span>{% endif %}
   </div>
   {% empty %}
   <div class="card-footer border p-2">
