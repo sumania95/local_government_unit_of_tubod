@@ -187,7 +187,7 @@ class Educational_Background(models.Model):
     period_from = models.IntegerField(default=timezone.now().year)
     period_to = models.IntegerField(default=timezone.now().year)
     units_earned = models.CharField(max_length = 200,blank=True)
-    year_graduated = models.IntegerField(default=timezone.now().year)
+    year_graduated = models.CharField(max_length = 200,blank=True)
     academic_received = models.CharField(max_length = 200,blank=True)
 
     date_created = models.DateTimeField(auto_now_add = True)

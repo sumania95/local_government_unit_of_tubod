@@ -18,7 +18,7 @@
   <meta name="keywords" content="">
   <meta name="author" content="Codedthemes" />
   <!-- Favicon icon -->
-  <link rel="icon" href="{% static 'premium/assets/images/favicon.ico'%}" type="image/x-icon">
+  <link rel="icon" href="{% static 'icon/lgutubodlogo.png'%}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'premium/assets/sweetalert2/sweetalert2.min.css'%}">
   <!-- vendor css -->
   <link rel="stylesheet" href="{% static 'premium/assets/css/style.css'%}">
@@ -48,13 +48,16 @@
             <a href="{% url 'tips_home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'tips_person' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Profiling</span></a>
+            <a href="{% url 'tips_person' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Profile</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Transaction</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Benificiary</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-printer"></i></span><span class="pcoded-mtext">Reports</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Maintenance</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Report</span></a>
           </li>
           <li class="nav-item">
             <a href="{% url 'logout' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-log-out text-danger"></i></span><span class="pcoded-mtext">Sign Out</span></a>
@@ -97,10 +100,8 @@
                 <h6>My Application</h6>
               </div>
               <ul class="pro-body">
-                <li class="notification p-3">
-                  <li class="notification">
-                    <td style="white-space:nowrap;width:50%;"><a href="{% url 'main_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING(HR)</a></td>
-                  </li>
+                <li class="notification">
+                  <td style="white-space:nowrap;width:50%;"><a href="{% url 'main_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING HRIS</a></td>
                 </li>
               </ul>
             </div>
