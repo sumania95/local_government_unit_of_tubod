@@ -197,6 +197,8 @@ class EligibilityForm(forms.ModelForm):
         super(EligibilityForm, self).__init__(*args, **kwargs)
         self.fields['career_service'].widget.attrs={
             'class': 'form-control-sm',}
+        self.fields['rating'].widget.attrs={
+            'class': 'form-control-sm',}
         self.fields['date_of_examination'].widget.attrs={
             'class': 'form-control-sm',}
         self.fields['place_of_examination'].widget.attrs={

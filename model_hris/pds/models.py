@@ -196,7 +196,7 @@ class Educational_Background(models.Model):
 class Eligibility(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     career_service = models.CharField(max_length = 200)
-    rating = models.DecimalField(default=0,max_digits = 50,decimal_places=2)
+    rating = models.CharField(max_length = 200,blank=True)
     date_of_examination = models.CharField(max_length = 200,null=True,blank=True)
     place_of_examination = models.CharField(max_length = 200,blank=True)
     examinee_number = models.IntegerField(default=0)
