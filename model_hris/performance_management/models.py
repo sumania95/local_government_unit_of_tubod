@@ -18,7 +18,7 @@ class Semester(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
 
     def __str__(self):
-        return str(self.year)
+        return str(self.semester)
 
 class Success_Indicator(models.Model):
     description = models.CharField(max_length = 200)
@@ -30,7 +30,7 @@ class Success_Indicator(models.Model):
         return str(self.description)
 
     class Meta:
-        ordering = ('description',)
+        ordering = ('-description',)
 
 
 class Accomplishment(models.Model):
