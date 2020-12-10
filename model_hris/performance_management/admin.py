@@ -5,9 +5,11 @@ from model_hris.performance_management.models import (
     Accomplishment,
     Success_Indicator,
     Year,
+    Semester,
 )
 
 admin.site.register(Rating_Accomplishment)
 admin.site.register(Accomplishment)
 admin.site.register(Success_Indicator)
 admin.site.register(Year)
+admin.site.register(Semester)
