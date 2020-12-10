@@ -164,6 +164,7 @@ class Main_Profile_Sidebar_AJAXView(LoginRequiredMixin,View):
         context = {
             'profile':profile,
             'profile_awardee':profile_awardee,
+            'now':now,
         }
         data['profile_table'] = render_to_string('main/components/main_sidebar.html',context)
         return JsonResponse(data)
