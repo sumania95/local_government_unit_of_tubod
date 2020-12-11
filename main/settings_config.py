@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'qr_code',
     'imagefit',
     'crispy_forms',
+    # HRIS
     'model_hris.dtr',
     'model_hris.internet',
     'model_hris.pds',
@@ -23,5 +24,9 @@ INSTALLED_APPS = [
     'model_hris.transaction',
     'model_hris.post',
     'app_hris',
+    # TIPS
     'app_profiling',
+    'model_profiling.tips_person',
+    'model_profiling.tips_address',
+
 ]

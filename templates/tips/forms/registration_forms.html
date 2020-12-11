@@ -1,0 +1,69 @@
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+<form method="POST" enctype="multipart/form-data" data-url="#" class="custom-form-tips-registration">
+  {{person_form|crispy}}
+  {{address_form|crispy}}
+  <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
+</form>
+
+{% block 'script' %}
+<script>
+  $(document).ready(function () {
+    $('#id_region').change(function() {
+      Province();
+    });
+  });
+
+
+  function Province(){
+    var region = $('#id_region').val();
+    $.ajax({
+      url: '{% url 'api_province' %}',
+      data: {region:region},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#id_province').html(data.province_data);
+      },
+    });
+
+  };
+  $('#id_province').change(function() {
+    City_Municipality();
+  });
+  function City_Municipality(){
+    var province = $('#id_province').val();
+    $.ajax({
+      url: '{% url 'api_city_municipality' %}',
+      data: {province:province},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#id_city_municipality').html(data.city_municipality_data);
+      },
+    });
+
+  };
+  $('#id_city_municipality').change(function() {
+    Barangay();
+  });
+  function Barangay(){
+    var city_municipality = $('#id_city_municipality').val();
+    $.ajax({
+      url: '{% url 'api_barangay' %}',
+      data: {city_municipality:city_municipality},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#id_barangay').html(data.barangay_data);
+      },
+    });
+
+  };
+
+</script>
+
+
+{% endblock %}

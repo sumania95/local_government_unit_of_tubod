@@ -7,47 +7,33 @@
   <hr>
 </div>
 <div class="col-md-12">
-  <div class="card">
+  <div class="card m-2">
     <div class="card-header p-2">
       <table>
         <tr>
-          <td>Filter</td>
+          <td>FILTER</td>
           <td>
             <select class="form-control" name="filter_person" id="filter_person">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
+              <option value="10">LASTNAME</option>
+              <option value="25">FIRSTNAME</option>
             </select>
           </td>
+          <td class="ml-2"><input type="text" class="form-control float-right" placeholder="Search...." name="search_person" id="search_person" value=""></td>
+          <td><button data-url="#" type="button" class="btn btn-primary btn-sm form-show-new-person" name="button">SEARCH PERSON</button></td>
+          <td>
+            <select class="form-control" name="filter_person" id="filter_person">
+              <option value="10">------</option>
+            </select>
+          </td>
+          <td><button data-url="#" type="button" class="btn btn-secondary btn-sm form-show-new-person" name="button">LOAD RECORD</button></td>
+
         </tr>
       </table>
-      <div class="card-header-right">
-        <table>
-          <tr>
-            <td>
-              <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_person" id="search_person" value="">
-            </td>
-            <td><button data-url="#" type="button" class="btn btn-primary btn-sm form-show-new-person" name="button">New</button></td>
-          </tr>
-        </table>
-      </div>
     </div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-hover m-b-0">
-          <thead>
-            <tr>
-              <th style="white-space:nowrap;width:1%;">#</th>
-              <th>Name</th>
-              <th style="white-space:nowrap;width:1%;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="table-person-ajax">
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer p-2" id="counter_person">
-      </div>
+  </div>
+  <div class="card m-2">
+    <div class="card-body p-2" id="tips-registration-forms">
+      <h4>REGISTRATION FORMS</h4>
     </div>
   </div>
 </div>
@@ -61,47 +47,33 @@
 
 {% block 'script' %}
 <script>
-  $(document).on('click', '.form-show-new-person', function(){
-    var btn = $(this);
+  $(document).ready(function () {
     $.ajax({
-      url: btn.attr("data-url"),
+      url: '{% url 'api_tips_person_create' %}',
       type: 'get',
-      dataType:'json',
-      beforeSend: function(){
-        $('#modal-show').modal('show');
-      },
-      success: function(data){
-        $('#modal-show .modal-content').html(data.html_form);
-      }
-    });
-  });
-
-</script>
-<script>
-  function Department(){
-    var filter = $("#filter_person").val();
-    var search = $("#search_person").val();
-
-    $.ajax({
-      url: '#',
-      type: 'get',
-      data: {filter:filter,search:search},
       dataType: 'json',
       success:function(data){
-        $('#counter_person').html(data.counter + " record(s) found");
-        $('#table-person-ajax').html(data.person_table);
+        $('#tips-registration-forms').html(data.html_form);
       },
     });
-
-  };
-
-  $('#filter_person').change(function() {
-    Department();
   });
-  $('#search_person').change(function() {
-    Department();
-  });
-  Department();
+  // function Department(){
+  //   var filter = $("#filter_person").val();
+  //   var search = $("#search_person").val();
+  //
+  //   $.ajax({
+  //     url: '#',
+  //     type: 'get',
+  //     data: {filter:filter,search:search},
+  //     dataType: 'json',
+  //     success:function(data){
+  //       $('#counter_person').html(data.counter + " record(s) found");
+  //       $('#table-person-ajax').html(data.person_table);
+  //     },
+  //   });
+  //
+  // };
+  // Department();
 </script>
 
 {% endblock %}
