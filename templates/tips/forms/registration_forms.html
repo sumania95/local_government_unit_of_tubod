@@ -13,6 +13,8 @@
   $(document).ready(function () {
     $('#id_region').change(function() {
       Province();
+      City_Municipality();
+      Barangay();
     });
   });
 
@@ -32,6 +34,7 @@
   };
   $('#id_province').change(function() {
     City_Municipality();
+    Barangay();
   });
   function City_Municipality(){
     var province = $('#id_province').val();

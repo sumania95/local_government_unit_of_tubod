@@ -3,7 +3,8 @@ from .import views
 
 from .views import (
     Tips_Dashboard_Page,
-    Tips_Person_Page
+    Tips_Person_Page,
+    Tips_Person_Detail_Page,
 )
 
 from model_profiling.tips_person.views import (
@@ -19,6 +20,7 @@ urlpatterns = [
     path('', Tips_Dashboard_Page.as_view(), name = 'tips_home'),
     path('person', Tips_Person_Page.as_view(), name = 'tips_person'),
     path('api/person/create', Tips_Person_Create_AJAXView.as_view(), name = 'api_tips_person_create'),
+    path('person/detail', Tips_Person_Detail_Page.as_view(), name = 'tips_person_detail'),
 
     # address api
     path('api/province', Tips_Province_AJAXView.as_view(), name = 'api_province'),

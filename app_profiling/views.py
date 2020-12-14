@@ -35,3 +35,6 @@ class Tips_Dashboard_Page(LoginRequiredMixin,TemplateView):
 
 class Tips_Person_Page(LoginRequiredMixin,TemplateView):
     template_name = 'tips/person.html'
+
+class Tips_Person_Detail_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/person_detail.html'

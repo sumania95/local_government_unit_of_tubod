@@ -1,0 +1,66 @@
+{% extends 'tips/base.html' %}
+{% load static %}
+{% block 'tips_person_active' %}active{% endblock %}
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Person</h5>
+  <hr>
+</div>
+<div class="col-md-3">
+  <div class="card mb-1">
+    <div class="card-body">
+      <div class="col-md-12 text-center">
+        <img class="border border-success rounded-circle img-radius wid-100 hig-100" src="{{user.profile.image.url}}" width="100px" height="100px" alt="User-Profile-Image">
+      </div>
+      <hr>
+      <h5><i class="feather icon-users mr-2"></i>{{user.profile.firstname|upper}} {{user.profile.surname|upper}}<br></h5>
+      <h5><i class="feather icon-tablet mr-2"></i>{% if user.mobile %}{{user.mobile}}{% else %}NOT AVAILABLE{% endif %}</h5>
+      <h5><i class="feather icon-mail mr-2"></i>{% if user.permanent_address %}{{user.permanent_address|upper}}{% else %}NOT AVAILABLE{% endif %}</h5>
+    </div>
+    <div class="card-footer">
+      <a href="#" type="button" class="btn-warning btn-sm" name="button"><i class="feather mr-2 icon-edit"></i>Update</a>
+    </div>
+  </div>
+  <div class="card mb-1">
+    <div class="card-body">
+      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
+      <hr class="m-1">
+      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
+      <hr class="m-1">
+      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
+    </div>
+  </div>
+</div>
+<div class="col-md-9">
+  <div class="card">
+    <div class="card-body p-2" id="tips-registration-forms">
+      <h4>ASSESSMENT</h4>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-2" id="tips-registration-forms">
+      <h4>COUNSELING</h4>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-2" id="tips-registration-forms">
+      <h4>FINANCIAL ASSISTANCE</h4>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-2" id="tips-registration-forms">
+      <h4>MATERIAL ASSISTANCE</h4>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body p-2" id="tips-registration-forms">
+      <h4>REFERRAL</h4>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
