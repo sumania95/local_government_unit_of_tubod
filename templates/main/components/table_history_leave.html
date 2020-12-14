@@ -9,7 +9,7 @@
     {% if p.deducted_action_transaction %}
     <span class="badge badge-success">APPROVED</span>
     {% elif p.rejected_transaction %}
-    <span class="badge badge-danger">REJECTED</span>
+    <span class="badge badge-danger">DISAPPROVED</span>
     {% else %}
     <form class="custom-form-remove-leave" data-url ="{% url 'api_main_history_leave_delete_save' p.id %}" method="post">
       <button type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>

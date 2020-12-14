@@ -66,7 +66,7 @@ warning = 'warning'
 question = 'question'
 
 from django.contrib.auth.models import User
-
+from model_hris.transaction.render import Render
 import calendar
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_hris.decorators import LogoutIfNotAdministratorHRISMixin
@@ -505,3 +505,27 @@ class Transaction_Batch_Generated_Create_Save_AJAXView(LoginRequiredMixin,Logout
                 data['message_type'] = error
                 data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
+
+class Print_Leave_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
+        now = timezone.now()
+        profile = Profile.objects.get(id=self.request.user.profile.id)
+        params = {
+            'now': now,
+            'profile': profile,
+        }
+        pdf = Render.render('pdf/leave.html', params)
+        return pdf
+
+class Print_Leave_Profile_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request,pk):
+        now = timezone.now()
+        transaction = Deducted_Transaction.objects.filter(status=2,profile_id=pk)
+        profile = Profile.objects.get(id=pk)
+        params = {
+            'now': now,
+            'profile': profile,
+            'transaction': transaction,
+        }
+        pdf = Render.render('pdf/leave.html', params)
+        return pdf
