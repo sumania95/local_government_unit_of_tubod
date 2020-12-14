@@ -383,7 +383,7 @@ class Transaction_Rejected_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
             if form.is_valid():
                 form.instance.deducted_transaction_id = pk
                 form.instance.user_id = self.request.user.id
-                Notification.objects.create(profile_id = deduction_profile.profile_id,detail="Rejected leave",user_id = self.request.user.id)
+                Notification.objects.create(profile_id = deduction_profile.profile_id,detail="Disapproved leave",user_id = self.request.user.id)
                 form.save()
                 Deducted_Transaction.objects.filter(id=pk).update(status = 3)
                 data['message_type'] = success
