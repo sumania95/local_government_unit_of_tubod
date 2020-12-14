@@ -13,7 +13,7 @@ leave_type = (
 status = (
     ('1', 'Pending',),
     ('2', 'Approved',),
-    ('3', 'Rejected',),
+    ('3', 'Disapproved',),
 )
 
 
