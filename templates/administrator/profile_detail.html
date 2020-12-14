@@ -30,7 +30,9 @@
       <hr>
       <a href="{% url 'print_profile_personal_data_sheet' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>PDS</a>
       <a href="#" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>SALN</a>
-      <a href="#" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>LEAVE</a>
+      {% if object.designation %}
+      <a href="{% url 'leave_profile_print' object.id %}" target="_blank" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>LEAVE</a>
+      {% endif %}
       <a href="#" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-printer"></i>QR ID</a>
     </div>
   </div>

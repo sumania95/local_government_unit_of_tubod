@@ -125,6 +125,8 @@ from model_hris.transaction.views import (
     Transaction_Generated_Create_AJAXView,
     Transaction_Generated_Create_Save_AJAXView,
     Transaction_Batch_Generated_Create_Save_AJAXView,
+    Print_Leave_Profile_Report,
+    Print_Leave_Report,
 )
 
 from model_hris.department.views import (
@@ -280,6 +282,10 @@ urlpatterns = [
     path('api/settings', Settings_AJAXView.as_view(), name = 'api_settings'),
     path('audit-logs', Activity_Logs.as_view(), name = 'audit_logs'),
     path('api/audit-log', Notification_AJAXView.as_view(), name = 'api_audit_log'),
+
+
+    path('leave/print', Print_Leave_Report.as_view(), name = 'leave_print'),
+    path('leave/print/<int:pk>', Print_Leave_Profile_Report.as_view(), name = 'leave_profile_print'),
     path('dtr/print', Daily_Time_Records_Print.as_view(), name = 'dtr_print'),
     path('internet/ticket/print/<int:pk>', Internet_Ticket_Print.as_view(), name = 'internet_ticket_print'),
     # path(str(random.randint(0000000000, 9999999999)) + '/activity-logs', Activity_Logs.as_view(), name = 'activity_logs'),
