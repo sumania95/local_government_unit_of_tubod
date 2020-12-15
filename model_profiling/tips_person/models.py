@@ -6,6 +6,7 @@ from model_profiling.tips_address.models import (
     Tips_Region,
 )
 from django.utils import timezone
+
 # MODEL BASIC INFO
 gender = (
     ('1', 'Male',),
@@ -26,7 +27,7 @@ class Tips_Person(models.Model):
     middlename = models.CharField(max_length = 200,blank=True)
     ext_name = models.CharField(max_length = 200,blank=True)
     date_of_birth = models.DateField(default=timezone.now)
-    place_of_birth = models.CharField(max_length = 200)
+    place_of_birth = models.CharField(max_length = 200,blank=True)
     sex = models.CharField(max_length=10,choices=gender)
     civil_status = models.CharField(max_length=10,choices=civil_status)
     philhealth = models.CharField(max_length = 200,blank=True)

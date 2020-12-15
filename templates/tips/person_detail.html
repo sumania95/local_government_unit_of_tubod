@@ -13,48 +13,63 @@
         <img class="border border-success rounded-circle img-radius wid-100 hig-100" src="{{user.profile.image.url}}" width="100px" height="100px" alt="User-Profile-Image">
       </div>
       <hr>
-      <h5><i class="feather icon-users mr-2"></i>{{user.profile.firstname|upper}} {{user.profile.surname|upper}}<br></h5>
-      <h5><i class="feather icon-tablet mr-2"></i>{% if user.mobile %}{{user.mobile}}{% else %}NOT AVAILABLE{% endif %}</h5>
-      <h5><i class="feather icon-mail mr-2"></i>{% if user.permanent_address %}{{user.permanent_address|upper}}{% else %}NOT AVAILABLE{% endif %}</h5>
+      <p><i class="feather icon-users mr-2"></i>{{user.profile.firstname|upper}} {{user.profile.surname|upper}}<br></p>
+      <p><i class="feather icon-tablet mr-2"></i>{% if user.mobile %}{{user.mobile}}{% else %}NOT AVAILABLE{% endif %}</p>
+      <p><i class="feather icon-mail mr-2"></i>{% if user.permanent_address %}{{user.permanent_address|upper}}{% else %}NOT AVAILABLE{% endif %}</p>
     </div>
     <div class="card-footer">
       <a href="#" type="button" class="btn-warning btn-sm" name="button"><i class="feather mr-2 icon-edit"></i>Update</a>
     </div>
   </div>
-  <div class="card mb-1">
-    <div class="card-body">
-      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
-      <hr class="m-1">
-      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
-      <hr class="m-1">
-      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
-    </div>
-  </div>
 </div>
 <div class="col-md-9">
   <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>ASSESSMENT</h4>
+    <div class="card-body p-2">
+      <h4>Recommended Assistance</h4>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>COUNSELING</h4>
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_accomplishment" id="filter_accomplishment">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <button data-url="#" type="button" class="btn btn-primary btn-sm form-show-accomplishment-create" name="button">Add New</button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>FINANCIAL ASSISTANCE</h4>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>MATERIAL ASSISTANCE</h4>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>REFERRAL</h4>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">Date Range</th>
+              <th>Description</th>
+              <th style="white-space:nowrap;width:10%">Type</th>
+              <th>Remarks</th>
+              <th style="white-space:nowrap;width:5%">Date Modified</th>
+              <th style="white-space:nowrap;width:5%">STATUS/Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-history-leave-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter-history-leave">
+        25 records found
+      </div>
     </div>
   </div>
 </div>
