@@ -39,6 +39,9 @@ class Tips_Person(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 
+    class Meta:
+        ordering = ['surname','firstname','middlename']
+
 class Tips_Address(models.Model):
     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
     barangay = models.ForeignKey(Tips_Barangay, on_delete = models.CASCADE)

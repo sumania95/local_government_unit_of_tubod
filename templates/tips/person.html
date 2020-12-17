@@ -3,33 +3,86 @@
 
 {% block 'content' %}
 <div class="col-md-12">
-  <h5>Person</h5>
+  <h5>Profile</h5>
   <hr>
 </div>
-<div class="col-md-12">
-  <div class="card m-2">
+
+<div class="col-md-3">
+  <div class="card">
+    <div class="card-header p-2 text-center">
+      <h5>ADVANCE SEARCH</h5>
+    </div>
+    <div class="card-body p-2">
+      <div class="form-group">
+        <label for="">Complete Surname</label>
+        <input type="text" class="form-control" placeholder="Search...." name="search_surname" id="search_surname" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Firstname (optional)</label>
+        <input type="text" class="form-control" placeholder="Search...." name="search_firstname" id="search_firstname" value="">
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-dark btn-block" name="search_button" id="search_button">SEARCH</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header p-2 text-center">
+      <h5>NOTES</h5>
+    </div>
+    <div class="card-body">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+</div>
+<div class="col-md-9">
+  <div class="card">
+    <div class="card-header p-2 text-center">
+        <h5>SEARCH RESULTS</h5>
+    </div>
     <div class="card-header p-2">
       <table>
         <tr>
-          <td>SURNAME</td>
-          <td class="ml-2"><input type="text" class="form-control float-right" name="search_person" id="search_person" value=""></td>
-          <td>FIRSTNAME</td>
-          <td class="ml-2"><input type="text" class="form-control float-right" name="search_person" id="search_person" value=""></td>
-          <td><button data-url="#" type="button" class="btn btn-primary btn-sm form-show-new-person" name="button">SEARCH</button></td>
           <td>
-            <select class="form-control" name="filter_person" id="filter_person">
-              <option value="10">------</option>
-            </select>
+            <a href="{% url 'tips_person_create' %}" type="button" class="btn btn-success btn-sm" name="button">REGISTER NEW</a>
           </td>
-          <td><a href="{% url 'tips_person_detail' %}" type="button" class="btn btn-secondary btn-sm form-show-new-person" name="button">LOAD RECORD</a></td>
-
         </tr>
       </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>Filter</td>
+            <td>
+              <select class="form-control" name="filter_person" id="filter_person">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+
+      </div>
     </div>
-  </div>
-  <div class="card m-2">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>REGISTRATION FORMS</h4>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th style="white-space:nowrap;width:10%">Birthdate</th>
+              <th style="white-space:nowrap;width:5%">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-person-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter-person">
+      </div>
     </div>
   </div>
 </div>
@@ -44,32 +97,30 @@
 {% block 'script' %}
 <script>
   $(document).ready(function () {
-    $.ajax({
-      url: '{% url 'api_tips_person_create' %}',
-      type: 'get',
-      dataType: 'json',
-      success:function(data){
-        $('#tips-registration-forms').html(data.html_form);
-      },
+    function SearchLoad(){
+      var search_surname = $('#search_surname').val();
+      var search_firstname = $('#search_firstname').val();
+      var filter_person = $('#filter_person').val();
+      $.ajax({
+        url: '{% url 'api_tips_person_search'  %}',
+        data: {search_surname:search_surname,search_firstname:search_firstname,filter_person:filter_person},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#table-person-ajax').html(data.table_person);
+          $('#counter-person').html(data.counter_person + " record(s) found");
+        },
+      });
+    };
+    SearchLoad();
+    $("#search_button").click(function (event) {
+      SearchLoad();
+    });
+    $("#filter_person").change(function (event) {
+      SearchLoad();
     });
   });
-  // function Department(){
-  //   var filter = $("#filter_person").val();
-  //   var search = $("#search_person").val();
-  //
-  //   $.ajax({
-  //     url: '#',
-  //     type: 'get',
-  //     data: {filter:filter,search:search},
-  //     dataType: 'json',
-  //     success:function(data){
-  //       $('#counter_person').html(data.counter + " record(s) found");
-  //       $('#table-person-ajax').html(data.person_table);
-  //     },
-  //   });
-  //
-  // };
-  // Department();
+
 </script>
 
 {% endblock %}

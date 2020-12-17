@@ -39,7 +39,7 @@ class Tips_Recommended_Services_Action(models.Model):
     recommended_services = models.OneToOneField(Tips_Recommended_Services, on_delete = models.CASCADE)
     category = models.ForeignKey(Tips_Category, on_delete = models.CASCADE)
     sub_category = models.ForeignKey(Tips_Sub_Category, on_delete = models.CASCADE)
-    amount = models.IntergerField(default=0.00)
+    amount = models.IntegerField(default=0)
     mode_assistance = models.CharField(max_length=50,choices=mode_assistance)
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)

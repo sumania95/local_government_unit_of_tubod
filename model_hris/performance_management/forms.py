@@ -32,11 +32,13 @@ class YearForm(forms.ModelForm):
         ]
 
 class Success_IndicatorForm(forms.ModelForm):
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 3,'style' : "white-space: pre-wrap"},),)
     class Meta:
         model = Success_Indicator
         fields = [
             'description',
         ]
+
 
 class Rating_AccomplishmentForm(forms.ModelForm):
     class Meta:
