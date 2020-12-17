@@ -1,24 +1,14 @@
 {% load crispy_forms_tags %}
+
 {% load static %}
-<div class="modal-header p-2">
-  <h5 class="modal-title" >Recommended Services</h5>
-</div>
-<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_tips_person_detail_recommended_services_create_save' person_id %}{% else %}{% url 'api_main_member_organization_update' member_organization.id %}{% endif %}" class="custom-form-meber-organization">
-  <div class="modal-body p-2">
-    {{form|crispy}}
-    <div id="recommended_services_action">
 
-    </div>
-    {{person_id}}
-  </div>
-  <div class="modal-footer p-2">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
-  </div>
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Created %}{% url 'api_tips_person_create' %}{% else %}{% url 'api_tips_person_update' person.id %}{% endif %}" class="custom-form-tips-registration">
+  {{person_form|crispy}}
+  {{address_form|crispy}}
+  <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
 </form>
+
 {% block 'script' %}
-
-
 <script>
   $(document).ready(function () {
     function getCookie(name) {
@@ -42,7 +32,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-meber-organization").submit(function (event) {
+    $(".custom-form-tips-registration").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -60,8 +50,9 @@
             type: data.message_type,
             title: data.message_title
           });
-          $('#modal-show').modal('hide');
-          SearchLoad();
+          if (data.url){
+            window.location.href = data.url;
+          }
         },
         error:function(error){
           Toast.fire({
@@ -73,30 +64,59 @@
       })
       return false;
     });
-
-    $('#id_services_assistance').change(function() {
-      LoadProfile();
+    $('#id_region').change(function() {
+      Province();
+      City_Municipality();
+      Barangay();
     });
-    function LoadProfile(){
-      var services_assistance = $('#id_services_assistance').val();
+    function Province(){
+      var region = $('#id_region').val();
       $.ajax({
-        url: '{% url 'api_tips_person_detail_recommended_services_create' %}',
-        data: {services_assistance:services_assistance,person_id:{{person_id}}},
+        url: '{% url 'api_province' %}',
+        data: {region:region},
         type: 'get',
         dataType: 'json',
         success:function(data){
-          if (data.action){
-            $('#recommended_services_action').html(data.action_html_form);
-          }else{
-            $('#recommended_services_action').empty();
-          }
+          $('#id_province').html(data.province_data);
         },
       });
 
     };
+    $('#id_province').change(function() {
+      City_Municipality();
+      Barangay();
+    });
+    function City_Municipality(){
+      var province = $('#id_province').val();
+      $.ajax({
+        url: '{% url 'api_city_municipality' %}',
+        data: {province:province},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_city_municipality').html(data.city_municipality_data);
+        },
+      });
 
+    };
+    $('#id_city_municipality').change(function() {
+      Barangay();
+    });
+    function Barangay(){
+      var city_municipality = $('#id_city_municipality').val();
+      $.ajax({
+        url: '{% url 'api_barangay' %}',
+        data: {city_municipality:city_municipality},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_barangay').html(data.barangay_data);
+        },
+      });
 
+    };
   });
-
 </script>
+
+
 {% endblock %}

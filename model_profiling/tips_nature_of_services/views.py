@@ -47,6 +47,25 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.utils import timezone
 from app_hris.decorators import LogoutIfNotAdministratorHRISMixin
+
+class Tips_Sub_Category_AJAXView(View):
+    def get(self, request):
+        data = dict()
+        try:
+            category = self.request.GET.get('category')
+        except KeyError:
+            category = None
+        if category:
+            category = Tips_Category.objects.get(id = category)
+            sub_category = Tips_Sub_Category.objects.filter(category_id = category.id)
+        else:
+            sub_category = Tips_Province.objects.none()
+        context = {
+            'sub_category':sub_category,
+        }
+        data['sub_category_data'] = render_to_string('tips/dropdown-list/sub_category_droplist.html',context)
+        return JsonResponse(data)
+
 # administrator =====================================
 class Tips_Recommended_Services_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Tips_Recommended_Services.objects.all()
@@ -59,9 +78,10 @@ class Tips_Recommended_Services_AJAXView(LoginRequiredMixin,LogoutIfNotAdministr
         except KeyError:
             filter = None
             person_id = None
+        print(person_id)
         if filter or person_id:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(person_id = person_id).count()
+            data['counter_person_recommended_services'] = self.queryset.filter(person_id = person_id).count()
             person_recommended_services = self.queryset.filter(person_id = person_id)[:int(filter)]
             data['table_person_recommended_services'] = render_to_string('tips/components/table_person_recommended_services.html',{'person_recommended_services':person_recommended_services})
         return JsonResponse(data)
@@ -71,30 +91,69 @@ class Tips_Recommended_Services_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAd
         data = dict()
         try:
             person_id= self.request.GET.get('person_id')
+            services_assistance = self.request.GET.get('services_assistance')
         except KeyError:
             person_id = None
+            services_assistance = None
+        print(person_id)
         form = Tips_Recommended_ServicesForm()
-        context = {
-            'form': form,
-            'person_id':person_id,
-            'is_Create': True,
-            'btn_name': "primary",
-            'btn_title': "Submit",
-        }
-        data['html_form'] = render_to_string('administrator/ajax-filter-components/person_recommended_services_forms.html',context)
+        if services_assistance == '4':
+            form_action = Tips_Recommended_Services_ActionForm()
+            context = {
+                'form': form,
+                'person_id':person_id,
+                'is_Create': True,
+                'btn_name': "primary",
+                'btn_title': "Submit",
+            }
+            context2 = {
+                'form_action': form_action,
+            }
+            data['action'] = True
+            data['action_html_form'] = render_to_string('tips/forms/person_recommended_services_action_forms.html',context2)
+            data['html_form'] = render_to_string('tips/forms/person_recommended_services_forms.html',context)
+
+        else:
+            context = {
+                'form': form,
+                'person_id':person_id,
+                'is_Create': True,
+                'btn_name': "primary",
+                'btn_title': "Submit",
+            }
+            data['action'] = False
+            data['html_form'] = render_to_string('tips/forms/person_recommended_services_forms.html',context)
+
         return JsonResponse(data)
 
 class Tips_Recommended_Services_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def post(self, request,pk):
         data =  dict()
+        try:
+            services_assistance = self.request.POST.get('services_assistance')
+        except KeyError:
+            services_assistance = None
+
         if request.method == 'POST':
-            form = Tips_Recommended_ServicesForm(request.POST,request.FILES)
-            if form.is_valid():
-                form.instance.person_id = pk
-                form.save()
-                data['message_type'] = success
-                data['message_title'] = 'Successfully saved.'
-                data['url'] = reverse('person_detail',kwargs={'pk':pk})
+            if services_assistance == '4':
+                form = Tips_Recommended_ServicesForm(request.POST,request.FILES)
+                form_action = Tips_Recommended_Services_ActionForm(request.POST,request.FILES)
+                if form.is_valid() and form_action.is_valid():
+                    form.instance.person_id = pk
+                    form.save()
+                    form_action.instance.recommended_services_id = form.instance.id
+                    form_action.save()
+                    data['message_type'] = success
+                    data['message_title'] = 'Successfully saved.'
+                    data['url'] = reverse('tips_person_detail',kwargs={'pk':pk})
+            else:
+                form = Tips_Recommended_ServicesForm(request.POST,request.FILES)
+                if form.is_valid():
+                    form.instance.person_id = pk
+                    form.save()
+                    data['message_type'] = success
+                    data['message_title'] = 'Successfully saved.'
+                    data['url'] = reverse('tips_person_detail',kwargs={'pk':pk})
         return JsonResponse(data)
 
 class Tips_Recommended_Services_Update_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):

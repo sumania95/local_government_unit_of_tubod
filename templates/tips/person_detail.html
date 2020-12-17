@@ -44,7 +44,7 @@
         <table>
           <tr>
             <td>
-              <button data-url="#" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create" name="button">Add New</button>
+              <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create" name="button">Add New</button>
             </td>
           </tr>
         </table>
@@ -61,6 +61,7 @@
               <th>Category/Sub Category</th>
               <th style="white-space:nowrap;width:5%">Amount</th>
               <th style="white-space:nowrap;width:5%">Mode</th>
+              <th style="white-space:nowrap;width:5%">Date</th>
               <th style="white-space:nowrap;width:5%">Action</th>
             </tr>
           </thead>
@@ -75,7 +76,7 @@
   </div>
 </div>
 <div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content"></div>
   </div>
 </div>
@@ -86,6 +87,7 @@
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),
+      data:{person_id:{{object.id}}},
       type: 'get',
       dataType:'json',
       beforeSend: function(){
@@ -96,26 +98,23 @@
       }
     });
   });
-  $(document).ready(function () {
-    SearchLoad();
-    function SearchLoad(){
-      var filter_person_recommended_services = $('#filter_person_recommended_services').val();
-      console.log({{object.id}});
-      $.ajax({
-        url: '{% url 'tips_person_detail_recommended_services'  %}',
-        data: {filter_person_recommended_services:filter_person_recommended_services,profile_id:{{object.id}}},
-        type: 'get',
-        dataType: 'json',
-        success:function(data){
-          console.log(data);
-          $('#table-person-recommended-services-ajax').html(data.table_person_recommended_services);
-          $('#counter-person-recommended-services').html(data.counter_person_recommended_services + " record(s) found");
-        },
-      });
-    };
-    $("#filter_person_recommended_services").change(function (event) {
-      SearchLoad();
+  SearchLoad();
+  function SearchLoad(){
+    var filter_person_recommended_services = $('#filter_person_recommended_services').val();
+    $.ajax({
+      url: '{% url 'api_tips_person_detail_recommended_services'  %}',
+      data: {filter_person_recommended_services:filter_person_recommended_services,person_id:{{object.id}}},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        console.log(data);
+        $('#table-person-recommended-services-ajax').html(data.table_person_recommended_services);
+        $('#counter-person-recommended-services').html(data.counter_person_recommended_services + " record(s) found");
+      },
     });
+  };
+  $("#filter_person_recommended_services").change(function (event) {
+    SearchLoad();
   });
 </script>
 {% endblock %}

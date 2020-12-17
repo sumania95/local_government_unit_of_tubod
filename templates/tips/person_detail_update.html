@@ -1,6 +1,6 @@
 {% extends 'tips/base.html' %}
 {% load static %}
-
+{% block 'tips_person_active' %}active{% endblock %}
 {% block 'content' %}
 <div class="col-md-12">
   <h5>Person</h5>
@@ -9,7 +9,7 @@
 <div class="col-md-12">
   <div class="card m-2">
     <div class="card-body p-2" id="tips-registration-forms">
-      <h4>REGISTRATION FORMS {{person}}</h4>
+
     </div>
   </div>
 </div>
@@ -31,6 +31,54 @@
         $('#tips-registration-forms').html(data.html_form);
       },
     });
+    $('#id_region').change(function() {
+      Province();
+    });
+    function Province(){
+      var region = $('#id_region').val();
+      $.ajax({
+        url: '{% url 'api_province' %}',
+        data: {region:region},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_province').html(data.province_data);
+        },
+      });
+
+    };
+    $('#id_province').change(function() {
+      City_Municipality();
+    });
+    function City_Municipality(){
+      var province = $('#id_province').val();
+      $.ajax({
+        url: '{% url 'api_city_municipality' %}',
+        data: {province:province},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_city_municipality').html(data.city_municipality_data);
+        },
+      });
+
+    };
+    $('#id_city_municipality').change(function() {
+      Barangay();
+    });
+    function Barangay(){
+      var city_municipality = $('#id_city_municipality').val();
+      $.ajax({
+        url: '{% url 'api_barangay' %}',
+        data: {city_municipality:city_municipality},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_barangay').html(data.barangay_data);
+        },
+      });
+
+    };
   });
 </script>
 

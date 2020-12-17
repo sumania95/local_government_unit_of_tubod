@@ -8,25 +8,29 @@ class Tips_Category(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 
+    def __str__(self):
+        return str(self.name)
+
 class Tips_Sub_Category(models.Model):
     category = models.ForeignKey(Tips_Category, on_delete = models.CASCADE)
     name = models.CharField(max_length = 200)
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 
+    def __str__(self):
+        return str(self.name)
+
 services_assistance = (
     ('1', 'Counseling',),
     ('2', 'Legal Assistance (Retainer Lawyer/Others)',),
     ('3', 'Referral',),
-    ('4', 'Financial Assistance',),
-    ('5', 'Material Assistance',),
-    ('6', 'Others',),
+    ('4', 'Other Services Assistance',),
 )
 
 class Tips_Recommended_Services(models.Model):
     person = models.ForeignKey(Tips_Person, on_delete = models.CASCADE)
     services_assistance = models.CharField(max_length=50,choices=services_assistance)
-    specify = models.CharField(max_length = 200,blank=True)
+    specify = models.CharField(max_length = 200)
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 

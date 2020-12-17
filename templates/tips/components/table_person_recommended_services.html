@@ -2,15 +2,15 @@
 <tr>
   <td>{{forloop.counter}}</td>
   <td>
-    {{ p.services_assistance|upper}}
+    {{ p.get_services_assistance_display|upper}}
   </td>
   <td>{{ p.specify }}</td>
-  <td>{{ p.tips_recommended_services_action.category }}</td>
-  <td>{{ p.tips_recommended_services_action.sub_category }}</td>
+  <td>{% if p.tips_recommended_services_action %}{{ p.tips_recommended_services_action.category }} <code>({{ p.tips_recommended_services_action.sub_category }})</code>{% endif %}</td>
   <td>{{ p.tips_recommended_services_action.amount }}</td>
-  <td>{{ p.tips_recommended_services_action.mode_assistance }}</td>
+  <td>{{ p.tips_recommended_services_action.get_mode_assistance_display }}</td>
+  <td>{{ p.date_created }}</td>
   <td>
-    <a href="#" type="button" class="btn btn-primary" name="button">Update</a>
+    <a href="#" type="button" class="btn btn-danger btn-sm" name="button">Remove</a>
   </td>
 </tr>
 {% empty %}

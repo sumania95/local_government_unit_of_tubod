@@ -134,12 +134,12 @@ class Tips_Person_Update_AJAXView(View):
             'person_form':person_form,
             'address_form':address_form,
             'person':person,
-            'btn_name' : 'success',
-            'btn_title' : 'Register',
+            'btn_name' : 'warning',
+            'btn_title' : 'Update',
             'is_Created' : False,
 
         }
-        data['html_form'] = render_to_string('tips/forms/registration_forms.html',context)
+        data['html_form'] = render_to_string('tips/forms/registration_update_forms.html',context)
         return JsonResponse(data)
     def post(self, request,pk):
         data = dict()

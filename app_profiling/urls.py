@@ -24,6 +24,8 @@ from model_profiling.tips_address.views import (
 from model_profiling.tips_nature_of_services.views import (
     Tips_Recommended_Services_AJAXView,
     Tips_Recommended_Services_Create_AJAXView,
+    Tips_Recommended_Services_Create_Save_AJAXView,
+    Tips_Sub_Category_AJAXView,
 )
 
 urlpatterns = [
@@ -36,10 +38,13 @@ urlpatterns = [
     path('api/person/create', Tips_Person_Create_AJAXView.as_view(), name = 'api_tips_person_create'),
     path('api/person/update/<int:pk>', Tips_Person_Update_AJAXView.as_view(), name = 'api_tips_person_update'),
     path('person/detail/<int:pk>', Tips_Person_Detail_Page.as_view(), name = 'tips_person_detail'),
-    path('api/person/detail/recommended-services/', Tips_Recommended_Services_AJAXView.as_view(), name = 'tips_person_detail_recommended_services'),
+    path('api/person/detail/recommended-services/', Tips_Recommended_Services_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services'),
+    path('api/person/detail/recommended-services/create', Tips_Recommended_Services_Create_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create'),
+    path('api/person/detail/recommended-services/create/save/<int:pk>', Tips_Recommended_Services_Create_Save_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create_save'),
 
     # address api
     path('api/province', Tips_Province_AJAXView.as_view(), name = 'api_province'),
     path('api/city-municipality', Tips_City_Municipality_AJAXView.as_view(), name = 'api_city_municipality'),
     path('api/barangay', Tips_Barangay_AJAXView.as_view(), name = 'api_barangay'),
+    path('api/sub-category', Tips_Sub_Category_AJAXView.as_view(), name = 'api_sub_category'),
 ]
