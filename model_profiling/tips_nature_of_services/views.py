@@ -34,7 +34,8 @@ from model_profiling.tips_nature_of_services.forms import (
     Tips_Recommended_Services_ActionForm,
     Tips_Recommended_Services_Action_UpdateForm,
 )
-
+#datetime
+import datetime
 from time import strptime
 
 success = 'success'
@@ -67,6 +68,29 @@ class Tips_Sub_Category_AJAXView(View):
         return JsonResponse(data)
 
 # administrator =====================================
+
+class Tips_Services_Assistance_Logs_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    queryset = Tips_Recommended_Services.objects.all()
+
+    def get(self, request):
+        data = dict()
+        try:
+            filter = self.request.GET.get('filter_services_assistance')
+            datepicker1 = self.request.GET.get('datepicker1')
+            datepicker2 = self.request.GET.get('datepicker2')
+        except KeyError:
+            filter = None
+            datepicker1 = None
+            datepicker2 = None
+        start =datetime.datetime.strptime(datepicker1+' 00:00:00', "%Y-%m-%d %H:%M:%S")
+        end =datetime.datetime.strptime(datepicker2+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        if filter or datepicker1 or datepicker2:
+            data['form_is_valid'] = True
+            data['counter_services_assistance'] = self.queryset.filter(date_created__range = [start,end]).count()
+            services_assistance = self.queryset.filter(date_created__range = [start,end])[:int(filter)]
+            data['table_person'] = render_to_string('tips/components/table_services_assistance_logs.html',{'services_assistance':services_assistance})
+        return JsonResponse(data)
+
 class Tips_Recommended_Services_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Tips_Recommended_Services.objects.all()
 

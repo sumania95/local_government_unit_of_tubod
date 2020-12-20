@@ -56,3 +56,6 @@ class Tips_Person_Detail_Update_Page(LoginRequiredMixin,TemplateView):
         except Exception as e:
             pass
         return context
+
+class Tips_Services_Assistance_Logs_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/services_assistance_logs.html'

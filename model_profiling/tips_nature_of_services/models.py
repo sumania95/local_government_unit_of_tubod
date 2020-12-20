@@ -34,6 +34,10 @@ class Tips_Recommended_Services(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 
+
+    def __str__(self):
+        return str(self.person.surname) + ', ' + str(self.person.firstname)
+
 mode_assistance = (
     ('1', 'Cash',),
     ('2', 'Check',),

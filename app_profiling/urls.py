@@ -7,6 +7,7 @@ from .views import (
     Tips_Person_Detail_Create_Page,
     Tips_Person_Detail_Update_Page,
     Tips_Person_Detail_Page,
+    Tips_Services_Assistance_Logs_Page,
 )
 
 from model_profiling.tips_person.views import (
@@ -22,6 +23,7 @@ from model_profiling.tips_address.views import (
 )
 
 from model_profiling.tips_nature_of_services.views import (
+    Tips_Services_Assistance_Logs_AJAXView,
     Tips_Recommended_Services_AJAXView,
     Tips_Recommended_Services_Create_AJAXView,
     Tips_Recommended_Services_Create_Save_AJAXView,
@@ -41,6 +43,9 @@ urlpatterns = [
     path('api/person/detail/recommended-services/', Tips_Recommended_Services_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services'),
     path('api/person/detail/recommended-services/create', Tips_Recommended_Services_Create_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create'),
     path('api/person/detail/recommended-services/create/save/<int:pk>', Tips_Recommended_Services_Create_Save_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create_save'),
+    path('services-assistance/logs', Tips_Services_Assistance_Logs_Page.as_view(), name = 'tips_services_assistance_logs'),
+    path('api/services-assistance/logs', Tips_Services_Assistance_Logs_AJAXView.as_view(), name = 'api_tips_services_assistance_logs'),
+
 
     # address api
     path('api/province', Tips_Province_AJAXView.as_view(), name = 'api_province'),

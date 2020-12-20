@@ -39,6 +39,14 @@ class Tips_Person(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 
+    def __str__(self):
+        return str(self.surname) + ', ' + str(self.firstname) + ' ' + str(self.middlename)
+
+    @property
+    def age(self):
+        now = timezone.now()
+        return int((now.date() - self.date_of_birth).days / 365.25)
+
     class Meta:
         ordering = ['surname','firstname','middlename']
 
