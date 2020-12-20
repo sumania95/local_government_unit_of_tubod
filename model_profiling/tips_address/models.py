@@ -1,38 +1,28 @@
 from django.db import models
 
-class Tips_Barangay(models.Model):
-    barangay_code = models.CharField(max_length = 255)
-    barangay_description = models.CharField(max_length = 255)
-    region_code =  models.IntegerField()
-    province_code = models.IntegerField()
-    city_municipality_code = models.IntegerField()
+class Tips_Region(models.Model):
+    region_name = models.CharField(max_length = 255)
 
     def __str__(self):
-        return str(self.barangay_description)
-
-class Tips_City_Municipality(models.Model):
-    psgc_code = models.CharField(max_length = 255)
-    city_municipality_code = models.IntegerField()
-    city_municipality_description = models.CharField(max_length = 255)
-    region_code =  models.IntegerField()
-    province_code = models.IntegerField()
-
-    def __str__(self):
-        return str(self.city_municipality_description)
+        return str(self.region_name)
 
 class Tips_Province(models.Model):
-    psgc_code = models.CharField(max_length = 255)
-    province_description = models.CharField(max_length = 255)
-    region_code =  models.IntegerField()
-    province_code = models.IntegerField()
+    province_name = models.CharField(max_length = 255)
+    region = models.ForeignKey(Tips_Region, on_delete = models.CASCADE)
 
     def __str__(self):
-        return str(self.province_description)
+        return str(self.province_name)
 
-class Tips_Region(models.Model):
-    psgc_code = models.CharField(max_length = 255)
-    region_description = models.CharField(max_length = 255)
-    region_code =  models.IntegerField()
+class Tips_City_Municipality(models.Model):
+    city_municipality_name = models.CharField(max_length = 255)
+    province = models.ForeignKey(Tips_Province, on_delete = models.CASCADE)
 
     def __str__(self):
-        return str(self.region_description)
+        return str(self.city_municipality_name)
+
+class Tips_Barangay(models.Model):
+    barangay_name = models.CharField(max_length = 255)
+    city_municipality = models.ForeignKey(Tips_City_Municipality, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return str(self.barangay_name)

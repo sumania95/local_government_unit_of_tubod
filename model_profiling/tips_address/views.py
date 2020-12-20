@@ -51,8 +51,8 @@ class Tips_Province_AJAXView(View):
             region = None
         print(region)
         if region:
-            region_code = Tips_Region.objects.get(id = region)
-            province = Tips_Province.objects.filter(region_code = region_code.region_code)
+            region = Tips_Region.objects.get(id = region)
+            province = Tips_Province.objects.filter(region_id = region.id)
         else:
             province = Tips_Province.objects.none()
         context = {
@@ -69,8 +69,8 @@ class Tips_City_Municipality_AJAXView(View):
         except KeyError:
             province = None
         if province:
-            province_code = Tips_Province.objects.get(id = province)
-            city_municipality = Tips_City_Municipality.objects.filter(province_code = province_code.province_code)
+            province = Tips_Province.objects.get(id = province)
+            city_municipality = Tips_City_Municipality.objects.filter(province_id = province.id)
         else:
             city_municipality = Tips_City_Municipality.objects.none()
         context = {
@@ -87,8 +87,8 @@ class Tips_Barangay_AJAXView(View):
         except KeyError:
             city_municipality = None
         if city_municipality:
-            city_municipality_code = Tips_City_Municipality.objects.get(id=city_municipality)
-            barangay = Tips_Barangay.objects.filter(city_municipality_code = city_municipality_code.city_municipality_code)
+            city_municipality = Tips_City_Municipality.objects.get(id=city_municipality)
+            barangay = Tips_Barangay.objects.filter(city_municipality_id = city_municipality.id)
         else:
             barangay = Tips_Barangay.objects.none()
         context = {

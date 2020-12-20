@@ -1,0 +1,23 @@
+{% load crispy_forms_tags %}
+{{form_action|crispy}}
+
+
+{% block 'script' %}
+<script>
+  $('#id_category').change(function() {
+    Sub_Category();
+  });
+  function Sub_Category(){
+    var category = $('#id_category').val();
+    $.ajax({
+      url: '{% url 'api_sub_category' %}',
+      data: {category:category},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#id_sub_category').html(data.sub_category_data);
+      },
+    });
+  };
+</script>
+{% endblock %}

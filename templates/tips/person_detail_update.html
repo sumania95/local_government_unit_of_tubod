@@ -1,0 +1,85 @@
+{% extends 'tips/base.html' %}
+{% load static %}
+{% block 'tips_person_active' %}active{% endblock %}
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Person</h5>
+  <hr>
+</div>
+<div class="col-md-12">
+  <div class="card m-2">
+    <div class="card-body p-2" id="tips-registration-forms">
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  $(document).ready(function () {
+    $.ajax({
+      url: '{% url 'api_tips_person_update' person.id %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#tips-registration-forms').html(data.html_form);
+      },
+    });
+    $('#id_region').change(function() {
+      Province();
+    });
+    function Province(){
+      var region = $('#id_region').val();
+      $.ajax({
+        url: '{% url 'api_province' %}',
+        data: {region:region},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_province').html(data.province_data);
+        },
+      });
+
+    };
+    $('#id_province').change(function() {
+      City_Municipality();
+    });
+    function City_Municipality(){
+      var province = $('#id_province').val();
+      $.ajax({
+        url: '{% url 'api_city_municipality' %}',
+        data: {province:province},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_city_municipality').html(data.city_municipality_data);
+        },
+      });
+
+    };
+    $('#id_city_municipality').change(function() {
+      Barangay();
+    });
+    function Barangay(){
+      var city_municipality = $('#id_city_municipality').val();
+      $.ajax({
+        url: '{% url 'api_barangay' %}',
+        data: {city_municipality:city_municipality},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#id_barangay').html(data.barangay_data);
+        },
+      });
+
+    };
+  });
+</script>
+
+{% endblock %}

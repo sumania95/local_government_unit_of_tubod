@@ -1,0 +1,17 @@
+{% for p in person %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>
+    {{ p.surname|upper }}, {{p.firstname|upper}} {{p.middlename|upper}}
+  </td>
+  <td>{{ p.tips_address.barangay|upper }}, {{p.tips_address.city_municipality}} {{p.tips_address.province}} , {{p.tips_address.region}}</td>
+  <td>
+    {{p.date_of_birth}}
+  </td>
+  <td><a href="{% url 'tips_person_detail' p.id %}" type="button" class="btn btn-primary" name="button">VIEW</a></td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}

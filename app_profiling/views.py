@@ -28,7 +28,9 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from model_profiling.tips_person.models import (
+    Tips_Person as PersonModel,
+)
 
 class Tips_Dashboard_Page(LoginRequiredMixin,TemplateView):
     template_name = 'tips/dashboard.html'
@@ -36,5 +38,24 @@ class Tips_Dashboard_Page(LoginRequiredMixin,TemplateView):
 class Tips_Person_Page(LoginRequiredMixin,TemplateView):
     template_name = 'tips/person.html'
 
-class Tips_Person_Detail_Page(LoginRequiredMixin,TemplateView):
+class Tips_Person_Detail_Page(LoginRequiredMixin,DetailView):
+    model = PersonModel
     template_name = 'tips/person_detail.html'
+
+class Tips_Person_Detail_Create_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/person_detail_create.html'
+
+class Tips_Person_Detail_Update_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/person_detail_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            id = self.kwargs['pk']
+            context['person'] = PersonModel.objects.get(id = id)
+        except Exception as e:
+            pass
+        return context
+
+class Tips_Services_Assistance_Logs_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'tips/services_assistance_logs.html'

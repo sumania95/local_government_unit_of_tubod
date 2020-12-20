@@ -1,0 +1,36 @@
+{% extends 'tips/base.html' %}
+{% load static %}
+{% block 'tips_person_active' %}active{% endblock %}
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Person</h5>
+  <hr>
+</div>
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-body p-2" id="tips-registration-forms">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  $(document).ready(function () {
+    $.ajax({
+      url: '{% url 'api_tips_person_create' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#tips-registration-forms').html(data.html_form);
+      },
+    });
+  });
+</script>
+
+{% endblock %}

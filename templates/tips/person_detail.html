@@ -13,54 +13,267 @@
         <img class="border border-success rounded-circle img-radius wid-100 hig-100" src="{{user.profile.image.url}}" width="100px" height="100px" alt="User-Profile-Image">
       </div>
       <hr>
-      <h5><i class="feather icon-users mr-2"></i>{{user.profile.firstname|upper}} {{user.profile.surname|upper}}<br></h5>
-      <h5><i class="feather icon-tablet mr-2"></i>{% if user.mobile %}{{user.mobile}}{% else %}NOT AVAILABLE{% endif %}</h5>
-      <h5><i class="feather icon-mail mr-2"></i>{% if user.permanent_address %}{{user.permanent_address|upper}}{% else %}NOT AVAILABLE{% endif %}</h5>
+      <h5>{{object.firstname|upper}} {{object.surname|upper}}<br></h5>
+      <p class="m-0">{{object.date_of_birth|upper}} | {{object.get_sex_display|upper}} | {{object.get_civil_status_display|upper}}</p>
+      {% if object.tips_address %}<p class="m-0">{{ object.tips_address.barangay|upper }}, {{object.tips_address.city_municipality}} {{object.tips_address.province}} , {{object.tips_address.region}}</p>{% endif %}
+      <p class="m-0">AGE : <span class="badge badge-secondary">{{object.age}}</span></p>
     </div>
     <div class="card-footer">
-      <a href="#" type="button" class="btn-warning btn-sm" name="button"><i class="feather mr-2 icon-edit"></i>Update</a>
+      <a href="{% url 'tips_person_update' object.id %}" type="button" class="btn-warning btn-sm" name="button"><i class="feather mr-2 icon-edit"></i>Update</a>
+      <a href="#" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-credit-card"></i>QR Identification</a>
     </div>
   </div>
+  {% if user.tips_administrator.is_dwsd_admin %}
   <div class="card mb-1">
+    <div class="card-header">
+      <h5>OTHER INFORMATION (dswd)</h5>
+    </div>
     <div class="card-body">
-      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
-      <hr class="m-1">
-      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
-      <hr class="m-1">
-      <a href="#" type="button" class="btn-primary btn-sm" name="button"><i class="feather mr-2 icon-arrow-right"></i>Beneficiary's Family Composition</a>
+      <div><!-- <p class="m-2">4PS : <span class="badge badge-success mr-2 ml-2">YES</span><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></p> -->
+        <table>
+          {% if object.age > 59 %}
+          <tr>
+            <td>SENIOR CITIZEN</td>
+            <td>: <span class="badge badge-success">YES</span></td>
+            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+          </tr>
+          {% endif %}
+          <tr>
+            <td>DISABILITY</td>
+            <td>: <span class="badge badge-danger">No</span></td>
+            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
+  {% endif %}
+  {% if user.tips_administrator.is_agriculture_admin %}
+  <div class="card mb-1">
+    <div class="card-header">
+      <h5>OTHER INFORMATION (agriculture)</h5>
+    </div>
+    <div class="card-body">
+      <div>
+        <table>
+          <tr>
+            <td>FARMER</td>
+            <td>: <span class="badge badge-success">YES</span></td>
+            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+          </tr>
+          <tr>
+            <td>FARMERWORKER</td>
+            <td>: <span class="badge badge-danger">No</span></td>
+            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+          </tr>
+          <tr>
+            <td>FISHERFOLK</td>
+            <td>: <span class="badge badge-success">YES</span></td>
+            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>
+{% if user.tips_administrator.is_dwsd_admin %}
+
 <div class="col-md-9">
   <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>ASSESSMENT</h4>
+    <div class="card-body p-2">
+      <h5>Recommended Services & Assistance</h5>
+    </div>
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_person_recommended_services" id="filter_person_recommended_services">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create p-1 f-15" name="button">Add New</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Services & Assistance</th>
+              <th>Specify</th>
+              <th>Sub Category</th>
+              <th style="white-space:nowrap;width:5%">Amount</th>
+              <th style="white-space:nowrap;width:5%">Mode</th>
+              <th style="white-space:nowrap;width:5%">Date</th>
+              <th style="white-space:nowrap;width:5%">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-person-recommended-services-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter-person-recommended-services">
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if user.tips_administrator.is_agriculture_admin %}
+  <div class="card">
+    <div class="card-body p-2">
+      <h5>Land Description</h5>
+    </div>
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_person_recommended_services" id="filter_person_recommended_services">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create p-1 f-15" name="button">Add New</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Location</th>
+              <th>Area (ha)</th>
+              <th>Ownership</th>
+              <th style="white-space:nowrap;width:5%">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-person-recommended-services-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter-person-recommended-services">
+
+      </div>
     </div>
   </div>
   <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>COUNSELING</h4>
+    <div class="card-body p-2">
+      <h5>Land Parcels</h5>
+    </div>
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Filter</td>
+          <td>
+            <select class="form-control" name="filter_person_recommended_services" id="filter_person_recommended_services">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>
+              <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create p-1 f-15" name="button">Add New</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Location</th>
+              <th>Crop/Commodity</th>
+              <th>Size (ha)</th>
+              <th style="white-space:nowrap;width:5%">No Heads</th>
+              <th style="white-space:nowrap;width:5%">Type</th>
+              <th style="white-space:nowrap;width:5%">OP</th>
+              <th style="white-space:nowrap;width:5%">Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-person-recommended-services-ajax">
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter-person-recommended-services">
+
+      </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>FINANCIAL ASSISTANCE</h4>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>MATERIAL ASSISTANCE</h4>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body p-2" id="tips-registration-forms">
-      <h4>REFERRAL</h4>
-    </div>
-  </div>
+  {% endif %}
 </div>
 <div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content"></div>
   </div>
 </div>
+{% endblock %}
+{% block 'script' %}
+<script>
+  $(document).on('click', '.form-show-recommended-services-create', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      data:{person_id:{{object.id}}},
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+  SearchLoad();
+  function SearchLoad(){
+    var filter_person_recommended_services = $('#filter_person_recommended_services').val();
+    $.ajax({
+      url: '{% url 'api_tips_person_detail_recommended_services'  %}',
+      data: {filter_person_recommended_services:filter_person_recommended_services,person_id:{{object.id}}},
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        console.log(data);
+        $('#table-person-recommended-services-ajax').html(data.table_person_recommended_services);
+        $('#counter-person-recommended-services').html(data.counter_person_recommended_services + " record(s) found");
+      },
+    });
+  };
+  $("#filter_person_recommended_services").change(function (event) {
+    SearchLoad();
+  });
+</script>
 {% endblock %}

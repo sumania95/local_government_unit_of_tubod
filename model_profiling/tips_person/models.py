@@ -6,6 +6,7 @@ from model_profiling.tips_address.models import (
     Tips_Region,
 )
 from django.utils import timezone
+
 # MODEL BASIC INFO
 gender = (
     ('1', 'Male',),
@@ -26,7 +27,7 @@ class Tips_Person(models.Model):
     middlename = models.CharField(max_length = 200,blank=True)
     ext_name = models.CharField(max_length = 200,blank=True)
     date_of_birth = models.DateField(default=timezone.now)
-    place_of_birth = models.CharField(max_length = 200)
+    place_of_birth = models.CharField(max_length = 200,blank=True)
     sex = models.CharField(max_length=10,choices=gender)
     civil_status = models.CharField(max_length=10,choices=civil_status)
     philhealth = models.CharField(max_length = 200,blank=True)
@@ -37,6 +38,17 @@ class Tips_Person(models.Model):
     income = models.DecimalField(default=0,max_digits = 50,decimal_places=2)
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return str(self.surname) + ', ' + str(self.firstname) + ' ' + str(self.middlename)
+
+    @property
+    def age(self):
+        now = timezone.now()
+        return int((now.date() - self.date_of_birth).days / 365.25)
+
+    class Meta:
+        ordering = ['surname','firstname','middlename']
 
 class Tips_Address(models.Model):
     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)

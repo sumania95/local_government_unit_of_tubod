@@ -1,0 +1,24 @@
+{% for p in person_recommended_services %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>
+    {% if p.tips_recommended_services_action %}
+      {{ p.tips_recommended_services_action.category }}
+    {% else %}
+      {{ p.get_services_assistance_display|upper}}
+    {% endif %}
+  </td>
+  <td>{{ p.specify }}</td>
+  <td>{% if p.tips_recommended_services_action %}{{ p.tips_recommended_services_action.sub_category }}{% else %}N/A{% endif %}</td>
+  <td>{% if p.tips_recommended_services_action %}{{ p.tips_recommended_services_action.amount }}{% else %}N/A{% endif %}</td>
+  <td>{% if p.tips_recommended_services_action %}{{ p.tips_recommended_services_action.get_mode_assistance_display }}{% else %}N/A{% endif %}</td>
+  <td>{{ p.date_created }}</td>
+  <td>
+    <a href="#" type="button" class="btn btn-danger btn-sm p-1 f-15" name="button">Remove</a>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="12" class="text-center">No data available</td>
+</tr>
+{% endfor %}

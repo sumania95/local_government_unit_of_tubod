@@ -1,0 +1,133 @@
+{% extends 'tips/base.html' %}
+{% load static %}
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
+{% block 'content' %}
+<div class="col-md-12">
+  <h5>Services & Assistance Logs</h5>
+  <hr>
+</div>
+
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header p-2">
+      <table>
+        <tr>
+          <td>Date Range (From - To)</td>
+          <td style="padding-left:5px;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control pull-right" id="datepicker1">
+              <!-- <input type="text" class="form-control float-right" id="reservation"> -->
+            </div>
+          </td>
+          <td style="padding-left:5px;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control pull-right" id="datepicker2">
+            </div>
+          </td>
+          <td><button type="button" class="btn btn-sm btn-primary" id="btn_load" name="button">Load Data</button></td>
+        </tr>
+      </table>
+      <div class="card-header-right">
+        <table>
+          <tr>
+            <td>Filter</td>
+            <td>
+              <select class="form-control" name="filter_services_assistance" id="filter_services_assistance">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover m-b-0">
+          <thead>
+            <tr>
+              <th style="white-space:nowrap;width:1%;">#</th>
+              <th>Name</th>
+              <th>Services & Assistance</th>
+              <th style="white-space:nowrap;width:5%">Amount</th>
+              <th style="white-space:nowrap;width:5%">Mode</th>
+              <th style="white-space:nowrap;width:5%">Date</th>
+            </tr>
+          </thead>
+          <tbody id="table-services-assistance-ajax">
+            <tr>
+              <td colspan="12" class="text-center">No data available</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-2" id="counter-services-assistance">
+        0  record(s) found
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
+<script>
+  $(document).ready(function () {
+    var $datepicker1 = $('#datepicker1');
+    $datepicker1.datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
+    $datepicker1.datepicker('setDate', new Date());
+
+    var $datepicker2 = $('#datepicker2');
+    $datepicker2.datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd',
+    });
+    $datepicker2.datepicker('setDate', new Date());
+
+
+    function SearchLoad(){
+      var datepicker1 = $('#datepicker1').val();
+      var datepicker2 = $('#datepicker2').val();
+      var filter_services_assistance = $('#filter_services_assistance').val();
+      $.ajax({
+        url: '{% url 'api_tips_services_assistance_logs'  %}',
+        data: {datepicker1:datepicker1,datepicker2:datepicker2,filter_services_assistance:filter_services_assistance},
+        type: 'get',
+        dataType: 'json',
+        success:function(data){
+          $('#table-services-assistance-ajax').html(data.table_person);
+          $('#counter-services-assistance').html(data.counter_services_assistance + " record(s) found");
+        },
+      });
+    };
+    $("#btn_load").click(function (event) {
+      SearchLoad();
+    });
+  });
+
+</script>
+
+{% endblock %}
