@@ -11,7 +11,7 @@
   </td>
   <td>{% if p.tips_recommended_services_action %}{{ p.tips_recommended_services_action.amount }}{% else %}N/A{% endif %}</td>
   <td>{% if p.tips_recommended_services_action %}{{ p.tips_recommended_services_action.get_mode_assistance_display }}{% else %}N/A{% endif %}</td>
-  <td>{{ p.date_created }}</td>
+  <td>{{ p.date }}</td>
 </tr>
 {% empty %}
 <tr>

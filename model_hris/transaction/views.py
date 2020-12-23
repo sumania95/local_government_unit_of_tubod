@@ -94,7 +94,11 @@ class Profile_History_Leave_AJAXView(LoginRequiredMixin,View):
 class Profile_History_Leave_Create_AJAXView(LoginRequiredMixin,View):
     def get(self, request):
         data = dict()
-        form = User_Deducted_TransactionForm()
+        try:
+            print(self.request.user.profile.designation)
+            form = User_Deducted_TransactionForm()
+        except Exception as e:
+            form = User_Deducted_Contractual_TransactionForm()
         context = {
             'form':form,
             'is_Create': True,
@@ -107,7 +111,10 @@ class Profile_History_Leave_Create_AJAXView(LoginRequiredMixin,View):
     def post(self, request):
         data =  dict()
         if request.method == 'POST':
-            form = User_Deducted_TransactionForm(request.POST,request.FILES)
+            if self.request.user.profile:
+                form = User_Deducted_TransactionForm(request.POST,request.FILES)
+            else:
+                form = User_Deducted_Contractual_TransactionForm(request.POST,request.FILES)
             if form.is_valid():
                 form.instance.profile_id = self.request.user.profile.id
                 form.save()
@@ -337,6 +344,27 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['form_is_valid'] = False
                         data['message_type'] = error
                         data['message_title'] = 'An error occurred.'
+            # MATERNITYLEAVE
+            elif deducted_transaction.leave_type == '5':
+                if form.is_valid():
+                    form.instance.deducted_transaction_id = pk
+                    form.instance.user_id = self.request.user.id
+                    form.save()
+                    Deducted_Transaction.objects.filter(id=pk).update(status = 2)
+                    Notification.objects.create(profile_id = profile.id,detail="Approved special leave",user_id = self.request.user.id)
+                    data['message_type'] = success
+                    data['message_title'] = 'Successfully created.'
+                    data['form_is_valid'] = True
+                    data['url'] = reverse('transaction')
+                else:
+                    if float(form.instance.days) == 0:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'Zero is not allowed.'
+                    else:
+                        data['form_is_valid'] = False
+                        data['message_type'] = error
+                        data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
 
 class Transaction_Rejected_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
@@ -443,7 +471,7 @@ class Transaction_Generated_Profile_AJAXView(LoginRequiredMixin,LogoutIfNotAdmin
             leave_type = self.request.GET.get('leave_type')
         except KeyError:
             leave_type = None
-        if leave_type == '1' or leave_type == '2' or leave_type == '3':
+        if leave_type == '1' or leave_type == '2' or leave_type == '3' or leave_type == '5':
             profile = Profile.objects.filter(id__in = Designation.objects.values('profile_id'))
         elif leave_type == '4':
             profile = Profile.objects.all()

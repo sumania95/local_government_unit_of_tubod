@@ -2,6 +2,8 @@ from django.db import models
 from model_profiling.tips_person.models import (
     Tips_Person,
 )
+from django.utils import timezone
+
 
 class Tips_Category(models.Model):
     name = models.CharField(max_length = 200)
@@ -31,6 +33,7 @@ class Tips_Recommended_Services(models.Model):
     person = models.ForeignKey(Tips_Person, on_delete = models.CASCADE)
     services_assistance = models.CharField(max_length=50,choices=services_assistance)
     specify = models.CharField(max_length = 200)
+    date = models.DateField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
 

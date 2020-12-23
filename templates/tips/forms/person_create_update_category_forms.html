@@ -1,23 +1,21 @@
 {% load crispy_forms_tags %}
+
 {% load static %}
+
 <div class="modal-header">
-  <h5 class="modal-title" >Create Services & Assistance</h5>
+  <h5 class="modal-title" >Person Category</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_tips_person_detail_recommended_services_create_save' person_id %}{% endif %}" class="custom-form-meber-organization">
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Created %}{% url 'api_tips_person_create_update_category' person.id %}{% else %}{% url 'api_tips_person_create_update_category' person.person.id %}{% endif %}" class="custom-form-create-update-category">
   <div class="modal-body">
     {{form|crispy}}
-    <div id="recommended_services_action">
-
-    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
   </div>
 </form>
+
 {% block 'script' %}
-
-
 <script>
   $(document).ready(function () {
     function getCookie(name) {
@@ -41,7 +39,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-meber-organization").submit(function (event) {
+    $(".custom-form-create-update-category").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -59,8 +57,9 @@
             type: data.message_type,
             title: data.message_title
           });
-          $('#modal-show').modal('hide');
-          SearchLoad();
+          if (data.url){
+            window.location.href = data.url;
+          }
         },
         error:function(error){
           Toast.fire({
@@ -72,30 +71,8 @@
       })
       return false;
     });
-
-    $('#id_services_assistance').change(function() {
-      LoadProfile();
-    });
-    function LoadProfile(){
-      var services_assistance = $('#id_services_assistance').val();
-      $.ajax({
-        url: '{% url 'api_tips_person_detail_recommended_services_create' %}',
-        data: {services_assistance:services_assistance,person_id:{{person_id}}},
-        type: 'get',
-        dataType: 'json',
-        success:function(data){
-          if (data.action){
-            $('#recommended_services_action').html(data.action_html_form);
-          }else{
-            $('#recommended_services_action').empty();
-          }
-        },
-      });
-
-    };
-
-
   });
-
 </script>
+
+
 {% endblock %}

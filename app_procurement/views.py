@@ -31,4 +31,4 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Proc_Home_Page(LoginRequiredMixin,TemplateView):
-    template_name = 'procurement/dashboard.html'
+    template_name = 'ppmp/dashboard.html'

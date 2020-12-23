@@ -86,8 +86,8 @@ class Tips_Services_Assistance_Logs_AJAXView(LoginRequiredMixin,LogoutIfNotAdmin
         end =datetime.datetime.strptime(datepicker2+' 23:59:59', "%Y-%m-%d %H:%M:%S")
         if filter or datepicker1 or datepicker2:
             data['form_is_valid'] = True
-            data['counter_services_assistance'] = self.queryset.filter(date_created__range = [start,end]).count()
-            services_assistance = self.queryset.filter(date_created__range = [start,end])[:int(filter)]
+            data['counter_services_assistance'] = self.queryset.filter(date__range = [start,end]).count()
+            services_assistance = self.queryset.filter(date__range = [start,end]).order_by('date')[:int(filter)]
             data['table_person'] = render_to_string('tips/components/table_services_assistance_logs.html',{'services_assistance':services_assistance})
         return JsonResponse(data)
 
@@ -106,7 +106,7 @@ class Tips_Recommended_Services_AJAXView(LoginRequiredMixin,LogoutIfNotAdministr
         if filter or person_id:
             data['form_is_valid'] = True
             data['counter_person_recommended_services'] = self.queryset.filter(person_id = person_id).count()
-            person_recommended_services = self.queryset.filter(person_id = person_id)[:int(filter)]
+            person_recommended_services = self.queryset.filter(person_id = person_id).order_by('date')[:int(filter)]
             data['table_person_recommended_services'] = render_to_string('tips/components/table_person_recommended_services.html',{'person_recommended_services':person_recommended_services})
         return JsonResponse(data)
 

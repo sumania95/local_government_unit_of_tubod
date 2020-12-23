@@ -18,7 +18,7 @@
   <meta name="keywords" content="">
   <meta name="author" content="Codedthemes" />
   <!-- Favicon icon -->
-  <link rel="icon" href="{% static 'premium/assets/images/favicon.ico'%}" type="image/x-icon">
+  <link rel="icon" href="{% static 'icon/lgutubodlogo.png'%}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'premium/assets/sweetalert2/sweetalert2.min.css'%}">
   <!-- vendor css -->
   <link rel="stylesheet" href="{% static 'premium/assets/css/style.css'%}">
@@ -45,16 +45,16 @@
             <label>Navigation</label>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+            <a href="{% url 'proc_home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Classification</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Audit Trail</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Milestone</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Audit Trail</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Method</span></a>
+            <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Audit Trail</span></a>
           </li>
           <li class="nav-item">
             <a href="{% url 'logout' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-log-out text-danger"></i></span><span class="pcoded-mtext">Sign Out</span></a>
@@ -70,7 +70,7 @@
 
     <div class="m-header">
       <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-      <a href="{% url 'dashboard' %}" class="b-brand text-center">
+      <a href="{% url 'proc_home' %}" class="b-brand text-center">
         <!-- ========   change your logo hear   ============ -->
         GOVPH | <b>&nbsp;&nbsp;S P R I N G P P M P</b>
         <!-- <img src="{% static 'premium/assets/images/logo.png'%}" alt="" class="logo">
@@ -93,15 +93,22 @@
           <div class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-layers"></i></a>
             <div class="dropdown-menu dropdown-menu-right notification">
-              <div class="noti-head">
-                <h6 class="d-inline-block m-b-0">My Apps</h6>
+              <div class="card-header p-2">
+                <h6>My Application</h6>
               </div>
               <ul class="pro-body">
                 <li class="notification">
-                  <a href="{% url 'main_home' %}" type="button" class="btn btn-outline-primary" name="button"><i class="icon feather icon-home"></i><br>SPRING HRIS</a>
+                  <td style="white-space:nowrap;width:50%;"><a href="{% url 'main_home' %}" type="button" class="btn w-40" name="button"><i class="icon feather icon-home fa-2x text-warning"></i><br>SPRING HRIS</a></td>
                 </li>
               </ul>
             </div>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown drp-user">
+            <a href="#!" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="{{user.profile.image.url}}" width="40px" height="40px" class="img-radius wid-40" alt="User-Profile-Image">
+            </a>
           </div>
         </li>
       </ul>
