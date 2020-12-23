@@ -31,6 +31,7 @@ from django.utils import timezone
 # models
 from .models import (
     Tips_Person,
+    Tips_Person_Category,
     Tips_Address,
 )
 
@@ -39,6 +40,7 @@ from .forms import (
     Tips_PersonForm,
     Tips_AddressForm,
     Tips_Update_AddressForm,
+    Tips_Person_CategoryForm,
 )
 
 success = 'success'
@@ -162,6 +164,61 @@ class Tips_Person_Update_AJAXView(View):
                     address_form.instance.person_id = person_form.instance.id
                     address_form.save()
                 data['url'] = reverse('tips_person_detail',kwargs={'pk':pk})
+                data['message_type'] = success
+                data['message_title'] = 'Successfully updated.'
+                data['form_is_valid'] = True
+            else:
+                data['form_is_valid'] = False
+                data['message_type'] = error
+                data['message_title'] = 'An error occurred.'
+        return JsonResponse(data)
+
+
+class Tips_Person_Create_Update_Category_AJAXView(View):
+    def get(self, request,pk):
+        data = dict()
+        person_exist = Tips_Person_Category.objects.filter(person_id=pk).exists()
+        if person_exist:
+            person = Tips_Person_Category.objects.filter(person_id=pk).first()
+            form = Tips_Person_CategoryForm(instance=person)
+            context = {
+                'form':form,
+                'person':person,
+                'btn_name' : 'warning',
+                'btn_title' : 'Change',
+                'is_Created' : False,
+
+            }
+
+        else:
+            person = Tips_Person.objects.filter(id=pk).first()
+            form = Tips_Person_CategoryForm()
+            context = {
+                'form':form,
+                'person':person,
+                'btn_name' : 'warning',
+                'btn_title' : 'Change',
+                'is_Created' : True,
+            }
+        data['html_form'] = render_to_string('tips/forms/person_create_update_category_forms.html',context)
+        return JsonResponse(data)
+    def post(self, request,pk):
+        data = dict()
+        person_exist = Tips_Person_Category.objects.filter(person_id=pk).exists()
+        if request.method == 'POST':
+            if person_exist:
+                person = Tips_Person_Category.objects.filter(person_id=pk).first()
+                form = Tips_Person_CategoryForm(request.POST,request.FILES,instance=person)
+            else:
+                form = Tips_Person_CategoryForm(request.POST,request.FILES)
+            if form.is_valid():
+                if person_exist:
+                    form.save()
+                    data['url'] = reverse('tips_person_detail',kwargs={'pk':person.person_id})
+                else:
+                    form.instance.person_id = pk
+                    data['url'] = reverse('tips_person_detail',kwargs={'pk':pk})
+                    form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully updated.'
                 data['form_is_valid'] = True

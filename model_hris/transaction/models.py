@@ -3,11 +3,14 @@ from django.db.models import Model
 from model_hris.info_profile.models import Profile
 from django.contrib.auth.models import User
 from django.utils import timezone
+
 leave_type = (
     ('1', 'Sick Leave',),
     ('2', 'Vacation Leave',),
     ('3', 'Special Leave',),
     ('4', 'Offset',),
+    ('5', 'Maternity Leave',),
+
 )
 
 status = (

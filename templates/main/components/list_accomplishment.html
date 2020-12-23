@@ -4,7 +4,7 @@
   <td>{{p.core_function_output}}</td>
   <td>
     {% for indicator in p.indicator.all %}
-    <li>{{indicator.description}}</li>
+    <p><li>{{indicator.description}}</li></p>
     {% empty %}
     <li>No Success Indicator Yet</li>
     {% endfor %}

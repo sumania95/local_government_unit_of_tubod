@@ -20,31 +20,50 @@
     </div>
     <div class="card-footer">
       <a href="{% url 'tips_person_update' object.id %}" type="button" class="btn-warning btn-sm" name="button"><i class="feather mr-2 icon-edit"></i>Update</a>
-      <a href="#" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-credit-card"></i>QR Identification</a>
+      <!-- <a href="#" type="button" class="btn-secondary btn-sm" name="button"><i class="feather mr-2 icon-credit-card"></i>QR Identification</a> -->
     </div>
   </div>
   {% if user.tips_administrator.is_dwsd_admin %}
-  <div class="card mb-1">
+  <div class="card">
     <div class="card-header">
-      <h5>OTHER INFORMATION (dswd)</h5>
+      <h5>OTHER INFORMATION (DSWD)</h5>
     </div>
     <div class="card-body">
       <div><!-- <p class="m-2">4PS : <span class="badge badge-success mr-2 ml-2">YES</span><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></p> -->
         <table>
-          {% if object.age > 59 %}
           <tr>
-            <td>SENIOR CITIZEN</td>
-            <td>: <span class="badge badge-success">YES</span></td>
-            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+            <td>CNSP</td>
+            <td>: {% if object.tips_person_category.cnsp %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
           </tr>
-          {% endif %}
           <tr>
-            <td>DISABILITY</td>
-            <td>: <span class="badge badge-danger">No</span></td>
-            <td class="pl-4"><a href="#" type="button" name="button"><i class="feather icon-edit-1"></i>change</a></td>
+            <td>YNSP</td>
+            <td>: {% if object.tips_person_category.ynsp %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
+          </tr>
+          <tr>
+            <td>WEDC</td>
+            <td>: {% if object.tips_person_category.wedc %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
+          </tr>
+          <tr>
+            <td>PWD</td>
+            <td>: {% if object.tips_person_category.pwd %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
+          </tr>
+          <tr>
+            <td>FHONA</td>
+            <td>: {% if object.tips_person_category.fhona %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
+          </tr>
+          <tr>
+            <td>SOLO PARENT</td>
+            <td>: {% if object.tips_person_category.solo_parent %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
+          </tr>
+          <tr>
+            <td>IP</td>
+            <td>: {% if object.tips_person_category.ip %}<span class="ml-3 badge badge-success">YES</span>{% else %}<span class="ml-3 badge badge-danger">No</span>{% endif %}</td>
           </tr>
         </table>
       </div>
+    </div>
+    <div class="card-footer">
+      <button data-url="{% url 'api_tips_person_create_update_category' object.id %}" type="button" class="btn btn-primary btn-sm form-show-create-update-category" name="button"><i class="feather icon-edit-1 mr-2"></i>change</button>
     </div>
   </div>
   {% endif %}
@@ -77,12 +96,12 @@
   </div>
   {% endif %}
 </div>
-{% if user.tips_administrator.is_dwsd_admin %}
 
 <div class="col-md-9">
+  {% if user.tips_administrator.is_dwsd_admin %}
   <div class="card">
     <div class="card-body p-2">
-      <h5>Recommended Services & Assistance</h5>
+      <h5>Services & Assistance</h5>
     </div>
     <div class="card-header p-2">
       <table>
@@ -103,6 +122,8 @@
             <td>
               <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create p-1 f-15" name="button">Add New</button>
             </td>
+            <td><button type="button" class="btn btn-sm btn-secondary" id="btn_load" name="button">Print Data</button></td>
+
           </tr>
         </table>
       </div>
@@ -181,57 +202,6 @@
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-body p-2">
-      <h5>Land Parcels</h5>
-    </div>
-    <div class="card-header p-2">
-      <table>
-        <tr>
-          <td>Filter</td>
-          <td>
-            <select class="form-control" name="filter_person_recommended_services" id="filter_person_recommended_services">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-            </select>
-          </td>
-        </tr>
-      </table>
-      <div class="card-header-right">
-        <table>
-          <tr>
-            <td>
-              <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create p-1 f-15" name="button">Add New</button>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-hover m-b-0">
-          <thead>
-            <tr>
-              <th style="white-space:nowrap;width:1%;">#</th>
-              <th>Location</th>
-              <th>Crop/Commodity</th>
-              <th>Size (ha)</th>
-              <th style="white-space:nowrap;width:5%">No Heads</th>
-              <th style="white-space:nowrap;width:5%">Type</th>
-              <th style="white-space:nowrap;width:5%">OP</th>
-              <th style="white-space:nowrap;width:5%">Action</th>
-            </tr>
-          </thead>
-          <tbody id="table-person-recommended-services-ajax">
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer p-2" id="counter-person-recommended-services">
-
-      </div>
-    </div>
-  </div>
   {% endif %}
 </div>
 <div class="modal fade" id="modal-show" data-keyboard="false" data-backdrop="static">
@@ -243,6 +213,21 @@
 {% block 'script' %}
 <script>
   $(document).on('click', '.form-show-recommended-services-create', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      data:{person_id:{{object.id}}},
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+  $(document).on('click', '.form-show-create-update-category', function(){
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),

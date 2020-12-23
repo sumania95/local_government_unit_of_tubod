@@ -2,7 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from .models import (
     Tips_Person,
-    Tips_Address
+    Tips_Address,
+    Tips_Person_Category
 )
 from model_profiling.tips_address.models import (
     Tips_Region,
@@ -10,6 +11,19 @@ from model_profiling.tips_address.models import (
     Tips_City_Municipality,
     Tips_Barangay,
 )
+
+class Tips_Person_CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Tips_Person_Category
+        fields = [
+            'cnsp',
+            'ynsp',
+            'wedc',
+            'pwd',
+            'fhona',
+            'solo_parent',
+            'ip',
+        ]
 
 class Tips_Update_AddressForm(forms.ModelForm):
     class Meta:

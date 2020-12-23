@@ -59,34 +59,61 @@ class Tips_Address(models.Model):
     purok_street = models.CharField(max_length = 200,blank=True)
     date_updated = models.DateTimeField(auto_now = True)
     date_created = models.DateTimeField(auto_now_add = True)
-#
+
 # # BENEFICIARY
-# class Tips_Pwd(models.Model):
-#     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now = True)
-#     date_created = models.DateTimeField(auto_now_add = True)
-#
-# class Tips_Ofw(models.Model):
-#     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now = True)
-#     date_created = models.DateTimeField(auto_now_add = True)
-#
-# class Tips_Solo_Parent(models.Model):
-#     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now = True)
-#     date_created = models.DateTimeField(auto_now_add = True)
-#
-# class Tips_Nuclear_Family(models.Model):
-#     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now = True)
-#     date_created = models.DateTimeField(auto_now_add = True)
-#
-# class Tips_Head_Relationship(models.Model):
-#     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now = True)
-#     date_created = models.DateTimeField(auto_now_add = True)
-#
-# class Tips_Beneficiary(models.Model):
-#     person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now = True)
-#     date_created = models.DateTimeField(auto_now_add = True)
+class Tips_Person_Category(models.Model):
+    person = models.OneToOneField(Tips_Person, on_delete = models.CASCADE)
+    cnsp = models.BooleanField(default=False)
+    ynsp = models.BooleanField(default=False)
+    wedc = models.BooleanField(default=False)
+    pwd = models.BooleanField(default=False)
+    fhona = models.BooleanField(default=False)
+    solo_parent = models.BooleanField(default=False)
+    ip = models.BooleanField(default=False)
+
+    date_updated = models.DateTimeField(auto_now = True)
+    date_created = models.DateTimeField(auto_now_add = True)
+
+
+class Tips_Farmer(models.Model):
+    person = models.OneToOneField(Tips_Person, on_delete=models.CASCADE)
+    is_rice = models.BooleanField(default=False)
+    is_corn = models.BooleanField(default=False)
+    other_crops = models.CharField(max_length = 200,blank=True)
+    livestock = models.CharField(max_length = 200,blank=True)
+    poultry = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return str(self.person.surname) + ', ' + str(self.person.firstname) + ' ' + str(self.person.middlename)
+
+class Tips_Farmerworker(models.Model):
+    person = models.OneToOneField(Tips_Person, on_delete=models.CASCADE)
+    is_land_preparation = models.BooleanField(default=False)
+    is_planting_or_transplanting = models.BooleanField(default=False)
+    is_cultivation = models.BooleanField(default=False)
+    is_harvesting = models.BooleanField(default=False)
+    others = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return str(self.person.surname) + ', ' + str(self.person.firstname) + ' ' + str(self.person.middlename)
+
+class Tips_Fisherfolk(models.Model):
+    person = models.OneToOneField(Tips_Person, on_delete=models.CASCADE)
+    is_fish_capture = models.BooleanField(default=False)
+    is_aquaculture = models.BooleanField(default=False)
+    is_gleaning = models.BooleanField(default=False)
+    is_fish_processing = models.BooleanField(default=False)
+    is_fish_vending = models.BooleanField(default=False)
+    others = models.CharField(max_length = 200,blank=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_updated = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return str(self.person.surname) + ', ' + str(self.person.firstname) + ' ' + str(self.person.middlename)

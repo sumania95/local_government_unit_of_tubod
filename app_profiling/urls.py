@@ -15,6 +15,7 @@ from model_profiling.tips_person.views import (
     Tips_Person_Search_Result_AJAXView,
     Tips_Person_Create_AJAXView,
     Tips_Person_Update_AJAXView,
+    Tips_Person_Create_Update_Category_AJAXView,
 )
 from model_profiling.tips_address.views import (
     Tips_Province_AJAXView,
@@ -40,6 +41,7 @@ urlpatterns = [
     path('api/person/create', Tips_Person_Create_AJAXView.as_view(), name = 'api_tips_person_create'),
     path('api/person/update/<int:pk>', Tips_Person_Update_AJAXView.as_view(), name = 'api_tips_person_update'),
     path('person/detail/<int:pk>', Tips_Person_Detail_Page.as_view(), name = 'tips_person_detail'),
+    path('api/person/detail/category/<int:pk>', Tips_Person_Create_Update_Category_AJAXView.as_view(), name = 'api_tips_person_create_update_category'),
     path('api/person/detail/recommended-services/', Tips_Recommended_Services_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services'),
     path('api/person/detail/recommended-services/create', Tips_Recommended_Services_Create_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create'),
     path('api/person/detail/recommended-services/create/save/<int:pk>', Tips_Recommended_Services_Create_Save_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create_save'),

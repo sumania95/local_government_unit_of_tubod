@@ -9,49 +9,6 @@ from model_profiling.tips_address.models import (
     Tips_Region,
 )
 
-class Tips_Farmer(models.Model):
-    person = models.OneToOneField(Tips_Person, on_delete=models.CASCADE)
-    is_rice = models.BooleanField(default=False)
-    is_corn = models.BooleanField(default=False)
-    other_crops = models.CharField(max_length = 200,blank=True)
-    livestock = models.CharField(max_length = 200,blank=True)
-    poultry = models.CharField(max_length = 200,blank=True)
-
-    date_created = models.DateTimeField(auto_now_add = True)
-    date_updated = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return str(self.person.surname) + ', ' + str(self.person.firstname) + ' ' + str(self.person.middlename)
-
-class Tips_Farmerworker(models.Model):
-    person = models.OneToOneField(Tips_Person, on_delete=models.CASCADE)
-    is_land_preparation = models.BooleanField(default=False)
-    is_planting_or_transplanting = models.BooleanField(default=False)
-    is_cultivation = models.BooleanField(default=False)
-    is_harvesting = models.BooleanField(default=False)
-    others = models.CharField(max_length = 200,blank=True)
-
-    date_created = models.DateTimeField(auto_now_add = True)
-    date_updated = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return str(self.person.surname) + ', ' + str(self.person.firstname) + ' ' + str(self.person.middlename)
-
-class Tips_Fisherfolk(models.Model):
-    person = models.OneToOneField(Tips_Person, on_delete=models.CASCADE)
-    is_fish_capture = models.BooleanField(default=False)
-    is_aquaculture = models.BooleanField(default=False)
-    is_gleaning = models.BooleanField(default=False)
-    is_fish_processing = models.BooleanField(default=False)
-    is_fish_vending = models.BooleanField(default=False)
-    others = models.CharField(max_length = 200,blank=True)
-
-    date_created = models.DateTimeField(auto_now_add = True)
-    date_updated = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return str(self.person.surname) + ', ' + str(self.person.firstname) + ' ' + str(self.person.middlename)
-
 ownership = (
     ('1','Certificate of Land Transfer'),
     ('2','Emancipation Patent'),
@@ -73,20 +30,6 @@ status_ownership = (
     ('3','Lessee'),
 )
 
-class Tips_Land_Description(models.Model):
-    person = models.ForeignKey(Tips_Person, on_delete=models.CASCADE)
-    barangay = models.ForeignKey(Tips_Barangay, on_delete=models.CASCADE)
-    ownership_document = models.CharField(max_length = 200,choices=ownership)
-    size = models.DecimalField(default=0,max_digits = 50,decimal_places=2)
-    status = models.CharField(max_length = 200,choices=status_ownership)
-    specify = models.CharField(max_length = 200, blank=True)
-    date_created = models.DateTimeField(auto_now_add = True)
-    date_updated = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return str(self.barangay) + ' - ' + str(self.person)
-
-
 commodity = (
     ('1','Rice'),
     ('2','Corn'),
@@ -102,10 +45,15 @@ farm_type = (
     ('3','Rainfed Lowland'),
 )
 
-class Tips_Land_Parcel(models.Model):
-    land_description = models.OneToOneField(Tips_Land_Description, on_delete=models.CASCADE)
-    commodity = models.CharField(max_length = 200,choices=commodity)
+
+class Tips_Land_Description(models.Model):
+    person = models.ForeignKey(Tips_Person, on_delete=models.CASCADE)
+    barangay = models.ForeignKey(Tips_Barangay, on_delete=models.CASCADE)
+    ownership_document = models.CharField(max_length = 200,choices=ownership)
     size = models.DecimalField(default=0,max_digits = 50,decimal_places=2)
+    status = models.CharField(max_length = 200,choices=status_ownership)
+    specify = models.CharField(max_length = 200, blank=True)
+    commodity = models.CharField(max_length = 200,choices=commodity)
     farm_type = models.CharField(max_length = 200,blank=True,choices=farm_type)
     is_organic = models.BooleanField(default=False)
 
@@ -115,9 +63,8 @@ class Tips_Land_Parcel(models.Model):
     def __str__(self):
         return str(self.commodity)
 
-
 class Tips_Livestock_Poultry(models.Model):
-    land_parcel = models.OneToOneField(Tips_Land_Parcel, on_delete=models.CASCADE)
+    land_parcel = models.OneToOneField(Tips_Land_Description, on_delete=models.CASCADE)
     specify = models.CharField(max_length = 200)
     no_of_heads = models.IntegerField(default=0)
 

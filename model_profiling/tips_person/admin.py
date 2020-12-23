@@ -1,13 +1,11 @@
 from django.contrib import admin
 
 from .models import (
-    Tips_Barangay,
-    Tips_Province,
+    Tips_Person,
+    Tips_Person_Category,
     Tips_City_Municipality,
     Tips_Region,
 )
 
-admin.site.register(Tips_Barangay)
-admin.site.register(Tips_Province)
-admin.site.register(Tips_City_Municipality)
-admin.site.register(Tips_Region)
+admin.site.register(Tips_Person)
+admin.site.register(Tips_Person_Category)

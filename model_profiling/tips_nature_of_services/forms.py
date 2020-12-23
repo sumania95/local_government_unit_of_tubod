@@ -13,6 +13,7 @@ class Tips_Recommended_ServicesForm(forms.ModelForm):
         fields = [
             'services_assistance',
             'specify',
+            'date',
         ]
 
 class Tips_Recommended_Services_ActionForm(forms.ModelForm):
