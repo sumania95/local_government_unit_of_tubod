@@ -30,6 +30,9 @@ from model_profiling.tips_nature_of_services.views import (
     Tips_Recommended_Services_Create_Save_AJAXView,
     Tips_Sub_Category_AJAXView,
 )
+from model_profiling.tips_agriculture.views import (
+    Tips_Farmer_Parcel_Create_AJAXView,
+)
 
 urlpatterns = [
     path('', Tips_Dashboard_Page.as_view(), name = 'tips_home'),
@@ -45,6 +48,7 @@ urlpatterns = [
     path('api/person/detail/recommended-services/', Tips_Recommended_Services_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services'),
     path('api/person/detail/recommended-services/create', Tips_Recommended_Services_Create_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create'),
     path('api/person/detail/recommended-services/create/save/<int:pk>', Tips_Recommended_Services_Create_Save_AJAXView.as_view(), name = 'api_tips_person_detail_recommended_services_create_save'),
+    path('api/person/detail/farmer-parcel/create', Tips_Farmer_Parcel_Create_AJAXView.as_view(), name = 'api_tips_person_detail_farmer_parcel_create'),
     path('services-assistance/logs', Tips_Services_Assistance_Logs_Page.as_view(), name = 'tips_services_assistance_logs'),
     path('api/services-assistance/logs', Tips_Services_Assistance_Logs_AJAXView.as_view(), name = 'api_tips_services_assistance_logs'),
 

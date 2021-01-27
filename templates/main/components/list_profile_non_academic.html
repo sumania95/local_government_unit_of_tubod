@@ -58,6 +58,9 @@
 
   };
   Children();
+  $('#filter-profile-info-non-academic').change(function() {
+    Children();
+  });
 
   $(document).on('click', '.form-show-non-academic-create', function(){
     var btn = $(this);

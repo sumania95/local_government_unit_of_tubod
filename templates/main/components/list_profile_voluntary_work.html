@@ -59,6 +59,12 @@
 
   };
   Voluntary_Work();
+
+  $('#filter-profile-info-voluntary-work').change(function() {
+    Voluntary_Work();
+  });
+
+
   $(document).on('click', '.form-show', function(){
     var btn = $(this);
     $.ajax({

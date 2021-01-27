@@ -1,9 +1,9 @@
 {% for p in profile %}
 <tr>
   <td>{{p.date_from}}-{{p.date_to}}</td>
-  <td>{{p.organization}}</td>
+  <td style="white-space:normal;">{{p.organization}}</td>
   <td>{{p.no_hrs}}</td>
-  <td>{{p.nature_of_work}}</td>
+  <td style="white-space:normal;">{{p.nature_of_work}}</td>
   <td>
     <form data-url="{% url 'api_main_voluntary_work_delete' p.id %}" method="post" class="custom-form-voluntary-work d-inline-block">
       <button data-url="{% url 'api_main_voluntary_work_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>

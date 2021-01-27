@@ -10,6 +10,7 @@ from model_hris.performance_management.models import (
 )
 
 class AccomplishmentForm(forms.ModelForm):
+    core_function_output = forms.CharField(widget=forms.Textarea(attrs={'rows': 3,'style' : "white-space: pre-wrap"},),)
     class Meta:
         model = Accomplishment
         fields = [
@@ -41,6 +42,7 @@ class Success_IndicatorForm(forms.ModelForm):
 
 
 class Rating_AccomplishmentForm(forms.ModelForm):
+    remarks = forms.CharField(widget=forms.Textarea(attrs={'rows': 3,'style' : "white-space: pre-wrap"},),)
     class Meta:
         model = Rating_Accomplishment
         fields = [

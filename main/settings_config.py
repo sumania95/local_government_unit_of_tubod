@@ -29,5 +29,6 @@ INSTALLED_APPS = [
     'model_profiling.tips_person',
     'model_profiling.tips_address',
     'model_profiling.tips_nature_of_services',
+    'model_profiling.tips_agriculture',
 
 ]

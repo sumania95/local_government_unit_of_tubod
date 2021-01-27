@@ -59,6 +59,10 @@
   };
   Children();
 
+  $('#filter-profile-info-member-organization').change(function() {
+    Children();
+  });
+
   $(document).on('click', '.form-show-member-organization-create', function(){
     var btn = $(this);
     $.ajax({

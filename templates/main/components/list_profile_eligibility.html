@@ -58,6 +58,9 @@
 
   };
   Eligibility();
+  $('#filter-profile-info-eligibility').change(function() {
+    Eligibility();
+  });
 
   $(document).on('click', '.form-show', function(){
     var btn = $(this);

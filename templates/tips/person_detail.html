@@ -175,7 +175,7 @@
         <table>
           <tr>
             <td>
-              <button data-url="{% url 'api_tips_person_detail_recommended_services_create' %}" type="button" class="btn btn-primary btn-sm form-show-recommended-services-create p-1 f-15" name="button">Add New</button>
+              <button data-url="{% url 'api_tips_person_detail_farmer_parcel_create' %}" type="button" class="btn btn-primary btn-sm form-show-farmer-parcel-create p-1 f-15" name="button">Add New</button>
             </td>
           </tr>
         </table>
@@ -213,6 +213,22 @@
 {% block 'script' %}
 <script>
   $(document).on('click', '.form-show-recommended-services-create', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      data:{person_id:{{object.id}}},
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+
+  $(document).on('click', '.form-show-farmer-parcel-create', function(){
     var btn = $(this);
     $.ajax({
       url: btn.attr("data-url"),

@@ -59,6 +59,9 @@
 
   };
   Children();
+  $('#filter-profile-info-children').change(function() {
+    Children();
+  });
 
   $(document).on('click', '.form-show-children-create', function(){
     var btn = $(this);

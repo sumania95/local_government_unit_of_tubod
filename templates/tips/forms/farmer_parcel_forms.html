@@ -1,15 +1,13 @@
 {% load crispy_forms_tags %}
 {% load static %}
 <div class="modal-header p-2">
-  <h5 class="modal-title" >Recommended Services & Assistance</h5>
+  <h5 class="modal-title" >Land Description</h5>
 </div>
-<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_tips_person_detail_recommended_services_create_save' person_id %}{% else %}{% url 'api_main_member_organization_update' member_organization.id %}{% endif %}" class="custom-form-meber-organization">
+<form method="POST" enctype="multipart/form-data" class="custom-form-farmer-parcel">
   <div class="modal-body p-2">
-    {{form|crispy}}
-    <div id="recommended_services_action">
-
+    {{landform|crispy}}
+    <div id="farmer-parcel">
     </div>
-    {{person_id}}
   </div>
   <div class="modal-footer p-2">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -42,7 +40,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-meber-organization").submit(function (event) {
+    $(".custom-form-farmer-parcel").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -74,21 +72,23 @@
       return false;
     });
 
-    $('#id_services_assistance').change(function() {
-      LoadProfile();
+    $('#id_commodity').change(function() {
+      LoadCommodity();
     });
-    function LoadProfile(){
-      var services_assistance = $('#id_services_assistance').val();
+    function LoadCommodity(){
+      var commodity = $('#id_commodity').val();
+      console.log(commodity);
       $.ajax({
-        url: '{% url 'api_tips_person_detail_recommended_services_create' %}',
-        data: {services_assistance:services_assistance,person_id:{{person_id}}},
+        url: '{% url 'api_tips_person_detail_farmer_parcel_create' %}',
+        data: {commodity:commodity,person_id:{{person_id}}},
         type: 'get',
         dataType: 'json',
         success:function(data){
           if (data.action){
-            $('#recommended_services_action').html(data.action_html_form);
+            console.log(data);
+            $('#farmer-parcel').html(data.action_html_form);
           }else{
-            $('#recommended_services_action').empty();
+            $('#farmer-parcel').empty();
           }
         },
       });

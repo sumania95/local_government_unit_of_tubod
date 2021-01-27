@@ -1,8 +1,8 @@
 {% for p in actual_accomplishment %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.core_function_output}}</td>
-  <td>
+  <td style="white-space:normal;">{{p.core_function_output}}</td>
+  <td style="white-space:normal;">
     {% for indicator in p.indicator.all %}
     <li>
       <form class="d-inline-block custom-form-delete-indicator mb-1" data-url="{% url 'api_accomplishment_indicator_remove' indicator.id %}" method="post">

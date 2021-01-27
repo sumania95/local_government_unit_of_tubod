@@ -59,6 +59,11 @@
 
   };
   Work_Experience();
+
+  $('#filter-profile-info-work-experience').change(function() {
+    Work_Experience();
+  });
+
   $(document).on('click', '.form-show', function(){
     var btn = $(this);
     $.ajax({
