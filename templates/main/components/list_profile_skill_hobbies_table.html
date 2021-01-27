@@ -1,7 +1,7 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.description}}</td>
+  <td style="white-space:normal;">{{p.description}}</td>
   <td>
     <form data-url="{% url 'api_main_skill_hobbies_delete' p.id %}" method="post" class="custom-form-skill-hobbies d-inline-block">
       <button data-url="{% url 'api_main_skill_hobbies_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>

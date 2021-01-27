@@ -2,7 +2,7 @@
 <tr>
   <td>{{forloop.counter}}</td>
   <td>{{p.get_level_display}}</td>
-  <td>{{p.school_name}}</td>
+  <td style="white-space:normal;">{{p.school_name}}</td>
   <td>{{p.period_from}}-{{p.period_to}}</td>
   <td>
     <form data-url="{% url 'api_main_educational_background_delete' p.id %}" method="post" class="custom-form-educational-background d-inline-block">

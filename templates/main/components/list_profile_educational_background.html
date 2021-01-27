@@ -59,6 +59,9 @@
 
   };
   Educational_Background();
+  $('#filter-profile-info-education-background').change(function() {
+    Educational_Background();
+  });
 
   $(document).on('click', '.form-show', function(){
     var btn = $(this);

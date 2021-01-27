@@ -139,7 +139,7 @@
         </td>
         <td colspan="4" rowspan="3" style="border: 0.5px solid #000;padding-top: 2px;font-size:10px;vertical-align: top;">
           <b>
-            <p>{% if p.citizenship == 'Filipino' or p.citizenship == 'FILIPINO' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}Filipino&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;)Dual Citizenship</p>
+            <p>{% if profile.citizenship == 'Filipino' or profile.citizenship == 'FILIPINO' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;){% endif %}Filipino&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;)Dual Citizenship</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&#10003;)by birth &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;&nbsp;)by naturalization</p>
           </b>
         </td>
@@ -339,7 +339,7 @@
       <tr>
         <td colspan="2" style="border: 0.5px solid #000;background-color:#EAEAEA;padding:3px;vertical-align:top;"><b>{{e.get_level_display|upper}}</b></td>
         <td colspan="3" style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.school_name|upper}}</b></td>
-        <td colspan="2" style="border: 0.5px solid #000;padding:2px;font-size:10px;"><b>{{e.course|upper}}</b></td>
+        <td colspan="2" style="border: 0.5px solid #000;padding:2px;font-size:8px;"><b>{{e.course|upper}}</b></td>
         <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.period_from|upper}}</b></td>
         <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{{e.period_to|upper}}</b></td>
         <td style="border: 0.5px solid #000;padding:2px;font-size:10px;vertical-align:top;"><b>{% if e.units_earned > 0 %}{{e.units_earned}}{% else %}&nbsp;{% endif %}</b></td>
@@ -430,7 +430,7 @@
           <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{w.salary}}</b></td>
           <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{w.pay_grade}}</b></td>
           <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{w.status|upper}}</b></td>
-          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{% if w.is_governtmentservice %} Y {% else %} N {% endif %}</b></td>
+          <td colspan="1"  style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{% if w.is_governtment_service %} Y {% else %} N {% endif %}</b></td>
         </tr>
         {% endfor %}
         <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
@@ -490,6 +490,7 @@
           <td style="background-color:#EAEAEA;border: 0.5px solid #000;text-align:center;">TO</td>
         </tr>
         {% for l in learning_development %}
+        {% if l.age < 6 %}
         <tr>
           <td colspan="4" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.title|upper}}</b></td>
           <td colspan="1" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.date_from|date:"m/d/Y"}}</b></td>
@@ -498,6 +499,7 @@
           <td colspan="2" style="border: 0.5px solid #000;text-align:center;padding:2px; font-size:10px;"><b>{{l.type_of_ld|upper}}</b></td>
           <td colspan="3" style="border: 0.5px solid #000;text-align:left;padding:2px; font-size:10px;"><b>{{l.sponsored_by|upper}}</b></td>
         </tr>
+        {% endif %}
         {% endfor %}
         <td colspan="12" style="border: 0.5px solid #000;text-align:center; color:red;padding: 3px; padding-top:2px"><code>(Continue on separate sheet if necessary)</code></td>
 

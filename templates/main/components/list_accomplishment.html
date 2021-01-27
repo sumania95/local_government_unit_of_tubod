@@ -1,8 +1,8 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.core_function_output}}</td>
-  <td>
+  <td style="white-space:normal;">{{p.core_function_output}}</td>
+  <td style="white-space:normal;">
     {% for indicator in p.indicator.all %}
     <p><li>{{indicator.description}}</li></p>
     {% empty %}

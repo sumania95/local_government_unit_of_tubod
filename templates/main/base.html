@@ -60,9 +60,11 @@
           <li class="nav-item">
             <a href="{% url 'main_document' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder {% block 'main_document_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">Documents</span></a>
           </li>
+          {% if user.profile.designation %}
           <li class="nav-item">
             <a href="{% url 'main_accomplishment' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-activity {% block 'main_accomplishment_active' %}{% endblock %}"></i></span><span class="pcoded-mtext">IPCR/OPCR</span></a>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>

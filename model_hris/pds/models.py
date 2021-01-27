@@ -21,11 +21,11 @@ class Learning_Development(models.Model):
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
 
-    now = timezone.now()
 
     @property
     def age(self):
-        return int((now.date() - self.fromdate).days / 365.25)
+        now = timezone.now()
+        return int((now.date() - self.date_from).days / 365.25)
 
 class Skill_Hobbies(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)

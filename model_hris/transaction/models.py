@@ -10,6 +10,7 @@ leave_type = (
     ('3', 'Special Leave',),
     ('4', 'Offset',),
     ('5', 'Maternity Leave',),
+    ('6', 'Faternity Leave',),
 
 )
 

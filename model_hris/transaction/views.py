@@ -345,26 +345,29 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                         data['message_type'] = error
                         data['message_title'] = 'An error occurred.'
             # MATERNITYLEAVE
-            elif deducted_transaction.leave_type == '5':
-                if form.is_valid():
-                    form.instance.deducted_transaction_id = pk
-                    form.instance.user_id = self.request.user.id
-                    form.save()
-                    Deducted_Transaction.objects.filter(id=pk).update(status = 2)
-                    Notification.objects.create(profile_id = profile.id,detail="Approved special leave",user_id = self.request.user.id)
-                    data['message_type'] = success
-                    data['message_title'] = 'Successfully created.'
-                    data['form_is_valid'] = True
-                    data['url'] = reverse('transaction')
-                else:
-                    if float(form.instance.days) == 0:
-                        data['form_is_valid'] = False
-                        data['message_type'] = error
-                        data['message_title'] = 'Zero is not allowed.'
+            elif deducted_transaction.leave_type == '5' or deducted_transaction.leave_type == '6':
+                    if form.is_valid():
+                        form.instance.deducted_transaction_id = pk
+                        form.instance.user_id = self.request.user.id
+                        form.save()
+                        Deducted_Transaction.objects.filter(id=pk).update(status = 2)
+                        if deducted_transaction.leave_type == '5':
+                            Notification.objects.create(profile_id = profile.id,detail="Approved maternity leave",user_id = self.request.user.id)
+                        else:
+                            Notification.objects.create(profile_id = profile.id,detail="Approved faternity leave",user_id = self.request.user.id)
+                        data['message_type'] = success
+                        data['message_title'] = 'Successfully created.'
+                        data['form_is_valid'] = True
+                        data['url'] = reverse('transaction')
                     else:
-                        data['form_is_valid'] = False
-                        data['message_type'] = error
-                        data['message_title'] = 'An error occurred.'
+                        if float(form.instance.days) == 0:
+                            data['form_is_valid'] = False
+                            data['message_type'] = error
+                            data['message_title'] = 'Zero is not allowed.'
+                        else:
+                            data['form_is_valid'] = False
+                            data['message_type'] = error
+                            data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
 
 class Transaction_Rejected_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):

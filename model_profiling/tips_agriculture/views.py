@@ -26,11 +26,13 @@ from model_profiling.tips_person.models import (
     Tips_Person,
 )
 from .models import (
-    Tips_Farmer,
+    Tips_Land_Description,
+    Tips_Livestock_Poultry,
 )
 
 from .forms import (
-    Tips_FarmerForm,
+    Tips_Land_DescriptionForm,
+    Tips_Livestock_PoultryForm,
 )
 
 from time import strptime
@@ -47,18 +49,39 @@ from django.utils import timezone
 from app_hris.decorators import LogoutIfNotAdministratorHRISMixin
 
 
-class Tips_Farmer_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
-    def get(self, request,pk):
+class Tips_Farmer_Parcel_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+    def get(self, request):
         data = dict()
-        person = Tips_Person.objects.get(id=pk)
-        form = Tips_FarmerForm()
-        context = {
-            'form': form,
-            'person': person,
-            'is_Create': True,
-            'btn_name': "primary",
-            'btn_title': "Submit",
-        }
-        data['html_form'] = render_to_string('tips/forms/farmer_forms.html',context)
+        try:
+            person_id= self.request.GET.get('person_id')
+            commodity = self.request.GET.get('commodity')
+        except KeyError:
+            person_id = None
+            commodity = None
+        landform = Tips_Land_DescriptionForm()
+        if commodity == '4' or commodity == '5' or commodity == '6':
+            livestockform = Tips_Livestock_PoultryForm()
+            context = {
+                'landform': landform,
+                'person_id':person_id,
+                'is_Create': True,
+                'btn_name': "primary",
+                'btn_title': "Submit",
+            }
+            context2 = {
+                'livestockform': livestockform,
+            }
+            data['action'] = True
+            data['action_html_form'] = render_to_string('tips/forms/farmer_parcel_action_forms.html',context2)
+        else:
+            context = {
+                'landform': landform,
+                'person_id':person_id,
+                'is_Create': True,
+                'btn_name': "primary",
+                'btn_title': "Submit",
+            }
+            data['action'] = False
+        data['html_form'] = render_to_string('tips/forms/farmer_parcel_forms.html',context)
 
         return JsonResponse(data)

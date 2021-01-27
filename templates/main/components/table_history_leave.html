@@ -13,6 +13,7 @@
     {% else %}
     <form class="custom-form-remove-leave" data-url ="{% url 'api_main_history_leave_delete_save' p.id %}" method="post">
       <button type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
+      <a href="#" target="_blank" class="btn btn-secondary btn-sm"><i class="feather icon icon-printer mr-2"></i>Print</a>
     </form>
     {% endif %}
   </td>

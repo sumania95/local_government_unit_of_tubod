@@ -60,6 +60,10 @@
   };
   Learning_Development();
 
+  $('#filter-profile-info-learning-development').change(function() {
+    Learning_Development();
+  });
+
   $(document).on('click', '.form-show', function(){
     var btn = $(this);
     $.ajax({

@@ -59,6 +59,10 @@
   };
   Children();
 
+  $('#filter-profile-info-skill-hobbies').change(function() {
+    Children();
+  });
+
   $(document).on('click', '.form-show-skill-hobbies-create', function(){
     var btn = $(this);
     $.ajax({
