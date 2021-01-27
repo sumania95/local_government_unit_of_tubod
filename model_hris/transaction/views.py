@@ -56,7 +56,8 @@ from model_hris.transaction.forms import (
     Batch_Generated_TransactionForm,
 )
 from django.utils import timezone
-
+#datetime
+import datetime
 from time import strptime
 
 success = 'success'
@@ -154,8 +155,8 @@ class Transaction_Request_Pending_AJAXView(LoginRequiredMixin,LogoutIfNotAdminis
             filter = None
         if search or filter:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(status = 1).count()
-            profile = self.queryset.filter(status = 1).order_by('-date_created')[:int(filter)]
+            data['counter'] = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search),status=1).count()
+            profile = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search),status=1).order_by('-date_created')[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_transaction_request_pending.html',{'profile':profile})
         return JsonResponse(data)
 
@@ -196,13 +197,19 @@ class Transaction_Approved_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorH
         try:
             search = self.request.GET.get('search')
             filter = self.request.GET.get('filter')
+            datepicker1 = self.request.GET.get('datepicker1')
+            datepicker2 = self.request.GET.get('datepicker2')
         except KeyError:
             search = None
             filter = None
-        if search or filter:
+            datepicker1 = None
+            datepicker2 = None
+        start =datetime.datetime.strptime(datepicker1+' 00:00:00', "%Y-%m-%d %H:%M:%S")
+        end =datetime.datetime.strptime(datepicker2+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        if search or filter or start or end:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(status = 2).count()
-            profile = self.queryset.filter(status = 2).order_by('-date_created')[:int(filter)]
+            data['counter'] = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search),status = 2,date_created__range = [start,end]).count()
+            profile = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search),status = 2,date_created__range = [start,end]).order_by('-date_created')[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_transaction_approved.html',{'profile':profile})
         return JsonResponse(data)
 
@@ -383,8 +390,8 @@ class Transaction_Rejected_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorH
             filter = None
         if search or filter:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.filter(status = 3).count()
-            profile = self.queryset.filter(status = 3).order_by('-date_created')[:int(filter)]
+            data['counter'] = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search),status=3).count()
+            profile = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search),status=3).order_by('-date_created')[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_transaction_rejected.html',{'profile':profile})
         return JsonResponse(data)
 
@@ -440,8 +447,8 @@ class Transaction_Generated_AJAXView(LoginRequiredMixin,LogoutIfNotAdministrator
             filter = None
         if search or filter:
             data['form_is_valid'] = True
-            data['counter'] = self.queryset.count()
-            profile = self.queryset.order_by('-date_created')[:int(filter)]
+            data['counter'] = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search)).count()
+            profile = self.queryset.annotate(fullname = Concat('profile__surname',Value(', '),'profile__firstname'),fullname_back = Concat('profile__firstname',Value(' '),'profile__surname')).filter(Q(fullname__icontains = search)|Q(fullname_back__icontains = search)|Q(profile__surname__icontains = search)|Q(profile__firstname__icontains = search)).order_by('-date_created')[:int(filter)]
             data['profile_table'] = render_to_string('administrator/ajax-filter-table/table_transaction_generated.html',{'profile':profile})
         return JsonResponse(data)
 
