@@ -1,13 +1,15 @@
 {% extends 'administrator/base.html' %}
 {% load static %}
-
+{% block 'link' %}
+<link rel="stylesheet" href="{% static 'premium/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}">
+{% endblock %}
 {% block 'content' %}
 <div class="col-md-12">
   <h5>Transaction</h5>
   <hr>
 </div>
 <div class="col-md-12">
-  <div class="card mb-2">
+  <div class="card mb-1">
     <div class="card-header p-0 border border-success">
       <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
         <li class="nav-item">
@@ -45,7 +47,7 @@
             <table>
               <tr>
                 <td>
-                  <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_request_pending" id="search_transaction_request_pending" value="">
+                  <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_request_pending" id="search_transaction_request_pending" value="">
                 </td>
                 <td>
                   <a href="{% url 'transaction_request_pending_create' %}" type="button" class="btn btn-primary btn-sm" name="button">Apply Leave</a>
@@ -89,13 +91,35 @@
                   <option value="50">50</option>
                 </select>
               </td>
+              <td style="padding-left:20px;"><b>Date :</b></td>
+              <td style="padding-left:5px;">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar-alt"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker1">
+                  <!-- <input type="text" class="form-control float-right" id="reservation"> -->
+                </div>
+              </td>
+              <td style="padding-left:5px;">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar-alt"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker2">
+                </div>
+              </td>
             </tr>
           </table>
           <div class="card-header-right">
             <table>
               <tr>
                 <td>
-                  <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_approved" id="search_transaction_approved" value="">
+                  <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_approved" id="search_transaction_approved" value="">
                 </td>
               </tr>
             </table>
@@ -142,7 +166,7 @@
             <table>
               <tr>
                 <td>
-                  <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_rejected" id="search_transaction_rejected" value="">
+                  <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_rejected" id="search_transaction_rejected" value="">
                 </td>
               </tr>
             </table>
@@ -189,7 +213,7 @@
             <table>
               <tr>
                 <td>
-                  <input type="text" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_generated" id="search_transaction_generated" value="">
+                  <input type="search" class="form-control float-right mr-1" placeholder="Search...." name="search_transaction_generated" id="search_transaction_generated" value="">
                 </td>
                 <td>
                   <a href="{% url 'transaction_generated_create' %}" type="button" class="btn btn-primary btn-sm" name="button">Generate</a>
@@ -225,7 +249,22 @@
 
 
 {% block 'script' %}
+<script src="{% static 'premium/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
 <script>
+  var $datepicker1 = $('#datepicker1');
+  $datepicker1.datepicker({
+    autoclose: true,
+    format : 'yyyy-mm-dd',
+  });
+  $datepicker1.datepicker('setDate', new Date());
+
+  var $datepicker2 = $('#datepicker2');
+  $datepicker2.datepicker({
+    autoclose: true,
+    format : 'yyyy-mm-dd',
+  });
+  $datepicker2.datepicker('setDate', new Date());
+
   function Transaction_Request_Pending(){
     var filter = $("#filter_transaction_request_pending").val();
     var search = $("#search_transaction_request_pending").val();
@@ -253,11 +292,13 @@
   function Transaction_Approved(){
     var filter = $("#filter_transaction_approved").val();
     var search = $("#search_transaction_approved").val();
+    var datepicker1 = $("#datepicker1").val();
+    var datepicker2 = $("#datepicker2").val();
 
     $.ajax({
       url: '{% url 'api_transaction_approved' %}',
       type: 'get',
-      data: {filter:filter,search:search},
+      data: {filter:filter,search:search,datepicker1:datepicker1,datepicker2:datepicker2},
       dataType: 'json',
       success:function(data){
         $('#counter_transaction_approved').html(data.counter + " record(s) found");
@@ -270,6 +311,12 @@
     Transaction_Approved();
   });
   $('#search_transaction_approved').change(function() {
+    Transaction_Approved();
+  });
+  $('#datepicker1').change(function() {
+    Transaction_Approved();
+  });
+  $('#datepicker2').change(function() {
     Transaction_Approved();
   });
   Transaction_Approved();
