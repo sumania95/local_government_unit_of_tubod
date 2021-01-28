@@ -481,7 +481,7 @@ class Transaction_Generated_Profile_AJAXView(LoginRequiredMixin,LogoutIfNotAdmin
             leave_type = self.request.GET.get('leave_type')
         except KeyError:
             leave_type = None
-        if leave_type == '1' or leave_type == '2' or leave_type == '3' or leave_type == '5':
+        if leave_type == '1' or leave_type == '2' or leave_type == '3' or leave_type == '5' or leave_type == '6':
             profile = Profile.objects.filter(id__in = Designation.objects.values('profile_id'))
         elif leave_type == '4':
             profile = Profile.objects.all()
