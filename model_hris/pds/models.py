@@ -64,15 +64,15 @@ class References2(models.Model):
 
 class References3(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    name = models.CharField(max_length = 30)
-    address = models.CharField(max_length = 30)
-    tel_no = models.CharField(max_length = 30)
+    name = models.CharField(max_length = 200)
+    address = models.CharField(max_length = 200)
+    tel_no = models.CharField(max_length = 200)
 
 class Government_Other_Info(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    issued_id = models.CharField(max_length = 30)
-    id_no = models.CharField(max_length = 30)
-    date_issued = models.CharField(max_length = 30)
+    issued_id = models.CharField(max_length = 200)
+    id_no = models.CharField(max_length = 200)
+    date_issued = models.CharField(max_length = 200)
 
 class Q34(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
