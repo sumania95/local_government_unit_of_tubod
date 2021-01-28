@@ -116,6 +116,14 @@ from model_hris.pds.views import (
     Self_Print_Personal_Data_Sheet_Report,
 )
 
+from model_hris.saln.views import (
+    Main_Profile_Saln_Business_Interest_Financial_Connections_AJAXView,
+    Main_Profile_Saln_Business_Interest_Financial_Connections_Table_AJAXView,
+    Main_Profile_Saln_Business_Interest_Financial_Connections_Create_AJAXView,
+    Main_Profile_Saln_Business_Interest_Financial_Connections_Update_AJAXView,
+    Main_Profile_Saln_Business_Interest_Financial_Connections_Delete_AJAXView,
+)
+
 urlpatterns = [
     path('201-file/print/pds', Self_Print_Personal_Data_Sheet_Report.as_view(), name = 'main_self_print_pds'),
     path('', Home_Page.as_view(), name = 'main_home'),
@@ -215,5 +223,12 @@ urlpatterns = [
     path('security', Security_Page.as_view(), name = 'main_security'),
     path('api/security/update', Main_Security_AJAXView.as_view(), name = 'api_main_security'),
 
+    # SALN
+    # Business Interest Fianancial Connections
+    path('api/business_interest_financial_connections', Main_Profile_Saln_Business_Interest_Financial_Connections_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections'),
+    path('api/business_interest_financial_connections-list', Main_Profile_Saln_Business_Interest_Financial_Connections_Table_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_list'),
+    path('api/business_interest_financial_connections/create', Main_Profile_Saln_Business_Interest_Financial_Connections_Create_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_create'),
+    path('api/business_interest_financial_connections/update/<int:pk>', Main_Profile_Saln_Business_Interest_Financial_Connections_Update_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_update'),
+    path('api/business_interest_financial_connections/delete/<int:pk>', Main_Profile_Saln_Business_Interest_Financial_Connections_Delete_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_delete'),
 
 ]
