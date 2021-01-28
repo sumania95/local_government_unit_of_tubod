@@ -1,6 +1,7 @@
 {% extends 'administrator/base.html' %}
 {% load static %}
-
+{% block 'performance_management_active' %}active pcoded-trigger{% endblock %}
+{% block 'accomplishment_detail_active' %}active{% endblock %}
 {% block 'content' %}
 <div class="col-md-12">
   <h5>Employee Accomplishment Information</h5>
@@ -55,7 +56,11 @@
   $(document).on('click', '.confirm-delete-indicator', function(){
     return confirm('Are you sure you want to remove this?');
   });
-  
+
+  $(document).on('click', '.confirm-delete-accomplishment', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
+
   function Accomplishment_Detail_List(){
     $.ajax({
       url: '{% url 'api_accomplishment_detail_list' %}',

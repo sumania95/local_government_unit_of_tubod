@@ -16,10 +16,13 @@
     {% endfor %}
   </td>
   <td>
-    <button data-url="{% url 'api_accomplishment_indicator_create_save' p.id %}" type="button" class="btn btn-primary btn-sm form-show-add-indicator" name="button"><i class="feather icon-award"></i>Indicator</button>
-    {% if p.indicator.all|length > 0 %}
-    <button data-url="{% url 'api_accomplishment_detail_rating_create_save' p.id %}" type="button" class="btn btn-success btn-sm form-show-rating" name="button"><i class="feather icon-star mr-1"></i>Rate</button>
-    {% endif %}
+    <form class="d-inline-block custom-form-delete-accomplishment mb-1" data-url="{% url 'api_accomplishment_remove' p.id %}" method="post">
+      <button data-url="{% url 'api_accomplishment_indicator_create_save' p.id %}" type="button" class="btn btn-primary btn-sm form-show-add-indicator" name="button"><i class="feather icon-award"></i>Indicator</button>
+      {% if p.indicator.all|length > 0 %}
+      <button data-url="{% url 'api_accomplishment_detail_rating_create_save' p.id %}" type="button" class="btn btn-success btn-sm form-show-rating" name="button"><i class="feather icon-star mr-1"></i>Rate</button>
+      {% endif %}
+      <button type="submit" class="btn btn-danger btn-sm confirm-delete-accomplishment" name="button"><i class="feather icon-x"></i>Remove</button>
+    </form>
   </td>
 
 </tr>
@@ -98,6 +101,37 @@
     };
 
     $(".custom-form-delete-indicator").submit(function (event) {
+      event.preventDefault();
+      var form = $(this);
+      $.ajax({
+        url: form.attr('data-url'),
+        data: form.serialize(),
+        type: form.attr('method'),
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
+        success: function(data){
+          Toast.fire({
+            type: data.message_type,
+            title: data.message_title
+          });
+          Accomplishment_Detail_List();
+        },
+        error:function(error){
+          Toast.fire({
+            type: 'error',
+            title: 'ERROR Connection Lost.'
+          });
+        },
+
+      })
+      return false;
+    });
+
+    $(".custom-form-delete-accomplishment").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({

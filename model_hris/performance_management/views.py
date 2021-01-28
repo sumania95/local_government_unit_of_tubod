@@ -257,9 +257,17 @@ class Accomplishment_Indicator_Remove_AJAXView(LoginRequiredMixin,View):
         if request.method == 'POST':
             Success_Indicator.objects.filter(id=pk).delete()
             data['message_type'] = success
-            data['message_title'] = 'Successfully saved.'
+            data['message_title'] = 'Successfully removed.'
         return JsonResponse(data)
 
+class Accomplishment_Remove_AJAXView(LoginRequiredMixin,View):
+    def post(self, request,pk):
+        data =  dict()
+        if request.method == 'POST':
+            Accomplishment.objects.filter(id=pk).delete()
+            data['message_type'] = success
+            data['message_title'] = 'Successfully removed.'
+        return JsonResponse(data)
 
 class Accomplishment_IPCR_AJAXView(LoginRequiredMixin,View):
     queryset = Rating_Accomplishment.objects

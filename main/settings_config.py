@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'model_hris.transaction',
     'model_hris.post',
     'app_hris',
+    'model_hris.saln',
     # TIPS
     'app_profiling',
     'model_profiling.tips_person',

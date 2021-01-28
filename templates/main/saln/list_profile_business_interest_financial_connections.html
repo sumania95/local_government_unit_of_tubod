@@ -1,0 +1,82 @@
+{% load static %}
+<div class="card-header p-2">
+  <table>
+    <tr>
+      <td>Filter</td>
+      <td>
+        <select class="form-control" name="filter-profile-info-business-interest-financial-connections" id="filter-profile-info-business-interest-financial-connections">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <div class="card-header-right">
+    <table>
+      <tr>
+        <td>
+          <button data-url="{% url 'api_main_business_interest_financial_connections_create' %}" type="button" class="btn btn-primary btn-sm form-show-business-interest-financial-connections-create" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="card-body p-0">
+  <div class="table-responsive">
+    <table class="table">
+      <thead style="padding-bottom:2px;">
+        <tr>
+          <th style="white-space:nowrap;width:1%;">#</th>
+          <th>Business Enterprises</th>
+          <th>Business Address</th>
+          <th style="white-space:nowrap;width:20%;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-profile-info-business-interest-financial-connections">
+
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer" id="counter-profile-info-business-interest-financial-connections">
+</div>
+
+{% block 'script' %}
+<script>
+  function Business_Interest_Financial_Connections(){
+    var filter = $("#filter-profile-info-business-interest-financial-connections").val();
+    $.ajax({
+      url: '{% url 'api_main_business_interest_financial_connections_list' %}',
+      type: 'get',
+      data:{filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-profile-info-business-interest-financial-connections').html(data.counter + " record(s) found");
+        $('#table-profile-info-business-interest-financial-connections').html(data.profile_table);
+      },
+    });
+
+  };
+  Business_Interest_Financial_Connections();
+  $('#filter-profile-info-business-interest-financial-connections').change(function() {
+    Business_Interest_Financial_Connections();
+  });
+
+  $(document).on('click', '.form-show-business-interest-financial-connections-create', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+</script>
+
+{% endblock  %}
