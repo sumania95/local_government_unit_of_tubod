@@ -4,8 +4,8 @@
   <td>{{p.firstname}} {{p.middlename}} {{p.surname}}</td>
   <td>{{p.date_of_birth}}</td>
   <td>
-    <form data-url="{% url 'api_main_children_delete' p.id %}" method="post" class="custom-form-children d-inline-block">
-      <button data-url="{% url 'api_main_children_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
+    <form data-url="{% url 'api_main_relatives_in_the_government_service_delete' p.id %}" method="post" class="custom-form-relatives-in-the-government-service d-inline-block">
+      <button data-url="{% url 'api_main_relatives_in_the_government_service_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
       <button  type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
     </form>
   </td>
@@ -56,7 +56,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-children").submit(function (event) {
+    $(".custom-form-relatives-in-the-government-service").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -74,7 +74,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          Liabilities();
+          Relatives_In_The_Government_Service();
         },
         error:function(error){
           Toast.fire({

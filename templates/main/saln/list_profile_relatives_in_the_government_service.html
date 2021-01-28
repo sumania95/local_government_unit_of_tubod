@@ -1,0 +1,82 @@
+{% load static %}
+<div class="card-header p-2">
+  <table>
+    <tr>
+      <td>Filter</td>
+      <td>
+        <select class="form-control" name="filter-profile-info-relatives-in-the-government-service" id="filter-profile-info-relatives-in-the-government-service">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <div class="card-header-right">
+    <table>
+      <tr>
+        <td>
+          <button data-url="{% url 'api_main_relatives_in_the_government_service_create' %}" type="button" class="btn btn-primary btn-sm form-show-liabilities-create" name="button"><i class="feather icon-user-plus mr-2"></i>New</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="card-body p-0">
+  <div class="table-responsive">
+    <table class="table">
+      <thead style="padding-bottom:2px;">
+        <tr>
+          <th style="white-space:nowrap;width:1%;">#</th>
+          <th>Name</th>
+          <th style="white-space:nowrap;width:30%;">Date of Birth</th>
+          <th style="white-space:nowrap;width:20%;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-profile-info-relatives-in-the-government-service">
+
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer" id="counter-profile-info-relatives-in-the-government-service">
+</div>
+
+{% block 'script' %}
+<script>
+  function Relatives_In_The_Government_Service(){
+    var filter = $("#filter-profile-info-relatives-in-the-government-service").val();
+    $.ajax({
+      url: '{% url 'api_main_relatives_in_the_government_service_list' %}',
+      type: 'get',
+      data:{filter:filter},
+      dataType: 'json',
+      success:function(data){
+        $('#counter-profile-info-relatives-in-the-government-service').html(data.counter + " record(s) found");
+        $('#table-profile-info-relatives-in-the-government-service').html(data.profile_table);
+      },
+    });
+
+  };
+  Relatives_In_The_Government_Service();
+  $('#filter-profile-info-relatives-in-the-government-service').change(function() {
+    Relatives_In_The_Government_Service();
+  });
+
+  $(document).on('click', '.form-show-liabilities-create', function(){
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType:'json',
+      beforeSend: function(){
+        $('#modal-show').modal('show');
+      },
+      success: function(data){
+        $('#modal-show .modal-content').html(data.html_form);
+      }
+    });
+  });
+</script>
+
+{% endblock  %}
