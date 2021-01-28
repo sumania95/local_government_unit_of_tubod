@@ -55,7 +55,11 @@
   $(document).on('click', '.confirm-delete-indicator', function(){
     return confirm('Are you sure you want to remove this?');
   });
-  
+
+  $(document).on('click', '.confirm-delete-accomplishment', function(){
+    return confirm('Are you sure you want to remove this?');
+  });
+
   function Accomplishment_Detail_List(){
     $.ajax({
       url: '{% url 'api_accomplishment_detail_list' %}',
