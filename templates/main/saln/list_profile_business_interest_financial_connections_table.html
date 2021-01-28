@@ -1,8 +1,8 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.business_enterprise}}</td>
-  <td>{{p.business_address}}</td>
+  <td style="white-space:normal;">{{p.business_enterprise}}</td>
+  <td style="white-space:normal;">{{p.business_address}}</td>
   <td>
     <form data-url="{% url 'api_main_business_interest_financial_connections_delete' p.id %}" method="post" class="custom-form-business-interest-financial-connections d-inline-block">
       <button data-url="{% url 'api_main_business_interest_financial_connections_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
