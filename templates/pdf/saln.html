@@ -57,7 +57,6 @@
 <body>
 
 <div class="container">
-  {% for p in profile %}
   <div id="header_content1" class="font8" style="text-align:right;">
     <tr>
       <td colspan="12">Revised as of January 2015</td>
@@ -106,9 +105,9 @@
               <td colspan="12" style="border-bottom: 0.5px solid #000;">
                 <table>
                   <tr>
-                    <td colspan="4" style="padding-top:5px;"><b>{{p.surname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:5px;"><b>{{p.firstname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:5px;"><b>{{p.middlename|upper}}</b></td>
+                    <td colspan="4" style="padding-top:5px;"><b>{{profile.surname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:5px;"><b>{{profile.firstname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:5px;"><b>{{profile.middlename|upper}}</b></td>
                   </tr>
                 </table>
               </td>
@@ -125,7 +124,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="padding-top:5px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.designation.plantilla.positiontitle|upper}}</b></td>
+              <td colspan="12" style="padding-top:5px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.designation.plantilla.positiontitle|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -182,7 +181,7 @@
               <td colspan="12" style="border-bottom: 0.5px solid #000;">
                 <table>
                   <tr>
-                    <td colspan="12" style="text-align:left;padding-top:5px;"><b>{{p.permanentaddress|upper}}</b></td>
+                    <td colspan="12" style="text-align:left;padding-top:5px;"><b>{{profile.permanentaddress|upper}}</b></td>
                   </tr>
                 </table>
               </td>
@@ -218,9 +217,9 @@
               <td colspan="12" style="border-bottom: 0.5px solid #000;">
                 <table>
                   <tr>
-                    <td colspan="4" style="padding-top:13px;"><b>{{p.spousesurname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:13px;"><b>{{p.spousefirstname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:13px;"><b>{{p.spousemiddlename|upper}}</b></td>
+                    <td colspan="4" style="padding-top:13px;"><b>{{profile.spousesurname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:13px;"><b>{{profile.spousefirstname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:13px;"><b>{{profile.spousemiddlename|upper}}</b></td>
                   </tr>
                 </table>
               </td>
@@ -237,7 +236,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="padding-top:13px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.spouseoccupation|upper}}</b></td>
+              <td colspan="12" style="padding-top:13px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.spouseoccupation|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -275,7 +274,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.spouseemployer|upper}}</b></td>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.spouseemployer|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -306,7 +305,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.spouseemployeraddress|upper}}</b></td>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.spouseemployeraddress|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -725,7 +724,7 @@
         <table>
           <tr>
             <td colspan="4" style="">Government Issued ID:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.government_issued_id}}</td>
+            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.government_issued_id}}</td>
           </tr>
         </table>
       </td>
@@ -734,7 +733,7 @@
         <table>
           <tr>
             <td colspan="4" style="">Government Issued ID:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.spouse_government_issued_id}}</td>
+            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.spouse_government_issued_id}}</td>
           </tr>
         </table>
       </td>
@@ -744,7 +743,7 @@
         <table>
           <tr>
             <td colspan="4" style="">ID No:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.government_id_no}}</td>
+            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.government_id_no}}</td>
           </tr>
         </table>
       </td>
@@ -753,7 +752,7 @@
         <table>
           <tr>
             <td colspan="4" style="">ID No:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.spouse_government_id_no}}</td>
+            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.spouse_government_id_no}}</td>
           </tr>
         </table>
       </td>
@@ -763,7 +762,7 @@
         <table>
           <tr>
             <td colspan="4" style="">Date Issued:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.government_date_issued}}</td>
+            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.government_date_issued}}</td>
           </tr>
         </table>
       </td>
@@ -772,7 +771,7 @@
         <table>
           <tr>
             <td colspan="4" style="">Date Issued:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.spouse_government_date_issued}}</td>
+            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.spouse_government_date_issued}}</td>
           </tr>
         </table>
       </td>
@@ -800,6 +799,5 @@
     <td colspan="12" style="padding: 3px; padding-top:2px;"><i style="font-size:10px;">Page <pdf:pagenumber> of <u><pdf:pagecount></u></i></td>
   </div>
 
-  {% endfor %}
 </body>
 </html>

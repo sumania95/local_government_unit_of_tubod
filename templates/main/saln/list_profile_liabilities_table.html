@@ -1,11 +1,12 @@
 {% for p in profile %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{p.firstname}} {{p.middlename}} {{p.surname}}</td>
-  <td>{{p.date_of_birth}}</td>
+  <td>{{p.nature}}</td>
+  <td>{{p.name_of_creditors}}</td>
+  <td>{{p.outstanding_balance}}</td>
   <td>
-    <form data-url="{% url 'api_main_children_delete' p.id %}" method="post" class="custom-form-children d-inline-block">
-      <button data-url="{% url 'api_main_children_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
+    <form data-url="{% url 'api_main_liabilities_delete' p.id %}" method="post" class="custom-form-liabilities d-inline-block">
+      <button data-url="{% url 'api_main_liabilities_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
       <button  type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
     </form>
   </td>
@@ -56,7 +57,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-children").submit(function (event) {
+    $(".custom-form-liabilities").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({

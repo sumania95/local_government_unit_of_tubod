@@ -20,10 +20,8 @@
             <tr>
               <td>
                 <a href="{% url 'main_self_print_pds' %}" target="_blank" type="button" class="btn btn-secondary btn-sm" name="button"><span class="badge badge-danger">NEW</span> PRINT PDS</a>
+                <a href="{% url 'main_self_print_saln' %}" target="_blank" type="button" class="btn btn-secondary btn-sm" name="button"><span class="badge badge-danger">NEW</span> PRINT SALN</a>
               </td>
-              <!-- <td>
-                <button type="button" class="btn btn-secondary btn-sm" name="button">PRINT SALN</button>
-              </td> -->
             </tr>
           </table>
         </div>
@@ -49,11 +47,13 @@
               <li><a class="nav-link text-left" id="v-pills-others-tab" data-toggle="pill" href="#v-pills-others" role="tab" aria-controls="v-pills-others" aria-selected="false">Q&A</a></li>
               <li><a class="nav-link text-left" id="v-pills-references-tab" data-toggle="pill" href="#v-pills-references" role="tab" aria-controls="v-pills-references" aria-selected="false">References / ID'S</a></li>
               <h5>SALN</h5>
-              <li><span class="badge badge-success ml-3 mb-2">ON GOING.....</span></li>
-              <!-- <li><a class="nav-link text-left" id="v-pills-#-tab" data-toggle="pill" href="#v-pills-#" role="tab" aria-controls="v-pills-#" aria-selected="false">Real Properties</a></li>
-              <li><a class="nav-link text-left" id="v-pills-#-tab" data-toggle="pill" href="#v-pills-#" role="tab" aria-controls="v-pills-#" aria-selected="false">Personal Properties</a></li>
-              <li><a class="nav-link text-left" id="v-pills-#-tab" data-toggle="pill" href="#v-pills-#" role="tab" aria-controls="v-pills-#" aria-selected="false">Liabilities</a></li> -->
+              <!-- <li><span class="badge badge-success ml-3 mb-2">ON GOING.....</span></li> -->
+              <li><a class="nav-link text-left" id="v-pills-filling-type-tab" data-toggle="pill" href="#v-pills-filling-type" role="tab" aria-controls="v-pills-filling-type" aria-selected="false">Filling Type</a></li>
+              <li><a class="nav-link text-left" id="v-pills-real-properties-tab" data-toggle="pill" href="#v-pills-real-properties" role="tab" aria-controls="v-pills-real-properties" aria-selected="false">Real Properties</a></li>
+              <li><a class="nav-link text-left" id="v-pills-personal-properties-tab" data-toggle="pill" href="#v-pills-personal-properties" role="tab" aria-controls="v-pills-personal-properties" aria-selected="false">Personal Properties</a></li>
+              <li><a class="nav-link text-left" id="v-pills-liabilities-tab" data-toggle="pill" href="#v-pills-liabilities" role="tab" aria-controls="v-pills-liabilities" aria-selected="false">Liabilities</a></li>
               <li><a class="nav-link text-left" id="v-pills-business-interest-financial-connections-tab" data-toggle="pill" href="#v-pills-business-interest-financial-connections" role="tab" aria-controls="v-pills-business-interest-financial-connections" aria-selected="false">Business Interest Financial Connections</a></li>
+              <li><a class="nav-link text-left" id="v-pills-relatives-in-the-government-service-tab" data-toggle="pill" href="#v-pills-relatives-in-the-government-service" role="tab" aria-controls="v-pills-relatives-in-the-government-service" aria-selected="false">Relatives In The Government</a></li>
 
             </ul>
           </div>
@@ -223,8 +223,23 @@
                   </div>
                 </div>
               </div>
+              <div class="tab-pane fade p-2" id="v-pills-filling-type" role="tabpanel" aria-labelledby="v-pills-filling-type-tab">
+                <!-- Business Interest Financial Connections -->
+              </div>
               <div class="tab-pane fade p-2" id="v-pills-business-interest-financial-connections" role="tabpanel" aria-labelledby="v-pills-business-interest-financial-connections-tab">
                 <!-- Business Interest Financial Connections -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-liabilities" role="tabpanel" aria-labelledby="v-pills-liabilities-tab">
+                <!-- liabilities -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-personal-properties" role="tabpanel" aria-labelledby="v-pills-personal-properties-tab">
+                <!-- liabilities -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-real-properties" role="tabpanel" aria-labelledby="v-pills-real-properties-tab">
+                <!-- liabilities -->
+              </div>
+              <div class="tab-pane fade p-2" id="v-pills-relatives-in-the-government-service" role="tabpanel" aria-labelledby="v-pills-relatives-in-the-government-service-tab">
+                <!-- liabilities -->
               </div>
             </div>
           </div>
@@ -261,6 +276,7 @@
     });
 
   };
+  Basic_Info();
   function Family_Background(){
     $.ajax({
       url: '{% url 'api_main_family_background' %}',
@@ -272,6 +288,9 @@
     });
 
   };
+  $('#v-pills-family-background-tab').click(function() {
+    Family_Background();
+  });
   function Children_Template(){
     $.ajax({
       url: '{% url 'api_main_children' %}',
@@ -283,6 +302,9 @@
     });
 
   };
+  $('#v-pills-children-tab').click(function() {
+    Children_Template();
+  });
   function Educational_Background_Template(){
     $.ajax({
       url: '{% url 'api_main_education_background' %}',
@@ -294,6 +316,9 @@
     });
 
   };
+  $('#v-pills-educational-background-tab').click(function() {
+    Educational_Background_Template();
+  });
   function Eligibility_Template(){
     $.ajax({
       url: '{% url 'api_main_eligibility' %}',
@@ -305,6 +330,9 @@
     });
 
   };
+  $('#v-pills-eligibility-tab').click(function() {
+    Eligibility_Template();
+  });
   function Work_Experience_Template(){
     $.ajax({
       url: '{% url 'api_main_work_experience' %}',
@@ -316,6 +344,9 @@
     });
 
   };
+  $('#v-pills-work-experience-tab').click(function() {
+    Work_Experience_Template();
+  });
   function Voluntary_Work_Template(){
     $.ajax({
       url: '{% url 'api_main_voluntary_work' %}',
@@ -326,7 +357,10 @@
       },
     });
   };
-  function Learning_Development_Template(){
+  $('#v-pills-voluntary-work-tab').click(function() {
+    Voluntary_Work_Template();
+  });
+  function Trainings_Template(){
     $.ajax({
       url: '{% url 'api_main_learning_development' %}',
       type: 'get',
@@ -336,6 +370,10 @@
       },
     });
   };
+  $('#v-pills-learning-development-tab').click(function() {
+    Trainings_Template();
+  });
+
   function Skill_Hobbies_Template(){
     $.ajax({
       url: '{% url 'api_main_skill_hobbies' %}',
@@ -347,6 +385,9 @@
     });
 
   };
+  $('#v-pills-skill-hobbies-tab').click(function() {
+    Skill_Hobbies_Template();
+  });
 
   function Non_Academic_Template(){
     $.ajax({
@@ -359,6 +400,9 @@
     });
 
   };
+  $('#v-pills-non-academic-tab').click(function() {
+    Non_Academic_Template();
+  });
 
   function Member_Organization_Template(){
     $.ajax({
@@ -371,6 +415,9 @@
     });
 
   };
+  $('#v-pills-member-organization-tab').click(function() {
+    Member_Organization_Template();
+  });
 
   function Q34(){
     $.ajax({
@@ -488,7 +535,7 @@
       },
     });
   };
-  Government_Other_Info();
+
   Q34();
   Q35();
   Q36();
@@ -499,18 +546,22 @@
   References1();
   References2();
   References3();
-  Basic_Info();
-  Family_Background();
-  Children_Template();
-  Educational_Background_Template();
-  Eligibility_Template();
-  Work_Experience_Template();
-  Voluntary_Work_Template();
-  Learning_Development_Template();
-  Skill_Hobbies_Template();
-  Non_Academic_Template();
-  Member_Organization_Template();
+  Government_Other_Info();
 
+  function Filling(){
+    $.ajax({
+      url: '{% url 'api_main_saln_filling' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-filling-type').html(data.html_form);
+      },
+    });
+
+  };
+  $('#v-pills-filling-type-tab').click(function() {
+    Filling();
+  });
 
   function Business_Interest_Fianancial_Connections_Template(){
     $.ajax({
@@ -523,7 +574,64 @@
     });
 
   };
-  Business_Interest_Fianancial_Connections_Template();
+  $('#v-pills-business-interest-financial-connections-tab').click(function() {
+    Business_Interest_Fianancial_Connections_Template();
+  });
+  function Liabilities_Template(){
+    $.ajax({
+      url: '{% url 'api_main_liabilities' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-liabilities').html(data.profile_liabilities_template);
+      },
+    });
+  };
+  $('#v-pills-liabilities-tab').click(function() {
+    Liabilities_Template();
+  });
+
+  function Personal_Properties_Template(){
+    $.ajax({
+      url: '{% url 'api_main_personal_properties' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-personal-properties').html(data.profile_personal_properties_template);
+      },
+    });
+  };
+  $('#v-pills-personal-properties-tab').click(function() {
+    Personal_Properties_Template();
+  });
+
+  function Real_Properties_Template(){
+    $.ajax({
+      url: '{% url 'api_main_real_properties' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-real-properties').html(data.profile_real_properties_template);
+      },
+    });
+  };
+  $('#v-pills-real-properties-tab').click(function() {
+    Real_Properties_Template();
+  });
+
+  function Relatives_In_The_Government_Service_Template(){
+    $.ajax({
+      url: '{% url 'api_main_relatives_in_the_government_service' %}',
+      type: 'get',
+      dataType: 'json',
+      success:function(data){
+        $('#v-pills-relatives-in-the-government-service').html(data.profile_relatives_in_the_government_service_template);
+      },
+    });
+  };
+  $('#v-pills-relatives-in-the-government-service-tab').click(function() {
+    Relatives_In_The_Government_Service_Template();
+  });
 
 </script>
 

@@ -28,8 +28,9 @@
       <thead style="padding-bottom:2px;">
         <tr>
           <th style="white-space:nowrap;width:1%;">#</th>
-          <th>Name</th>
-          <th style="white-space:nowrap;width:30%;">Date of Birth</th>
+          <th>Description</th>
+          <th>Kind</th>
+          <th style="white-space:nowrap;width:30%;">Acquisition Cost</th>
           <th style="white-space:nowrap;width:20%;">Action</th>
         </tr>
       </thead>
@@ -44,7 +45,7 @@
 
 {% block 'script' %}
 <script>
-  function Personal_Properties(){
+  function Real_Properties(){
     var filter = $("#filter-profile-info-real-properties").val();
     $.ajax({
       url: '{% url 'api_main_real_properties_list' %}',
@@ -58,9 +59,9 @@
     });
 
   };
-  Personal_Properties();
+  Real_Properties();
   $('#filter-profile-info-real-properties').change(function() {
-    Personal_Properties();
+    Real_Properties();
   });
 
   $(document).on('click', '.form-show-real-properties-create', function(){
