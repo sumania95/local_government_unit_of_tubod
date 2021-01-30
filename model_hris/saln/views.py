@@ -552,22 +552,27 @@ class Main_Profile_Saln_Relatives_In_The_Government_Service_Delete_AJAXView(Logi
         return JsonResponse(data)
 
 
+from app_hris.models import (
+    Settings
+)
 class Self_Print_SALN_Report(LoginRequiredMixin,View):
     def get(self, request):
         now = timezone.now()
+        settings = Settings.objects.last()
         profile = Profile.objects.get(id=self.request.user.profile.id)
         saln_filling = Saln_Filling.objects.get(profile_id = self.request.user.profile)
         saln_liabilities = Saln_Liabilities.objects.filter(profile_id = self.request.user.profile)
-        saln_person_properties = Saln_Personal_Properties.objects.filter(profile_id = self.request.user.profile)
+        saln_personal_properties = Saln_Personal_Properties.objects.filter(profile_id = self.request.user.profile)
         saln_real_properties = Saln_Real_Properties.objects.filter(profile_id = self.request.user.profile)
         saln_business_interest_financial_connections = Saln_Business_Interest_Financial_Connections.objects.filter(profile_id = self.request.user.profile)
         saln_relatives_in_the_government_service = Saln_Relatives_In_The_Government_Service.objects.filter(profile_id = self.request.user.profile)
         params = {
             'now': now,
+            'settings': settings,
             'profile': profile,
             'saln_filling':saln_filling,
             'saln_liabilities':saln_liabilities,
-            'saln_person_properties':saln_person_properties,
+            'saln_personal_properties':saln_personal_properties,
             'saln_real_properties':saln_real_properties,
             'saln_business_interest_financial_connections':saln_business_interest_financial_connections,
             'saln_relatives_in_the_government_service':saln_relatives_in_the_government_service,

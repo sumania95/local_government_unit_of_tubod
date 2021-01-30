@@ -133,7 +133,7 @@ class Family_Background(models.Model):
     spousetelephone = models.CharField(max_length = 200,blank=True)
     spouse_government_issued_id = models.CharField(max_length = 200,blank=True)
     spouse_government_id_no = models.CharField(max_length = 200,blank=True)
-    spouse_government_date_issued = models.DateField(null=True,blank=True)
+    spouse_government_date_issued = models.CharField(max_length = 200,blank=True,null=True)
     fathersurname = models.CharField(max_length = 200,blank=True)
     fatherfirstname = models.CharField(max_length = 200,blank=True)
     fathermiddlename = models.CharField(max_length = 200,blank=True)
