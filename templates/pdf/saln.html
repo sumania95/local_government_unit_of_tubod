@@ -57,7 +57,6 @@
 <body>
 
 <div class="container">
-  {% for p in profile %}
   <div id="header_content1" class="font8" style="text-align:right;">
     <tr>
       <td colspan="12">Revised as of January 2015</td>
@@ -106,9 +105,9 @@
               <td colspan="12" style="border-bottom: 0.5px solid #000;">
                 <table>
                   <tr>
-                    <td colspan="4" style="padding-top:5px;"><b>{{p.surname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:5px;"><b>{{p.firstname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:5px;"><b>{{p.middlename|upper}}</b></td>
+                    <td colspan="4" style="padding-top:5px;"><b>{{profile.surname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:5px;"><b>{{profile.firstname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:5px;"><b>{{profile.middlename|upper}}</b></td>
                   </tr>
                 </table>
               </td>
@@ -125,7 +124,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="padding-top:5px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.designation.plantilla.positiontitle|upper}}</b></td>
+              <td colspan="12" style="padding-top:5px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.designation.plantilla.positiontitle|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -163,7 +162,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;padding-top:5px;"><b>{{s.agency_name|upper}}</b></td>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;padding-top:5px;"><b>{{profile.designation.plantilla.department|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -182,7 +181,7 @@
               <td colspan="12" style="border-bottom: 0.5px solid #000;">
                 <table>
                   <tr>
-                    <td colspan="12" style="text-align:left;padding-top:5px;"><b>{{p.permanentaddress|upper}}</b></td>
+                    <td colspan="12" style="text-align:left;padding-top:5px;"><b>{{profile.permanent_address|upper}}</b></td>
                   </tr>
                 </table>
               </td>
@@ -199,7 +198,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;padding-top:5px;"><b>{{s.agency_address|upper}}</b></td>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;padding-top:5px;"><b>{{settings.address|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -218,9 +217,9 @@
               <td colspan="12" style="border-bottom: 0.5px solid #000;">
                 <table>
                   <tr>
-                    <td colspan="4" style="padding-top:13px;"><b>{{p.spousesurname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:13px;"><b>{{p.spousefirstname|upper}}</b></td>
-                    <td colspan="4" style="padding-top:13px;"><b>{{p.spousemiddlename|upper}}</b></td>
+                    <td colspan="4" style="padding-top:13px;"><b>{{profile.family_background.spousesurname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:13px;"><b>{{profile.family_background.spousefirstname|upper}}</b></td>
+                    <td colspan="4" style="padding-top:13px;"><b>{{profile.family_background.spousemiddlename|upper}}</b></td>
                   </tr>
                 </table>
               </td>
@@ -237,7 +236,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="padding-top:13px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.spouseoccupation|upper}}</b></td>
+              <td colspan="12" style="padding-top:13px;border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.family_background.spouseoccupation|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -275,7 +274,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.spouseemployer|upper}}</b></td>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.family_background.spouseemployer|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -306,7 +305,7 @@
         <td colspan="4">
           <table>
             <tr>
-              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{p.spouseemployeraddress|upper}}</b></td>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;text-align:left;"><b>{{profile.family_background.spouseemployeraddress|upper}}</b></td>
             </tr>
           </table>
         </td>
@@ -349,7 +348,7 @@
           <td colspan="6">
             <table>
               <tr>
-                <td colspan="12" style="border-bottom: 0.5px solid #000;padding-top: 5px;padding-left:5px;"><b>{{c.firstname|upper}} {{c.middlename|upper|slice:":1"}}. {{c.surname|upper}}</b></td>
+                <td colspan="12" style="border-bottom: 0.5px solid #000;padding-top: 5px;padding-left:5px;"><b>{{c.firstname|upper}} {% if c.middlename %}{{c.middlename|upper|slice:":1"}}{% endif %}. {{c.surname|upper}}</b></td>
               </tr>
             </table>
           </td>
@@ -357,7 +356,7 @@
           <td colspan="6">
             <table>
               <tr>
-                <td colspan="6" style="border-bottom: 0.5px solid #000;padding-top: 5px;">{{c.dob|date:"m/d/Y"}}</td>
+                <td colspan="6" style="border-bottom: 0.5px solid #000;padding-top: 5px;">{{c.date_of_birth|date:"m/d/Y"}}</td>
                 <td width="5px"></td>
                 <td colspan="6" style="border-bottom: 0.5px solid #000;padding-top: 5px;">{{c.age}}</td>
               </tr>
@@ -442,17 +441,17 @@
       <td><b>YEAR</b></td>
       <td><b>MODE</b></td>
     </tr>
-    {% if real_properties %}
-    {% for v in real_properties %}
+    {% if saln_real_properties %}
+    {% for v in saln_real_properties %}
       <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
-        <td style="padding-left:3px;">{{v.description}}</td>
-        <td style="padding-left:3px;">{{v.kind}}</td>
-        <td style="padding-left:3px;">{{v.exact_location}}</td>
-        <td style="padding-left:3px;">{{v.assessed_value}}</td>
-        <td style="padding-left:3px;">{{v.current_fair_market_value}}</td>
-        <td style="padding-left:3px;">{{v.year}}</td>
-        <td style="padding-left:3px;">{{v.mode}}</td>
-        <td style="padding-left:3px;">{{v.acquisition_cost}}</td>
+        <td style="padding-left:3px;">{{v.description}} </td>
+        <td style="padding-left:3px;">{{v.kind}} </td>
+        <td style="padding-left:3px;">{{v.exact_location}} </td>
+        <td style="padding-left:3px;">{{v.assessed_value}} </td>
+        <td style="padding-left:3px;">{{v.current_fair_market_value}} </td>
+        <td style="padding-left:3px;">{{v.year}} </td>
+        <td style="padding-left:3px;">{{v.mode}} </td>
+        <td style="padding-left:3px;">{{v.acquisition_cost}} </td>
       </tr>
     {% endfor %}
     {% else %}
@@ -493,8 +492,8 @@
       <td colspan="4"><b>YEAR ACQUIRED</b></td>
       <td width="95px"><b>ACQUISITION COST / AMOUNT</b></td>
     </tr>
-    {% if personal_properties %}
-    {% for v in personal_properties %}
+    {% if saln_personal_properties %}
+    {% for v in saln_personal_properties %}
       <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
         <td colspan="7" style="padding-left:3px;">{{v.description}}</td>
         <td colspan="4" style="padding-left:3px;">{{v.year}}</td>
@@ -534,12 +533,12 @@
       <td colspan="5"><b>NAME OF CREDITORS</b></td>
       <td colspan="2"><b>OUTSTANDING BALANCE</b></td>
     </tr>
-    {% if liabilities %}
-    {% for v in liabilities %}
+    {% if saln_liabilities %}
+    {% for v in saln_liabilities %}
       <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
-        <td colspan="5" style="padding-left:3px;">{{nature}}</td>
-        <td colspan="5" style="padding-left:3px;">{{name_of_creditors}}</td>
-        <td colspan="2" style="padding-left:3px;">{{outstanding_balance}}</td>
+        <td colspan="5" style="padding-left:3px;">{{v.nature}}</td>
+        <td colspan="5" style="padding-left:3px;">{{v.name_of_creditors}}</td>
+        <td colspan="2" style="padding-left:3px;">{{v.outstanding_balance}}</td>
       </tr>
     {% endfor %}
     {% else %}
@@ -562,244 +561,245 @@
       <td colspan="6" style="font-size:10px;"><i>* Additional sheet/s may be used, if necessary.</i></td>
     </tr>
   </table>
-  <table style="text-align:center;" class="font8">
-    <tr>
-      <td colspan="12" style="font-size:12px;padding-top:10px;"><b><u>BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</u></b></td>
-    </tr>
-    <tr>
-      <td colspan="12" style="font-size:10px;"><i>(of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household)</i></td>
-    </tr>
-    <tr>
-      <td colspan="12" style="font-size:12px;">
-        {% if business_enterprise %}
-          (&nbsp;&nbsp;)
-        {% else %}
-          (&#10003;)
-        {% endif%}
-        <i>
-           I/We do not have any business interest or financial connection.
-        </i>
-      </td>
-    </tr>
-  </table>
-  <table class="font8">
-    <!-- #A5A5A5 -->
-    <tr style="background-color:#A5A5A5;border: 0.5px solid #000;text-align:center;padding-top:3px;">
-      <td colspan="3"><b>NAME OF ENTITY/BUSINESS ENTERPRISE</b></td>
-      <td colspan="3"><b>BUSINESS ADDRESS</b></td>
-      <td colspan="3"><b>NATURE OF BUSINESS INTEREST & /OR FINANCIAL CONNECTION</b></td>
-      <td colspan="3"><b>DATE OF ACQUISITION OF INTEREST OR CONNECTION</b></td>
-    </tr>
-    {% if business_enterprise %}
-    {% for v in business_enterprise %}
-      <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
-        <td colspan="3" style="padding-left:3px;">{{v.business_enterprise}}</td>
-        <td colspan="3" style="padding-left:3px;">{{v.business_address}}</td>
-        <td colspan="3" style="padding-left:3px;">{{v.nature_of_business}}</td>
-        <td colspan="3" style="padding-left:3px;">{{v.date_of_acquisition_of_interest}}</td>
+  <div class="page-break">
+    <table style="text-align:center;" class="font8">
+      <tr>
+        <td colspan="12" style="font-size:12px;padding-top:10px;"><b><u>BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</u></b></td>
       </tr>
-    {% endfor %}
-    {% else %}
-      <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
-        <td colspan="3" style="padding-left:3px;">N/a</td>
-        <td colspan="3" style="padding-left:3px;">N/a</td>
-        <td colspan="3" style="padding-left:3px;">N/a</td>
-        <td colspan="3" style="padding-left:3px;">N/a</td>
+      <tr>
+        <td colspan="12" style="font-size:10px;"><i>(of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household)</i></td>
       </tr>
-    {% endif %}
-    <tr>
-      <td colspan="6" style="font-size:10px;padding-top:3px;"><i>* Additional sheet/s may be used, if necessary.</i></td>
-    </tr>
-  </table>
-  <table style="text-align:center;" class="font8">
-    <tr>
-      <td colspan="12" style="font-size:12px;padding-top:10px;"><b><u>RELATIVES IN THE GOVERNMENT SERVICE</u></b></td>
-    </tr>
-    <tr>
-      <td colspan="12" style="font-size:10px;"><i>(Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso)</i></td>
-    </tr>
-    <tr>
-      <td colspan="12" style="font-size:12px;">
-        {% if relative %}
-          (&nbsp;&nbsp;)
-        {% else %}
-          (&#10003;)
-        {% endif%}
-        <i>
-           I/We do not
-          I/We do not know of any relative/s in the government service)
-        </i>
-      </td>
-    </tr>
-  </table>
-  <table class="font8">
-    <!-- #A5A5A5 -->
-    <tr style="background-color:#A5A5A5;border: 0.5px solid #000;text-align:center;padding-top:3px;">
-      <td colspan="3"><b>NAME OF RELATIVE</b></td>
-      <td colspan="2"><b>RELATIONSHIP</b></td>
-      <td colspan="1"><b>POSITION</b></td>
-      <td colspan="4"><b>NAME OF AGENCY / OFFICE AND ADDRESS</b></td>
-    </tr>
-    {% if relative %}
-    {% for v in relative %}
-      <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
-        <td colspan="3" style="padding-left:3px;">{{v.name_of_relative}}</td>
-        <td colspan="2" style="padding-left:3px;">{{v.relationship}}</td>
-        <td colspan="1" style="padding-left:3px;">{{v.position}}</td>
-        <td colspan="4" style="padding-left:3px;">{{v.name_of_agency}}</td>
+      <tr>
+        <td colspan="12" style="font-size:12px;">
+          {% if saln_business_interest_financial_connections %}
+            (&nbsp;&nbsp;)
+          {% else %}
+            (&#10003;)
+          {% endif%}
+          <i>
+             I/We do not have any business interest or financial connection.
+          </i>
+        </td>
       </tr>
-    {% endfor %}
-
-    {% else %}
-      <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
-        <td colspan="3" style="padding-left:3px;">N/a</td>
-        <td colspan="2" style="padding-left:3px;">N/a</td>
-        <td colspan="1" style="padding-left:3px;">N/a</td>
-        <td colspan="4" style="padding-left:3px;">N/a</td>
+    </table>
+    <table class="font8">
+      <!-- #A5A5A5 -->
+      <tr style="background-color:#A5A5A5;border: 0.5px solid #000;text-align:center;padding-top:3px;">
+        <td colspan="3"><b>NAME OF ENTITY/BUSINESS ENTERPRISE</b></td>
+        <td colspan="3"><b>BUSINESS ADDRESS</b></td>
+        <td colspan="3"><b>NATURE OF BUSINESS INTEREST & /OR FINANCIAL CONNECTION</b></td>
+        <td colspan="3"><b>DATE OF ACQUISITION OF INTEREST OR CONNECTION</b></td>
       </tr>
+      {% if saln_business_interest_financial_connections %}
+      {% for v in saln_business_interest_financial_connections %}
+        <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
+          <td colspan="3" style="padding-left:3px;">{{v.business_enterprise}}</td>
+          <td colspan="3" style="padding-left:3px;">{{v.business_address}}</td>
+          <td colspan="3" style="padding-left:3px;">{{v.nature_of_business}}</td>
+          <td colspan="3" style="padding-left:3px;">{{v.date_of_acquisition_of_interest}}</td>
+        </tr>
+      {% endfor %}
+      {% else %}
+        <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
+          <td colspan="3" style="padding-left:3px;">N/a</td>
+          <td colspan="3" style="padding-left:3px;">N/a</td>
+          <td colspan="3" style="padding-left:3px;">N/a</td>
+          <td colspan="3" style="padding-left:3px;">N/a</td>
+        </tr>
+      {% endif %}
+      <tr>
+        <td colspan="6" style="font-size:10px;padding-top:3px;"><i>* Additional sheet/s may be used, if necessary.</i></td>
+      </tr>
+    </table>
+    <table style="text-align:center;" class="font8">
+      <tr>
+        <td colspan="12" style="font-size:12px;padding-top:10px;"><b><u>RELATIVES IN THE GOVERNMENT SERVICE</u></b></td>
+      </tr>
+      <tr>
+        <td colspan="12" style="font-size:10px;"><i>(Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso)</i></td>
+      </tr>
+      <tr>
+        <td colspan="12" style="font-size:12px;">
+          {% if saln_relatives_in_the_government_service %}
+            (&nbsp;&nbsp;)
+          {% else %}
+            (&#10003;)
+          {% endif%}
+          <i>
+             I/We do not
+            I/We do not know of any relative/s in the government service)
+          </i>
+        </td>
+      </tr>
+    </table>
+    <table class="font8">
+      <!-- #A5A5A5 -->
+      <tr style="background-color:#A5A5A5;border: 0.5px solid #000;text-align:center;padding-top:3px;">
+        <td colspan="3"><b>NAME OF RELATIVE</b></td>
+        <td colspan="2"><b>RELATIONSHIP</b></td>
+        <td colspan="1"><b>POSITION</b></td>
+        <td colspan="4"><b>NAME OF AGENCY / OFFICE AND ADDRESS</b></td>
+      </tr>
+      {% if saln_relatives_in_the_government_service %}
+      {% for v in saln_relatives_in_the_government_service %}
+        <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
+          <td colspan="3" style="padding-left:3px;">{{v.name_of_relative}}</td>
+          <td colspan="2" style="padding-left:3px;">{{v.relationship}}</td>
+          <td colspan="1" style="padding-left:3px;">{{v.position}}</td>
+          <td colspan="4" style="padding-left:3px;">{{v.name_of_agency}}</td>
+        </tr>
+      {% endfor %}
 
-    {% endif %}
+      {% else %}
+        <tr style="border: 0.5px solid #000;padding-top:3px;font-size:9px;">
+          <td colspan="3" style="padding-left:3px;">N/a</td>
+          <td colspan="2" style="padding-left:3px;">N/a</td>
+          <td colspan="1" style="padding-left:3px;">N/a</td>
+          <td colspan="4" style="padding-left:3px;">N/a</td>
+        </tr>
 
-    <tr>
-      <td colspan="6" style="font-size:10px;padding-top:3px;"><i>* Additional sheet/s may be used, if necessary.</i></td>
-    </tr>
-  </table>
-  <table style="text-align:left;font-size:13px;" class="font8">
-    <tr>
-      <td colspan="12" style="padding-bottom:3px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I hereby certify that these are true and correct statements of my assets, liabilities, net worth, business interests and financial connections, including those of my spouse and unmarried children below eighteen (18) years of age living in my household, and that to the best of my knowledge, the above-enumerated are names of my relatives in the government within the fourth civil degree of consanguinity or affinity. </p></td>
-    </tr>
-    <tr>
-      <td colspan="12"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I hereby authorize the Ombudsman or his/her duly authorized representative to obtain and secure from all appropriate government agencies, including the Bureau of Internal Revenue such documents that may show my assets, liabilities, net worth, business interests and financial connections, to include those of my spouse and unmarried children below 18 years of age living with me in my household covering previous years to include the year I first assumed office in government.</p></td>
-    </tr>
-  </table>
-  <table class="font8" style="padding-top:20px;font-size:13px;">
-    <tr>
-      <td width="50px">Date</td>
-      <td width="130px" style="border-bottom: 0.5px solid #000;">{{now|date:"F d, Y"}}</td>
-      <td></td>
-    </tr>
-  </table>
-  <table class="font8">
-    <tr>
-      <td colspan="12" style="padding-top:20px;"></td>
-    </tr>
-  </table>
+      {% endif %}
 
-  <table class="font8" style="font-size:10px;">
-    <tr>
-      <td colspan="6" style="padding-left:5px;">
-        <table>
-          <tr>
-            <td colspan="12" style="border-bottom: 0.5px solid #000;"></td>
-          </tr>
-        </table>
-      </td>
-      <td width="50px"></td>
-      <td colspan="6" style="padding-right:5px;">
-        <table>
-          <tr>
-            <td colspan="12" style="border-bottom: 0.5px solid #000;"></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr style="text-align: center">
-      <td colspan="6" style="padding-left:5px;padding-top:2px;">
-        <table>
-          <tr>
-            <td colspan="12" style=""><i>(Signature of Declarant)</i></td>
-          </tr>
-        </table>
-      </td>
-      <td width="50px"></td>
-      <td colspan="6" style="padding-right:5px;">
-        <table>
-          <tr>
-            <td colspan="12" style=""><i>(Signature of Co-Declarant/Spouse)</i></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr style="text-align: left;padding-top:3px;">
-      <td colspan="6" style="padding-left:5px;">
-        <table>
-          <tr>
-            <td colspan="4" style="">Government Issued ID:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.government_issued_id}}</td>
-          </tr>
-        </table>
-      </td>
-      <td width="50px"></td>
-      <td colspan="6" style="padding-right:5px;">
-        <table>
-          <tr>
-            <td colspan="4" style="">Government Issued ID:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.spouse_government_issued_id}}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr style="text-align: left;padding-top:3px;">
-      <td colspan="6" style="padding-left:5px;">
-        <table>
-          <tr>
-            <td colspan="4" style="">ID No:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.government_id_no}}</td>
-          </tr>
-        </table>
-      </td>
-      <td width="50px"></td>
-      <td colspan="6" style="padding-right:5px;">
-        <table>
-          <tr>
-            <td colspan="4" style="">ID No:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.spouse_government_id_no}}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr style="text-align: left;padding-top:3px;">
-      <td colspan="6" style="padding-left:5px;">
-        <table>
-          <tr>
-            <td colspan="4" style="">Date Issued:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.government_date_issued}}</td>
-          </tr>
-        </table>
-      </td>
-      <td width="50px"></td>
-      <td colspan="6" style="padding-right:5px;">
-        <table>
-          <tr>
-            <td colspan="4" style="">Date Issued:</td>
-            <td colspan="8" style="border-bottom: 0.5px solid #000;">{{p.spouse_government_date_issued}}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-  <table style="text-align:left;font-size:13px;padding-top:10px;" class="font8">
-    <tr>
-      <td colspan="12" style="padding-bottom:3px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SUBSCRIBED AND SWORN</b> to before me this  	 day of  	, affiant exhibiting to me the above-stated government issued identification card.</p></td>
-    </tr>
-  </table>
-  <table class="font8">
-    <tr style="padding-top:10px;">
-      <td colspan="7"></td>
-      <td colspan="5" style="text-align:center;border-bottom: 0.5px solid #000;"></td>
-      <td width="40px"></td>
-    </tr>
-    <tr style="padding-top:3px;">
-      <td colspan="7"></td>
-      <td colspan="5" style="text-align:center;">(Person Administering Oath)</td>
-      <td width="40px"></td>
-    </tr>
-  </table>
+      <tr>
+        <td colspan="6" style="font-size:10px;padding-top:3px;"><i>* Additional sheet/s may be used, if necessary.</i></td>
+      </tr>
+    </table>
+    <table style="text-align:left;font-size:13px;" class="font8">
+      <tr>
+        <td colspan="12" style="padding-bottom:3px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I hereby certify that these are true and correct statements of my assets, liabilities, net worth, business interests and financial connections, including those of my spouse and unmarried children below eighteen (18) years of age living in my household, and that to the best of my knowledge, the above-enumerated are names of my relatives in the government within the fourth civil degree of consanguinity or affinity. </p></td>
+      </tr>
+      <tr>
+        <td colspan="12"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I hereby authorize the Ombudsman or his/her duly authorized representative to obtain and secure from all appropriate government agencies, including the Bureau of Internal Revenue such documents that may show my assets, liabilities, net worth, business interests and financial connections, to include those of my spouse and unmarried children below 18 years of age living with me in my household covering previous years to include the year I first assumed office in government.</p></td>
+      </tr>
+    </table>
+    <table class="font8" style="padding-top:20px;font-size:13px;">
+      <tr>
+        <td width="50px">Date</td>
+        <td width="130px" style="border-bottom: 0.5px solid #000;">{{now|date:"F d, Y"}}</td>
+        <td></td>
+      </tr>
+    </table>
+    <table class="font8">
+      <tr>
+        <td colspan="12" style="padding-top:20px;"></td>
+      </tr>
+    </table>
+
+    <table class="font8" style="font-size:10px;">
+      <tr>
+        <td colspan="6" style="padding-left:5px;">
+          <table>
+            <tr>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="50px"></td>
+        <td colspan="6" style="padding-right:5px;">
+          <table>
+            <tr>
+              <td colspan="12" style="border-bottom: 0.5px solid #000;"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr style="text-align: center">
+        <td colspan="6" style="padding-left:5px;padding-top:2px;">
+          <table>
+            <tr>
+              <td colspan="12" style=""><i>(Signature of Declarant)</i></td>
+            </tr>
+          </table>
+        </td>
+        <td width="50px"></td>
+        <td colspan="6" style="padding-right:5px;">
+          <table>
+            <tr>
+              <td colspan="12" style=""><i>(Signature of Co-Declarant/Spouse)</i></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr style="text-align: left;padding-top:3px;">
+        <td colspan="6" style="padding-left:5px;">
+          <table>
+            <tr>
+              <td colspan="4" style="">Government Issued ID:</td>
+              <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.government_other_info.issued_id}}</td>
+            </tr>
+          </table>
+        </td>
+        <td width="50px"></td>
+        <td colspan="6" style="padding-right:5px;">
+          <table>
+            <tr>
+              <td colspan="4" style="">Government Issued ID:</td>
+              <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.family_background.spouse_government_issued_id}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr style="text-align: left;padding-top:3px;">
+        <td colspan="6" style="padding-left:5px;">
+          <table>
+            <tr>
+              <td colspan="4" style="">ID No:</td>
+              <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.government_other_info.id_no}}</td>
+            </tr>
+          </table>
+        </td>
+        <td width="50px"></td>
+        <td colspan="6" style="padding-right:5px;">
+          <table>
+            <tr>
+              <td colspan="4" style="">ID No:</td>
+              <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.family_background.spouse_government_id_no}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr style="text-align: left;padding-top:3px;">
+        <td colspan="6" style="padding-left:5px;">
+          <table>
+            <tr>
+              <td colspan="4" style="">Date Issued:</td>
+              <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.government_other_info.date_issued}}</td>
+            </tr>
+          </table>
+        </td>
+        <td width="50px"></td>
+        <td colspan="6" style="padding-right:5px;">
+          <table>
+            <tr>
+              <td colspan="4" style="">Date Issued:</td>
+              <td colspan="8" style="border-bottom: 0.5px solid #000;">{{profile.family_background.spouse_government_date_issued}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="text-align:left;font-size:13px;padding-top:10px;" class="font8">
+      <tr>
+        <td colspan="12" style="padding-bottom:3px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SUBSCRIBED AND SWORN</b> to before me this  	 day of  	, affiant exhibiting to me the above-stated government issued identification card.</p></td>
+      </tr>
+    </table>
+    <table class="font8">
+      <tr style="padding-top:70px;">
+        <td colspan="7"></td>
+        <td colspan="5" style="text-align:center;border-bottom: 0.5px solid #000;"></td>
+        <td width="40px"></td>
+      </tr>
+      <tr style="padding-top:3px;">
+        <td colspan="7"></td>
+        <td colspan="5" style="text-align:center;">(Person Administering Oath)</td>
+        <td width="40px"></td>
+      </tr>
+    </table>
+  </div>
 
   <div id="footer_content_last2" class="font8" style="text-align:center;opacity:0.5;">
     <td colspan="12" style="padding: 3px; padding-top:2px;"><i style="font-size:10px;">Page <pdf:pagenumber> of <u><pdf:pagecount></u></i></td>
   </div>
 
-  {% endfor %}
 </body>
 </html>

@@ -1,42 +1,28 @@
-{% for p in profile %}
-<tr>
-  <td>{{forloop.counter}}</td>
-  <td>{{p.name_of_relative}}</td>
-  <td>{{p.relationship}}</td>
-  <td>{{p.position}}</td>
-  <td>{{p.name_of_agency}}</td>
-  <td>
-    <form data-url="{% url 'api_main_relatives_in_the_government_service_delete' p.id %}" method="post" class="custom-form-relatives-in-the-government-service d-inline-block">
-      <button data-url="{% url 'api_main_relatives_in_the_government_service_update' p.id %}" type="button" class="btn btn-warning btn-sm form-show-update">Update</button>
-      <button  type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
-    </form>
-  </td>
-</tr>
-{% empty %}
-<tr>
-  <td colspan="12" class="text-center">No data available</td>
-</tr>
-{% endfor %}
-
+{% load crispy_forms_tags %}
+{% load static %}
+<div class="modal-header p-2">
+  <h5 class="modal-title" >Personal Properties</h5>
+</div>
+<form method="POST" enctype="multipart/form-data" data-url="{% if is_Create %}{% url 'api_main_personal_properties_create' %}{% else %}{% url 'api_main_personal_properties_update' personal_properties.id %}{% endif %}" class="custom-form-personal-properties">
+  <div class="modal-body p-2">
+    {{form|crispy}}
+  </div>
+  <div class="modal-footer p-2">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-{{btn_name}}">{{btn_title}}</button>
+  </div>
+</form>
 {% block 'script' %}
-<script>
-  $(document).on('click', '.form-show-update', function(){
-    var btn = $(this);
-    $.ajax({
-      url: btn.attr("data-url"),
-      type: 'get',
-      dataType:'json',
-      beforeSend: function(){
-        $('#modal-show').modal('show');
-      },
-      success: function(data){
-        $('#modal-show .modal-content').html(data.html_form);
-      }
-    });
-  });
-</script>
+
+
 <script>
   $(document).ready(function () {
+    $("body").delegate("#id_date_of_birth", "focusin", function(){
+      $(this).datepicker({
+        autoclose: true,
+        format : 'yyyy-mm-dd',
+      });
+    });
     function getCookie(name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -58,7 +44,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-relatives-in-the-government-service").submit(function (event) {
+    $(".custom-form-personal-properties").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -76,7 +62,8 @@
             type: data.message_type,
             title: data.message_title
           });
-          Relatives_In_The_Government_Service();
+          Personal_Properties();
+          $('#modal-show').modal('hide');
         },
         error:function(error){
           Toast.fire({

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_family_background' %}" class="custom-form-family-background">
+<form method="POST" enctype="multipart/form-data" data-url="{% url 'api_main_saln_filling' %}" class="custom-form-saln-filling">
   {{form|crispy}}
   <button type="submit" class="btn btn-{{btn_name}} mt-2">{{btn_title}}</button>
 </form>
@@ -31,7 +31,7 @@
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     };
 
-    $(".custom-form-family-background").submit(function (event) {
+    $(".custom-form-saln-filling").submit(function (event) {
       event.preventDefault();
       var form = $(this);
       $.ajax({
@@ -49,9 +49,7 @@
             type: data.message_type,
             title: data.message_title
           });
-          if (data.url){
-            window.location.href = data.url;
-          }
+          Filling();
         },
         error:function(error){
           Toast.fire({

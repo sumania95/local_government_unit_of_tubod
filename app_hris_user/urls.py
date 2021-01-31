@@ -122,10 +122,44 @@ from model_hris.saln.views import (
     Main_Profile_Saln_Business_Interest_Financial_Connections_Create_AJAXView,
     Main_Profile_Saln_Business_Interest_Financial_Connections_Update_AJAXView,
     Main_Profile_Saln_Business_Interest_Financial_Connections_Delete_AJAXView,
+
+    # LIABILITIES
+    Main_Profile_Saln_Liabilities_AJAXView,
+    Main_Profile_Saln_Liabilities_Table_AJAXView,
+    Main_Profile_Saln_Liabilities_Create_AJAXView,
+    Main_Profile_Saln_Liabilities_Update_AJAXView,
+    Main_Profile_Saln_Liabilities_Delete_AJAXView,
+
+    # PERSONAL PROPERTIES
+    Main_Profile_Saln_Personal_Properties_AJAXView,
+    Main_Profile_Saln_Personal_Properties_Table_AJAXView,
+    Main_Profile_Saln_Personal_Properties_Create_AJAXView,
+    Main_Profile_Saln_Personal_Properties_Update_AJAXView,
+    Main_Profile_Saln_Personal_Properties_Delete_AJAXView,
+
+    # Real PROPERTIES
+    Main_Profile_Saln_Real_Properties_AJAXView,
+    Main_Profile_Saln_Real_Properties_Table_AJAXView,
+    Main_Profile_Saln_Real_Properties_Create_AJAXView,
+    Main_Profile_Saln_Real_Properties_Update_AJAXView,
+    Main_Profile_Saln_Real_Properties_Delete_AJAXView,
+
+    # Relatives_In_The_Government_Service
+    Main_Profile_Saln_Relatives_In_The_Government_Service_AJAXView,
+    Main_Profile_Saln_Relatives_In_The_Government_Service_Table_AJAXView,
+    Main_Profile_Saln_Relatives_In_The_Government_Service_Create_AJAXView,
+    Main_Profile_Saln_Relatives_In_The_Government_Service_Update_AJAXView,
+    Main_Profile_Saln_Relatives_In_The_Government_Service_Delete_AJAXView,
+
+    # FILLING TYPE
+    Main_Profile_Saln_Filling_AJAXView,
+    #Print
+    Self_Print_SALN_Report,
 )
 
 urlpatterns = [
     path('201-file/print/pds', Self_Print_Personal_Data_Sheet_Report.as_view(), name = 'main_self_print_pds'),
+    path('201-file/print/saln', Self_Print_SALN_Report.as_view(), name = 'main_self_print_saln'),
     path('', Home_Page.as_view(), name = 'main_home'),
     path('api/post', Post_AJAXView.as_view(), name = 'api_main_post'),
     path('api/main/sidebar', Main_Profile_Sidebar_AJAXView.as_view(), name = 'api_main_sidebar'),
@@ -224,11 +258,39 @@ urlpatterns = [
     path('api/security/update', Main_Security_AJAXView.as_view(), name = 'api_main_security'),
 
     # SALN
+    path('api/filling-type', Main_Profile_Saln_Filling_AJAXView.as_view(), name = 'api_main_saln_filling'),
+
     # Business Interest Fianancial Connections
-    path('api/business_interest_financial_connections', Main_Profile_Saln_Business_Interest_Financial_Connections_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections'),
-    path('api/business_interest_financial_connections-list', Main_Profile_Saln_Business_Interest_Financial_Connections_Table_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_list'),
-    path('api/business_interest_financial_connections/create', Main_Profile_Saln_Business_Interest_Financial_Connections_Create_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_create'),
-    path('api/business_interest_financial_connections/update/<int:pk>', Main_Profile_Saln_Business_Interest_Financial_Connections_Update_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_update'),
-    path('api/business_interest_financial_connections/delete/<int:pk>', Main_Profile_Saln_Business_Interest_Financial_Connections_Delete_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_delete'),
+    path('api/business-interest-financial-connections', Main_Profile_Saln_Business_Interest_Financial_Connections_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections'),
+    path('api/business-interest-financial-connections-list', Main_Profile_Saln_Business_Interest_Financial_Connections_Table_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_list'),
+    path('api/business-interest-financial-connections/create', Main_Profile_Saln_Business_Interest_Financial_Connections_Create_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_create'),
+    path('api/business-interest-financial-connections/update/<int:pk>', Main_Profile_Saln_Business_Interest_Financial_Connections_Update_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_update'),
+    path('api/business-interest-financial-connections/delete/<int:pk>', Main_Profile_Saln_Business_Interest_Financial_Connections_Delete_AJAXView.as_view(), name = 'api_main_business_interest_financial_connections_delete'),
+    # LIABILITIES
+    path('api/liabilities', Main_Profile_Saln_Liabilities_AJAXView.as_view(), name = 'api_main_liabilities'),
+    path('api/liabilities-list', Main_Profile_Saln_Liabilities_Table_AJAXView.as_view(), name = 'api_main_liabilities_list'),
+    path('api/liabilities/create', Main_Profile_Saln_Liabilities_Create_AJAXView.as_view(), name = 'api_main_liabilities_create'),
+    path('api/liabilities/update/<int:pk>', Main_Profile_Saln_Liabilities_Update_AJAXView.as_view(), name = 'api_main_liabilities_update'),
+    path('api/liabilities/delete/<int:pk>', Main_Profile_Saln_Liabilities_Delete_AJAXView.as_view(), name = 'api_main_liabilities_delete'),
+
+    # PERSONAL PROPERTIES
+    path('api/personal-properties', Main_Profile_Saln_Personal_Properties_AJAXView.as_view(), name = 'api_main_personal_properties'),
+    path('api/personal-properties-list', Main_Profile_Saln_Personal_Properties_Table_AJAXView.as_view(), name = 'api_main_personal_properties_list'),
+    path('api/personal-properties/create', Main_Profile_Saln_Personal_Properties_Create_AJAXView.as_view(), name = 'api_main_personal_properties_create'),
+    path('api/personal-properties/update/<int:pk>', Main_Profile_Saln_Personal_Properties_Update_AJAXView.as_view(), name = 'api_main_personal_properties_update'),
+    path('api/personal-properties/delete/<int:pk>', Main_Profile_Saln_Personal_Properties_Delete_AJAXView.as_view(), name = 'api_main_personal_properties_delete'),
+
+    # PERSONAL PROPERTIES
+    path('api/real-properties', Main_Profile_Saln_Real_Properties_AJAXView.as_view(), name = 'api_main_real_properties'),
+    path('api/real-properties-list', Main_Profile_Saln_Real_Properties_Table_AJAXView.as_view(), name = 'api_main_real_properties_list'),
+    path('api/real-properties/create', Main_Profile_Saln_Real_Properties_Create_AJAXView.as_view(), name = 'api_main_real_properties_create'),
+    path('api/real-properties/update/<int:pk>', Main_Profile_Saln_Real_Properties_Update_AJAXView.as_view(), name = 'api_main_real_properties_update'),
+    path('api/real-properties/delete/<int:pk>', Main_Profile_Saln_Real_Properties_Delete_AJAXView.as_view(), name = 'api_main_real_properties_delete'),
+    # Relatives in the government services
+    path('api/relatives-in-the-government-service', Main_Profile_Saln_Relatives_In_The_Government_Service_AJAXView.as_view(), name = 'api_main_relatives_in_the_government_service'),
+    path('api/relatives-in-the-government-service-list', Main_Profile_Saln_Relatives_In_The_Government_Service_Table_AJAXView.as_view(), name = 'api_main_relatives_in_the_government_service_list'),
+    path('api/relatives-in-the-government-service/create', Main_Profile_Saln_Relatives_In_The_Government_Service_Create_AJAXView.as_view(), name = 'api_main_relatives_in_the_government_service_create'),
+    path('api/relatives-in-the-government-service/update/<int:pk>', Main_Profile_Saln_Relatives_In_The_Government_Service_Update_AJAXView.as_view(), name = 'api_main_relatives_in_the_government_service_update'),
+    path('api/relatives-in-the-government-service/delete/<int:pk>', Main_Profile_Saln_Relatives_In_The_Government_Service_Delete_AJAXView.as_view(), name = 'api_main_relatives_in_the_government_service_delete'),
 
 ]
