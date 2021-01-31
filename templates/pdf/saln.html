@@ -348,7 +348,7 @@
           <td colspan="6">
             <table>
               <tr>
-                <td colspan="12" style="border-bottom: 0.5px solid #000;padding-top: 5px;padding-left:5px;"><b>{{c.firstname|upper}} {{c.middlename|upper|slice:":1"}}. {{c.surname|upper}}</b></td>
+                <td colspan="12" style="border-bottom: 0.5px solid #000;padding-top: 5px;padding-left:5px;"><b>{{c.firstname|upper}} {% if c.middlename %}{{c.middlename|upper|slice:":1"}}{% endif %}. {{c.surname|upper}}</b></td>
               </tr>
             </table>
           </td>
@@ -356,7 +356,7 @@
           <td colspan="6">
             <table>
               <tr>
-                <td colspan="6" style="border-bottom: 0.5px solid #000;padding-top: 5px;">{{c.dob|date:"m/d/Y"}}</td>
+                <td colspan="6" style="border-bottom: 0.5px solid #000;padding-top: 5px;">{{c.date_of_birth|date:"m/d/Y"}}</td>
                 <td width="5px"></td>
                 <td colspan="6" style="border-bottom: 0.5px solid #000;padding-top: 5px;">{{c.age}}</td>
               </tr>

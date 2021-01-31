@@ -44,6 +44,10 @@ from model_hris.saln.forms import (
     Saln_Real_PropertiesForm,
     Saln_Relatives_In_The_Government_ServiceForm,
 )
+
+from model_hris.pds.models import (
+    Children,
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app_hris.decorators import LogoutIfNotAdministratorHRISMixin
 
@@ -560,15 +564,17 @@ class Self_Print_SALN_Report(LoginRequiredMixin,View):
         now = timezone.now()
         settings = Settings.objects.last()
         profile = Profile.objects.get(id=self.request.user.profile.id)
-        saln_filling = Saln_Filling.objects.get(profile_id = self.request.user.profile)
-        saln_liabilities = Saln_Liabilities.objects.filter(profile_id = self.request.user.profile)
-        saln_personal_properties = Saln_Personal_Properties.objects.filter(profile_id = self.request.user.profile)
-        saln_real_properties = Saln_Real_Properties.objects.filter(profile_id = self.request.user.profile)
-        saln_business_interest_financial_connections = Saln_Business_Interest_Financial_Connections.objects.filter(profile_id = self.request.user.profile)
-        saln_relatives_in_the_government_service = Saln_Relatives_In_The_Government_Service.objects.filter(profile_id = self.request.user.profile)
+        children = Children.objects.filter(profile_id=self.request.user.profile.id,civil_status = 1)
+        saln_filling = Saln_Filling.objects.get(profile_id = self.request.user.profile.id)
+        saln_liabilities = Saln_Liabilities.objects.filter(profile_id = self.request.user.profile.id)
+        saln_personal_properties = Saln_Personal_Properties.objects.filter(profile_id = self.request.user.profile.id)
+        saln_real_properties = Saln_Real_Properties.objects.filter(profile_id = self.request.user.profile.id)
+        saln_business_interest_financial_connections = Saln_Business_Interest_Financial_Connections.objects.filter(profile_id = self.request.user.profile.id)
+        saln_relatives_in_the_government_service = Saln_Relatives_In_The_Government_Service.objects.filter(profile_id = self.request.user.profile.id)
         params = {
             'now': now,
             'settings': settings,
+            'children': children,
             'profile': profile,
             'saln_filling':saln_filling,
             'saln_liabilities':saln_liabilities,
