@@ -7,13 +7,18 @@
   <td>{{p.date_created}}</td>
   <td>
     {% if p.deducted_action_transaction %}
-    <span class="badge badge-success">APPROVED</span>
+    <span class="badge badge-success"><small>APPROVED</small></span>
+    {% if p.leave_type == '1' or p.leave_type == '2' or p.leave_type == '3' or p.leave_type == '5' or p.leave_type == '6'%}
+    <a href="{% url 'main_self_print_leave_form' p.id %}" target="_blank" class="btn btn-secondary btn-sm rounded-circle"><i class="feather icon icon-printer"></i></a>
+    {% endif %}
     {% elif p.rejected_transaction %}
-    <span class="badge badge-danger">DISAPPROVED</span>
+    <span class="badge badge-danger"><small>DISAPPROVED</small></span>
     {% else %}
     <form class="custom-form-remove-leave" data-url ="{% url 'api_main_history_leave_delete_save' p.id %}" method="post">
-      <button type="submit" class="btn btn-danger btn-sm confirm-delete">Remove</button>
-      <a href="#" target="_blank" class="btn btn-secondary btn-sm"><i class="feather icon icon-printer mr-2"></i>Print</a>
+      <button type="submit" class="btn btn-danger btn-sm rounded-circle confirm-delete"><i class="feather icon icon-trash"></i></button>
+      {% if p.leave_type == '1' or p.leave_type == '2' or p.leave_type == '3' or p.leave_type == '5' or p.leave_type == '6'%}
+      <a href="{% url 'main_self_print_leave_form' p.id %}" target="_blank" class="btn btn-secondary btn-sm rounded-circle"><i class="feather icon icon-printer"></i></a>
+      {% endif %}
     </form>
     {% endif %}
   </td>
