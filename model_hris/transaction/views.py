@@ -234,6 +234,7 @@ class Transaction_Approved_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdminis
         }
         data['html_form'] = render_to_string('administrator/transaction/transaction_approved_forms.html',context)
         return JsonResponse(data)
+
 class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     def post(self, request,pk):
         data =  dict()
@@ -376,6 +377,17 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                             data['message_type'] = error
                             data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
+# 
+# class Transaction_Approved_Remove_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
+#     def post(self, request,pk):
+#         data =  dict()
+#         leave = Deducted_Transaction.objects.get(id=pk)
+#         if request.method == 'POST':
+#             Deducted_Transaction.objects.filter(id=pk).delete()
+#             Notification.objects.create(profile_id = leave.profile_id,detail="Request leave removed.",user_id = self.request.user.id)
+#             data['message_type'] = success
+#             data['message_title'] = 'Successfully saved.'
+#         return JsonResponse(data)
 
 class Transaction_Rejected_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
     queryset = Deducted_Transaction.objects.all()

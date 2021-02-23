@@ -565,7 +565,7 @@ class Self_Print_SALN_Report(LoginRequiredMixin,View):
         settings = Settings.objects.last()
         profile = Profile.objects.get(id=self.request.user.profile.id)
         children = Children.objects.filter(profile_id=self.request.user.profile.id,civil_status = 1)
-        saln_filling = Saln_Filling.objects.get(profile_id = self.request.user.profile.id)
+        saln_filling = Saln_Filling.objects.filter(profile_id = self.request.user.profile.id).first()
         saln_liabilities = Saln_Liabilities.objects.filter(profile_id = self.request.user.profile.id)
         saln_personal_properties = Saln_Personal_Properties.objects.filter(profile_id = self.request.user.profile.id)
         saln_real_properties = Saln_Real_Properties.objects.filter(profile_id = self.request.user.profile.id)
