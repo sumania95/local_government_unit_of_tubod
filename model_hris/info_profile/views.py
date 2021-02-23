@@ -415,13 +415,18 @@ class Profile_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMix
                 data['message_title'] = 'Successfully saved.'
             else:
                 if form.is_valid():
-                    username =str(remove(form.instance.firstname.lower()))+str(random_username_int)
-                    user = User.objects.create_user(username=username,email='',password=username)
-                    form.instance.user = user
-                    form.save()
-                    data['message_type'] = success
-                    data['message_title'] = 'Successfully saved.'
-                    data['url'] = reverse('profile')
+                    number_of_users = Profile.objects.all().count()
+                    if number_of_users < 250:
+                        username =str(remove(form.instance.firstname.lower()))+str(random_username_int)
+                        user = User.objects.create_user(username=username,email='',password=username)
+                        form.instance.user = user
+                        form.save()
+                        data['message_type'] = success
+                        data['message_title'] = 'Successfully saved.'
+                        data['url'] = reverse('profile')
+                    else:
+                        data['message_type'] = error
+                        data['message_title'] = 'Creation Limit Error.'
         return JsonResponse(data)
 
 class Profile_Update_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
