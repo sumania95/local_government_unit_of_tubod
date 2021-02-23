@@ -118,6 +118,9 @@ class Profile_History_Leave_Create_AJAXView(LoginRequiredMixin,View):
                 form = User_Deducted_Contractual_TransactionForm(request.POST,request.FILES)
             if form.is_valid():
                 form.instance.profile_id = self.request.user.profile.id
+                profile = Profile.objects.get(id=self.request.user.profile.id)
+                form.instance.sick = profile.sl
+                form.instance.vacation = profile.vl
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully created.'
@@ -178,6 +181,10 @@ class Transaction_Request_Pending_Create_AJAXView(LoginRequiredMixin,LogoutIfNot
         if request.method == 'POST':
             form = Deducted_TransactionForm(request.POST,request.FILES)
             if form.is_valid():
+                profile = Profile.objects.get(id=form.instance.profile_id)
+                print(profile)
+                form.instance.sick = profile.sl
+                form.instance.vacation = profile.vl
                 form.save()
                 data['message_type'] = success
                 data['message_title'] = 'Successfully created.'
@@ -377,7 +384,7 @@ class Transaction_Approved_Create_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAd
                             data['message_type'] = error
                             data['message_title'] = 'An error occurred.'
         return JsonResponse(data)
-# 
+#
 # class Transaction_Approved_Remove_Save_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
 #     def post(self, request,pk):
 #         data =  dict()
@@ -578,4 +585,17 @@ class Print_Leave_Profile_Report(LoginRequiredMixin,LogoutIfNotAdministratorHRIS
             'transaction': transaction,
         }
         pdf = Render.render('pdf/leave.html', params)
+        return pdf
+
+class Self_Print_Leave_Form_Report(LoginRequiredMixin,View):
+    def get(self, request,pk):
+        now = timezone.now()
+        profile = Profile.objects.get(id=self.request.user.profile.id)
+        deduction = Deducted_Transaction.objects.get(id=pk)
+        params = {
+            'now': now,
+            'profile': profile,
+            'deduction':deduction,
+        }
+        pdf = Render.render('pdf/leave_form.html', params)
         return pdf

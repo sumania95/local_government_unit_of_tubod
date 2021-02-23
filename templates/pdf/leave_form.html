@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Personal Data Sheet</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+    <style type="text/css">
+        @page {
+            size: 8.5in 13in portrait;
+            margin-top: 2cm;
+            margin-left: 2cm;
+            margin-right: 2cm;
+            margin-bottom: 1.745cm;
+            border: 1px solid #000;
+            @frame header_frame {
+                -pdf-frame-content: header_frame;
+                border-color: #fff;
+                left: 55pt; width: 555pt; top: 20; height: 30pt;
+            }
+            /* background-image: url('http://127.0.0.1:8000/media/images/defaultuserprofile.png'); */
+        }
+        @media all {
+        .page-break { display: none; }
+        }
+
+        @media print {
+
+        .page-break { display: block; page-break-before: always; }
+        }
+
+        .font-times11 {
+          /* font-family: "Calibri (Body)"; */
+          font-family: "Arial Narrow";
+          font-size: 12px;
+          /* color:#0984e3; */
+        }
+        .font-times8 {
+          font-family: "Arial";
+          font-size: 9px;
+        }
+        .font-times9 {
+          font-family: "Arial";
+          font-size: 8px;
+        }
+        .font-times7 {
+          font-family: "Arial Narrow";
+          font-size: 8px;
+        }
+        .font-times7narrow {
+          font-family: "Arial Narrow";
+          font-size: 8px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="..." media="print" />
+
+</head>
+<body>
+
+<div class="container">
+  <div id="header_frame" style="text-align:left;">
+    <table>
+      <tr>
+        <td colspan="12">CS Form No.6</td>
+      </tr>
+      <tr>
+        <td colspan="12">Revised 1993</td>
+      </tr>
+    </table>
+  </div>
+  <div class="font-times11">
+    <table style="padding:2px;">
+      <tr>
+        <td colspan="5">1.OFFICE/AGENCY</td>
+        <td colspan="1">2.NAME</td>
+        <td colspan="2">(LAST)</td>
+        <td colspan="2">(FIRST)</td>
+        <td colspan="2">(MIDDLE)</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #000;">
+        <td colspan="5" style="font-size:10px;"> <b>{{profile.designation.plantilla.department|upper}}</b></td>
+        <td colspan="1"> </td>
+        <td colspan="2" style="font-size:10px;"> <b>{{profile.surname|upper}}</b></td>
+        <td colspan="2" style="font-size:10px;"> <b>{{profile.firstname|upper}}</b></td>
+        <td colspan="2" style="font-size:10px;"> <b>{{profile.middlename|upper}}</b></td>
+      </tr>
+      <tr>
+        <td colspan="4">3.DATE OF FILLING</td>
+        <td colspan="4">4.POSITION</td>
+        <td colspan="4">5.SALARY(<i>Monthly</i>)</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #000;">
+        <td colspan="4" style="font-size:10px;"> <b>{{deduction.date_created|date:"F d, Y"|upper}}</b></td>
+        <td colspan="4" style="font-size:10px;"> <b>{{profile.designation.plantilla.positiontitle|upper}}</b></td>
+        <td colspan="4" style="font-size:10px;"> </td>
+      </tr>
+    </table>
+    <table style="padding-top:4px;padding-left:4px;padding-right:4px;">
+      <tr style="border-bottom: 1px solid #000;">
+        <td colspan="12" style="text-align:center; font-size:14px;"><b>DETAILS OF APPLICATION</b></td>
+      </tr>
+    </table>
+    <table style="padding:1px;">
+      <tr>
+        <td colspan="6">6.a) TYPE OF LEAVE</td>
+        <td colspan="6">6.b) WHER LEAVE WILL BE SPENT</td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <table>
+            <tr>
+              <td>{% if deduction.leave_type == '2' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;){% endif %} Vacation</td>
+            </tr>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) To seek employement</td>
+            </tr>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) Others (specify)</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:1px solid #000;"> &nbsp;</td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6">
+          <table style="vertical-align:text-top;">
+            <tr>
+              <td>{% if deduction.leave_type == '2' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;){% endif %} IN CASE OF VACATION LEAVE (Specify)</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:1px solid #000;font-size:10px;"> {% if deduction.leave_type == '2' %}<b>{{deduction.description}}</b>{% else %}&nbsp;{% endif %}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="padding:1px;">
+      <tr>
+        <td colspan="6">
+          <table>
+            <tr>
+              <td>{% if deduction.leave_type == '1' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;){% endif %} Sick</td>
+            </tr>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) Maternity</td>
+            </tr>
+            <tr>
+              <td>{% if deduction.leave_type == '3' or deduction.leave_type == '4' or deduction.leave_type == '5' or deduction.leave_type == '6' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;){% endif %} Others(Specify)</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:1px solid #000;"> {% if deduction.leave_type == '3' or deduction.leave_type == '4' or deduction.leave_type == '5' or deduction.leave_type == '6' %}<b>{{deduction.description}}</b>{% else %}&nbsp;{% endif %}</td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6">
+          <table style="vertical-align:text-top;">
+            <tr>
+              <td>{% if deduction.leave_type == '1' %}(&#10003;){% else %}(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;){% endif %} IN CASE OF SICK LEAVE (Specify)</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:1px solid #000;font-size:10px;"> {% if deduction.leave_type == '1' %}<b>{{deduction.description}}</b>{% else %}&nbsp;{% endif %}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <table style="padding:2px;">
+      <tr>
+        <td colspan="6">6.c) NUMBER OF WORKING DAYS APPLIED FOR</td>
+        <td colspan="6">6.d) COMMUTATION</td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <table>
+            <tr style="border-bottom:1px solid #000;">
+              <td style="font-size:10px;"> <b>{% if deduction.date_from == deduction.date_to %}{{deduction.date_from|date:"F d, Y"|upper}}{% else %}{{deduction.date_from|date:"F d, Y"|upper}}-{{deduction.date_to|date:"F d, Y"|upper}}{% endif %}</b></td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6">
+          <table>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) Requested</td>
+            </tr>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) Not Requested</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td colspan="4"></td>
+        <td colspan="4"></td>
+        <td colspan="4" style="border-bottom:1px solid #000;padding-top:10px;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td colspan="4"></td>
+        <td colspan="4" style="padding-top:4px;padding-bottom:20px;text-align:center;"><i>Signature of Applicant</i></td>
+      </tr>
+    </table>
+    <table style="padding-top:4px;padding-left:4px;padding-right:4px;">
+      <tr style="border: 1px solid #000;">
+        <td colspan="12" style="text-align:center; font-size:14px;"><b>DETAILS OF ACTION ON APPLICATION</b></td>
+      </tr>
+    </table>
+    <table style="padding:4px;">
+      <tr>
+        <td colspan="6">7.a) CERTIFICATION OF LEAVE CREDITS</td>
+        <td colspan="6">7.b) RECOMMENDATION</td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <table>
+            <tr style="padding-top:5px;">
+              <td style="padding-left:4px;padding-right:4px;">as of ____________________________________</td>
+            </tr>
+          </table>
+          <table style="border:1px solid #000;margin-top:10px;">
+            <tr>
+              <td colspan="4">Vacation</td>
+              <td colspan="4">Sick</td>
+              <td colspan="4">Total</td>
+            </tr>
+            <tr>
+              <td colspan="4"> {{deduction.vacation}}</td>
+              <td colspan="4"> {{deduction.sick}}</td>
+              <td colspan="4"> {{deduction.total}}</td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6">
+          <table>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) Approved</td>
+            </tr>
+            <tr>
+              <td>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) Disapproved due to</td>
+            </tr>
+            <tr style="padding-top:1px;">
+              <td style="border-bottom:1px solid #000;padding-left:4px;padding-right:4px;"> &nbsp;</td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="text-align:center;">
+      <tr style="padding-top:30px;">
+        <td colspan="7"><b>ADONIS G. CUEVAS</b></td>
+        <td colspan="5"><b>RICHELLE B. ROMARATE, MSCE</b></td>
+      </tr>
+      <tr style="padding-bottom:10px;">
+        <td colspan="7"><i>Human Resource Management Officer</i></td>
+        <td colspan="5"><i>Municipal Mayor</i></td>
+      </tr>
+    </table>
+    <table>
+      <tr style="border-bottom:1px solid #000;">
+        <td></td>
+      </tr>
+    </table>
+    <table style="padding:1px;">
+      <tr>
+        <td colspan="6">7.c) APPROVED FOR:</td>
+        <td colspan="6">7.b) DISAPPROVED DUE TO:</td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <table>
+            <tr>
+              <td colspan="12">________day(s) with pay</td>
+            </tr>
+            <tr>
+              <td colspan="12">________day(s) without pay</td>
+            </tr>
+            <tr>
+              <td colspan="12">________others (specify)</td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6">
+          <table>
+            <tr>
+              <td colspan="12" style="border-bottom:1px solid #000;"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="text-align:center;">
+      <tr style="padding-top:25px;">
+        <td colspan="7"></td>
+        <td colspan="5" style="border-bottom:1px solid #000; padding-bottom:2px;"><b>RICHELLE B. ROMARATE, MSCE</b></td>
+      </tr>
+      <tr>
+        <td colspan="7"><i></i></td>
+        <td colspan="5"><i>Municipal Mayor</i></td>
+      </tr>
+      <tr>
+        <td colspan="7"><i></i></td>
+        <td colspan="5">(Authorized Official)</td>
+      </tr>
+      <tr>
+        <td colspan="7"><i></i></td>
+        <td colspan="5" style="padding-top:1px;">___________________________</td>
+      </tr>
+      <tr>
+        <td colspan="7"><i></i></td>
+        <td colspan="5">Date</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+</body>
+</html>

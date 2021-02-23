@@ -26,10 +26,16 @@ class Deducted_Transaction(models.Model):
     description = models.CharField(max_length = 200)
     leave_type = models.CharField(max_length=50,choices=leave_type)
     status = models.CharField(default=1,max_length=50,choices=status)
+    sick = models.DecimalField(default=0,max_digits = 50,decimal_places=3)
+    vacation = models.DecimalField(default=0,max_digits = 50,decimal_places=3)
     date_from = models.DateField(default=timezone.now)
     date_to = models.DateField(default=timezone.now)
     date_created = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True)
+
+    @property
+    def total(self):
+        return float(self.sick) + float(self.vacation)
 
 class Deducted_Action_Transaction(models.Model):
     deducted_transaction = models.OneToOneField(Deducted_Transaction, on_delete=models.CASCADE)

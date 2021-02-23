@@ -48,6 +48,7 @@ from model_hris.transaction.views import (
     Profile_History_Leave_AJAXView,
     Profile_History_Leave_Create_AJAXView,
     Profile_History_Leave_Delete_Save_AJAXView,
+    Self_Print_Leave_Form_Report,
 )
 from model_hris.pds.views import (
     Main_Profile_Family_Background_AJAXView,
@@ -158,6 +159,7 @@ from model_hris.saln.views import (
 )
 
 urlpatterns = [
+    path('201-file/print/leave-form/<int:pk>', Self_Print_Leave_Form_Report.as_view(), name = 'main_self_print_leave_form'),
     path('201-file/print/pds', Self_Print_Personal_Data_Sheet_Report.as_view(), name = 'main_self_print_pds'),
     path('201-file/print/saln', Self_Print_SALN_Report.as_view(), name = 'main_self_print_saln'),
     path('', Home_Page.as_view(), name = 'main_home'),
