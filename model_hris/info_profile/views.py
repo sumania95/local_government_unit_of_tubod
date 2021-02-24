@@ -426,7 +426,7 @@ class Profile_Create_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMix
                         data['url'] = reverse('profile')
                     else:
                         data['message_type'] = error
-                        data['message_title'] = 'Creation Limit Error.'
+                        data['message_title'] = 'Error Message Found.'
         return JsonResponse(data)
 
 class Profile_Update_AJAXView(LoginRequiredMixin,LogoutIfNotAdministratorHRISMixin,View):
