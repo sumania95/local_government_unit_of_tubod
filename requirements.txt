@@ -5,7 +5,7 @@ django-crispy-forms==1.8.1
 django-imagefit==0.6.2
 django-mathfilters==1.0.0
 django-qr-code==2.0.1
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 html5lib==1.1
 mod-wsgi==4.7.1
 module-name==0.5.1
